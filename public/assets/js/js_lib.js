@@ -30,3 +30,36 @@ $.fn.accordion_tnc = function () {
 		}
 	});
 }
+
+function readmoreFade(){
+	$(".detail-text-project .button-readmore").click(function(e) {
+		//alert('aaa');
+		e.preventDefault();
+		var totalHeight = 0;
+		var el = $(this);
+		var p  = el.parent();
+		var up = p.parent();
+		var ps = up.find("p:not('.read-more')");
+
+		console.log(totalHeight);
+			ps.each(function() {
+			totalHeight += $(this).outerHeight();
+		});
+		up
+		.css({
+		  // Set height to prevent instant jumpdown when max height is removed
+		  "height": "auto",
+		  "max-height": 9999
+		})
+		.animate({
+		  "height": "auto"
+		});
+
+		// fade out read-more
+		p.fadeOut("fast");
+
+		// prevent jump-down
+		return false;
+        
+    });
+}

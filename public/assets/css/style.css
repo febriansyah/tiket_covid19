@@ -450,6 +450,26 @@ h3.mediumFont{
 .caption_noneResult p{
 
 }
+.detail-text-project{
+	max-height: 220px;
+	position: relative;
+	overflow: hidden;
+}
+.detail-text-project .read-more { 
+  position: absolute; 
+  bottom: 0; 
+  left: 0;
+  width: 100%; 
+  text-align: left; 
+  margin: 0; padding: 100px 0 0 0; 
+	
+  /* "transparent" only works here because == rgba(0,0,0,0) */
+  background-image: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
+}
+
+.read-more a{
+	color: #0064d2;
+}
 
 /*==============================tnc-accodion===================*/
 

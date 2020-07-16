@@ -3,6 +3,7 @@ Author     : Muhammad Febriansyah
 Date       : Mei 2018
  =============================================================================================================== */
 $(document).ready(function() {
+	readmoreFade();
 	$(".trigger_slider_search").click(function(){
 		var sliderId =$(this).attr("data-slider");
 

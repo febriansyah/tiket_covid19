@@ -105,10 +105,16 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-					    <h3>Entry Restrictions</h3>
-					    <p><strong>1. Passengers traveling as short-term visitors are not allowed to transit or enter Singapore.</strong></p><br />
-					    <p>- This does not apply to returning residents of Singapore (Singapore Citizens, Permanent Residents or passengers with a Long-Term...</p>
-					    <span className="linkBlue">Read more</span>
+
+						<div className="detail-text-project">
+
+						    <h3>Entry Restrictions</h3>
+						    <p><strong>1. Passengers traveling as short-term visitors are not allowed to transit or enter Singapore.</strong></p><br />
+						    <p>- This does not apply to returning residents of Singapore (Singapore Citizens, Permanent Residents or passengers with a Long-Term.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    
+
+					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>{/* end.block_policy */}
 
@@ -121,33 +127,45 @@ class SearchResult extends React.Component{
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-					    <h3>Additional Entry Requirements</h3>
-					    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
-					    <span className="linkBlue">Read more</span>
+
+						<div className="detail-text-project">
+						    <h3>Additional Entry Requirements</h3>
+						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+						    <p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>{/* end.block_policy */}
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-					    <h3>Quarantine Policy</h3>
-					    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
-					    <span className="linkBlue">Read more</span>
+
+						<div className="detail-text-project">
+						    <h3>Quarantine Policy</h3>
+						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>{/* end.block_policy */}
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-					    <h3>Visa Policy</h3>
-					    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
-					    <span className="linkBlue">Read more</span>
+
+						<div className="detail-text-project">
+						    <h3>Visa Policy</h3>
+						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>{/* end.block_policy */}
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-					    <h3>Transit Policy</h3>
-					    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
-					    <span className="linkBlue">Read more</span>
+
+						<div className="detail-text-project">
+						    <h3>Transit Policy</h3>
+						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+						    <p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>{/* end.block_policy */}
 
