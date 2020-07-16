@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class SearchResult extends React.Component{
 	render(){
@@ -6,7 +7,7 @@ class SearchResult extends React.Component{
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			      <a href="#" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></a>
+					<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 			    <div className="block_info alert_warning hide">
 			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" />

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class Popup extends React.Component{
 	render(){
@@ -25,7 +26,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
-					    	<div className="button_close_popup"><i class="fa fa-times" aria-hidden="true"></i></div>
+					    	<div className="button_close_popup trigger_close_popup"><i class="fa fa-times" aria-hidden="true"></i></div>
 					    	<div className="inner_popup">
 					    		<h3>Enter Email Address</h3>
 					    		<p>Notifications about the status of your destination will be sent to this email.</p>
@@ -50,8 +51,8 @@ class Popup extends React.Component{
 				<div id="popup_search" className="popup_slider hide">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
-				    	<div className="line_half"></div>
 				    	<div className="box_popup_search">
+					    	<div className="button_close_popup trigger_close_popup"><i class="fa fa-times" aria-hidden="true"></i></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>Going Anywhere?</h3>
@@ -63,10 +64,10 @@ class Popup extends React.Component{
 						        </div>
 						    </div> {/* end.rows */}
 						    <div className="rows">
-							    <div className="main_title grey_title hide">
+							    <div className="main_title grey_title ">
 						          <h3>Popular Destinations</h3>
 						        </div>
-						        <div className="list_noneResult">
+						        <div className="list_noneResult hide">
 						        	<div className="icon_noneResult">
 						        		<img src="assets/images/no_result.png" />
 						        	</div>
@@ -75,30 +76,46 @@ class Popup extends React.Component{
 						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
-						        <div className="list_autocomplete hide">
+						        <div className="list_autocomplete">
 						          <div className="row_result_autocomplete">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Singapore, Singapore</span>
+						          	<Link to="/searchResult" className="trigger_close_popup">
+							            <img src="assets/images/icon_general_city.png" className="icon_city" />
+							            <span>Singapore, Singapore</span>
+						            </Link>
 						          </div>
 						          <div className="row_result_autocomplete">
+						          	<Link to="/searchResult" className="trigger_close_popup">
 						            <img src="assets/images/icon_general_city.png" className="icon_city" />
 						            <span>Jakarta, Indonesia</span>
+						            </Link>
 						          </div>
 						          <div className="row_result_autocomplete">
+
+						          	<Link to="/searchResult" className="trigger_close_popup">
 						            <img src="assets/images/icon_general_city.png" className="icon_city" />
 						            <span>Bali, Indonesia</span>
+						            </Link>
 						          </div>
 						          <div className="row_result_autocomplete">
+
+						          	<Link to="/searchResult" className="trigger_close_popup">
 						            <img src="assets/images/icon_general_city.png" className="icon_city" />
 						            <span>Kuala Lumpur, Malaysia</span>
+						            </Link>
 						          </div>
 						          <div className="row_result_autocomplete">
+
+						          	<Link to="/searchResult" className="trigger_close_popup">
 						            <img src="assets/images/icon_general_city.png" className="icon_city" />
 						            <span>Surabaya, Indonesia</span>
+						            </Link>
 						          </div>
 						          <div className="row_result_autocomplete">
+
+						          	<Link to="/searchResult" className="trigger_close_popup">
 						            <img src="assets/images/icon_general_city.png" className="icon_city" />
 						            <span>Surabaya, Indonesia</span>
+						            </Link>
 						          </div>
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}

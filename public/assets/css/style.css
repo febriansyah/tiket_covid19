@@ -451,6 +451,18 @@ h3.mediumFont{
 
 /* style popup
 ----------------------------------------------------------------------------------------------*/
+#popup_search .content_slide_btm{
+	position: fixed;
+	bottom: -100%;
+	opacity: 0;
+}
+#popup_search.actived .content_slide_btm{
+	bottom: 0;
+	opacity: 1;
+}
+.popup_slider{
+    transition: all 0.3s ease-in-out 0s;
+}
 .bg_popup{
 	background: rgba(0,0,0,0.8);
 	position: fixed;
@@ -466,14 +478,16 @@ h3.mediumFont{
 	bottom: 0;
 	left: 0;
 	width: 100%;
+    transition: all 0.3s ease-in-out 0s;
 }
 .box_popup_search{
 	min-width: 320px;
 	display: inline-block;
-	padding: 20px;
+	padding:40px 20px 20px 20px;
 	border-radius: 10px 10px 0 0;
 	background: #fff;
 	min-height: 90vh;
+	position: relative;
 	text-align: left;
 }
 .box_popup_search_auto{
