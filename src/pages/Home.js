@@ -457,7 +457,7 @@ class Home extends React.Component{
 					<section id="section_maps">
 						<div className="rows">
 						  <div className="search_row">
-						    <input type="text" id="searchTrigger" className="search_input" name="" placeholder="Going anywhere ?" />
+						    <input type="text" id="searchTrigger" className="search_input trigger_slider_search" data-slider="popup_search"  name="" placeholder="Going anywhere ?" />
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">
@@ -493,33 +493,40 @@ class Home extends React.Component{
 						<div className="rows">
 						  <div className="list_policy">
 						    <div className="block_policy">
-						      <div className="icon_policy">
-						        <img src="assets/images/icon_airlines_polic.png" />
-						      </div>
-						      <div className="caption_policy">
-						        <h3>Airline Policy</h3>
-						        <p>Latest information on airline service and policy.</p>
-						      </div>
+
+						      <Link to="/AirlinePolicy">
+							      <div className="icon_policy">
+							        <img src="assets/images/icon_airlines_polic.png" />
+							      </div>
+							      <div className="caption_policy">
+							        <h3>Airline Policy</h3>
+							        <p>Latest information on airline service and policy.</p>
+							      </div>
+						      </Link>
 						    </div>
 
 						    <div className="block_policy">
-						      <div className="icon_policy">
-						        <img src="assets/images/icon_airport_policy.png" />
-						      </div>
-						      <div className="caption_policy">
-						        <h3>Airport Policy</h3>
-						        <p>Latest information on airport travel regulations & policy.</p>
-						      </div>
+								<Link to="/AirportPolicyDomestic">
+							      <div className="icon_policy">
+							        <img src="assets/images/icon_airport_policy.png" />
+							      </div>
+							      <div className="caption_policy">
+							        <h3>Airport Policy</h3>
+							        <p>Latest information on airport travel regulations & policy.</p>
+							      </div>
+						      </Link>
 						    </div>
 
 						    <div className="block_policy">
-						      <div className="icon_policy">
-						        <img src="assets/images/icon_how_to_buy_tic.png" />
-						      </div>
-						      <div className="caption_policy">
-						        <h3>Ticketing Policy</h3>
-						        <p>Latest information on how to purchase, refund, and reschedule</p>
-						      </div>
+								<Link to="/TicketingPolicyFlights">
+							      <div className="icon_policy">
+							        <img src="assets/images/icon_how_to_buy_tic.png" />
+							      </div>
+							      <div className="caption_policy">
+							        <h3>Ticketing Policy</h3>
+							        <p>Latest information on how to purchase, refund, and reschedule</p>
+							      </div>
+						      	</Link>
 						    </div>
 						  </div>
 						</div>

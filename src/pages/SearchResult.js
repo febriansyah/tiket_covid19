@@ -2,12 +2,19 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 class SearchResult extends React.Component{
+	constructor(props){
+	   super(props);
+	   this.goBack = this.goBack.bind(this);
+	}
+	goBack(){
+	    this.props.history.goBack();
+	}
 	render(){
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-					<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+			    	<button onClick={this.goBack} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
 			    </div>
 			    <div className="block_info alert_warning hide">
 			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" />

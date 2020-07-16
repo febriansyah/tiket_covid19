@@ -15,6 +15,7 @@ Date       : Mei 2019
     });
   })
 }
+
 $.fn.accordion_tnc = function () {
 	$(".page").click(function (e) {
 		if (!$(this).is('.active')) {

@@ -3,10 +3,12 @@ Author     : Muhammad Febriansyah
 Date       : Mei 2018
  =============================================================================================================== */
 $(document).ready(function() {
-	$("#searchTrigger").click(function(){
-		$("#popup_search").removeClass("hide");
+	$(".trigger_slider_search").click(function(){
+		var sliderId =$(this).attr("data-slider");
+
+		$("#"+sliderId).removeClass("hide");
 		setTimeout(function() {
-			$("#popup_search").addClass("actived");
+			$("#"+sliderId).addClass("actived");
 		}, 500);
 	});
 	$(".trigger_close_popup").click(function(){

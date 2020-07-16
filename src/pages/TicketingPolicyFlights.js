@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-class AirlinePolicy extends React.Component{
+class TicketingPolicyFlights extends React.Component{
 	constructor(props){
 	   super(props);
 	   this.goBack = this.goBack.bind(this);
@@ -9,6 +9,7 @@ class AirlinePolicy extends React.Component{
 	goBack(){
 	    this.props.history.goBack();
 	}
+
 	componentDidMount() {
 		 window.activeAccordion();
 	}
@@ -17,31 +18,35 @@ class AirlinePolicy extends React.Component{
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<button onClick={this.goBack} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
+			    <button onClick={this.goBack} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">
-						<h3>Airline Policy</h3>
+						<h3>Ticketing Policy</h3>
 					</div>
 				</div>{/* end.rows */}
 
 
 			    <section id="section_innernya">
-			    	<div className="rows">
-					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airplane_policy" name="" placeholder="Search Airline" />
-					  </div>
-					</div>{/* end.rows */}
 					<div className="rows">
-						<div className="block_policy full_block">
-						  <div className="caption_policy">
-						    <h3>Airlines Ticketing Guideline and Policy</h3>
-			          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
-						    <p>If you have any flights affected by the travel restrictions or COVID-19 pandemic, you can request a refund or reschedule. Find all information about special handling guidelines and policies for international flights below.</p>
-
-						    <span className="linkBlue">Read more</span>
-						  </div>
-						</div>{/* end.block_policy */}
+						<div className="tabs_main_menu overflow_tabs">
+							<Link to="" className="tabs_menu active">
+								<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
+								<span>Flights</span>
+							</Link>
+							<Link to="" className="tabs_menu">
+							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
+								<span>Hotels</span>
+							</Link>
+							<Link to="" className="tabs_menu">
+							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
+								<span>Trains</span>
+							</Link>
+							<Link to="" className="tabs_menu">
+							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
+								<span>To Do and Events</span>
+							</Link>
+						</div>
 				    </div>{/* end.rows */}
 			    </section>
 
@@ -49,8 +54,7 @@ class AirlinePolicy extends React.Component{
 			    	<div id="tnc-accodion">
 				    	<div className="items">
 			              <div className="page">
-			              	<img src="assets/images/air_canada_1.png" className="icon_airline" />
-							<span>Air Canada</span>
+							<span>Important Info</span>
 			              </div>
 			              <div className="content">
 			                <h3>Important</h3>
@@ -77,8 +81,7 @@ class AirlinePolicy extends React.Component{
 
 			            <div className="items">
 			              <div className="page">
-			              	<img src="assets/images/air_new_zealand_1.png" className="icon_airline" />
-							<span>Air New Zealand</span>
+							<span>Refund</span>
 			              </div>
 			              <div className="content">
 			                <h3>Important</h3>
@@ -105,8 +108,7 @@ class AirlinePolicy extends React.Component{
 
 			            <div className="items">
 			              <div className="page">
-			              	<img src="assets/images/ana_1.png" className="icon_airline" />
-							<span>All Nippon Airways</span>
+							<span>Reschedule</span>
 			              </div>
 			              <div className="content">
 			                <h3>Important</h3>
@@ -145,4 +147,4 @@ class AirlinePolicy extends React.Component{
 		)
 	}
 }
-export default AirlinePolicy;
+export default TicketingPolicyFlights;
