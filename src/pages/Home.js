@@ -4,41 +4,41 @@ class Home extends React.Component{
 	render(){
 		return(
 
-			<div id="middle-content" class="homePage">
-				<div class="wrapper">
-					<div class="rows">
-						<a href="#" class="back_button"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+			<div id="middle-content" className="homePage">
+				<div className="wrapper">
+					<div className="rows">
+						<a href="#" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></a>
 					</div>{/* end.rows */}
-					<div class="rows">
-						<div class="main_title_top">
+					<div className="rows">
+						<div className="main_title_top">
 							<h3>Travel Guidelines</h3>
 						</div>
 					</div>{/* end.rows */}
 
 					<section id="section_maps">
-						<div class="rows">
-						  <div class="search_row">
-						    <input type="text" class="search_input" name="" placeholder="Going anywhere ?" />
+						<div className="rows">
+						  <div className="search_row">
+						    <input type="text" id="searchTrigger" className="search_input" name="" placeholder="Going anywhere ?" />
 						  </div>
 						</div>{/* end.rows */}
-						<div class="rows">
-						  <div class="main_title">
+						<div className="rows">
+						  <div className="main_title">
 						    <h3>COVID-19 Travel Advisory Level</h3>
 						  </div>
-						  <div class="frame_peta">
+						  <div className="frame_peta">
 						    <img src="assets/images/peta.png" />
 						  </div>
-						  <div class="legend_info">
-						    <div class="row_legend">
-						      <div class="circle_l green_c"></div>
+						  <div className="legend_info">
+						    <div className="row_legend">
+						      <div className="circle_l green_c"></div>
 						      <span>Allowed, travel with safety precautions</span>
 						    </div>{/* end.row_legend */}
-						    <div class="row_legend">
-						      <div class="circle_l yellow_c"></div>
+						    <div className="row_legend">
+						      <div className="circle_l yellow_c"></div>
 						      <span>Partially prohibited, check local policy</span>
 						    </div>{/* end.row_legend */}
-						    <div class="row_legend">
-						      <div class="circle_l red_c"></div>
+						    <div className="row_legend">
+						      <div className="circle_l red_c"></div>
 						      <span>Prohibited, avoid non-essential travel</span>
 						    </div>{/* end.row_legend */}
 						  </div>{/* end.legend_info */}
@@ -46,38 +46,38 @@ class Home extends React.Component{
 					</section>
 
 					<section id="section_regulation">
-						<div class="rows">
-						  <div class="main_title">
+						<div className="rows">
+						  <div className="main_title">
 						    <h3>Regulation & Policy</h3>
 						  </div>
 						</div>
-						<div class="rows">
-						  <div class="list_policy">
-						    <div class="block_policy">
-						      <div class="icon_policy">
+						<div className="rows">
+						  <div className="list_policy">
+						    <div className="block_policy">
+						      <div className="icon_policy">
 						        <img src="assets/images/icon_airlines_polic.png" />
 						      </div>
-						      <div class="caption_policy">
+						      <div className="caption_policy">
 						        <h3>Airline Policy</h3>
 						        <p>Latest information on airline service and policy.</p>
 						      </div>
 						    </div>
 
-						    <div class="block_policy">
-						      <div class="icon_policy">
+						    <div className="block_policy">
+						      <div className="icon_policy">
 						        <img src="assets/images/icon_airport_policy.png" />
 						      </div>
-						      <div class="caption_policy">
+						      <div className="caption_policy">
 						        <h3>Airport Policy</h3>
 						        <p>Latest information on airport travel regulations & policy.</p>
 						      </div>
 						    </div>
 
-						    <div class="block_policy">
-						      <div class="icon_policy">
+						    <div className="block_policy">
+						      <div className="icon_policy">
 						        <img src="assets/images/icon_how_to_buy_tic.png" />
 						      </div>
-						      <div class="caption_policy">
+						      <div className="caption_policy">
 						        <h3>Ticketing Policy</h3>
 						        <p>Latest information on how to purchase, refund, and reschedule</p>
 						      </div>
