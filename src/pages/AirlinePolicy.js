@@ -10,14 +10,16 @@ class AirlinePolicy extends React.Component{
 	    this.props.history.goBack();
 	}
 	componentDidMount() {
+		 window.readmoreFade();
 		 window.activeAccordion();
+		 window.popupSlider();
 	}
 	render(){
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<button onClick={this.goBack} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
+			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">
@@ -35,11 +37,12 @@ class AirlinePolicy extends React.Component{
 					<div className="rows">
 						<div className="block_policy full_block">
 						  <div className="caption_policy">
-						    <h3>Airlines Ticketing Guideline and Policy</h3>
-			          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
-						    <p>If you have any flights affected by the travel restrictions or COVID-19 pandemic, you can request a refund or reschedule. Find all information about special handling guidelines and policies for international flights below.</p>
-
-						    <span className="linkBlue">Read more</span>
+							<div className="detail-text-project">
+							    <h3>Airlines Ticketing Guideline and Policy</h3>
+				          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+								<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    </div>{/*><!--end.detail-text-project-->*/}
 						  </div>
 						</div>{/* end.block_policy */}
 				    </div>{/* end.rows */}

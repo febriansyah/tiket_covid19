@@ -11,13 +11,14 @@ class AirportPolicyInternational extends React.Component{
 	}
 	componentDidMount() {
 		 window.activeAccordion();
+		 window.popupSlider();
 	}
 	render(){
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<button onClick={this.goBack} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
+			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">

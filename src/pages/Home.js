@@ -433,6 +433,7 @@ class Home extends React.Component{
 		
 		// Go!
 		flyPlane();
+		window.popupSlider();
 		  }
 		
 		  componentWillUnmount() {
@@ -457,7 +458,8 @@ class Home extends React.Component{
 					<section id="section_maps">
 						<div className="rows">
 						  <div className="search_row">
-						    <input type="text" id="searchTrigger" className="search_input trigger_slider_search" data-slider="popup_search"  name="" placeholder="Going anywhere ?" />
+						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder="Going anywhere ?" />
+						    <div className="overlay_trigger trigger_slider_search"data-slider="popup_search"></div>
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">

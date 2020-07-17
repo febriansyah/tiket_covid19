@@ -201,6 +201,18 @@ section {
 	font-size: 24px;
 	margin: 0;
 }
+.search_row{
+	position: relative;
+}
+.overlay_trigger{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: transparent;
+	z-index: 1;
+}
 .search_input{
 	display: block;
 	width: 100%;
@@ -209,6 +221,9 @@ section {
 	background: url(../images/icon_search.png) 10px center #f4f7fe no-repeat;
 	background-size: 20px;
 	border-radius: 4px;
+}
+.overlay_trigger{
+
 }
 .frame_peta{
 	display: block;
@@ -614,6 +629,7 @@ h3.mediumFont{
 	left: 0;
 	bottom: 0;
 	margin: auto;
+	z-index: 3;
 }
 .content_slide_btm{
 	position: fixed;
@@ -622,6 +638,7 @@ h3.mediumFont{
 	left: 0;
 	width: 100%;
     transition: all 0.3s ease-in-out 0s;
+    z-index: 5;
 }
 .box_popup_search{
 	min-width: 320px;
