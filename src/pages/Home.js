@@ -8,8 +8,7 @@ am4core.useTheme(am4themes_animated);
 
 class Home extends React.Component{
 	componentDidMount() {
-
-
+		let props = this.props;
 		var chart = am4core.create("chartdiv", am4maps.MapChart);
 		chart.geodata = am4geodata_worldLow;
 		chart.projection = new am4maps.projections.Miller();
@@ -215,16 +214,25 @@ class Home extends React.Component{
 			event.target.isHover = false;
 			event.target.isHover = true;
 		  })
-		  mapPolygonTemplate.events.on("hit", function(event) {
+		//   mapPolygonTemplate.events.on("hit", function(event) {
+		// 	series.mapPolygons.each(function(mapPolygon) {
+		// 	  var data=event.target.dataItem.dataContext;
+		// 	  //console.log(JSON.parse(data.customData));
+		// 	  console.log(JSON.parse(JSON.stringify(data.name)));
+		// 	})
+		//   })
+		mapPolygonTemplate.events.on("hit", function(event) {
 			series.mapPolygons.each(function(mapPolygon) {
-			  var data=event.target.dataItem.dataContext;
-			  //console.log(JSON.parse(data.customData));
-			  console.log(JSON.parse(JSON.stringify(data.name)));
-		
+			//   console.log(mapPolygon, 'mapPolygon');
 			})
+
+			let data = event.target.dataItem.dataContext;
+			console.log(data, 'data', props);
+
+			props.history.push({ pathname: '/search-result', state: { data } });
 		  
 		  })
-		  
+
 		  mapPolygonTemplate.events.on("out", function(event) {
 			series.mapPolygons.each(function(mapPolygon) {
 			  mapPolygon.isHover = false;
@@ -433,17 +441,22 @@ class Home extends React.Component{
 		
 		// Go!
 		flyPlane();
+<<<<<<< HEAD
 		window.popupSlider();
 		  }
+=======
+	}
+>>>>>>> dadf617c0539624ae22a3864b67dabf00c403830
 		
-		  componentWillUnmount() {
-			if (this.chart) {
-			  this.chart.dispose();
-			}
-		  }
+	componentWillUnmount() {
+	if (this.chart) {
+		this.chart.dispose();
+	}
+	}
 	render(){
+		console.log(this.props, 'props');
 		return(
-
+			
 			<div id="middle-content" className="homePage">
 				<div className="wrapper">
 					<div className="rows">
