@@ -464,7 +464,7 @@ class Home extends React.Component{
 						  <div className="main_title">
 						    <h3>COVID-19 Travel Advisory Level</h3>
 						  </div>
-						  <div class="frame_peta">
+						  <div className="frame_peta">
 						   <div id="chartdiv" style={{ width: "100%", height: "250px" }}></div>
 						  </div>
 						  <div className="legend_info">
