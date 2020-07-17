@@ -20,7 +20,7 @@ class Home extends React.Component{
 		let groupData = [
 		  {
 			"name": "EU member before 2004",
-			"color": chart.colors.getIndex(0),
+			"color": "#0bae54",
 			"data": [
 			  {
 				"title": "Austria",
@@ -87,7 +87,7 @@ class Home extends React.Component{
 		  },
 		  {
 			"name": "Joined at 2004",
-			"color": chart.colors.getIndex(1),
+			"color": "#fedd00",
 			"data": [
 			  {
 				"title": "Lithuania",
@@ -154,7 +154,7 @@ class Home extends React.Component{
 		  },
 		  {
 			"name": "Joined at 2007",
-			"color": chart.colors.getIndex(3),
+			"color": "#e52424",
 			"data": [
 			  {
 				"title": "China",
@@ -352,7 +352,7 @@ class Home extends React.Component{
 		planeImage.horizontalCenter = "middle";
 		planeImage.verticalCenter = "middle";
 		planeImage.path = "m2,106h28l24,30h72l-44,-133h35l80,132h98c21,0 21,34 0,34l-98,0 -80,134h-35l43,-133h-71l-24,30h-28l15,-47";
-		planeImage.fill = chart.colors.getIndex(2).brighten(-0.2);
+		planeImage.fill = "#0079D8";
 		planeImage.strokeOpacity = 0;
 		
 		let shadowPlane = shadowLineSeries.mapLines.getIndex(0).lineObjects.create();
