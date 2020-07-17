@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-class AirlinePolicy extends React.Component{
+class AirlinePolicy extends Component{
 	constructor(props){
 	   super(props);
 	   this.goBack = this.goBack.bind(this);
@@ -17,7 +17,7 @@ class AirlinePolicy extends React.Component{
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<button onClick={this.goBack} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
+			    	<button onClick={() => this.props.history.goBack()} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">

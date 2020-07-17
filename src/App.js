@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path='/' component = {Home} />
-          <Route path='/searchResult' component = {SearchResult} />
+          <Route path='/search-result' component = {SearchResult} />
           <Route path='/AirlinePolicy' component = {AirlinePolicy} />
           <Route path='/AirportPolicyDomestic' component = {AirportPolicyDomestic} />
           <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
