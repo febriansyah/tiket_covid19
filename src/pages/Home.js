@@ -441,12 +441,9 @@ class Home extends React.Component{
 		
 		// Go!
 		flyPlane();
-<<<<<<< HEAD
 		window.popupSlider();
 		  }
-=======
-	}
->>>>>>> dadf617c0539624ae22a3864b67dabf00c403830
+
 		
 	componentWillUnmount() {
 	if (this.chart) {
