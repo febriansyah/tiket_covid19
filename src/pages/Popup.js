@@ -1,7 +1,51 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Popup extends React.Component{
+
+	constructor(props){
+		super(props)
+		this.state = {
+		  list_data_popular: [], 
+		  load_aju_error: false,
+		  loaded: false,
+		  count_item: 0,
+		};
+	  }
+	  componentWillMount() {
+		this._listData();
+	  }
+	_listData = async () => {
+
+		const proxyurl = "https://cors-anywhere.herokuapp.com/";
+			axios({
+				method: 'get',
+				url: proxyurl+'https://api.tiketsafe.com/api/v1/suggestion/popular-city',
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
+			})
+			.then(response => {
+				this.setState({list_data_popular: response.data.data})
+			})
+	}
+	RenderCityPopular (list_data_popular){
+
+		return  list_data_popular.map((value)=>
+
+				<div className="row_result_autocomplete">
+				<Link to="/search-Result" className="trigger_close_popup">
+				<img src="assets/images/icon_general_city.png" className="icon_city" />
+				<span>{value.cityName}, Indonesia</span>
+				</Link>
+				</div>
+		)
+		
+				
+	}
+
+
 	render(){
 		return(
 			<div >
@@ -76,47 +120,9 @@ class Popup extends React.Component{
 						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
-						        <div className="list_autocomplete">
-						          <div className="row_result_autocomplete">
-						          	<Link to="/searchResult" className="trigger_close_popup">
-							            <img src="assets/images/icon_general_city.png" className="icon_city" />
-							            <span>Singapore, Singapore</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Jakarta, Indonesia</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Bali, Indonesia</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Kuala Lumpur, Malaysia</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Surabaya, Indonesia</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Surabaya, Indonesia</span>
-						            </Link>
-						          </div>
+						        <div className="list_autocomplete">	
+									 {this.RenderCityPopular(this.state.list_data_popular)}
+						       
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
 				    	</div> {/* end.box_popup_search_auto */}
