@@ -19,7 +19,7 @@ class AirlinePolicy extends Component{
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+			    	<button onClick={() => this.props.history.goBack()} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">

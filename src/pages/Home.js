@@ -443,7 +443,6 @@ class Home extends React.Component{
 		flyPlane();
 		window.popupSlider();
 		  }
-
 		
 	componentWillUnmount() {
 	if (this.chart) {
