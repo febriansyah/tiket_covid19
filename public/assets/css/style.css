@@ -543,7 +543,7 @@ h3.mediumFont{
     display: none;
     padding: 20px 10px;
 }
-#tnc-accodion .content.active{
+#tnc-accodion.singleAccordion .content.active{
 	display: block;
 }
 #tnc-accodion .content h3{

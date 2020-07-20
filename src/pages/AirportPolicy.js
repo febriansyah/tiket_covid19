@@ -6,6 +6,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 class AirportPolicy extends React.Component{
+
 constructor(props) {
     super(props);
     
@@ -89,6 +90,11 @@ constructor(props) {
     });
   }
 
+componentDidMount() {
+	window.readmoreFade();
+	window.popupSlider();
+}
+
 	
 
 	render(){
@@ -166,7 +172,6 @@ constructor(props) {
 					</div>
 		          </Fragment>
 		        ))}
-		        <hr />
 		        {error &&
 		          <div>
 		            {error}

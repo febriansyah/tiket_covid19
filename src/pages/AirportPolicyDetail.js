@@ -48,7 +48,7 @@ class AirportPolicyDetail extends React.Component{
 			    </section>
 
 			    <section id="section_tabs_list">
-			    	<div id="tnc-accodion">
+			    	<div id="tnc-accodion" className="singleAccordion">
 				    	<div className="halBefore-kuis hide">
 					      <div className="box-loading2">
 					          <div className="spinner">
