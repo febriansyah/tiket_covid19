@@ -1,19 +1,61 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
 
 class SearchResult extends React.Component{
 	constructor(props){
 	   super(props);
+	   this.state = {
+			dataItem: null
+	   };
+
 	   this.goBack = this.goBack.bind(this);
 	}
-	goBack(){
+
+	goBack() {
 	    this.props.history.goBack();
 	}
+
 	componentDidMount() {
-		 window.readmoreFade();
-		 window.popupSlider();
+		window.readmoreFade();
+		window.popupSlider();
+
+		this.getCountryByCode(this.props.location.countryCode);
 	}
-	render(){
+
+	getCountryByCode(countryCode) {
+		const proxyurl = "https://cors-anywhere.herokuapp.com/";
+		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + `country?lang=en&countryCode=${countryCode}`,
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			}
+		})
+		.then(res => {
+			// this.setState({list_data_popular: response.data.data})
+			console.log(res, 'res country');
+			if (res.data.status == 'success') {
+				if (res.data.data.length > 0) {
+					this.setState({ dataItem: res.data.data[0] })
+				}
+			}
+		})
+		.catch(err => {
+			console.log(err, 'here');
+		})
+	}
+
+	render() {
+		console.log(this.props, this.state, 'search result');
+
+		const { dataItem } = this.state;
+
+		if (!dataItem) return <div />
+		
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -39,7 +81,7 @@ class SearchResult extends React.Component{
 			    <section id="section_maps">
 			      <div className="rows">
 			        <div className="block_shadow">
-			          <h3>Singapore</h3>
+			          <h3>{dataItem && dataItem.countryName}</h3>
 						<div className="block_info_notif hide">
 							<span>Notify when then prohibition is lifted</span>
 						</div>
@@ -57,7 +99,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
-			            <h4>COVID-19 Cases in Singapore</h4>
+			            <h4>COVID-19 Cases in {dataItem && dataItem.countryName}</h4>
 			            <p className="green">No new cases in Singapore for 1 day</p>
 			          </div>
 			          <div className="right">
@@ -103,38 +145,36 @@ class SearchResult extends React.Component{
 			        <div className="important_things">
 			          <h3 className="mediumFont">Important Things to Know</h3>
 			          <p>List of requirements to fulfill and regulations to follow.</p>
-			          <span className="blue_rounded_txt">Published 29 April 2020</span>
+			          <span className="blue_rounded_txt">Published {moment(dataItem.updatedTimestamp).format('DD MM YYYY')}</span>
 			        </div>
 			      </div>
 			      <div className="rows">
+
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-
 						<div className="detail-text-project">
-
 						    <h3>Entry Restrictions</h3>
-						    <p><strong>1. Passengers traveling as short-term visitors are not allowed to transit or enter Singapore.</strong></p><br />
-						    <p>- This does not apply to returning residents of Singapore (Singapore Citizens, Permanent Residents or passengers with a Long-Term.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						    <p><strong>{dataItem.entryRestrictionsDesc}</strong></p><br />
 							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
-						    
-
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>{/* end.block_policy */}
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-					    <h3>Entry Restrictions Exemptions</h3>
-					    <p>Social distancing and enhanced precautions recommeded.</p>
+						<div className="detail-text-project">
+							<h3>Entry Restrictions Exemptions</h3>
+							<p>{dataItem.entryRestrictionsExemptionsDesc}</p><br />
+							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						</div>
 					  </div>
 					</div>{/* end.block_policy */}
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-
 						<div className="detail-text-project">
 						    <h3>Additional Entry Requirements</h3>
-						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+						    <p>{dataItem.additionalEntryRequirementsDesc}</p>
 						    <p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
@@ -142,10 +182,9 @@ class SearchResult extends React.Component{
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-
 						<div className="detail-text-project">
 						    <h3>Quarantine Policy</h3>
-						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+						    <p>{dataItem.quarantinePolicyDesc}</p>
 							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
@@ -153,10 +192,9 @@ class SearchResult extends React.Component{
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-
 						<div className="detail-text-project">
 						    <h3>Visa Policy</h3>
-						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+						    <p>{dataItem.visaPolicyDesc}</p>
 							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
@@ -164,10 +202,9 @@ class SearchResult extends React.Component{
 
 					<div className="block_policy full_block">
 					  <div className="caption_policy">
-
 						<div className="detail-text-project">
 						    <h3>Transit Policy</h3>
-						    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
+						    <p>{dataItem.transitPolicyDesc}</p>
 						    <p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
@@ -175,6 +212,7 @@ class SearchResult extends React.Component{
 
 			      </div>{/* end.rows */}
 			    </section>
+
 			    <div className="rows">
 			    	<div className="button_bottom">
 			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
@@ -185,4 +223,5 @@ class SearchResult extends React.Component{
 		)
 	}
 }
+
 export default SearchResult;

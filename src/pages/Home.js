@@ -445,14 +445,15 @@ class Home extends React.Component{
 		  }
 		
 	componentWillUnmount() {
-	if (this.chart) {
-		this.chart.dispose();
+		if (this.chart) {
+			this.chart.dispose();
+		}
 	}
-	}
-	render(){
-		console.log(this.props, 'props');
-		return(
-			
+
+	render() {
+		console.log(this.props, 'home');
+
+		return (
 			<div id="middle-content" className="homePage">
 				<div className="wrapper">
 					<div className="rows">

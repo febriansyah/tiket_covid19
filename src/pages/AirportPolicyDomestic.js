@@ -1,84 +1,46 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import $ from 'jquery'; 
 import axios from 'axios';
+
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 
 class AirportPolicyDomestic extends React.Component{
 	constructor(props){
-		super(props)
-		this.state = {
-		  list_data_airport: [], 
-		  load_aju_error: false,
-		  loaded: false,
-		  count_item: 0,
-		};
+	   super(props);
+	   this.goBack = this.goBack.bind(this);
 	}
-	componentWillMount() {
-		this._listData();
-	}
-	
-	_listData = async () => {
-
-		const proxyurl = "https://cors-anywhere.herokuapp.com/";
-			axios({
-				method: 'get',
-				url: proxyurl+'https://api.tiketsafe.com/api/v1/airports?lang=id&page=1',
-				headers: {
-					"Access-Control-Allow-Origin": "*"
-				}
-			})
-			.then(response => {
-				this.setState({list_data_airport: response.data.data})
-				console.log('Done with Ajax call');
-				$(".halBefore-kuis").fadeOut();
-				window.activeAccordion();
-
-			});
-
-	}
-
-	RenderAirportList (list_data_airport){
-		return  list_data_airport.map((value, i)=>
-
-			<div className="items" key={i}>
-			  <div className="page">
-				<span>{value.airportName}</span>
-			  </div>
-			  <div className="content">
-			    <h3>Important</h3>
-			    <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
-			    <h3>Refund</h3>
-				<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
-				<p>
-				Ticket Purchase Date: On / before 15 March 2020.<br/>
-				Flight Period: 24 January - 31 August 2020.<br/>
-				Routes: All routes.<br/>
-				Refund Rules: Full refund.</p>
-
-				<p>
-				Ticket Purchase Date: 5 March - 31 August 2020.<br/>
-				Flight Period: -<br/>
-				Routes: All routes.<br/>
-				Refund Rules: As per normal regulation.</p>
-				<p>
-				Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
-
-
-			  </div>
-			</div>
-		)
-		
-				
+	goBack(){
+	    this.props.history.goBack();
 	}
 	componentDidMount() {
-		
-		window.readmoreFade();
-		window.popupSlider();
+		 window.readmoreFade();
+		 window.activeAccordion();
+		 window.popupSlider();
 	}
 
-	
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps, 'nextProps');
+		if (nextProps.match.params && nextProps.match.params.airportCode) {
+			this.getAirportDetail(nextProps.match.params.airportCode)
+		}
+	}
 
-	render(){
+	getAirportDetail(airportCode) {
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + `airports?airportCode=${airportCode}`,
+			headers: { "Access-Control-Allow-Origin": "*" }
+		})
+		.then(res => {
+			console.log(res, 'res');
+			
+		})
+	}
+
+	render() {
+		console.log('aiport domestic');
+		
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -114,16 +76,87 @@ class AirportPolicyDomestic extends React.Component{
 
 			    <section id="section_tabs_list">
 			    	<div id="tnc-accodion">
-			    	<div className="halBefore-kuis">
-				      <div className="box-loading2">
-				          <div className="spinner">
-				          <div className="bounce1"></div>
-				          <div className="bounce2"></div>
-				          <div className="bounce3"></div>
-				        </div>
-				      </div>
-				    </div>
-				    	{this.RenderAirportList(this.state.list_data_airport)}
+				    	<div className="items">
+			              <div className="page">
+							<span>Bali Airport</span>
+			              </div>
+			              <div className="content">
+			                <h3>Important</h3>
+			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
+			                <h3>Refund</h3>
+							<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
+							<p>
+							Ticket Purchase Date: On / before 15 March 2020.<br/>
+							Flight Period: 24 January - 31 August 2020.<br/>
+							Routes: All routes.<br/>
+							Refund Rules: Full refund.</p>
+
+							<p>
+							Ticket Purchase Date: 5 March - 31 August 2020.<br/>
+							Flight Period: -<br/>
+							Routes: All routes.<br/>
+							Refund Rules: As per normal regulation.</p>
+							<p>
+							Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
+
+
+			              </div>{/* end.content */}
+			            </div>
+
+			            <div className="items">
+			              <div className="page">
+							<span>Balikpapan Airport</span>
+			              </div>
+			              <div className="content">
+			                <h3>Important</h3>
+			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
+			                <h3>Refund</h3>
+							<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
+							<p>
+							Ticket Purchase Date: On / before 15 March 2020.<br/>
+							Flight Period: 24 January - 31 August 2020.<br/>
+							Routes: All routes.<br/>
+							Refund Rules: Full refund.</p>
+
+							<p>
+							Ticket Purchase Date: 5 March - 31 August 2020.<br/>
+							Flight Period: -<br/>
+							Routes: All routes.<br/>
+							Refund Rules: As per normal regulation.</p>
+							<p>
+							Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
+
+
+			              </div>{/* end.content */}
+			            </div>
+
+			            <div className="items">
+			              <div className="page">
+							<span>Bangka Belitung Airport</span>
+			              </div>
+			              <div className="content">
+			                <h3>Important</h3>
+			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
+			                <h3>Refund</h3>
+							<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
+							<p>
+							Ticket Purchase Date: On / before 15 March 2020.<br/>
+							Flight Period: 24 January - 31 August 2020.<br/>
+							Routes: All routes.<br/>
+							Refund Rules: Full refund.</p>
+
+							<p>
+							Ticket Purchase Date: 5 March - 31 August 2020.<br/>
+							Flight Period: -<br/>
+							Routes: All routes.<br/>
+							Refund Rules: As per normal regulation.</p>
+							<p>
+							Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
+
+
+			              </div>{/* end.content */}
+			            </div>
+
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>

@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class Popup extends React.Component{
+const initialSearch = {
+	searchText: '',
+	searchResult: [],
+	searchPage: 1,
+}
 
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const headers = {
+	"Access-Control-Allow-Origin": "*"
+}
+
+class Popup extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
@@ -11,44 +22,145 @@ class Popup extends React.Component{
 		  load_aju_error: false,
 		  loaded: false,
 		  count_item: 0,
+
+		  ...initialSearch,
+		  listAirport: [],
+		  listAirlines: [],
 		};
-	  }
-	  componentWillMount() {
+	}
+
+	componentWillMount() {
 		this._listData();
-	  }
+		this.getListAirport();
+		this.getListAirlines();
+	}
+
+	componentWillUnmount() {
+		this.setState({ ...initialSearch });
+	}
+
 	_listData = async () => {
-
-		const proxyurl = "https://cors-anywhere.herokuapp.com/";
-			axios({
-				method: 'get',
-				url: proxyurl+'https://api.tiketsafe.com/api/v1/suggestion/popular-city',
-				headers: {
-					"Access-Control-Allow-Origin": "*"
-				}
-			})
-			.then(response => {
-				this.setState({list_data_popular: response.data.data})
-			});
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl +'suggestion/popular-city',
+			headers
+		})
+		.then(response => {
+			this.setState({list_data_popular: response.data.data})
+		})
 	}
-	RenderCityPopular (list_data_popular){
 
-		return  list_data_popular.map((value)=>
+	getListAirport = async() => {
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + 'airports?lang=id',
+			headers
+		})
+		.then(res => {
+			if (res.data.status == 'success') {
+				this.setState({ listAirport: res.data.data });
+			}
+			
+		})
+	}
 
-				<div className="row_result_autocomplete">
-				<Link to="/search-Result" className="trigger_close_popup">
+	getListAirlines() {
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + 'airlines?lang=id&page=1&flightType=1',
+			headers
+		})
+		.then(res => {
+			console.log(res, 'res get airlines');
+			
+			if (res.data.status == 'success') {
+				this.setState({ listAirlines: res.data.data })
+			}
+		})
+	}
+	
+	typingTimeout;
+
+	onChangeText(val, type) {
+		let searchText = val.target.value;
+
+		if (this.typingTimeout) {
+			clearTimeout(this.typingTimeout);
+		}
+
+		this.setState({ searchText }, () => {
+			if (searchText.length > 2) {
+				this.typingTimeout = setTimeout(() => {
+					this.searchCitiesOrAirport(searchText, this.state.searchPage);
+				}, 2000);
+			}
+		})
+	}
+
+	searchCitiesOrAirport(text, page) {
+		if (page === 0) return;
+
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + `suggestion/location?keyword=${text}&type=country&page=${page}`,
+			headers
+		})
+		.then(res => {
+			console.log(res, 'res search');
+			
+			if (res.data.status == 'success') {
+				this.setState({ searchResult: res.data.data });
+			}
+			
+		})
+	}
+
+	RenderCityPopular() {
+		let list_data_popular = this.state.searchText.length > 2 ? this.state.searchResult : this.state.list_data_popular;
+
+		return list_data_popular.map((value, idx) =>
+			<Link
+				key={idx}
+				to={{pathname: "/search-result", countryCode: value.countryCode ? value.countryCode : 'MY' }}
+				className="row_result_autocomplete trigger_close_popup"
+			>
 				<img src="assets/images/icon_general_city.png" className="icon_city" />
-				<span>{value.cityName}, Indonesia</span>
-				</Link>
-				</div>
-		)
-		
-				
+				<span>{value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
+			</Link>
+		)	
 	}
 
+	renderAirport() {
+		let data = this.state.searchText.length > 2 ? this.state.searchResult : this.state.listAirport;
+		
+		return data.map((item, idx) =>
+			<Link
+				key={idx}
+				to={{ pathname: "/AirportPolicyDomestic/"+item.airportCode }}
+				className="row_result_autocomplete trigger_close_popup"
+			>
+				<img src="assets/images/icon_general_city.png" className="icon_city" />
+				<span>{item.airportName}</span>
+			</Link>
+		)
+	}
 
-	render(){
+	renderAirlines() {
+		let data = this.state.searchText.length > 2 ? this.state.searchResult : this.state.listAirlines;
+
+		return data.map((item, idx) =>
+			<Link to="/search-result" className="row_result_autocomplete trigger_close_popup" key={idx}>
+				<img src={item.imageURL} className="icon_city" />
+				<span>{item.airlinesName}</span>
+			</Link>
+		)
+	}
+
+	render() {
+		// console.log(this.state, 'state popup');
+		
 		return(
-			<div >
+			<div>
 				<div id="popup_confirmasi" className="popup_slider hide">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
@@ -104,7 +216,14 @@ class Popup extends React.Component{
 						    </div>{/* end.rows */}
 						    <div className="rows">
 						        <div className="search_row">
-						          <input type="text" className="search_input" name="" placeholder="Search cities or airports" />
+						          	<input
+										type="text"
+										className="search_input"
+										name=""
+										value={this.state.searchText}
+										onChange={(val) => this.onChangeText(val, 'city')}
+										placeholder="Search cities or airports"
+									/>
 						        </div>
 						    </div> {/* end.rows */}
 						    <div className="rows">
@@ -120,9 +239,8 @@ class Popup extends React.Component{
 						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
-						        <div className="list_autocomplete">	
-									 {this.RenderCityPopular(this.state.list_data_popular)}
-						       
+						        <div className="list_autocomplete">
+									{this.RenderCityPopular()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
 				    	</div> {/* end.box_popup_search_auto */}
@@ -158,39 +276,7 @@ class Popup extends React.Component{
 						        	</div>
 						        </div>{/* end.list_noneResult */}
 						        <div className="list_autocomplete">
-						          <div className="row_result_autocomplete">
-						          	<Link to="/searchResult" className="trigger_close_popup">
-							            <img src="assets/images/air_canada_1.png" className="icon_city" />
-							            <span>Air Canada</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/air_new_zealand_1.png" className="icon_city" />
-						            <span>Air New Zealand</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/ana_1.png" className="icon_city" />
-						            <span>All Nippon Airways</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/air_new_zealand_1.png" className="icon_city" />
-						            <span>Air New Zealand</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-
-						          	<Link to="/searchResult" className="trigger_close_popup">
-						            <img src="assets/images/ana_1.png" className="icon_city" />
-						            <span>All Nippon Airways</span>
-						            </Link>
-						          </div>
-						          
+									{this.renderAirlines()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
 				    	</div> {/* end.box_popup_search_auto */}
@@ -209,7 +295,14 @@ class Popup extends React.Component{
 						    </div>{/* end.rows */}
 						    <div className="rows">
 						        <div className="search_row">
-						          <input type="text" className="search_input" name="" placeholder="Search cities or airports" />
+									<input
+										type="text"
+										className="search_input"
+										name=""
+										value={this.state.searchText}
+										onChange={(val) => this.onChangeText(val, 'airport')}
+										placeholder="Search cities or airports"
+									/>
 						        </div>
 						    </div> {/* end.rows */}
 						    <div className="rows">
@@ -225,20 +318,9 @@ class Popup extends React.Component{
 						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
+
 						        <div className="list_autocomplete">
-						          <div className="row_result_autocomplete">
-						          	<Link to="/AirportPolicyDomestic" className="trigger_close_popup">
-							            <img src="assets/images/icon_general_city.png" className="icon_city" />
-							            <span>Jakarta Airport</span>
-						            </Link>
-						          </div>
-						          <div className="row_result_autocomplete">
-						          	<Link to="/AirportPolicyDomestic" className="trigger_close_popup">
-						            <img src="assets/images/icon_general_city.png" className="icon_city" />
-						            <span>Japan Airport</span>
-						            </Link>
-						          </div>
-						          
+						          {this.renderAirport()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
 				    	</div> {/* end.box_popup_search_auto */}

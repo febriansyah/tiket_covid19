@@ -33,13 +33,12 @@ class AirlinePolicyDomestic extends Component{
 				console.log('Done with Ajax call');
 				$(".halBefore-kuis").fadeOut();
 				window.activeAccordion();
-
 			});
 
 	}
 
-	RenderAirlinetList (list_data_airline){
-		return  list_data_airline.map((value, i)=>
+	RenderAirlinetList(list_data_airline) {
+		return list_data_airline.map((value, i)=>
 			<div className="items" key={i}>
               <div className="page">
               	<img src={value.imageURL} className="icon_airline" />
@@ -65,18 +64,14 @@ class AirlinePolicyDomestic extends Component{
 				Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
               </div>
             </div>
-			
-		)
-		
-				
+		)		
 	}
 	componentDidMount() {
-		
 		window.readmoreFade();
 		window.popupSlider();
 	}
 
-	render(){
+	render() {
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -144,7 +139,6 @@ class AirlinePolicyDomestic extends Component{
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}
 			</div>
-
 		)
 	}
 }
