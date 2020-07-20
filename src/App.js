@@ -4,7 +4,9 @@ import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
 import AirlinePolicyDomestic from './pages/AirlinePolicyDomestic';
 import AirlinePolicyInternational from './pages/AirlinePolicyInternational';
+import AirlinePolicyDetail from './pages/AirlinePolicyDetail';
 import AirportPolicy from './pages/AirportPolicy';
+import AirportPolicyDetail from './pages/AirportPolicyDetail';
 import TicketingPolicyFlights from './pages/TicketingPolicyFlights';
 import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
@@ -18,7 +20,9 @@ function App() {
           <Route path='/search-result' component = {SearchResult} />
           <Route path='/AirlinePolicyDomestic' component = {AirlinePolicyDomestic} />
           <Route path='/AirlinePolicyInternational' component = {AirlinePolicyInternational} />
+          <Route path='/AirlinePolicyDetail' component = {AirlinePolicyDetail} />
           <Route path='/AirportPolicy' component = {AirportPolicy} />
+          <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
         </Switch>
         <Popup />

@@ -486,7 +486,7 @@ h3.mediumFont{
 	color: #0064d2;
 }
 
-/*==============================tnc-accodion===================*/
+/*==============================content===================*/
 
 #tnc-accodion {
 	margin-bottom: 20px;
@@ -542,6 +542,9 @@ h3.mediumFont{
 #tnc-accodion .content {
     display: none;
     padding: 20px 10px;
+}
+#tnc-accodion .content.active{
+	display: block;
 }
 #tnc-accodion .content h3{
 	font-size: 15px;
