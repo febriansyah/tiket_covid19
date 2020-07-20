@@ -53,12 +53,12 @@ constructor(props) {
   loadUsers = () => {
     this.setState({ isLoading: true}, () => {
       const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      const pagenya = this.state.paging+1;
+      this.state.paging = this.state.paging+1;
 
       request
-        .get(proxyurl+'https://api.tiketsafe.com/api/v1/airports?lang=id&page='+pagenya)
+        .get(proxyurl+'https://api.tiketsafe.com/api/v1/airports?lang=id&page='+this.state.paging)
         .then((results) => {          
-          console.log(pagenya);
+          console.log(this.state.paging);
           // Creates a massaged array of user data
           const nextUsers = results.body.data.map(value => ({
             airportName: value.airportName,
