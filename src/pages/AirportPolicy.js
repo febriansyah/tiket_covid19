@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom';
 import $ from 'jquery'; 
 import axios from 'axios';
 
-class AirportPolicyInternational extends React.Component{
-
+class AirportPolicy extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
@@ -23,7 +22,7 @@ class AirportPolicyInternational extends React.Component{
 		const proxyurl = "https://cors-anywhere.herokuapp.com/";
 			axios({
 				method: 'get',
-				url: proxyurl+'https://api.tiketsafe.com/api/v1/airports?lang=id&flightype=2&page=1',
+				url: proxyurl+'https://api.tiketsafe.com/api/v1/airports?lang=id&page=1',
 				headers: {
 					"Access-Control-Allow-Origin": "*"
 				}
@@ -77,6 +76,8 @@ class AirportPolicyInternational extends React.Component{
 		window.popupSlider();
 	}
 
+	
+
 	render(){
 		return(
 			<div id="middle-content" className="homePage">
@@ -97,13 +98,13 @@ class AirportPolicyInternational extends React.Component{
 					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airport_policy" name="" placeholder="Search airport or cities" />
 					  </div>
 					</div>{/* end.rows */}
-					<div className="rows">
+					<div className="rows hide">
 						<div className="tabs_main_menu">
-							<Link to="/AirportPolicyDomestic" className="tabs_menu">
+							<Link to="" className="tabs_menu active">
 								<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
 								<span>Domestic</span>
 							</Link>
-							<Link to="" className="tabs_menu active">
+							<Link to="/AirportPolicyInternational" className="tabs_menu">
 							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
 								<span>International</span>
 							</Link>
@@ -113,15 +114,15 @@ class AirportPolicyInternational extends React.Component{
 
 			    <section id="section_tabs_list">
 			    	<div id="tnc-accodion">
-						<div className="halBefore-kuis">
-						  <div className="box-loading2">
-						      <div className="spinner">
-						      <div className="bounce1"></div>
-						      <div className="bounce2"></div>
-						      <div className="bounce3"></div>
-						    </div>
-						  </div>
-						</div>
+			    	<div className="halBefore-kuis">
+				      <div className="box-loading2">
+				          <div className="spinner">
+				          <div className="bounce1"></div>
+				          <div className="bounce2"></div>
+				          <div className="bounce3"></div>
+				        </div>
+				      </div>
+				    </div>
 				    	{this.RenderAirportList(this.state.list_data_airport)}
 			    	</div>{/* end.tnc-accodion */}
 			      
@@ -137,4 +138,4 @@ class AirportPolicyInternational extends React.Component{
 		)
 	}
 }
-export default AirportPolicyInternational;
+export default AirportPolicy;

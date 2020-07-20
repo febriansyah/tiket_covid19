@@ -505,7 +505,7 @@ class Home extends React.Component{
 						  <div className="list_policy">
 						    <div className="block_policy">
 
-						      <Link to="/AirlinePolicy">
+						      <Link to="/AirlinePolicyDomestic">
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_airlines_polic.png" />
 							      </div>
@@ -517,7 +517,7 @@ class Home extends React.Component{
 						    </div>
 
 						    <div className="block_policy">
-								<Link to="/AirportPolicyDomestic">
+								<Link to="/AirportPolicy">
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_airport_policy.png" />
 							      </div>

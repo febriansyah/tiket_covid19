@@ -28,7 +28,7 @@ class Popup extends React.Component{
 			})
 			.then(response => {
 				this.setState({list_data_popular: response.data.data})
-			})
+			});
 	}
 	RenderCityPopular (list_data_popular){
 
