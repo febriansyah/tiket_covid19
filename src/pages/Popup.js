@@ -155,9 +155,6 @@ class Popup extends React.Component{
 			</Link>
 		)
 	}
-	componentDidMount() {
-		window.popupSlider();
-	}
 
 	render() {
 		// console.log(this.state, 'state popup');

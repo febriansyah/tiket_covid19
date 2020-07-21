@@ -543,7 +543,7 @@ h3.mediumFont{
     display: none;
     padding: 20px 10px;
 }
-#tnc-accodion.singleAccordion .content.active{
+#tnc-accodion .content.active{
 	display: block;
 }
 #tnc-accodion .content h3{
@@ -644,12 +644,12 @@ h3.mediumFont{
     z-index: 5;
 }
 .box_popup_search{
-	min-width: 100%;
+	min-width: 320px;
 	display: inline-block;
 	padding:40px 20px 20px 20px;
 	border-radius: 10px 10px 0 0;
 	background: #fff;
-	min-height: 85vh;
+	min-height: 90vh;
 	position: relative;
 	text-align: left;
 }
