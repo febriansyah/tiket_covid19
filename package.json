@@ -2,7 +2,7 @@
   "name": "tiket_covid19",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "dependencies": { 
     "@amcharts/amcharts4": "^4.9.30",
     "@amcharts/amcharts4-geodata": "^4.1.16",
     "@testing-library/jest-dom": "^4.2.4",
