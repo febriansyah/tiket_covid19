@@ -27,6 +27,12 @@ class SearchResult extends React.Component{
 		this.getCountryByCode(this.props.location.countryCode);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (this.props.location.state.data.id !== nextProps.location.state.data.id) {
+			this.getCountryByCode(nextProps.location.countryCode);
+		}
+	}
+
 	getCountryByCode(countryCode) {
 		const proxyurl = "https://cors-anywhere.herokuapp.com/";
 		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
@@ -60,12 +66,13 @@ class SearchResult extends React.Component{
 		const { dataItem } = this.state;
 		const { state } = this.props.location;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '';
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', color = '';
 		if (state && state.data) {
 			confirmed = state.data.confirmed;
 			deaths = state.data.deaths;
 			recovered = 0;
 			countryName = state.data.title;
+			color = state.data.color;
 		}
 		
 		return(
@@ -75,17 +82,17 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
-			    <div className="block_info alert_warning hide">
+			    <div className={`block_info alert_warning ${color !== 'yellow' && 'hide'}`}>
 			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
 			      <span>Partially prohibited, check local policy</span>
 			    </div>
 
-			    <div className="block_info alert_danger hide">
+			    <div className={`block_info alert_danger ${color !== 'red' && 'hide'}`}>
 			      <img src="assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
 			      <span>Prohibited, avoid non-essential travel</span>
 			    </div>
 
-			    <div className="block_info alert_safe">
+			    <div className={`block_info alert_safe ${color !== 'green' && 'hide'}`}>
 			      <img src="assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
 			      <span>Allowed, travel with safety precautions</span>
 			    </div>
@@ -93,7 +100,7 @@ class SearchResult extends React.Component{
 			    <section id="section_maps">
 			      <div className="rows">
 			        <div className="block_shadow">
-			          <h3>{dataItem && dataItem.countryName}</h3>
+			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
 						<div className="block_info_notif hide">
 							<span>Notify when then prohibition is lifted</span>
 						</div>
@@ -125,7 +132,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
-			            <h4>COVID-19 Cases in {dataItem && dataItem.countryName}</h4>
+			            <h4>COVID-19 Cases in {dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h4>
 			            <p className="green">No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">

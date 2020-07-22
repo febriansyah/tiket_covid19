@@ -9,25 +9,41 @@ import PropTypes from 'prop-types';
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
-const headers = {
-    "Access-Control-Allow-Origin": "*"
-}
+const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
 
-let listWorldMap = [];
+let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 const Maps = (props) => {
+    const {
+        homeZoomLevel,
+        latitude,
+        longitude
+    } = props;
+
     const history = useHistory();
-    const { homeZoomLevel } = props;
 
     const [listAllowedCountry, setListAllowedCountry] = useState([]);
     const [listEntryProhibited, setListEntryProhibited] = useState([]);
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
-
     const [covid_world_timeline, set_covid_world_timeline] = useState(null);
 
     useEffect(() => {
+        if (listWorldMap.length === 0) {
+            getCovidData();
+        }
+    }, [])
+
+    useEffect(() => {
+        if (covid_world_timeline) {
+            getCountryStatus('1');
+            getCountryStatus('2');
+            getCountryStatus('3');
+        }
+    }, [covid_world_timeline])
+
+    const getCovidData = () => {
         axios({
             method: 'get',
             url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
@@ -44,15 +60,7 @@ const Maps = (props) => {
 
             set_covid_world_timeline(result);
         })
-    }, [])
-
-    useEffect(() => {
-        if (covid_world_timeline) {
-            getCountryStatus('1');
-            getCountryStatus('2');
-            getCountryStatus('3');
-        }
-    }, [covid_world_timeline])
+    }
 
     const getCountryStatus = (n) => {
         axios({
@@ -62,6 +70,8 @@ const Maps = (props) => {
         })
         .then(res => {
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
+                listWorldMap = [];
+                
                 covid_world_timeline.list.map((i) => {
                     res.data.data.map((e) => {
                         if (i.id === e.id) {
@@ -73,6 +83,8 @@ const Maps = (props) => {
                         }
                     })
                 })
+
+                localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
                 
                 if (n === '1') {
                     setListAllowedCountry(res.data.data);
@@ -91,7 +103,7 @@ const Maps = (props) => {
         chart.geodata = am4geodata_worldLow;
 		chart.projection = new am4maps.projections.Miller();
 		chart.homeZoomLevel = homeZoomLevel;
-        chart.homeGeoPoint = { longitude: 10, latitude: 52 };
+        chart.homeGeoPoint = { longitude, latitude };
 
         let listData = [];
 
@@ -102,8 +114,6 @@ const Maps = (props) => {
                 "data": [e]
               })
         })
-
-        console.log(listData, 'listData');
         
         // This array will be populated with country IDs to exclude from the world series
         let excludedCountries = [];
@@ -152,13 +162,12 @@ const Maps = (props) => {
           // 	  console.log(JSON.parse(JSON.stringify(data.name)));
           // 	})
           //   })
-          mapPolygonTemplate.events.on("hit", function(event) {
+        mapPolygonTemplate.events.on("hit", function(event) {
               series.mapPolygons.each(function(mapPolygon) {
               //   console.log(mapPolygon, 'mapPolygon');
               })
   
               let data = event.target.dataItem.dataContext;
-              console.log(data, 'data', props);
   
               history.push({ pathname: '/SearchResult', state: { data } });
             
@@ -184,84 +193,84 @@ const Maps = (props) => {
             // (This method of copying works only for simple objects, e.g. it will not work
             //  as predictably for deep copying custom Classes.)
             series.data = JSON.parse(JSON.stringify(group.data));
-          });
-          
-          // The rest of the world.
-          let worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
-          let worldSeriesName = "world";
-          worldSeries.name = worldSeriesName;
-          worldSeries.useGeodata = true;
-          worldSeries.exclude = excludedCountries;
-          worldSeries.fillOpacity = 0.8;
-          worldSeries.hiddenInLegend = true;
-          worldSeries.mapPolygons.template.nonScalingStroke = true;
-          
-          
-          // // Create map polygon series
-          // let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
-          // polygonSeries.useGeodata = true;
-          // polygonSeries.states.create("hover").properties.fill = am4core.color("#367B25");
-          // let polygonTemplate = polygonSeries.mapPolygons.template;
-          // polygonTemplate.tooltipText = "{name}";
-          // var namanya = "{name}";
-          
-          // //polygonSeries.mapPolygons.template.fill = chart.colors.getIndex(0).lighten(0.5);
-          // polygonSeries.mapPolygons.template.nonScalingStroke = true;
-          // polygonSeries.events.on("hit", function(ev) {
-          //   console.log(ev.target.dataItem.dataContext);
-          //   ev.target.chart.zoomToMapObject(ev.target);
-          // })
-          
-          // polygonSeries.exclude = ["AQ"];
+        });
+        
+        // The rest of the world.
+        let worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
+        let worldSeriesName = "world";
+        worldSeries.name = worldSeriesName;
+        worldSeries.useGeodata = true;
+        worldSeries.exclude = excludedCountries;
+        worldSeries.fillOpacity = 0.8;
+        worldSeries.hiddenInLegend = true;
+        worldSeries.mapPolygons.template.nonScalingStroke = true;
           
           
-          // chart.zoomControl = new am4maps.ZoomControl();
+        // // Create map polygon series
+        // let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+        // polygonSeries.useGeodata = true;
+        // polygonSeries.states.create("hover").properties.fill = am4core.color("#367B25");
+        // let polygonTemplate = polygonSeries.mapPolygons.template;
+        // polygonTemplate.tooltipText = "{name}";
+        // var namanya = "{name}";
+        
+        // //polygonSeries.mapPolygons.template.fill = chart.colors.getIndex(0).lighten(0.5);
+        // polygonSeries.mapPolygons.template.nonScalingStroke = true;
+        // polygonSeries.events.on("hit", function(ev) {
+        //   console.log(ev.target.dataItem.dataContext);
+        //   ev.target.chart.zoomToMapObject(ev.target);
+        // })
+        
+        // polygonSeries.exclude = ["AQ"];
+        
+        
+        // chart.zoomControl = new am4maps.ZoomControl();
+        
+        
+        //polygonTemplate.fill = chart.colors.getIndex(0);
+        
+        // Create hover state and set alternative fill color
+        // let hs = polygonTemplate.states.create("hover");
+        // hs.properties.fill = chart.colors.getIndex(0).brighten(-0.5);
           
           
-          //polygonTemplate.fill = chart.colors.getIndex(0);
+        // Add line bullets
+        let cities = chart.series.push(new am4maps.MapImageSeries());
+        cities.mapImages.template.nonScaling = true;
+        
+        let city = cities.mapImages.template.createChild(am4core.Circle);
+        city.radius = 6;
+        city.fill = chart.colors.getIndex(0).brighten(-0.2);
+        city.strokeWidth = 2;
+        city.stroke = am4core.color("#fff");
           
-          // Create hover state and set alternative fill color
-          // let hs = polygonTemplate.states.create("hover");
-          // hs.properties.fill = chart.colors.getIndex(0).brighten(-0.5);
-          
-          
-          // Add line bullets
-          let cities = chart.series.push(new am4maps.MapImageSeries());
-          cities.mapImages.template.nonScaling = true;
-          
-          let city = cities.mapImages.template.createChild(am4core.Circle);
-          city.radius = 6;
-          city.fill = chart.colors.getIndex(0).brighten(-0.2);
-          city.strokeWidth = 2;
-          city.stroke = am4core.color("#fff");
-          
-          function addCity(coords, title) {
+        function addCity(coords, title) {
             //   let city = cities.mapImages.create();
             //   city.latitude = coords.latitude;
             //   city.longitude = coords.longitude;
             //   city.tooltipText = title;
             //   return city;
-          }
+        }
           
-          let chine = addCity({ "latitude": 35.0000, "longitude": 103.0000 }, "Chine");
-          let jakarta = addCity({ "latitude": -6.200000, "longitude": 106.816666 }, "Jakarta");
+        let chine = addCity({ "latitude": 35.0000, "longitude": 103.0000 }, "Chine");
+        let jakarta = addCity({ "latitude": -6.200000, "longitude": 106.816666 }, "Jakarta");
+        
+        // Add lines
+        let lineSeries = chart.series.push(new am4maps.MapArcSeries());
+        lineSeries.mapLines.template.line.strokeWidth = 2;
+        lineSeries.mapLines.template.line.strokeOpacity = 0.5;
+        lineSeries.mapLines.template.line.stroke = city.fill;
+        lineSeries.mapLines.template.line.nonScalingStroke = true;
+        lineSeries.mapLines.template.line.strokeDasharray = "1,1";
+        lineSeries.zIndex = 10;
+        
+        let shadowLineSeries = chart.series.push(new am4maps.MapLineSeries());
+        shadowLineSeries.mapLines.template.line.strokeOpacity = 0;
+        shadowLineSeries.mapLines.template.line.nonScalingStroke = true;
+        shadowLineSeries.mapLines.template.shortestDistance = false;
+        shadowLineSeries.zIndex = 5;
           
-          // Add lines
-          let lineSeries = chart.series.push(new am4maps.MapArcSeries());
-          lineSeries.mapLines.template.line.strokeWidth = 2;
-          lineSeries.mapLines.template.line.strokeOpacity = 0.5;
-          lineSeries.mapLines.template.line.stroke = city.fill;
-          lineSeries.mapLines.template.line.nonScalingStroke = true;
-          lineSeries.mapLines.template.line.strokeDasharray = "1,1";
-          lineSeries.zIndex = 10;
-          
-          let shadowLineSeries = chart.series.push(new am4maps.MapLineSeries());
-          shadowLineSeries.mapLines.template.line.strokeOpacity = 0;
-          shadowLineSeries.mapLines.template.line.nonScalingStroke = true;
-          shadowLineSeries.mapLines.template.shortestDistance = false;
-          shadowLineSeries.zIndex = 5;
-          
-          function addLine(from, to) {
+        function addLine(from, to) {
             //   let line = lineSeries.mapLines.create();
             //   line.imagesToConnect = [from, to];
             //   line.line.controlPointDistance = -0.3;
@@ -270,10 +279,35 @@ const Maps = (props) => {
             //   shadowLine.imagesToConnect = [from, to];
           
             //   return line;
-          }
+        }
           
-          addLine(chine, jakarta);
+        addLine(chine, jakarta);
           
+        function showIndicator() {
+            let indicator = chart.tooltipContainer.createChild(am4core.Container);
+            indicator.background.fill = am4core.color("#fff");
+            indicator.background.fillOpacity = 0.5;
+            indicator.width = am4core.percent(100);
+            indicator.height = am4core.percent(100);
+
+            let hourglass = indicator.createChild(am4core.Image);
+            hourglass.href = "assets/images/loading_static.png";
+            hourglass.align = "center";
+            hourglass.valign = "middle";
+            hourglass.horizontalCenter = "middle";
+            hourglass.verticalCenter = "middle";
+            hourglass.scale = 0.5;
+
+            setInterval(function() {
+                hourglass.animate([{
+                  from: 0,
+                  to: 360,
+                  property: "rotation"
+                }], 1000);
+            }, 1000);
+        }
+        
+        if (listData.length === 0) showIndicator();
           
           // Add plane
         //   let plane = lineSeries.mapLines.getIndex(0).lineObjects.create();
@@ -311,11 +345,11 @@ const Maps = (props) => {
         //       return 0.5 - 0.3 * (1 - (Math.abs(0.5 - target.position)));
         //   })
           
-          // Plane animation
-          let currentLine = 0;
-          let direction = 1;
+        // Plane animation
+        let currentLine = 0;
+        let direction = 1;
 
-          function flyPlane() {
+        function flyPlane() {
             //   plane.mapLine = lineSeries.mapLines.getIndex(currentLine);
             //   plane.parent = lineSeries;
             //   shadowPlane.mapLine = shadowLineSeries.mapLines.getIndex(currentLine);
@@ -365,24 +399,24 @@ const Maps = (props) => {
             //       currentLine = numLines - 1;
             //       direction = -1;
             //   }
-          }
+        }
           
-          flyPlane();
+        flyPlane();
 
-          if (typeof window.popupSlider !== 'undefined') {
-              window.popupSlider();
-          }
+        window.popupSlider();
     }, [
         listAllowedCountry,
         listEntryProhibited,
         listPartiallyProhibited
     ])
 
-    useEffect(() => {
-        return () => {
-            listWorldMap = [];
-        }
-    }, [])
+    // useEffect(() => {
+    //     return () => {
+    //         listWorldMap = [];
+    //     }
+    // }, [])
+
+    console.log(listWorldMap, 'listWorldMap');
 
     return (
         <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
@@ -391,10 +425,14 @@ const Maps = (props) => {
 
 Maps.propTypes = {
     homeZoomLevel: PropTypes.number,
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
 };
   
 Maps.defaultProps = {
     homeZoomLevel: 1.7,
+    latitude: 52,
+    longitude: 11,
 };
 
 export default Maps;
