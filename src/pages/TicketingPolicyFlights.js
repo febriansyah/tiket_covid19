@@ -138,7 +138,7 @@ class TicketingPolicyFlights extends React.Component{
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
-			    <div className="rows">
+			    <div className="rows fixed_button">
 			    	<div className="button_bottom">
 			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>

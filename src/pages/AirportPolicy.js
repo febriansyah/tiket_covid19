@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery'; 
 import axios from 'axios';
+import StickyShare from './StickyShare';
 
 class AirportPolicy extends React.Component{
 	constructor(props){
@@ -127,11 +128,7 @@ class AirportPolicy extends React.Component{
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
-			    <div className="rows">
-			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
-			    	</div>
-			    </div>{/* end.rows */}
+			    <StickyShare />
 			  </div>{/* end.wrapper */}
 			</div>
 

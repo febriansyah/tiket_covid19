@@ -68,7 +68,7 @@ const Maps = (props) => {
                             listWorldMap.push({
                                 ...e,
                                 ...i,
-                                color: n === '1' ? 'green' : n === '2' ? 'yellow' : 'red'
+                                color: n === '1' ? '#02ac32' : n === '2' ? '#fedd00' : '#e20019'
                             });
                         }
                     })

@@ -8,6 +8,7 @@ import AirlinePolicyDetail from './pages/AirlinePolicyDetail';
 import AirportPolicy from './pages/AirportPolicy';
 import AirportPolicyDetail from './pages/AirportPolicyDetail';
 import TicketingPolicyFlights from './pages/TicketingPolicyFlights';
+import ScrollToTop from './pages/ScrollToTop';
 import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <div>
       <Router>
+      <ScrollToTop />
         <Switch>
           <Route exact path='/' component = {Home} />
           <Route path='/SearchResult' component = {SearchResult} />
