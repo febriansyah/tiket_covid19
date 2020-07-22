@@ -41,7 +41,7 @@ class SearchResult extends React.Component{
 		.then(res => {
 			// this.setState({list_data_popular: response.data.data})
 			console.log(res, 'res country');
-			if (res.data.status == 'success') {
+			if (res.data.status === 'success') {
 				if (res.data.data.length > 0) {
 					this.setState({ dataItem: res.data.data[0] })
 				}
@@ -55,9 +55,18 @@ class SearchResult extends React.Component{
 	}
 
 	render() {
-		// console.log(this.props, this.state, 'search result');
+		console.log(this.props,  'search result');
 
 		const { dataItem } = this.state;
+		const { state } = this.props.location;
+		
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '';
+		if (state && state.data) {
+			confirmed = state.data.confirmed;
+			deaths = state.data.deaths;
+			recovered = 0;
+			countryName = state.data.title;
+		}
 		
 		return(
 			<div id="middle-content" className="homePage">
@@ -66,26 +75,18 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
-				<div className="box-loading2">
-					<div className="spinner">
-						<div className="bounce1"></div>
-						<div className="bounce2"></div>
-						<div className="bounce3"></div>
-					</div>
-				</div>
-
 			    <div className="block_info alert_warning hide">
-			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" />
+			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
 			      <span>Partially prohibited, check local policy</span>
 			    </div>
 
 			    <div className="block_info alert_danger hide">
-			      <img src="assets/images/icon_alert_danger.png" className="icon_alert" />
+			      <img src="assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
 			      <span>Prohibited, avoid non-essential travel</span>
 			    </div>
 
 			    <div className="block_info alert_safe">
-			      <img src="assets/images/icon_alert_safe.png" className="icon_alert" />
+			      <img src="assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
 			      <span>Allowed, travel with safety precautions</span>
 			    </div>
 
@@ -110,16 +111,26 @@ class SearchResult extends React.Component{
 			      </div>
 			    </section>
 
+				<div className="halBefore-kuis">
+					<div className="box-loading2">
+						<div className="spinner">
+							<div className="bounce1"></div>
+							<div className="bounce2"></div>
+							<div className="bounce3"></div>
+						</div>
+					</div>
+				</div>
+
 			    <section id="section_result_maps">
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
 			            <h4>COVID-19 Cases in {dataItem && dataItem.countryName}</h4>
-			            <p className="green">No new cases in Singapore for 1 day</p>
+			            <p className="green">No new cases in {countryName} for 1 day</p>
 			          </div>
-			          <div className="right">
+			          {/* <div className="right">
 			            <a href="#" className="arrow_up"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
-			          </div>
+			          </div> */}
 			        </div>
 			      </div>
 			      <div className="rows">
@@ -128,28 +139,28 @@ class SearchResult extends React.Component{
 			            <div className="cols4">
 			              <div className="info_cause">
 			                <span className="growth red">+111</span>
-			                <h4 className="number_cause">24,064</h4>
+			                <h4 className="number_cause">{confirmed}</h4>
 			                <p>Active Cases</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
 			                <span className="growth green">0</span>
-			                <h4 className="number_cause">58,253</h4>
+			                <h4 className="number_cause">{confirmed+ deaths}</h4>
 			                <p>Total</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
 			                <span className="growth red">+11</span>
-			                <h4 className="number_cause">24,064</h4>
+			                <h4 className="number_cause">{recovered}</h4>
 			                <p>Recoveries</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
 			                <span className="growth green">+0</span>
-			                <h4 className="number_cause">253</h4>
+			                <h4 className="number_cause">{deaths}</h4>
 			                <p>Deaths</p>
 			              </div>
 			            </div>
@@ -231,7 +242,7 @@ class SearchResult extends React.Component{
 
 			    <div className="rows">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,9 +10,7 @@ const initialSearch = {
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
-const headers = {
-	"Access-Control-Allow-Origin": "*"
-}
+const headers = { "Access-Control-Allow-Origin": "*"};
 
 class Popup extends React.Component{
 	constructor(props){
@@ -26,38 +24,74 @@ class Popup extends React.Component{
 		  ...initialSearch,
 		  listAirport: [],
 		  listAirlines: [],
+		  covid_world_timeline: null,
 		};
 	}
 
 	componentWillMount() {
-		this._listData();
-		this.getListAirport();
-		this.getListAirlines();
+		axios({
+            method: 'get',
+            url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
+            headers
+        })
+        .then(res => {
+            let data = res.data.replace(/\s/g, '').split('=')[1];
+            let arrData = JSON.parse(data);
+            let result = [];
+            
+            if (Array.isArray(arrData)) {
+                result = arrData[arrData.length - 1];
+			}
+
+			this.setState({ covid_world_timeline: result });
+			
+			this._listData();
+			this.getListAirport();
+			this.getListAirlines();
+        })
 	}
 
 	componentWillUnmount() {
 		this.setState({ ...initialSearch });
 	}
 
-	_listData = async () => {
+	_listData = () => {
 		axios({
 			method: 'get',
 			url: proxyurl + apiUrl +'suggestion/popular-city',
 			headers
 		})
 		.then(response => {
-			this.setState({list_data_popular: response.data.data})
+			// console.log(response, 'response popular city');
+			const { covid_world_timeline } = this.state;
+			let newItem = null;
+			let remapCity = [];
+
+			if (covid_world_timeline) {
+				newItem = covid_world_timeline.list.filter((item) => item.id === 'ID')[0];
+			}
+
+			if (Array.isArray(response.data.data)) {
+				response.data.data.forEach(e => {
+					remapCity.push({
+						...e,
+						...newItem,
+					})
+				});
+			}
+
+			this.setState({ list_data_popular: remapCity });
 		})
 	}
 
-	getListAirport = async() => {
+	getListAirport() {
 		axios({
 			method: 'get',
 			url: proxyurl + apiUrl + 'airports?lang=id',
 			headers
 		})
 		.then(res => {
-			if (res.data.status == 'success') {
+			if (res.data.status === 'success') {
 				this.setState({ listAirport: res.data.data });
 			}
 			
@@ -71,9 +105,7 @@ class Popup extends React.Component{
 			headers
 		})
 		.then(res => {
-			console.log(res, 'res get airlines');
-			
-			if (res.data.status == 'success') {
+			if (res.data.status === 'success') {
 				this.setState({ listAirlines: res.data.data })
 			}
 		})
@@ -91,7 +123,11 @@ class Popup extends React.Component{
 		this.setState({ searchText }, () => {
 			if (searchText.length > 2) {
 				this.typingTimeout = setTimeout(() => {
-					this.searchCitiesOrAirport(searchText, this.state.searchPage);
+					if (type === 'airline_policy') {
+						this.searchAirline(searchText);
+					} else {
+						this.searchCitiesOrAirport(searchText, this.state.searchPage);
+					}
 				}, 2000);
 			}
 		})
@@ -106,9 +142,38 @@ class Popup extends React.Component{
 			headers
 		})
 		.then(res => {
+			// console.log(res, 'res search');
+			const { covid_world_timeline } = this.state;
+			let newItem = null;
+			let remapCity = [];
+
+			if (covid_world_timeline) {
+				newItem = covid_world_timeline.list.filter((item) => item.id === 'ID')[0];
+			}
+
+			if (res.data.status === 'success' && Array.isArray(res.data.data)) {
+				res.data.data.forEach(e => {
+					remapCity.push({
+						...e,
+						...newItem,
+					})
+				});
+			}
+
+			this.setState({ searchResult: remapCity });
+		})
+	}
+
+	searchAirline(text, page) {
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + `suggestion/airlines?keyword=${text}&page=${page}`,
+			headers
+		})
+		.then(res => {
 			console.log(res, 'res search');
 			
-			if (res.data.status == 'success') {
+			if (res.data.status === 'success') {
 				this.setState({ searchResult: res.data.data });
 			}
 			
@@ -121,10 +186,15 @@ class Popup extends React.Component{
 		return list_data_popular.map((value, idx) =>
 			<Link
 				key={idx}
-				to={{pathname: "/search-result", countryCode: value.countryCode ? value.countryCode : 'MY' }}
+				to={{pathname: "/SearchResult", state: {
+					data: {
+						...value,
+						countryCode: value.countryCode ? value.countryCode : 'MY'
+					}
+				}}}
 				className="row_result_autocomplete trigger_close_popup"
 			>
-				<img src="assets/images/icon_general_city.png" className="icon_city" />
+				<img src="assets/images/icon_general_city.png" className="icon_city" alt='city' />
 				<span>{value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
 			</Link>
 		)	
@@ -136,10 +206,10 @@ class Popup extends React.Component{
 		return data.map((item, idx) =>
 			<Link
 				key={idx}
-				to={{ pathname: "/AirportPolicyDomestic/"+item.airportCode }}
+				to={{ pathname: "/AirportPolicyDetail", state: { airportCode: item.airportCode } }}
 				className="row_result_autocomplete trigger_close_popup"
 			>
-				<img src="assets/images/icon_general_city.png" className="icon_city" />
+				<img src="assets/images/icon_general_city.png" className="icon_city" alt='city' />
 				<span>{item.airportName}</span>
 			</Link>
 		)
@@ -149,15 +219,15 @@ class Popup extends React.Component{
 		let data = this.state.searchText.length > 2 ? this.state.searchResult : this.state.listAirlines;
 
 		return data.map((item, idx) =>
-			<Link to="/search-result" className="row_result_autocomplete trigger_close_popup" key={idx}>
-				<img src={item.imageURL} className="icon_city" />
+			<Link to={{ pathname: '/AirlinePolicyDetail', state: { serial: item.serial } }} className="row_result_autocomplete trigger_close_popup" key={idx}>
+				<img src={item.imageURL} className="icon_city" alt='city' />
 				<span>{item.airlinesName}</span>
 			</Link>
 		)
 	}
 
 	render() {
-		// console.log(this.state, 'state popup');
+		console.log(this.state, 'state popup');
 		
 		return(
 			<div>
@@ -232,7 +302,7 @@ class Popup extends React.Component{
 						        </div>
 						        <div className="list_noneResult hide">
 						        	<div className="icon_noneResult">
-						        		<img src="assets/images/no_result.png" />
+						        		<img src="assets/images/no_result.png" alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
 						        		<h3>Let’s use another keyword</h3>
@@ -259,7 +329,14 @@ class Popup extends React.Component{
 						    </div>{/* end.rows */}
 						    <div className="rows">
 						        <div className="search_row">
-						          <input type="text" className="search_input" name="" placeholder="Search airline policy" />
+						        	<input
+										type="text"
+										className="search_input"
+										name=""
+										value={this.state.searchText}
+										onChange={(val) => this.onChangeText(val, 'airline_policy')}
+										placeholder="Search airline policy"
+									/>
 						        </div>
 						    </div> {/* end.rows */}
 						    <div className="rows">
@@ -268,7 +345,7 @@ class Popup extends React.Component{
 						        </div>
 						        <div className="list_noneResult hide">
 						        	<div className="icon_noneResult">
-						        		<img src="assets/images/no_result.png" />
+						        		<img src="assets/images/no_result.png" alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
 						        		<h3>Let’s use another keyword</h3>
@@ -311,7 +388,7 @@ class Popup extends React.Component{
 						        </div>
 						        <div className="list_noneResult hide">
 						        	<div className="icon_noneResult">
-						        		<img src="assets/images/no_result.png" />
+						        		<img src="assets/images/no_result.png" alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
 						        		<h3>Let’s use another keyword</h3>

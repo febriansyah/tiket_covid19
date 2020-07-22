@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery'; 
 import axios from 'axios';
 
-class AirlinePolicyDomestic extends Component{
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const headers = { "Access-Control-Allow-Origin": "*" };
 
+class AirlinePolicyDomestic extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
@@ -14,34 +17,31 @@ class AirlinePolicyDomestic extends Component{
 		  count_item: 0,
 		};
 	}
+
 	componentWillMount() {
 		this._listData();
 	}
 	
-	_listData = async () => {
-
-		const proxyurl = "https://cors-anywhere.herokuapp.com/";
-			axios({
-				method: 'get',
-				url: proxyurl+'https://api.tiketsafe.com/api/v1/airlines?lang=id&page=1&flightType=1',
-				headers: {
-					"Access-Control-Allow-Origin": "*"
-				}
-			})
-			.then(response => {
-				this.setState({list_data_airline: response.data.data})
-				console.log('Done with Ajax call');
-				$(".halBefore-kuis").fadeOut();
-				window.activeAccordion();
-			});
-
+	_listData = () => {
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + 'airlines?lang=id&page=1&flightType=1',
+			headers
+		})
+		.then(response => {
+			this.setState({ list_data_airline: response.data.data });
+			$(".halBefore-kuis").fadeOut();
+			window.activeAccordion();
+		});
 	}
 
 	RenderAirlinetList(list_data_airline) {
+		console.log(list_data_airline, 'list_data_airline');
+		
 		return list_data_airline.map((value, i)=>
 			<div className="items" key={i}>
               <div className="page">
-              	<img src={value.imageURL} className="icon_airline" />
+              	<img src={value.imageURL} className="icon_airline" alt='airline_logo' />
 				<span>{value.airlinesName}</span>
               </div>
               <div className="content">
@@ -66,6 +66,7 @@ class AirlinePolicyDomestic extends Component{
             </div>
 		)		
 	}
+
 	componentDidMount() {
 		window.readmoreFade();
 		window.popupSlider();
@@ -88,9 +89,7 @@ class AirlinePolicyDomestic extends Component{
 			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search Airline" />
-
-					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
+					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airplane_policy" name="" placeholder="Search Airline" />
 					  </div>
 					</div>{/* end.rows */}
 					<div className="rows">
@@ -136,7 +135,7 @@ class AirlinePolicyDomestic extends Component{
 			    </section>
 			    <div className="rows">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}
@@ -144,4 +143,5 @@ class AirlinePolicyDomestic extends Component{
 		)
 	}
 }
+
 export default AirlinePolicyDomestic;

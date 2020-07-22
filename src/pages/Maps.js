@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
@@ -9,40 +8,82 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = {
     "Access-Control-Allow-Origin": "*"
 }
 
 am4core.useTheme(am4themes_animated);
 
+let listWorldMap = [];
+
 const Maps = (props) => {
     const history = useHistory();
     const { homeZoomLevel } = props;
 
-    // const [covid_total_timeline, set_covid_total_timeline] = useState([]);
-    const [covid_world_timeline, set_covid_world_timeline] = useState([]);
+    const [listAllowedCountry, setListAllowedCountry] = useState([]);
+    const [listEntryProhibited, setListEntryProhibited] = useState([]);
+    const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
+
+    const [covid_world_timeline, set_covid_world_timeline] = useState(null);
 
     useEffect(() => {
-        // axios({
-		// 	method: 'get',
-		// 	url: proxyurl + 'https://covid.amcharts.com/data/js/total_timeline.js',
-		// 	headers
-		// })
-		// .then(res => {
-        //     let data = res.data.split(' = ')[1];
-        //     set_covid_total_timeline(JSON.parse(data));
-		// })
-        
         axios({
             method: 'get',
             url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
             headers
         })
         .then(res => {
-            let data = res.data.split(' = ')[1];
-            set_covid_world_timeline(JSON.parse(data));
+            let data = res.data.replace(/\s/g, '').split('=')[1];
+            let arrData = JSON.parse(data);
+            let result = [];
+            
+            if (Array.isArray(arrData)) {
+                result = arrData[arrData.length - 1];
+            }
+
+            set_covid_world_timeline(result);
         })
     }, [])
+
+    useEffect(() => {
+        if (covid_world_timeline) {
+            getCountryStatus('1');
+            getCountryStatus('2');
+            getCountryStatus('3');
+        }
+    }, [covid_world_timeline])
+
+    const getCountryStatus = (n) => {
+        axios({
+            type: 'get',
+            url: proxyurl + apiUrl + `country-status?status=${n}`,
+            headers
+        })
+        .then(res => {
+            if (res.data.status === 'success' && Array.isArray(res.data.data)) {
+                covid_world_timeline.list.map((i) => {
+                    res.data.data.map((e) => {
+                        if (i.id === e.id) {
+                            listWorldMap.push({
+                                ...e,
+                                ...i,
+                                color: n === '1' ? 'green' : n === '2' ? 'yellow' : 'red'
+                            });
+                        }
+                    })
+                })
+                
+                if (n === '1') {
+                    setListAllowedCountry(res.data.data);
+                } else if (n === '2') {
+                    setListEntryProhibited(res.data.data);
+                } else if (n === '3') {
+                    setListPartiallyProhibited(res.data.data);
+                }
+            }
+        })
+    }
 
     useLayoutEffect(() => {
         let chart = am4core.create("chart", am4maps.MapChart);
@@ -52,31 +93,18 @@ const Maps = (props) => {
 		chart.homeZoomLevel = homeZoomLevel;
         chart.homeGeoPoint = { longitude: 10, latitude: 52 };
 
-        let remapNewCountryData = [];
-        if (covid_world_timeline.length > 0) {
-            covid_world_timeline[covid_world_timeline.length - 1].list.forEach((e) => {
-                if (e.id !== 'AQ') {
-                    remapNewCountryData.push(e);
-                }
-            })
-        }
-
         let listData = [];
 
-        remapNewCountryData.forEach((e) => {
+        listWorldMap.forEach((e) => {
             listData.push({
                 "name": "Info Covid-19",
-                "color": e.confirmed == 0 ? 'green': 'red',
-                "data": [
-                    {
-                        "title": "Country",
-                        ...e
-                    }
-                ]
+                "color": e.color,
+                "data": [e]
               })
         })
+
+        console.log(listData, 'listData');
         
-          
         // This array will be populated with country IDs to exclude from the world series
         let excludedCountries = [];
         
@@ -132,7 +160,7 @@ const Maps = (props) => {
               let data = event.target.dataItem.dataContext;
               console.log(data, 'data', props);
   
-              props.history.push({ pathname: '/search-result', state: { countryCode: data.id } });
+              history.push({ pathname: '/SearchResult', state: { data } });
             
             })
   
@@ -147,7 +175,7 @@ const Maps = (props) => {
             hoverState.properties.fill = am4core.color("#CC0000");
           
             // Tooltip
-            mapPolygonTemplate.tooltipText = "{id} confirmed = {confirmed}"; // enables tooltip
+            mapPolygonTemplate.tooltipText = "{title} confirmed = {confirmed}"; // enables tooltip
             // series.tooltip.getFillFromObject = false; // prevents default colorization, which would make all tooltips red on hover
             // series.tooltip.background.fill = am4core.color(group.color);
           
@@ -208,16 +236,15 @@ const Maps = (props) => {
           city.stroke = am4core.color("#fff");
           
           function addCity(coords, title) {
-              let city = cities.mapImages.create();
-              city.latitude = coords.latitude;
-              city.longitude = coords.longitude;
-              city.tooltipText = title;
-              return city;
+            //   let city = cities.mapImages.create();
+            //   city.latitude = coords.latitude;
+            //   city.longitude = coords.longitude;
+            //   city.tooltipText = title;
+            //   return city;
           }
           
           let chine = addCity({ "latitude": 35.0000, "longitude": 103.0000 }, "Chine");
           let jakarta = addCity({ "latitude": -6.200000, "longitude": 106.816666 }, "Jakarta");
-          
           
           // Add lines
           let lineSeries = chart.series.push(new am4maps.MapArcSeries());
@@ -235,120 +262,127 @@ const Maps = (props) => {
           shadowLineSeries.zIndex = 5;
           
           function addLine(from, to) {
-              let line = lineSeries.mapLines.create();
-              line.imagesToConnect = [from, to];
-              line.line.controlPointDistance = -0.3;
+            //   let line = lineSeries.mapLines.create();
+            //   line.imagesToConnect = [from, to];
+            //   line.line.controlPointDistance = -0.3;
           
-              let shadowLine = shadowLineSeries.mapLines.create();
-              shadowLine.imagesToConnect = [from, to];
+            //   let shadowLine = shadowLineSeries.mapLines.create();
+            //   shadowLine.imagesToConnect = [from, to];
           
-              return line;
+            //   return line;
           }
           
           addLine(chine, jakarta);
           
           
           // Add plane
-          let plane = lineSeries.mapLines.getIndex(0).lineObjects.create();
-          plane.position = 0;
-          plane.width = 48;
-          plane.height = 48;
+        //   let plane = lineSeries.mapLines.getIndex(0).lineObjects.create();
+        //   plane.position = 0;
+        //   plane.width = 48;
+        //   plane.height = 48;
           
-          plane.adapter.add("scale", function(scale, target) {
-              return 0.5 * (1 - (Math.abs(0.5 - target.position)));
-          })
+        //   plane.adapter.add("scale", function(scale, target) {
+        //       return 0.5 * (1 - (Math.abs(0.5 - target.position)));
+        //   })
           
-          let planeImage = plane.createChild(am4core.Sprite);
-          planeImage.scale = 0.08;
-          planeImage.horizontalCenter = "middle";
-          planeImage.verticalCenter = "middle";
-          planeImage.path = "m2,106h28l24,30h72l-44,-133h35l80,132h98c21,0 21,34 0,34l-98,0 -80,134h-35l43,-133h-71l-24,30h-28l15,-47";
-          planeImage.fill = "#0079D8";
-          planeImage.strokeOpacity = 0;
+        //   let planeImage = plane.createChild(am4core.Sprite);
+        //   planeImage.scale = 0.08;
+        //   planeImage.horizontalCenter = "middle";
+        //   planeImage.verticalCenter = "middle";
+        //   planeImage.path = "m2,106h28l24,30h72l-44,-133h35l80,132h98c21,0 21,34 0,34l-98,0 -80,134h-35l43,-133h-71l-24,30h-28l15,-47";
+        //   planeImage.fill = "#0079D8";
+        //   planeImage.strokeOpacity = 0;
           
-          let shadowPlane = shadowLineSeries.mapLines.getIndex(0).lineObjects.create();
-          shadowPlane.position = 0;
-          shadowPlane.width = 48;
-          shadowPlane.height = 48;
+        //   let shadowPlane = shadowLineSeries.mapLines.getIndex(0).lineObjects.create();
+        //   shadowPlane.position = 0;
+        //   shadowPlane.width = 48;
+        //   shadowPlane.height = 48;
           
-          let shadowPlaneImage = shadowPlane.createChild(am4core.Sprite);
-          shadowPlaneImage.scale = 0.05;
-          shadowPlaneImage.horizontalCenter = "middle";
-          shadowPlaneImage.verticalCenter = "middle";
-          shadowPlaneImage.path = "m2,106h28l24,30h72l-44,-133h35l80,132h98c21,0 21,34 0,34l-98,0 -80,134h-35l43,-133h-71l-24,30h-28l15,-47";
-          shadowPlaneImage.fill = am4core.color("#000");
-          shadowPlaneImage.strokeOpacity = 0;
+        //   let shadowPlaneImage = shadowPlane.createChild(am4core.Sprite);
+        //   shadowPlaneImage.scale = 0.05;
+        //   shadowPlaneImage.horizontalCenter = "middle";
+        //   shadowPlaneImage.verticalCenter = "middle";
+        //   shadowPlaneImage.path = "m2,106h28l24,30h72l-44,-133h35l80,132h98c21,0 21,34 0,34l-98,0 -80,134h-35l43,-133h-71l-24,30h-28l15,-47";
+        //   shadowPlaneImage.fill = am4core.color("#000");
+        //   shadowPlaneImage.strokeOpacity = 0;
           
-          shadowPlane.adapter.add("scale", function(scale, target) {
-              target.opacity = (0.6 - (Math.abs(0.5 - target.position)));
-              return 0.5 - 0.3 * (1 - (Math.abs(0.5 - target.position)));
-          })
+        //   shadowPlane.adapter.add("scale", function(scale, target) {
+        //       target.opacity = (0.6 - (Math.abs(0.5 - target.position)));
+        //       return 0.5 - 0.3 * (1 - (Math.abs(0.5 - target.position)));
+        //   })
           
           // Plane animation
           let currentLine = 0;
           let direction = 1;
+
           function flyPlane() {
+            //   plane.mapLine = lineSeries.mapLines.getIndex(currentLine);
+            //   plane.parent = lineSeries;
+            //   shadowPlane.mapLine = shadowLineSeries.mapLines.getIndex(currentLine);
+            //   shadowPlane.parent = shadowLineSeries;
+            //   shadowPlaneImage.rotation = planeImage.rotation;
           
-              // Get current line to attach plane to
-              plane.mapLine = lineSeries.mapLines.getIndex(currentLine);
-              plane.parent = lineSeries;
-              shadowPlane.mapLine = shadowLineSeries.mapLines.getIndex(currentLine);
-              shadowPlane.parent = shadowLineSeries;
-              shadowPlaneImage.rotation = planeImage.rotation;
+            //   // Set up animation
+            //   let from, to;
+            //   let numLines = lineSeries.mapLines.length;
+            //   if (direction == 1) {
+            //       from = 0
+            //       to = 1;
+            //       if (planeImage.rotation != 0) {
+            //           planeImage.animate({ to: 0, property: "rotation" }, 1000).events.on("animationended", flyPlane);
+            //           return;
+            //       }
+            //   }
+            //   else {
+            //       from = 1;
+            //       to = 0;
+            //       if (planeImage.rotation != 180) {
+            //           planeImage.animate({ to: 180, property: "rotation" }, 1000).events.on("animationended", flyPlane);
+            //           return;
+            //       }
+            //   }
           
-              // Set up animation
-              let from, to;
-              let numLines = lineSeries.mapLines.length;
-              if (direction == 1) {
-                  from = 0
-                  to = 1;
-                  if (planeImage.rotation != 0) {
-                      planeImage.animate({ to: 0, property: "rotation" }, 1000).events.on("animationended", flyPlane);
-                      return;
-                  }
-              }
-              else {
-                  from = 1;
-                  to = 0;
-                  if (planeImage.rotation != 180) {
-                      planeImage.animate({ to: 180, property: "rotation" }, 1000).events.on("animationended", flyPlane);
-                      return;
-                  }
-              }
-          
-              // Start the animation
-              let animation = plane.animate({
-                  from: from,
-                  to: to,
-                  property: "position"
-              }, 5000, am4core.ease.sinInOut);
-              animation.events.on("animationended", flyPlane)
+            //   // Start the animation
+            //   let animation = plane.animate({
+            //       from: from,
+            //       to: to,
+            //       property: "position"
+            //   }, 5000, am4core.ease.sinInOut);
+            //   animation.events.on("animationended", flyPlane)
       
-              shadowPlane.animate({
-                  from: from,
-                  to: to,
-                  property: "position"
-              }, 5000, am4core.ease.sinInOut);
+            //   shadowPlane.animate({
+            //       from: from,
+            //       to: to,
+            //       property: "position"
+            //   }, 5000, am4core.ease.sinInOut);
           
-              currentLine += direction;
-              if (currentLine < 0) {
-                  currentLine = 0;
-                  direction = 1;
-              }
-              else if ((currentLine + 1) > numLines) {
-                  currentLine = numLines - 1;
-                  direction = -1;
-              }
-          
+            //   currentLine += direction;
+            //   if (currentLine < 0) {
+            //       currentLine = 0;
+            //       direction = 1;
+            //   }
+            //   else if ((currentLine + 1) > numLines) {
+            //       currentLine = numLines - 1;
+            //       direction = -1;
+            //   }
           }
           
-          // Go!
           flyPlane();
-          window.popupSlider();
-    }, [covid_world_timeline])
 
-    // console.log(props, 'props m');
-    
+          if (typeof window.popupSlider !== 'undefined') {
+              window.popupSlider();
+          }
+    }, [
+        listAllowedCountry,
+        listEntryProhibited,
+        listPartiallyProhibited
+    ])
+
+    useEffect(() => {
+        return () => {
+            listWorldMap = [];
+        }
+    }, [])
 
     return (
         <div id='chart' style={{maxWidth: '100%', height: '250px'}} />

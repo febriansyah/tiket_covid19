@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4maps from "@amcharts/amcharts4/maps";
-import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import React from 'react';
+import { Link } from 'react-router-dom';
+// import * as am4core from "@amcharts/amcharts4/core";
+// import * as am4maps from "@amcharts/amcharts4/maps";
+// import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+// import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 import Maps from './Maps';
 
-am4core.useTheme(am4themes_animated);
+// am4core.useTheme(am4themes_animated);
 
 class Home extends React.Component {
 	// componentDidMount() {
@@ -123,7 +123,7 @@ class Home extends React.Component {
 	// 		let data = event.target.dataItem.dataContext;
 	// 		console.log(data, 'data', props);
 
-	// 		props.history.push({ pathname: '/search-result', state: { data } });
+	// 		props.history.push({ pathname: '/SearchResult', state: { data } });
 		  
 	// 	  })
 
@@ -405,7 +405,7 @@ class Home extends React.Component {
 
 						      <Link to="/AirlinePolicyDomestic">
 							      <div className="icon_policy">
-							        <img src="assets/images/icon_airlines_polic.png" />
+							        <img src="assets/images/icon_airlines_polic.png" alt='airline_logo' />
 							      </div>
 							      <div className="caption_policy">
 							        <h3>Airline Policy</h3>
@@ -417,7 +417,7 @@ class Home extends React.Component {
 						    <div className="block_policy">
 								<Link to="/AirportPolicy">
 							      <div className="icon_policy">
-							        <img src="assets/images/icon_airport_policy.png" />
+							        <img src="assets/images/icon_airport_policy.png" alt='airport_logo' />
 							      </div>
 							      <div className="caption_policy">
 							        <h3>Airport Policy</h3>
@@ -429,7 +429,7 @@ class Home extends React.Component {
 						    <div className="block_policy">
 								<Link to="/TicketingPolicyFlights">
 							      <div className="icon_policy">
-							        <img src="assets/images/icon_how_to_buy_tic.png" />
+							        <img src="assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
 							      </div>
 							      <div className="caption_policy">
 							        <h3>Ticketing Policy</h3>

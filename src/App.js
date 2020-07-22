@@ -17,18 +17,27 @@ function App() {
       <Router>
         <Switch>
           <Route exact path='/' component = {Home} />
-          <Route path='/search-result' component = {SearchResult} />
+          <Route path='/SearchResult' component = {SearchResult} />
           <Route path='/AirlinePolicyDomestic' component = {AirlinePolicyDomestic} />
           <Route path='/AirlinePolicyInternational' component = {AirlinePolicyInternational} />
           <Route path='/AirlinePolicyDetail' component = {AirlinePolicyDetail} />
           <Route path='/AirportPolicy' component = {AirportPolicy} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
+          <Route component={PageNotFound} />
         </Switch>
         <Popup />
       </Router>
     </div>
   );
+}
+
+function PageNotFound() {
+  return (
+    <div style={{width: '100%', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <p>halaman tidak ditemukan</p>
+    </div>
+  )
 }
 
 export default App;
