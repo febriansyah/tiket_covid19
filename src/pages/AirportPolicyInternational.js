@@ -94,8 +94,7 @@ class AirportPolicyInternational extends React.Component{
 			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search airport or cities" />
-					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airport_policy"></div>
+					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airport_policy" name="" placeholder="Search airport or cities" />
 					  </div>
 					</div>{/* end.rows */}
 					<div className="rows">

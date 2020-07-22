@@ -1,36 +1,68 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-class AirlinePolicyDetail extends React.Component{
-	constructor(props){
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const headers = { "Access-Control-Allow-Origin": "*"};
+
+class AirlinePolicyDetail extends Component{
+	constructor(props) {
 	   super(props);
+	   this.state = {
+			dataItem: null
+	   }
+
 	   this.goBack = this.goBack.bind(this);
 	}
-	goBack(){
+
+	goBack() {
 	    this.props.history.goBack();
 	}
 
 	componentDidMount() {
-		 window.activeAccordion();
+		window.readmoreFade();
+		window.activeAccordion();
+		window.popupSlider();
+
+		this.getAirlineDetail(this.props.location.state.serial);
 	}
-	render(){
+
+	getAirlineDetail(serial) {
+		axios({
+			method: 'get',
+			url: proxyurl + apiUrl + `airline?lang=id&airlineSerial=${serial}`,
+			headers
+		})
+		.then(res => {
+			if (res.data.status === 'success') {
+				this.setState({ dataItem: res.data.data });
+			}
+			
+		})
+	}
+
+	render() {
+		console.log(this.props, 'airline detail', this.state);
+		const { dataItem } = this.state;
+		
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
+
 			    <div className="rows">
 					<div className="main_title_top">
 						<h3>Airline Policy</h3>
 					</div>
 				</div>{/* end.rows */}
 
-				<section id="section_innernya">
+			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search Airline" />
-					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
+					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airplane_policy" name="" placeholder="Search Airline" />
 					  </div>
 					</div>{/* end.rows */}
 			    </section>
@@ -39,9 +71,10 @@ class AirlinePolicyDetail extends React.Component{
 			    	<div id="tnc-accodion">
 				    	<div className="items">
 			              <div className="page active">
-			              	<img src="assets/images/air_canada_1.png" className="icon_airline" />
-							<span>Air Canada</span>
+			              	<img src={dataItem && dataItem.imageURL} className="icon_airline" alt='airline_logo' />
+							<span>{dataItem && dataItem.airlinesName}</span>
 			              </div>
+
 			              <div className="content active">
 			                <h3>Important</h3>
 			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
@@ -64,21 +97,18 @@ class AirlinePolicyDetail extends React.Component{
 
 			              </div>{/* end.content */}
 			            </div>
-
-			            
-
 			    	</div>{/* end.tnc-accodion */}
-			      
 			    </section>
+				
 			    <div className="rows">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}
 			</div>
-
 		)
 	}
 }
+
 export default AirlinePolicyDetail;

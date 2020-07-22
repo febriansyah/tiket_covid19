@@ -1,19 +1,21 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 class TicketingPolicyFlights extends React.Component{
-	constructor(props){
+	constructor(props) {
 	   super(props);
 	   this.goBack = this.goBack.bind(this);
 	}
-	goBack(){
+
+	goBack() {
 	    this.props.history.goBack();
 	}
 
 	componentDidMount() {
 		 window.activeAccordion();
 	}
-	render(){
+
+	render() {
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -138,7 +140,7 @@ class TicketingPolicyFlights extends React.Component{
 			    </section>
 			    <div className="rows">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}

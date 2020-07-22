@@ -42,7 +42,7 @@ class AirlinePolicyInternational extends Component{
 		return  list_data_airline.map((value, i)=>
 			<div className="items" key={i}>
               <div className="page">
-              	<img src={value.imageURL} className="icon_airline" />
+              	<img src={value.imageURL} className="icon_airline" alt='airline_logo' />
 				<span>{value.airlinesName}</span>
               </div>
               <div className="content">
@@ -93,8 +93,7 @@ class AirlinePolicyInternational extends Component{
 			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search Airline" />
-					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
+					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airplane_policy" name="" placeholder="Search Airline" />
 					  </div>
 					</div>{/* end.rows */}
 					<div className="rows">
@@ -140,7 +139,7 @@ class AirlinePolicyInternational extends Component{
 			    </section>
 			    <div className="rows">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}

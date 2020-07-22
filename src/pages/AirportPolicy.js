@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery'; 
 import axios from 'axios';
 
@@ -13,6 +13,7 @@ class AirportPolicy extends React.Component{
 		  count_item: 0,
 		};
 	}
+	
 	componentWillMount() {
 		this._listData();
 	}
@@ -93,8 +94,7 @@ class AirportPolicy extends React.Component{
 			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search airport or cities" />
-					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airport_policy"></div>
+					    <input type="text" id="searchTrigger_airlines" className="search_input trigger_slider_search" data-slider="popup_search_airport_policy" name="" placeholder="Search airport or cities" />
 					  </div>
 					</div>{/* end.rows */}
 					<div className="rows hide">
@@ -128,7 +128,7 @@ class AirportPolicy extends React.Component{
 			    </section>
 			    <div className="rows">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}
