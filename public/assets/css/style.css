@@ -221,7 +221,6 @@ section {
 	background: url(../images/icon_search.png) 10px center #f4f7fe no-repeat;
 	background-size: 20px;
 	border-radius: 4px;
-	font-size: 18px;
 }
 .overlay_trigger{
 
@@ -424,7 +423,7 @@ h3.mediumFont{
 	display: block;
 	text-align: center;
 	width: 100%;
-	padding:10px 0 20px 0;
+	padding:10px 0 40px 0;
 }
 .share_bt .icon_bt{
 	display: inline-block;
@@ -465,6 +464,10 @@ h3.mediumFont{
 }
 .caption_noneResult p{
 
+}
+.icon_noneResult{
+	text-align: center;
+	padding-top: 16px;
 }
 .detail-text-project{
 	max-height: 220px;
@@ -611,16 +614,6 @@ h3.mediumFont{
 .overflow_tabs .tabs_menu{
 	white-space: normal;
 }
-#middle-content{
-	padding-bottom: 100px;
-}
-.fixed_button_rows{
-	position: fixed;
-	width: 100%;
-	left: 0;
-	bottom: 0;
-	text-align: center;
-}
 /* style popup
 ----------------------------------------------------------------------------------------------*/
 .popup_slider .content_slide_btm{
@@ -655,12 +648,12 @@ h3.mediumFont{
     z-index: 5;
 }
 .box_popup_search{
-	min-width: 100%;
+	min-width: 320px;
 	display: inline-block;
 	padding:40px 20px 20px 20px;
 	border-radius: 10px 10px 0 0;
 	background: #fff;
-	min-height: 80vh;
+	min-height: 90vh;
 	position: relative;
 	text-align: left;
 }

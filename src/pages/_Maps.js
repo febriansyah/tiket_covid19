@@ -89,7 +89,7 @@ const Maps = (props) => {
     const getCountryStatus = (n) => {
         axios({
             type: 'get',
-            url: proxyurl + apiUrl + `country-status?status=${n}`,
+            url:apiUrl + `country-status?status=${n}`,
             headers
         })
         .then(res => {
@@ -464,7 +464,7 @@ const Maps = (props) => {
 
     return (
         <>
-            <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div className="main_title" style={{display: 'flex', justifyContent: 'space-between'}}>
                 <h3>{title}</h3>
                 <label onClick={() => { setLoading(true); listWorldMap = []; }} style={{color: '#000000', margin: '0px', fontSize: '12px', fontWeight: '500'}}>Reload</label>
             </div>
