@@ -89,7 +89,7 @@ const Maps = (props) => {
     const getCountryStatus = (n) => {
         axios({
             type: 'get',
-            url: proxyurl + apiUrl + `country-status?status=${n}`,
+            url:apiUrl + `country-status?status=${n}`,
             headers
         })
         .then(res => {

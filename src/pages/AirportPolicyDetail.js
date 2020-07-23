@@ -34,7 +34,7 @@ class AirportPolicyDetail extends React.Component{
 	getAirportDetail(airportCode) {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + `airport?airportCode=${airportCode}`,
+			url:apiUrl + `airport?airportCode=${airportCode}`,
 			headers
 		})
 		.then(res => {

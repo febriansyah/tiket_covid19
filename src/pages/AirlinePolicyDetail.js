@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import StickyShare from './StickyShare';
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+//const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 
@@ -32,7 +32,7 @@ class AirlinePolicyDetail extends Component{
 	getAirlineDetail(serial) {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + `airline?lang=id&airlineSerial=${serial}`,
+			url:apiUrl + `airline?lang=id&airlineSerial=${serial}`,
 			headers
 		})
 		.then(res => {

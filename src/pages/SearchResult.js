@@ -43,7 +43,7 @@ class SearchResult extends React.Component{
 
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + `country?lang=en&countryCode=${countryCode}`,
+			url:apiUrl + `country?lang=en&countryCode=${countryCode}`,
 			headers: {
 				"Access-Control-Allow-Origin": "*"
 			}
@@ -194,7 +194,7 @@ class SearchResult extends React.Component{
 			      {dataItem && <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">Important Things to Know</h3>
-			          <p>List of requirements to fulfill and regulations to follow.</p>
+			          <p>List of requirements to fulfill and regulations to follow.</p><br />
 			          <span className="blue_rounded_txt">Published {moment(dataItem.updatedTimestamp).format('DD MM YYYY')}</span>
 			        </div>
 			      </div>}
@@ -234,7 +234,7 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Quarantine Policy</h3>
-						    <p>{dataItem && dataItem.quarantinePolicyDesc}</p>
+						    <p>{dataItem && dataItem.quarantinePolicyDesc}</p><br />
 							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
@@ -244,7 +244,7 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Visa Policy</h3>
-						    <p>{dataItem && dataItem.visaPolicyDesc}</p>
+						    <p>{dataItem && dataItem.visaPolicyDesc}</p><br />
 							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
@@ -254,7 +254,7 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Transit Policy</h3>
-						    <p>{dataItem && dataItem.transitPolicyDesc}</p>
+						    <p>{dataItem && dataItem.transitPolicyDesc}</p><br />
 						    <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>

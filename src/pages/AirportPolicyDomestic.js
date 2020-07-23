@@ -29,7 +29,7 @@ class AirportPolicyDomestic extends React.Component{
 	getAirportDetail(airportCode) {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + `airports?airportCode=${airportCode}`,
+			url:apiUrl + `airports?airportCode=${airportCode}`,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 		.then(res => {

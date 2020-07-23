@@ -54,11 +54,11 @@ class AirlinePolicyInternational extends Component{
 
   loadUsers = () => {
     this.setState({ isLoading: true}, () => {
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      //const proxyurl = "https://cors-anywhere.herokuapp.com/";
       this.state.paging = this.state.paging+1;
 
       request
-        .get(proxyurl+'https://api.tiketsafe.com/api/v1/airlines?lang=id&flightType=2&page='+this.state.paging)
+        .get('https://api.tiketsafe.com/api/v1/airlines?lang=id&flightType=2&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
           const nextUsers = results.body.data.map(value => ({

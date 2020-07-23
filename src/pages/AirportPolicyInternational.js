@@ -23,7 +23,7 @@ class AirportPolicyInternational extends React.Component{
 		const proxyurl = "https://cors-anywhere.herokuapp.com/";
 			axios({
 				method: 'get',
-				url: proxyurl+'https://api.tiketsafe.com/api/v1/airports?lang=id&flightype=2&page=1',
+				url:'https://api.tiketsafe.com/api/v1/airports?lang=id&flightype=2&page=1',
 				headers: {
 					"Access-Control-Allow-Origin": "*"
 				}
