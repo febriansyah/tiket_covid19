@@ -60,6 +60,7 @@ class AirlinePolicyDomestic extends Component{
         .get('https://api.tiketsafe.com/api/v1/airlines?lang=id&flightType=1&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
+          //console.log(results.body.data.length)
           const nextUsers = results.body.data.map(value => ({
             airlinesName: value.airlinesName,
             imageURL: value.imageURL,
@@ -72,7 +73,8 @@ class AirlinePolicyDomestic extends Component{
             // Note: Depending on the API you're using, this value may be
             // returned as part of the payload to indicate that there is no
             // additional data to be loaded
-            hasMore: (this.state.users.length < 100),
+
+            hasMore: (results.body.data.length != 0),
             isLoading: false,
             users: [
               ...this.state.users,
@@ -185,7 +187,7 @@ class AirlinePolicyDomestic extends Component{
 						    </div>
 				        }
 				        {!hasMore &&
-				          <div>You did it! You reached the end!</div>
+				          <div></div>
 				        }
 			    	</div>{/* end.tnc-accodion */}
 			      

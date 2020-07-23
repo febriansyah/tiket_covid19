@@ -466,7 +466,7 @@ const Maps = (props) => {
         <>
             <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h3>{title}</h3>
-                <label onClick={() => { setLoading(true); listWorldMap = []; }} style={{color: '#000000', margin: '0px', fontSize: '12px', fontWeight: '500'}}>Reload</label>
+                <label onClick={() => { setLoading(true); listWorldMap = []; }} className="iconReload hide"><img src="assets/images/reaload-icon.png" /></label>
             </div>
             <div className="frame_peta">
                 <div id='chart' style={{maxWidth: '100%', height: '250px'}} />

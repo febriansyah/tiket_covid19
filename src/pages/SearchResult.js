@@ -161,28 +161,24 @@ class SearchResult extends React.Component{
 			          <div className="row-list">
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <span className="growth red">+111</span>
 			                <h4 className="number_cause">{confirmed}</h4>
 			                <p>Active Cases</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <span className="growth green">0</span>
 			                <h4 className="number_cause">{confirmed+ deaths}</h4>
 			                <p>Total</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <span className="growth red">+11</span>
 			                <h4 className="number_cause">{recovered}</h4>
 			                <p>Recoveries</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <span className="growth green">+0</span>
 			                <h4 className="number_cause">{deaths}</h4>
 			                <p>Deaths</p>
 			              </div>

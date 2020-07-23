@@ -625,7 +625,10 @@ h3.mediumFont{
 	bottom: 0;
 	text-align: center;
 }
-
+.iconReload{
+	float: right;
+	max-width: 25px;
+}
 /* style popup
 ----------------------------------------------------------------------------------------------*/
 .popup_slider .content_slide_btm{

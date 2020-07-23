@@ -9,7 +9,7 @@ const initialSearch = {
 	searchPage: 1,
 }
 
-const proxyurl = "";
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 
@@ -56,7 +56,7 @@ class Popup extends React.Component{
 	_listData = () => {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl +'suggestion/popular-city',
+			url:apiUrl +'suggestion/popular-city',
 			headers
 		})
 		.then(response => {
@@ -90,7 +90,7 @@ class Popup extends React.Component{
 	getListAirport() {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + 'airports?lang=id',
+			url:apiUrl + 'airports?lang=id',
 			headers
 		})
 		.then(res => {
@@ -108,7 +108,7 @@ class Popup extends React.Component{
 	getListAirlines() {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + 'airlines?lang=id&page=1&flightType=1',
+			url:apiUrl + 'airlines?lang=id&page=1&flightType=1',
 			headers
 		})
 		.then(res => {
@@ -156,7 +156,7 @@ class Popup extends React.Component{
 
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + `suggestion/location?keyword=${text}&type=country&page=${page}`,
+			url:apiUrl + `suggestion/location?keyword=${text}&type=country&page=${page}`,
 			headers
 		})
 		.then(res => {
@@ -195,7 +195,7 @@ class Popup extends React.Component{
 	searchAirline(text, page) {
 		axios({
 			method: 'get',
-			url: proxyurl + apiUrl + `suggestion/airlines?keyword=${text}&page=${page}`,
+			url:apiUrl + `suggestion/airlines?keyword=${text}&page=${page}`,
 			headers
 		})
 		.then(res => {
