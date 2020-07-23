@@ -1,83 +1,108 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component,Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery'; 
 import axios from 'axios';
+import request from "superagent";
+import debounce from "lodash.debounce";
 import StickyShare from './StickyShare';
 
+
 class AirlinePolicyInternational extends Component{
+	constructor(props) {
+    super(props);
+    
+    // Sets up our initial state
+    this.state = {
+      error: false,
+      hasMore: true,
+      isLoading: false,
+      users: [],
+      paging: 0
+    };
 
-	constructor(props){
-		super(props)
-		this.state = {
-		  list_data_airline: [], 
-		  load_aju_error: false,
-		  loaded: false,
-		  count_item: 0,
-		};
-	}
-	componentWillMount() {
-		this._listData();
-	}
+    // Binds our scroll event handler
+    window.onscroll = () => {
+      const {
+        loadUsers,
+        state: {
+          error,
+          isLoading,
+          hasMore,
+        },
+      } = this;
+
+      // Bails early if:
+      // * there's an error
+      // * it's already loading
+      // * there's nothing left to load
+      if (error || isLoading || !hasMore) return;
+
+      // Checks that the page has scrolled to the bottom
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        === document.documentElement.offsetHeight
+      ) {
+        loadUsers();
+      }
+    };
+  }
+
+  componentWillMount() {
+    // Loads some users on initial load
+    this.loadUsers();
+  }
+
+  loadUsers = () => {
+    this.setState({ isLoading: true}, () => {
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      this.state.paging = this.state.paging+1;
+
+      request
+        .get(proxyurl+'https://api.tiketsafe.com/api/v1/airlines?lang=id&flightType=2&page='+this.state.paging)
+        .then((results) => {   
+          // Creates a massaged array of user data
+          const nextUsers = results.body.data.map(value => ({
+            airlinesName: value.airlinesName,
+            imageURL: value.imageURL,
+            generalRequirementDesc: value.generalRequirementDesc,
+
+          }));
+
+          // Merges the next users into our existing users
+          this.setState({
+            // Note: Depending on the API you're using, this value may be
+            // returned as part of the payload to indicate that there is no
+            // additional data to be loaded
+            hasMore: (this.state.users.length < 100),
+            isLoading: false,
+            users: [
+              ...this.state.users,
+              ...nextUsers,
+            ],
+          });
+
+    	window.activeAccordion();
+    	
+        })
+        .catch((err) => {
+          this.setState({
+            error: err.message,
+            isLoading: false,
+           });
+        })
+    });
+  }
+
 	
-	_listData = async () => {
-
-		const proxyurl = "https://cors-anywhere.herokuapp.com/";
-			axios({
-				method: 'get',
-				url: proxyurl+'https://api.tiketsafe.com/api/v1/airlines?lang=id&page=1&flightType=2',
-				headers: {
-					"Access-Control-Allow-Origin": "*"
-				}
-			})
-			.then(response => {
-				this.setState({list_data_airline: response.data.data})
-				console.log('Done with Ajax call');
-				$(".halBefore-kuis").fadeOut();
-				window.activeAccordion();
-
-			});
-
-	}
-
-	RenderAirlinetList (list_data_airline){
-		return  list_data_airline.map((value, i)=>
-			<div className="items" key={i}>
-              <div className="page">
-              	<img src={value.imageURL} className="icon_airline" alt='airline_logo' />
-				<span>{value.airlinesName}</span>
-              </div>
-              <div className="content">
-                <h3>Important</h3>
-                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
-                <h3>Refund</h3>
-				<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
-				<p>
-				Ticket Purchase Date: On / before 15 March 2020.<br/>
-				Flight Period: 24 January - 31 August 2020.<br/>
-				Routes: All routes.<br/>
-				Refund Rules: Full refund.</p>
-
-				<p>
-				Ticket Purchase Date: 5 March - 31 August 2020.<br/>
-				Flight Period: -<br/>
-				Routes: All routes.<br/>
-				Refund Rules: As per normal regulation.</p>
-				<p>
-				Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
-              </div>
-            </div>
-			
-		)
-		
-				
-	}
-	componentDidMount() {
-		
-		window.readmoreFade();
-		window.popupSlider();
-	}
 
 	render(){
+		const {
+      error,
+      hasMore,
+      isLoading,
+      users,
+    } = this.state;
+
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -95,6 +120,7 @@ class AirlinePolicyInternational extends Component{
 			    	<div className="rows">
 					  <div className="search_row">
 					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search Airline" />
+
 					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
 					  </div>
 					</div>{/* end.rows */}
@@ -126,24 +152,49 @@ class AirlinePolicyInternational extends Component{
 
 			    <section id="section_tabs_list">
 			    	<div id="tnc-accodion">
-			    		<div className="halBefore-kuis">
-					      <div className="box-loading2">
-					          <div className="spinner">
-					          <div className="bounce1"></div>
-					          <div className="bounce2"></div>
-					          <div className="bounce3"></div>
-					        </div>
-					      </div>
-					    </div>
-				    	{this.RenderAirlinetList(this.state.list_data_airline)}
+			    		{users.map((user, i) => (
+				          <Fragment key={i}>
+				            <div className="items" key={i}>
+				              <div className="page">
+				              	<img src={user.imageURL} className="icon_airline" alt='airline_logo' />
+								<span>{user.airlinesName}</span>
+				              </div>
+				              <div className="content">
+				                <h3>Important</h3>
+				                <p>{user.generalRequirementDesc}</p><br />
+				                
+				              </div>
+				            </div>
+				          </Fragment>
+				        ))}
+				        {error &&
+				          <div>
+				            {error}
+				          </div>
+				        }
+				        {isLoading &&
+
+				          <div className="halBefore-kuis">
+						      <div className="box-loading2">
+						          <div className="spinner">
+						          <div className="bounce1"></div>
+						          <div className="bounce2"></div>
+						          <div className="bounce3"></div>
+						        </div>
+						      </div>
+						    </div>
+				        }
+				        {!hasMore &&
+				          <div>You did it! You reached the end!</div>
+				        }
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
 			    <StickyShare />
 			  </div>{/* end.wrapper */}
 			</div>
-
 		)
 	}
 }
+
 export default AirlinePolicyInternational;
