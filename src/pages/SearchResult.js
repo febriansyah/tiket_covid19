@@ -10,7 +10,7 @@ class SearchResult extends React.Component{
 	constructor(props){
 	   super(props);
 	   this.state = {
-			dataItem: null
+			dataItem: null,
 	   };
 
 	   this.goBack = this.goBack.bind(this);
@@ -24,16 +24,19 @@ class SearchResult extends React.Component{
 		window.readmoreFade();
 		window.popupSlider();
 
-		this.getCountryByCode(this.props.location.countryCode);
+		this.getCountryByCode(this.props.location.state.data.id);
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.location.state.data.id !== nextProps.location.state.data.id) {
-			this.getCountryByCode(nextProps.location.countryCode);
+			$(".halBefore-kuis").fadeIn();
+			this.getCountryByCode(nextProps.location.state.data.id);
 		}
 	}
 
 	getCountryByCode(countryCode) {
+		console.log(countryCode, 'cc');
+		
 		const proxyurl = "https://cors-anywhere.herokuapp.com/";
 		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 
@@ -66,13 +69,17 @@ class SearchResult extends React.Component{
 		const { dataItem } = this.state;
 		const { state } = this.props.location;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', color = '';
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', color = '', labelReadMode = 'Loading..';
 		if (state && state.data) {
 			confirmed = state.data.confirmed;
 			deaths = state.data.deaths;
 			recovered = 0;
 			countryName = state.data.title;
 			color = state.data.color;
+		}
+
+		if (dataItem) {
+			labelReadMode = 'Read More..';
 		}
 		
 		return(
@@ -184,65 +191,65 @@ class SearchResult extends React.Component{
 			      </div>}
 
 			      <div className="rows">
-					{dataItem && <div className="block_policy full_block">
+					<div className="block_policy full_block">
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Entry Restrictions</h3>
-						    <p><strong>{dataItem.entryRestrictionsDesc}</strong></p><br />
-							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    <p><strong>{dataItem && dataItem.entryRestrictionsDesc}</strong></p><br />
+							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
-					</div>}
+					</div>
 
-					{dataItem && <div className="block_policy full_block">
+					<div className="block_policy full_block">
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 							<h3>Entry Restrictions Exemptions</h3>
-							<p>{dataItem.entryRestrictionsExemptionsDesc}</p><br />
-							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+							<p>{dataItem && dataItem.entryRestrictionsExemptionsDesc}</p><br />
+							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 						</div>
 					  </div>
-					</div>}
+					</div>
 
-					{dataItem && <div className="block_policy full_block">
+					<div className="block_policy full_block">
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Additional Entry Requirements</h3>
-						    <p>{dataItem.additionalEntryRequirementsDesc}</p>
-						    <p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    <p>{dataItem && dataItem.additionalEntryRequirementsDesc}</p>
+						    <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
-					</div>}
+					</div>
 
-					{dataItem && <div className="block_policy full_block">
+					<div className="block_policy full_block">
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Quarantine Policy</h3>
-						    <p>{dataItem.quarantinePolicyDesc}</p>
-							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    <p>{dataItem && dataItem.quarantinePolicyDesc}</p>
+							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
-					</div>}
+					</div>
 
-					{dataItem && <div className="block_policy full_block">
+					<div className="block_policy full_block">
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Visa Policy</h3>
-						    <p>{dataItem.visaPolicyDesc}</p>
-							<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    <p>{dataItem && dataItem.visaPolicyDesc}</p>
+							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
-					</div>}
+					</div>
 
-					{dataItem && <div className="block_policy full_block">
+					<div className="block_policy full_block">
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>Transit Policy</h3>
-						    <p>{dataItem.transitPolicyDesc}</p>
-						    <p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+						    <p>{dataItem && dataItem.transitPolicyDesc}</p>
+						    <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
-					</div>}
+					</div>
 
 			      </div>{/* end.rows */}
 			    </section>

@@ -367,15 +367,10 @@ class Home extends React.Component {
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">
-						  <div className="main_title">
-						    <h3>COVID-19 Travel Advisory Level</h3>
-						  </div>
-						  <div className="frame_peta">
-							<Maps
-								{...this.props}
-							/>
-						   {/* <div id="chartdiv" style={{ width: "100%", height: "250px" }}></div> */}
-						  </div>
+						  <Maps
+							title='COVID-19 Travel Advisory Level'
+							{...this.props}
+						  />
 						  <div className="legend_info">
 						    <div className="row_legend">
 						      <div className="circle_l green_c"></div>

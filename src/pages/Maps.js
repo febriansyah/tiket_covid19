@@ -17,6 +17,7 @@ let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || []
 
 const Maps = (props) => {
     const {
+        title,
         homeZoomLevel,
         latitude,
         longitude
@@ -24,6 +25,7 @@ const Maps = (props) => {
 
     const history = useHistory();
 
+    const [loading, setLoading] = useState(true);
     const [listAllowedCountry, setListAllowedCountry] = useState([]);
     const [listEntryProhibited, setListEntryProhibited] = useState([]);
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
@@ -31,9 +33,12 @@ const Maps = (props) => {
 
     useEffect(() => {
         if (listWorldMap.length === 0) {
+            setLoading(true);
             getCovidData();
+        } else {
+            setLoading(false);
         }
-    }, [])
+    }, [loading])
 
     useEffect(() => {
         if (covid_world_timeline) {
@@ -44,6 +49,8 @@ const Maps = (props) => {
     }, [covid_world_timeline])
 
     const getCovidData = () => {
+        console.log('here');
+        
         axios({
             method: 'get',
             url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
@@ -70,20 +77,19 @@ const Maps = (props) => {
         })
         .then(res => {
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
-                listWorldMap = [];
-                
                 covid_world_timeline.list.map((i) => {
                     res.data.data.map((e) => {
                         if (i.id === e.id) {
                             listWorldMap.push({
                                 ...e,
                                 ...i,
-                                color: n === '1' ? '#02ac32' : n === '2' ? '#fedd00' : '#e20019'
+                                color: n === '1' ? 'green' : n === '2' ? 'yellow' : 'red'
                             });
                         }
                     })
                 })
 
+                setLoading(false);
                 localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
                 
                 if (n === '1') {
@@ -307,7 +313,7 @@ const Maps = (props) => {
             }, 1000);
         }
         
-        if (listData.length === 0) showIndicator();
+        if (loading || listData.length === 0) showIndicator();
           
           // Add plane
         //   let plane = lineSeries.mapLines.getIndex(0).lineObjects.create();
@@ -405,6 +411,7 @@ const Maps = (props) => {
 
         window.popupSlider();
     }, [
+        loading,
         listAllowedCountry,
         listEntryProhibited,
         listPartiallyProhibited
@@ -419,7 +426,15 @@ const Maps = (props) => {
     console.log(listWorldMap, 'listWorldMap');
 
     return (
-        <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
+        <>
+            <div className="main_title" style={{display: 'flex', justifyContent: 'space-between'}}>
+                <h3>{title}</h3>
+                <label onClick={() => { setLoading(true); listWorldMap = []; }} style={{color: '#000000', margin: '0px', fontSize: '12px', fontWeight: '500'}}>Reload</label>
+            </div>
+            <div className="frame_peta">
+                <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
+            </div>
+        </>
     )
 }
 
