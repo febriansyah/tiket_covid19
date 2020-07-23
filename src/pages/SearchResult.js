@@ -112,7 +112,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="block_shadow">
 			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-						<div className="block_info_notif hide">
+						<div className={`block_info block_info_notif trigger_slider_search ${color !== 'red' && 'hide'}`} data-slider="popup_email">
 							<span>Notify when then prohibition is lifted</span>
 						</div>
 			        </div>

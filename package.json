@@ -13,9 +13,12 @@
     "lodash.debounce": "^4.0.8",
     "moment": "^2.27.0",
     "react": "^16.13.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-share-button": "0.0.4",
+    "react-web-share-button": "^1.0.1",
     "superagent": "^5.3.1"
   },
   "scripts": {

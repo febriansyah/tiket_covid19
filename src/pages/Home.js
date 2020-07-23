@@ -363,7 +363,7 @@ class Home extends React.Component {
 						<div className="rows">
 						  <div className="search_row">
 						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder="Going anywhere ?" />
-						    <div className="overlay_trigger trigger_slider_search"data-slider="popup_search"></div>
+						    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">

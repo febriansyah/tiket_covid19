@@ -412,13 +412,17 @@ h3.mediumFont{
 	margin-top: 10px;
 	font-weight: 700;
 }
-.share_bt{
+.share_bt,.share-btn.web-share{
 	display: inline-block;
 	border-radius: 100px;
-	padding: 10px 20px;
-	background: #fff;
+	padding: 10px 20px 10px 40px;
+	background: url(../images/icon_share.png) no-repeat 10px center #fff;
+	background-size: 20px;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	border:none;
+	color: #0064d2;
+	font-size: 17px;
+	font-weight: 700;	
 }
 .button_bottom{
 	display: block;

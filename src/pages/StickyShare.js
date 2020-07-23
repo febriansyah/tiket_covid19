@@ -1,12 +1,19 @@
 import React from 'react';
+import ShareButton from 'react-web-share-button';
 
 class StickyShare extends React.Component{
 	render(){
+
+		const url = window.location.href
 		return(
 			<div>
 			<div className="fixed_button_rows">
+
 		    	<div className="button_bottom">
-		    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
+		    	<ShareButton buttonText="Share" title="My Great Page" text="A really great page" url={url} >
+		    		<img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span>
+		    		</ShareButton>
+
 		    	</div>
 		    </div>{/* end.fixed_button_rows */}
 		    </div>
