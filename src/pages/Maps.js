@@ -144,7 +144,7 @@ const Maps = (props) => {
             if (e.id === countryCode) {
                 listData.push({
                     "name": "Info Covid-19",
-                    "color": 'dodgerblue',
+                    "color": e.color,
                     "data": [e]
                 })
             } else {
