@@ -82,6 +82,7 @@ class AirlinePolicyInternational extends Component{
           });
 
     	window.activeAccordion();
+    	window.popupSlider();
     	
         })
         .catch((err) => {

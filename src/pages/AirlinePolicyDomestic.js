@@ -82,6 +82,7 @@ class AirlinePolicyDomestic extends Component{
           });
 
     	window.activeAccordion();
+    	window.popupSlider();
     	
         })
         .catch((err) => {

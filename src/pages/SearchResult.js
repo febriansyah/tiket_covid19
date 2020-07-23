@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import StickyShare from './StickyShare';
 import moment from 'moment';
 import $ from 'jquery';
 
@@ -261,12 +262,7 @@ class SearchResult extends React.Component{
 
 			      </div>{/* end.rows */}
 			    </section>
-
-			    <div className="rows">
-			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
-			    	</div>
-			    </div>{/* end.rows */}
+			    <StickyShare />
 			  </div>{/* end.wrapper */}
 			</div>
 		)
