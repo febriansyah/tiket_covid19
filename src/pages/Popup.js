@@ -9,7 +9,7 @@ const initialSearch = {
 	searchPage: 1,
 }
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const proxyurl = "";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 

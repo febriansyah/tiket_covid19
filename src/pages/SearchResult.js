@@ -74,7 +74,7 @@ class SearchResult extends React.Component{
 		if (state && state.data) {
 			confirmed = state.data.confirmed;
 			deaths = state.data.deaths;
-			recovered = 0;
+			recovered = state.data.recovered;
 			countryCode = state.data.id;
 			countryName = state.data.title;
 			color = state.data.color;
