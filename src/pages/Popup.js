@@ -171,7 +171,7 @@ class Popup extends React.Component{
 			headers
 		})
 		.then(res => {
-			console.log(res, 'res search');
+			// console.log(res, 'res search');
 			
 			if (res.data.status === 'success') {
 				this.setState({ searchResult: res.data.data });
@@ -224,7 +224,7 @@ class Popup extends React.Component{
 	}
 
 	render() {
-		console.log(this.state, 'state popup');
+		// console.log(this.state, 'state popup');
 		
 		return(
 			<div>

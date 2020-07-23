@@ -17,8 +17,11 @@ let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || []
 
 const Maps = (props) => {
     const {
+        parentName,
         title,
+        countryCode,
         homeZoomLevel,
+        countryName,
         latitude,
         longitude
     } = props;
@@ -30,6 +33,11 @@ const Maps = (props) => {
     const [listEntryProhibited, setListEntryProhibited] = useState([]);
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
     const [covid_world_timeline, set_covid_world_timeline] = useState(null);
+    const [indonesiaWorld, setIndonesiaWorld] = useState([]);
+
+    useEffect(() => {
+        // getIndoData();
+    }, [])
 
     useEffect(() => {
         if (listWorldMap.length === 0) {
@@ -49,8 +57,6 @@ const Maps = (props) => {
     }, [covid_world_timeline])
 
     const getCovidData = () => {
-        console.log('here');
-        
         axios({
             method: 'get',
             url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
@@ -66,6 +72,17 @@ const Maps = (props) => {
             }
 
             set_covid_world_timeline(result);
+        })
+    }
+
+    const getIndoData = () => {
+        axios({
+            method: 'get',
+            url: proxyurl + 'https://www.amcharts.com/lib/4/geodata/json/indonesiaLow.json',
+            headers
+        })
+        .then(res => {
+            setIndonesiaWorld(res.data.features);
         })
     }
 
@@ -87,6 +104,14 @@ const Maps = (props) => {
                             });
                         }
                     })
+
+                    if (i.id === 'ID') {
+                        listWorldMap.push({
+                            title: 'Indonesia',
+                            color: 'yellow',
+                            ...i,
+                        })
+                    }
                 })
 
                 setLoading(false);
@@ -105,8 +130,10 @@ const Maps = (props) => {
 
     useLayoutEffect(() => {
         let chart = am4core.create("chart", am4maps.MapChart);
-
+        let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+        
         chart.geodata = am4geodata_worldLow;
+        // chart.geodataSource.url = 'https://www.amcharts.com/lib/4/geodata/json/indonesiaLow.json';
 		chart.projection = new am4maps.projections.Miller();
 		chart.homeZoomLevel = homeZoomLevel;
         chart.homeGeoPoint = { longitude, latitude };
@@ -114,11 +141,19 @@ const Maps = (props) => {
         let listData = [];
 
         listWorldMap.forEach((e) => {
-            listData.push({
-                "name": "Info Covid-19",
-                "color": e.color,
-                "data": [e]
-              })
+            if (e.id === countryCode) {
+                listData.push({
+                    "name": "Info Covid-19",
+                    "color": 'dodgerblue',
+                    "data": [e]
+                })
+            } else {
+                listData.push({
+                    "name": "Info Covid-19",
+                    "color": e.color,
+                    "data": [e]
+                })
+            }
         })
         
         // This array will be populated with country IDs to exclude from the world series
@@ -168,15 +203,15 @@ const Maps = (props) => {
           // 	  console.log(JSON.parse(JSON.stringify(data.name)));
           // 	})
           //   })
-        mapPolygonTemplate.events.on("hit", function(event) {
-              series.mapPolygons.each(function(mapPolygon) {
-              //   console.log(mapPolygon, 'mapPolygon');
-              })
+
+            mapPolygonTemplate.events.on("hit", function(event) {
+            //   series.mapPolygons.each(function(mapPolygon) {
+            //     console.log(mapPolygon, 'mapPolygon');
+            //   })
   
               let data = event.target.dataItem.dataContext;
-  
-              history.push({ pathname: '/SearchResult', state: { data } });
-            
+
+              history.push({ pathname: '/SearchResult', state: { data: { ...data, ...chart.svgPointToGeo(event.svgPoint) } } });
             })
   
             mapPolygonTemplate.events.on("out", function(event) {
@@ -251,15 +286,16 @@ const Maps = (props) => {
         city.stroke = am4core.color("#fff");
           
         function addCity(coords, title) {
-            //   let city = cities.mapImages.create();
-            //   city.latitude = coords.latitude;
-            //   city.longitude = coords.longitude;
-            //   city.tooltipText = title;
-            //   return city;
+              let city = cities.mapImages.create();
+              city.latitude = coords.latitude;
+              city.longitude = coords.longitude;
+              city.tooltipText = title;
+              return city;
         }
           
-        let chine = addCity({ "latitude": 35.0000, "longitude": 103.0000 }, "Chine");
-        let jakarta = addCity({ "latitude": -6.200000, "longitude": 106.816666 }, "Jakarta");
+        // let chine = addCity({ "latitude": 35.0000, "longitude": 103.0000 }, "Chine");
+        // let jakarta = addCity({ "latitude": -6.200000, "longitude": 106.816666 }, "Jakarta");
+        if (parentName === 'Search') addCity({ latitude, longitude }, countryName );
         
         // Add lines
         let lineSeries = chart.series.push(new am4maps.MapArcSeries());
@@ -287,7 +323,7 @@ const Maps = (props) => {
             //   return line;
         }
           
-        addLine(chine, jakarta);
+        // addLine(chine, jakarta);
           
         function showIndicator() {
             let indicator = chart.tooltipContainer.createChild(am4core.Container);
@@ -411,6 +447,7 @@ const Maps = (props) => {
 
         window.popupSlider();
     }, [
+        props,
         loading,
         listAllowedCountry,
         listEntryProhibited,
@@ -423,7 +460,7 @@ const Maps = (props) => {
     //     }
     // }, [])
 
-    console.log(listWorldMap, 'listWorldMap');
+    console.log(props, 'props', listWorldMap);
 
     return (
         <>

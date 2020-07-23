@@ -368,6 +368,7 @@ class Home extends React.Component {
 						</div>{/* end.rows */}
 						<div className="rows">
 						  <Maps
+						  	parentName='Home'
 							title='COVID-19 Travel Advisory Level'
 							{...this.props}
 						  />

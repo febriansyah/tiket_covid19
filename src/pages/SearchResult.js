@@ -69,13 +69,16 @@ class SearchResult extends React.Component{
 		const { dataItem } = this.state;
 		const { state } = this.props.location;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', color = '', labelReadMode = 'Loading..';
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', color = '', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 		if (state && state.data) {
 			confirmed = state.data.confirmed;
 			deaths = state.data.deaths;
 			recovered = 0;
+			countryCode = state.data.id;
 			countryName = state.data.title;
 			color = state.data.color;
+			longitude = state.data.longitude;
+			latitude = state.data.latitude;
 		}
 
 		if (dataItem) {
@@ -117,7 +120,12 @@ class SearchResult extends React.Component{
 			        <div className="frame_peta">
 			          {/* <img src="assets/images/peta.png" /> */}
 					  <Maps
-					  	homeZoomLevel={5}
+					  	parentName='Search'
+						homeZoomLevel={5}
+						countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
+						countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
+						longitude={longitude}
+						latitude={latitude}
 					  	{...this.props}
 					  />
 			        </div>
