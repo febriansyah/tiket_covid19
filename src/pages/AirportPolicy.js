@@ -4,6 +4,7 @@ import request from "superagent";
 import debounce from "lodash.debounce";
 import $ from 'jquery'; 
 import axios from 'axios';
+import StickyShare from './StickyShare';
 
 class AirportPolicy extends React.Component{
 constructor(props) {
@@ -190,11 +191,8 @@ constructor(props) {
 		    	</div>{/* end.tnc-accodion */}
 		      
 		    </section>
-		    <div className="rows">
-		    	<div className="button_bottom">
-		    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
-		    	</div>
-		    </div>{/* end.rows */}
+		    
+			    <StickyShare />
 		  </div>{/* end.wrapper */}
 		</div>
 
