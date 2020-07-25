@@ -5,6 +5,12 @@ import debounce from "lodash.debounce";
 import $ from 'jquery'; 
 import axios from 'axios';
 import StickyShare from './StickyShare';
+import ReactMarkdown from 'react-markdown';
+
+const input = '# This is a header\n\nAnd this is a paragraph'
+
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.')); 
+
 
 class AirportPolicy extends React.Component{
 constructor(props) {
@@ -16,7 +22,8 @@ constructor(props) {
       hasMore: true,
       isLoading: false,
       users: [],
-      paging: 0
+      paging: 0,
+      defaultLangnya:langnya ? langnya : 'id'
     };
 
     // Binds our scroll event handler
@@ -57,11 +64,12 @@ constructor(props) {
       this.state.paging = this.state.paging+1;
 
       request
-        .get('https://api.tiketsafe.com/api/v1/airports?lang=id&page='+this.state.paging)
+        .get('https://api.tiketsafe.com/api/v1/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
           const nextUsers = results.body.data.map(value => ({
             airportName: value.airportName,
+            generalRequirements: value.generalRequirements,
           }));
 
           // Merges the next users into our existing users
@@ -99,6 +107,7 @@ constructor(props) {
       isLoading,
       users,
     } = this.state;
+    //console.log(defaultLang);
 
 		return(
 
@@ -107,7 +116,7 @@ constructor(props) {
 		    <div className="rows">
 		    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 		    </div>
-		    <div className="rows">
+		    <div className="rows">	
 				<div className="main_title_top">
 					<h3>Airport Policy</h3>
 				</div>
@@ -146,7 +155,7 @@ constructor(props) {
 					  </div>
 					  <div className="content">
 					    <h3>Important</h3>
-					    <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
+					    <p>{user.generalRequirements}</p><br />
 					    <h3>Refund</h3>
 						<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
 						<p>
