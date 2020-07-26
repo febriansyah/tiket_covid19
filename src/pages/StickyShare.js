@@ -10,9 +10,7 @@ class StickyShare extends React.Component{
 			<div className="fixed_button_rows">
 
 		    	<div className="button_bottom">
-		    	<ShareButton buttonText="Share" title="My Great Page" text="A really great page" url={url} >
-		    		<img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span>
-		    		</ShareButton>
+		    	<ShareButton buttonText="Share" title="My Great Page" text="A really great page" url={url} />
 
 		    	</div>
 		    </div>{/* end.fixed_button_rows */}

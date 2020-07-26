@@ -300,7 +300,7 @@ class Popup extends React.Component{
 					    		<div className="form_row">
 						    		<div className="form_group">
 						    			<input type="email" className="input_form" placeholder="Email" />
-						    			<span className="erorr_help">Enter an email address.</span>
+						    			<span className="erorr_help hide">Enter an email address.</span>
 						    		</div>
 					    		</div> {/* end.form_row */}
 

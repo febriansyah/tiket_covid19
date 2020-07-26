@@ -7,11 +7,15 @@ import StickyShare from './StickyShare';
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langDef = 'en'
+
 class AirlinePolicyDetail extends Component{
 	constructor(props) {
 	   super(props);
 	   this.state = {
-			dataItem: null
+			dataItem: null,
+			defaultLangnya: langnya == langDef ? langnya : 'id',
 	   }
 
 	   this.goBack = this.goBack.bind(this);
@@ -32,7 +36,7 @@ class AirlinePolicyDetail extends Component{
 	getAirlineDetail(serial) {
 		axios({
 			method: 'get',
-			url:apiUrl + `airline?lang=id&airlineSerial=${serial}`,
+			url:apiUrl + `airline?lang=`+this.state.defaultLangnya+`&airlineSerial=${serial}`,
 			headers
 		})
 		.then(res => {

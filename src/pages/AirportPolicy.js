@@ -7,7 +7,7 @@ import axios from 'axios';
 import StickyShare from './StickyShare';
 import ReactMarkdown from 'react-markdown';
 
-//const input = '# This is a header\n\nAnd this is a paragraph'
+//const input = '## This is a header\n\nAnd this is a paragraph'
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 
@@ -74,6 +74,7 @@ constructor(props) {
         .get('https://api.tiketsafe.com/api/v1/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
+
           const nextUsers = results.body.data.map(value => ({
             airportName: value.airportName,
             generalRequirements: value.generalRequirements,
@@ -124,7 +125,7 @@ constructor(props) {
 		    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 		    </div>
 		    <div className="rows">	
-				<div className="main_title_top">
+		    					<div className="main_title_top">
 					<h3>Airport Policy</h3>
 				</div>
 			</div>{/* end.rows */}
@@ -139,6 +140,7 @@ constructor(props) {
 				</div>{/* end.rows */}
 				<div className="rows hide">
 					<div className="tabs_main_menu">
+
 						<Link to="" className="tabs_menu active">
 							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
 							<span>Domestic</span>
@@ -162,7 +164,9 @@ constructor(props) {
 					  </div>
 					  <div className="content">
 					    <h3>Important</h3>
-					    <p>{user.generalRequirements}</p><br />
+					    <div dangerouslySetInnerHTML={{ __html: user.generalRequirements }} />
+
+						<br />
 					    <h3>Refund</h3>
 						<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
 						<p>

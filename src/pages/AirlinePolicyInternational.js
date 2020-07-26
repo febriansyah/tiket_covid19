@@ -7,7 +7,6 @@ import debounce from "lodash.debounce";
 import StickyShare from './StickyShare';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-
 const langDef = 'en'
 
 class AirlinePolicyInternational extends Component{
@@ -62,7 +61,7 @@ class AirlinePolicyInternational extends Component{
       this.state.paging = this.state.paging+1;
 
       request
-        .get('https://api.tiketsafe.com/api/v1/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
+        .get('https://api.tiketsafe.com/api/v1/airlines?lang='+this.state.defaultLangnya+'&flightType=2&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
           const nextUsers = results.body.data.map(value => ({
