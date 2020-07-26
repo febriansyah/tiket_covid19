@@ -12,6 +12,7 @@ class SearchResult extends React.Component{
 	   super(props);
 	   this.state = {
 			dataItem: null,
+			loading: true,
 	   };
 
 	   this.goBack = this.goBack.bind(this);
@@ -25,13 +26,13 @@ class SearchResult extends React.Component{
 		window.readmoreFade();
 		window.popupSlider();
 
-		this.getCountryByCode(this.props.location.state.data.id);
+		this.getCountryByCode(this.props.location.state.data.countryCode);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.location.state.data.id !== nextProps.location.state.data.id) {
+		if (this.props.location.state.data.countryCode !== nextProps.location.state.data.countryCode) {
 			$(".halBefore-kuis").fadeIn();
-			this.getCountryByCode(nextProps.location.state.data.id);
+			this.getCountryByCode(nextProps.location.state.data.countryCode);
 		}
 	}
 
@@ -49,23 +50,28 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-			// this.setState({list_data_popular: response.data.data})
-			console.log(res, 'res country');
+			console.log(res, 'country');
+			
+			let arrData = [];
 			if (res.data.status === 'success') {
 				if (res.data.data.length > 0) {
-					this.setState({ dataItem: res.data.data[0] })
+					arrData = res.data.data[0];
 				}
-
-				$(".halBefore-kuis").fadeOut();
 			}
+
+			this.setState({ dataItem: arrData }, () => {
+				$(".halBefore-kuis").fadeOut();
+				this.setState({ loading: false });
+			})
 		})
 		.catch(err => {
 			console.log(err, 'here');
+			this.setState({ loading: false });
 		})
 	}
 
 	render() {
-		console.log(this.props,  'search result');
+		// console.log(this.props,  'search result');
 
 		const { dataItem } = this.state;
 		const { state } = this.props.location;
@@ -74,8 +80,8 @@ class SearchResult extends React.Component{
 		if (state && state.data) {
 			confirmed = state.data.confirmed;
 			deaths = state.data.deaths;
+			countryCode = state.data.countryCode;
 			recovered = state.data.recovered;
-			countryCode = state.data.id;
 			countryName = state.data.title;
 			color = state.data.color;
 			longitude = state.data.longitude;
@@ -84,7 +90,12 @@ class SearchResult extends React.Component{
 
 		if (dataItem) {
 			labelReadMode = 'Read More..';
+			longitude = parseFloat(dataItem.longitude);
+			latitude = parseFloat(dataItem.latitude);
 		}
+
+		console.log(dataItem, longitude, 'item');
+		
 		
 		return(
 			<div id="middle-content" className="homePage">
@@ -126,6 +137,7 @@ class SearchResult extends React.Component{
 						countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
 						countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
 						longitude={longitude}
+						loading={this.state.loading}
 						latitude={latitude}
 					  	{...this.props}
 					  />

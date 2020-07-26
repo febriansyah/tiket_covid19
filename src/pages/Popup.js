@@ -293,7 +293,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
-					    	<div className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 					    	<div className="inner_popup">
 					    		<h3>Enter Email Address</h3>
 					    		<p>Notifications about the status of your destination will be sent to this email.</p>
@@ -361,7 +361,7 @@ class Popup extends React.Component{
 						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
-						        <div className="list_autocomplete">
+						        <div className="list_autocomplete trigger_close_popup">
 									{this.RenderCityPopular()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
@@ -373,7 +373,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>Airline Policy?</h3>
@@ -428,7 +428,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>Airport Policy</h3>
@@ -480,7 +480,6 @@ class Popup extends React.Component{
 				    </div> {/* end.content_slide_btm */}
 				</div>{/* end.popup_slider */}
 			</div>
-
 		)
 	}
 }
