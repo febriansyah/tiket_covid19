@@ -4,6 +4,7 @@ import axios from 'axios';
 import StickyShare from './StickyShare';
 import moment from 'moment';
 import $ from 'jquery';
+import NumberFormat from 'react-number-format';
 
 import Maps from './Maps';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
@@ -177,32 +178,41 @@ class SearchResult extends React.Component{
 			          <div className="row-list">
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <h4 className="number_cause">{confirmed}</h4>
+			                <h4 className="number_cause">
+			                	<NumberFormat value={confirmed} displayType={'text'} thousandSeparator={true}/>
+			                </h4>
 			                <p>Active Cases</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <h4 className="number_cause">{confirmed+ deaths}</h4>
+			                <h4 className="number_cause">
+			                	<NumberFormat value={confirmed+ deaths} displayType={'text'} thousandSeparator={true}/>
+			                </h4>
 			                <p>Total</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <h4 className="number_cause">{recovered}</h4>
+			                <h4 className="number_cause">
+			                	<NumberFormat value={recovered} displayType={'text'} thousandSeparator={true}/>
+			                </h4>
 			                <p>Recoveries</p>
 			              </div>
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			                <h4 className="number_cause">{deaths}</h4>
+			                <h4 className="number_cause">
+			                	<NumberFormat value={deaths} displayType={'text'} thousandSeparator={true}/>
+			                </h4>
 			                <p>Deaths</p>
 			              </div>
 			            </div>
 			          </div>
+
+						<span className="sourceName">Source data by <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
 			        </div>
-						  <span className="sourceName">source data by <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
-			        
+
 			      </div>
 
 			      {dataItem && <div className="rows">

@@ -367,9 +367,9 @@ section {
 .info_cause span.green{
 	color: #0bae54
 }
-.info_cause h4{
+.info_cause h4.number_cause span,.info_cause h4.number_cause{
 	margin: 3px 0;
-	font-size: 15px;
+	font-size: 14px;
 	color: #303135
 }
 
@@ -832,15 +832,19 @@ h3.mediumFont{
     transform: scale(1.0);
   }
 }
+.infodetail_cause.block_shadow{
+}
 .sourceName{
-	text-align: right;
+	text-align: left;
 	font-size: 7px;
-	margin-top: 15px;
+	margin-top: 10px;
 	font-style: italic;
 	display: block;
+	color: #9ba1b5;
+	margin-left: -10px;
 }
 .sourceName a{
-	color: #0064d2;
+	color: #98ade6;
 }
 /* style Footer
 ----------------------------------------------------------------------------------------------*/
