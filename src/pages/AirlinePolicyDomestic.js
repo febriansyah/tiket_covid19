@@ -6,7 +6,9 @@ import request from "superagent";
 import debounce from "lodash.debounce";
 import StickyShare from './StickyShare';
 
-const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.')); 
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+
+const langDef = 'en'
 
 class AirlinePolicyDomestic extends Component{
 	constructor(props) {
@@ -19,7 +21,7 @@ class AirlinePolicyDomestic extends Component{
       isLoading: false,
       users: [],
       paging: 0,
-      defaultLangnya:langnya ? langnya : 'id'
+      defaultLangnya: langnya == langDef ? langnya : 'id'  
     };
 
     // Binds our scroll event handler
@@ -58,11 +60,13 @@ class AirlinePolicyDomestic extends Component{
     this.setState({ isLoading: true}, () => {
       this.state.paging = this.state.paging+1;
 
+
       request
         .get('https://api.tiketsafe.com/api/v1/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
           //console.log(results.body.data.length)
+          
           const nextUsers = results.body.data.map(value => ({
             airlinesName: value.airlinesName,
             imageURL: value.imageURL,

@@ -6,7 +6,9 @@ import request from "superagent";
 import debounce from "lodash.debounce";
 import StickyShare from './StickyShare';
 
-const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.')); 
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+
+const langDef = 'en'
 
 class AirlinePolicyInternational extends Component{
 	constructor(props) {
@@ -19,7 +21,7 @@ class AirlinePolicyInternational extends Component{
       isLoading: false,
       users: [],
       paging: 0,
-      defaultLangnya:langnya ? langnya : 'id'
+      defaultLangnya: langnya == langDef ? langnya : 'id' 
     };
 
     // Binds our scroll event handler

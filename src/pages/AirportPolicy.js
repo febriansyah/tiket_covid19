@@ -7,9 +7,11 @@ import axios from 'axios';
 import StickyShare from './StickyShare';
 import ReactMarkdown from 'react-markdown';
 
-const input = '# This is a header\n\nAnd this is a paragraph'
+//const input = '# This is a header\n\nAnd this is a paragraph'
 
-const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.')); 
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+
+const langDef = 'en'
 
 
 class AirportPolicy extends React.Component{
@@ -23,7 +25,7 @@ constructor(props) {
       isLoading: false,
       users: [],
       paging: 0,
-      defaultLangnya:langnya ? langnya : 'id'
+      defaultLangnya: langnya == langDef ? langnya : 'id'  
     };
 
     // Binds our scroll event handler
@@ -58,11 +60,16 @@ constructor(props) {
     this.loadUsers();
   }
 
+   componentDidMount() {
+
+  	}
+
   loadUsers = () => {
     this.setState({ isLoading: true}, () => {
       //const proxyurl = "https://cors-anywhere.herokuapp.com/";
       this.state.paging = this.state.paging+1;
 
+      //console.log('ada '+this.state.defaultLangnya);
       request
         .get('https://api.tiketsafe.com/api/v1/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
         .then((results) => {   
@@ -107,7 +114,7 @@ constructor(props) {
       isLoading,
       users,
     } = this.state;
-    //console.log(defaultLang);
+    console.log(langnya);
 
 		return(
 

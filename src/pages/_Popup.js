@@ -11,6 +11,8 @@ const initialSearch = {
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langDef = 'en'
 
 class Popup extends React.Component{
 	constructor(props){
@@ -19,6 +21,7 @@ class Popup extends React.Component{
 		  list_data_popular: [], 
 		  load_aju_error: false,
 		  loaded: false,
+		  defaultLangnya: langnya == langDef ? langnya : 'id',
 		  count_item: 0,
 
 		  ...initialSearch,
@@ -87,7 +90,7 @@ class Popup extends React.Component{
 	getListAirport() {
 		axios({
 			method: 'get',
-			url: apiUrl + 'airports?lang=id',
+			url: apiUrl + 'airports?lang='+this.state.defaultLangnya,
 			headers
 		})
 		.then(res => {
@@ -101,7 +104,7 @@ class Popup extends React.Component{
 	getListAirlines() {
 		axios({
 			method: 'get',
-			url: apiUrl + 'airlines?lang=id&page=1&flightType=1',
+			url: apiUrl + 'airlines?lang='+this.state.defaultLangnya+'&page=1&flightType=1',
 			headers
 		})
 		.then(res => {
