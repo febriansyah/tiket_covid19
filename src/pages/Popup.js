@@ -416,7 +416,7 @@ class Popup extends React.Component{
 						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
-						        <div className="list_autocomplete">
+						        <div className="list_autocomplete trigger_close_popup">
 									{this.renderAirlines()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
@@ -435,16 +435,6 @@ class Popup extends React.Component{
 						        </div>
 						    </div>
 
-							{this.state.showNoResult === 'hide' && <div className="halBefore-kuis">
-								<div className="box-loading2">
-									<div className="spinner">
-										<div className="bounce1"></div>
-										<div className="bounce2"></div>
-										<div className="bounce3"></div>
-									</div>
-								</div>
-							</div>}
-
 						    <div className="rows">
 						        <div className="search_row">
 									<input
@@ -462,6 +452,17 @@ class Popup extends React.Component{
 							    <div className="main_title grey_title ">
 						          <h3>Suggested Airports</h3>
 						        </div>
+
+								{this.state.showNoResult === 'hide' && <div className="halBefore-kuis">
+									<div className="box-loading2">
+										<div className="spinner">
+											<div className="bounce1"></div>
+											<div className="bounce2"></div>
+											<div className="bounce3"></div>
+										</div>
+									</div>
+								</div>}
+
 						        <div className={"list_noneResult " + this.state.showNoResult}>
 						        	<div className="icon_noneResult">
 						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
@@ -472,7 +473,7 @@ class Popup extends React.Component{
 						        	</div>
 						        </div>{/* end.list_noneResult */}
 
-						        <div className="list_autocomplete">
+						        <div className="list_autocomplete trigger_close_popup">
 						          {this.renderAirport()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
