@@ -144,8 +144,7 @@ class SearchResult extends React.Component{
 						latitude={latitude}
 					  	{...this.props}
 					  />
-					  
-						  <span className="sourceName">source data by <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
+
 			        </div>
 			        
 			      </div>
@@ -202,6 +201,8 @@ class SearchResult extends React.Component{
 			            </div>
 			          </div>
 			        </div>
+						  <span className="sourceName">source data by <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
+			        
 			      </div>
 
 			      {dataItem && <div className="rows">

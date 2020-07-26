@@ -372,7 +372,6 @@ class Home extends React.Component {
 							title='COVID-19 Travel Advisory Level'
 							{...this.props}
 						  />
-						  <span className="sourceName">source data by <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
 						  <div className="legend_info">
 						    <div className="row_legend">
 						      <div className="circle_l green_c"></div>
