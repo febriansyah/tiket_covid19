@@ -6,6 +6,8 @@ import moment from 'moment';
 import $ from 'jquery';
 
 import Maps from './Maps';
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langDef = 'en'
 
 class SearchResult extends React.Component{
 	constructor(props){
@@ -13,6 +15,7 @@ class SearchResult extends React.Component{
 	   this.state = {
 			dataItem: null,
 			loading: true,
+			defaultLangnya: langnya == langDef ? langnya : 'id',
 	   };
 
 	   this.goBack = this.goBack.bind(this);
@@ -44,7 +47,7 @@ class SearchResult extends React.Component{
 
 		axios({
 			method: 'get',
-			url:apiUrl + `country?lang=en&countryCode=${countryCode}`,
+			url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
 			headers: {
 				"Access-Control-Allow-Origin": "*"
 			}
