@@ -21,6 +21,8 @@ class Popup extends React.Component{
 		  load_aju_error: false,
 		  loaded: false,
 		  count_item: 0,
+		  fields: {},
+          errors: {},
 
 		  ...initialSearch,
 		  listAirport: [],
@@ -267,6 +269,52 @@ class Popup extends React.Component{
 		)
 	}
 
+	handleValidation(){
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+
+        //Email
+        if(!fields["email"]){
+           formIsValid = false;
+           errors["email"] = "Cannot be empty";
+        }
+
+        if(typeof fields["email"] !== "undefined"){
+           let lastAtPos = fields["email"].lastIndexOf('@');
+           let lastDotPos = fields["email"].lastIndexOf('.');
+
+           if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') == -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
+              formIsValid = false;
+              errors["email"] = "Email is not valid";
+            }
+       }  
+
+       this.setState({errors: errors});
+       return formIsValid;
+    }
+
+    contactSubmit(e){
+        e.preventDefault();
+
+        if(this.handleValidation()){
+           //alert("Form submitted");
+           $("#popup_email").removeClass("actived");
+           $("#popup_email").addClass("hide");
+           $("#popup_confirmasi").removeClass("hide");
+           $("#popup_confirmasi").addClass("actived");
+        }else{
+           //alert("Form has errors.")
+        }
+
+    }
+
+    handleChange(field, e){         
+        let fields = this.state.fields;
+        fields[field] = e.target.value;        
+        this.setState({fields});
+    }
+
 	render() {
 		// console.log(this.state, 'state popup');
 		
@@ -281,7 +329,7 @@ class Popup extends React.Component{
 					    		<p>We will send an email when the destination is open for visitors.</p>
 					    		<div className="form_row">
 						    		<div className="form_group">
-						    			<button className="block_blue_bt" type="submit">Ok </button>
+						    			<button className="block_blue_bt trigger_close_popup" type="submit">Ok </button>
 						    		</div>
 					    		</div> {/* end.form_row */}
 					    	</div> {/* end.inner_popup */}
@@ -297,18 +345,26 @@ class Popup extends React.Component{
 					    	<div className="inner_popup">
 					    		<h3>Enter Email Address</h3>
 					    		<p>Notifications about the status of your destination will be sent to this email.</p>
+					    		<form name="contactform" className="contactform" onSubmit= {this.contactSubmit.bind(this)}>
+
 					    		<div className="form_row">
 						    		<div className="form_group">
-						    			<input type="email" className="input_form" placeholder="Email" />
+										<input refs="email" className="input_form" type="text" size="30" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
+										<span className="erorr_help">{this.state.errors["email"]}</span>
+
+
+						    			<input type="email" className="input_form hide" placeholder="Email" />
 						    			<span className="erorr_help hide">Enter an email address.</span>
 						    		</div>
 					    		</div> {/* end.form_row */}
 
 					    		<div className="form_row">
 						    		<div className="form_group">
-						    			<button className="block_blue_bt" type="submit" >Save </button>
+						    			<button className="block_blue_bt" id="submit" value="Submit">Send Message</button>
+						    			<button className="block_blue_bt hide" type="submit" >Save </button>
 						    		</div>
 					    		</div> {/* end.form_row */}
+					    		</form>
 					    	</div> {/* end.inner_popup */}
 					    </div> {/* end.box_popup_search_auto */}
 					</div> {/* end.content_slide_btm */}

@@ -834,8 +834,9 @@ h3.mediumFont{
 }
 .sourceName{
 	text-align: right;
-	font-size: 9px;
+	font-size: 7px;
 	margin-top: 15px;
+	font-style: italic;
 	display: block;
 }
 .sourceName a{
