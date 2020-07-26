@@ -164,24 +164,7 @@ constructor(props) {
 					  </div>
 					  <div className="content">
 					    <h3>Important</h3>
-					    <div dangerouslySetInnerHTML={{ __html: user.generalRequirements }} />
-
-						<br />
-					    <h3>Refund</h3>
-						<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
-						<p>
-						Ticket Purchase Date: On / before 15 March 2020.<br/>
-						Flight Period: 24 January - 31 August 2020.<br/>
-						Routes: All routes.<br/>
-						Refund Rules: Full refund.</p>
-
-						<p>
-						Ticket Purchase Date: 5 March - 31 August 2020.<br/>
-						Flight Period: -<br/>
-						Routes: All routes.<br/>
-						Refund Rules: As per normal regulation.</p>
-						<p>
-						Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
+					    <p>{user.generalRequirements }</p>
 
 
 					  </div>

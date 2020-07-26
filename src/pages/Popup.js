@@ -143,7 +143,7 @@ class Popup extends React.Component{
 					if (type === 'airline_policy') {
 						this.searchAirline(searchText);
 					} else {
-						this.searchCitiesOrAirport(searchText, this.state.searchPage);
+						this.searchCitiesOrAirport(searchText, this.state.searchPage, type);
 					}
 				}, 2000);
 			} else {
@@ -153,16 +153,17 @@ class Popup extends React.Component{
 		})
 	}
 
-	searchCitiesOrAirport(text, page) {
+	searchCitiesOrAirport(text, page, type) {
 		if (page === 0) return;
 
 		axios({
 			method: 'get',
-			url:apiUrl + `suggestion/location?keyword=${text}&type=country&page=${page}`,
+			url:apiUrl + `suggestion/location?keyword=${text}&type=${type}&page=${page}`,
 			headers
 		})
 		.then(res => {
 			// console.log(res, 'res search');
+			console.log(apiUrl + `suggestion/location?keyword=${text}&type=${type}&page=${page}`);
 			const { covid_world_timeline } = this.state;
 			let newItem = null;
 			let remapCity = [];
@@ -299,6 +300,15 @@ class Popup extends React.Component{
 
         if(this.handleValidation()){
            //alert("Form submitted");
+           fetch('https://www.getpostman.com/collections/908c7d693dd1832cc630', {
+	        method: 'POST',
+	        // We convert the React state to JSON and send it as the POST body
+	        body: JSON.stringify(this.state.fields["email"])
+	      }).then(function(response) {
+	        console.log(response)
+	        return response.json();
+	      });
+
            $("#popup_email").removeClass("actived");
            $("#popup_email").addClass("hide");
            $("#popup_confirmasi").removeClass("hide");
@@ -337,7 +347,7 @@ class Popup extends React.Component{
 					</div> {/* end.content_slide_btm */}
 				</div> {/* end.popup_slider */}
 
-				<div id="popup_email" className="popup_slider hide">
+				<div id="popup_email" className="popup_slider actived">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
@@ -387,7 +397,7 @@ class Popup extends React.Component{
 										className="search_input"
 										name=""
 										value={this.state.searchText}
-										onChange={(val) => this.onChangeText(val, 'city')}
+										onChange={(val) => this.onChangeText(val, 'country')}
 										placeholder="Search cities or airports"
 									/>
 						        </div>

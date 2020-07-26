@@ -6,12 +6,15 @@ import StickyShare from './StickyShare';
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*" };
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langDef = 'en'
 
 class AirportPolicyDetail extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
 			dataItem: null,
+			defaultLangnya: langnya == langDef ? langnya : 'id',
 		};
 
 		this.goBack = this.goBack.bind(this);
@@ -38,7 +41,7 @@ class AirportPolicyDetail extends React.Component{
 			headers
 		})
 		.then(res => {
-			console.log(res, 'res airport by code');
+			console.log(`airport?lang=`+this.state.defaultLangnya+`&airportCode=${airportCode}`, 'res airport by code');
 			if (res.data.status === 'success') {
 				this.setState({ dataItem: res.data.data });
 			}

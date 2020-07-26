@@ -251,7 +251,7 @@ class Popup extends React.Component{
 					</div> {/* end.content_slide_btm */}
 				</div> {/* end.popup_slider */}
 
-				<div id="popup_email" className="popup_slider hide">
+				<div id="popup_email" className="popup_slider actived">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
