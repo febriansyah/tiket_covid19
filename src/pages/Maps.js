@@ -211,7 +211,13 @@ const Maps = (props) => {
   
               let data = event.target.dataItem.dataContext;
 
-              history.push({ pathname: '/SearchResult', state: { data: { ...data, ...chart.svgPointToGeo(event.svgPoint) } } });
+              const dataItem = {
+                  ...data,
+                  countryCode: data.id,
+                  ...chart.svgPointToGeo(event.svgPoint),
+              }
+
+              history.push({ pathname: '/SearchResult', state: { data: dataItem } });
             })
   
             mapPolygonTemplate.events.on("out", function(event) {
@@ -349,7 +355,7 @@ const Maps = (props) => {
             }, 1000);
         }
         
-        if (loading || listData.length === 0) showIndicator();
+        if (loading || listData.length === 0 || props.loading) showIndicator();
           
           // Add plane
         //   let plane = lineSeries.mapLines.getIndex(0).lineObjects.create();
@@ -460,7 +466,7 @@ const Maps = (props) => {
     //     }
     // }, [])
 
-    console.log(props, 'props', listWorldMap);
+    // console.log(props, 'props');
 
     return (
         <>
