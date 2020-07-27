@@ -9,7 +9,16 @@ import Maps from './Maps';
 
 // am4core.useTheme(am4themes_animated);
 
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langDef = 'en'
+
 class Home extends React.Component {
+	constructor(props){
+		super(props)
+		this.state = {
+		  defaultLangnya: langnya == langDef ? langnya : 'id'
+		};
+	}
 	// componentDidMount() {
 	// 	let props = this.props;
 	// 	var chart = am4core.create("chartdiv", am4maps.MapChart);
@@ -346,6 +355,9 @@ class Home extends React.Component {
 
 	render() {
 		// console.log(this.props, 'home');
+		const {
+	      defaultLangnya
+	    } = this.state;
 
 		return (
 			<div id="middle-content" className="homePage">
@@ -355,35 +367,41 @@ class Home extends React.Component {
 					</div>{/* end.rows */}
 					<div className="rows">
 						<div className="main_title_top">
-							<h3>Travel Guidelines</h3>
+							<h3>{defaultLangnya == 'id' ? 'Petunjuk Perjalanan' : 'Travel Guidelines'}</h3>
 						</div>
 					</div>{/* end.rows */}
 
 					<section id="section_maps">
 						<div className="rows">
 						  <div className="search_row">
-						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder="Going anywhere ?" />
+						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder={defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} />
 						    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">
-						  <Maps
-						  	parentName='Home'
-							title='COVID-19 Travel Advisory Level'
-							{...this.props}
-						  />
+							<div className="relative">
+								<Maps
+									parentName='Home'
+								title={defaultLangnya == 'id' ? 'Level Kewaspadaan COVID-19' : 'COVID-19 Travel Advisory Level'}
+								{...this.props}
+								/>
+								<div className="zoom_abs">
+									<img src="assets/images/icon_zoom.png" />
+									<span>Zoom</span>
+								</div>
+						  	</div>
 						  <div className="legend_info">
 						    <div className="row_legend">
 						      <div className="circle_l green_c"></div>
-						      <span>Allowed, travel with safety precautions</span>
+						      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 						    </div>{/* end.row_legend */}
 						    <div className="row_legend">
 						      <div className="circle_l yellow_c"></div>
-						      <span>Partially prohibited, check local policy</span>
+						      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
 						    </div>{/* end.row_legend */}
 						    <div className="row_legend">
 						      <div className="circle_l red_c"></div>
-						      <span>Prohibited, avoid non-essential travel</span>
+						      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
 						    </div>{/* end.row_legend */}
 						  </div>{/* end.legend_info */}
 						</div>{/* end.rows */}
@@ -392,7 +410,7 @@ class Home extends React.Component {
 					<section id="section_regulation">
 						<div className="rows">
 						  <div className="main_title">
-						    <h3>Regulation & Policy</h3>
+						    <h3>{defaultLangnya == 'id' ? 'Peraturan & Kebijakan' : 'Regulation & Policy'}</h3>
 						  </div>
 						</div>
 						<div className="rows">
@@ -404,8 +422,8 @@ class Home extends React.Component {
 							        <img src="assets/images/icon_airlines_polic.png" alt='airline_logo' />
 							      </div>
 							      <div className="caption_policy">
-							        <h3>Airline Policy</h3>
-							        <p>Latest information on airline service and policy.</p>
+							        <h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
+							        <p>{defaultLangnya == 'id' ? 'Informasi terbaru mengenai layanan dan kebijakan maskapai.' : 'Latest information on airline service and policy.'}</p>
 							      </div>
 						      </Link>
 						    </div>
@@ -416,8 +434,8 @@ class Home extends React.Component {
 							        <img src="assets/images/icon_airport_policy.png" alt='airport_logo' />
 							      </div>
 							      <div className="caption_policy">
-							        <h3>Airport Policy</h3>
-							        <p>Latest information on airport travel regulations & policy.</p>
+							        <h3>{defaultLangnya == 'id' ? 'Kebijakan Bandara' : 'Airport Policy'}</h3>
+							        <p>{defaultLangnya == 'id' ? 'Kebijakan terbaru mengenai regulasi dan kebijakan perjalanan bandara.' : 'Latest information on airport travel regulations & policy.'}</p>
 							      </div>
 						      </Link>
 						    </div>
@@ -428,8 +446,8 @@ class Home extends React.Component {
 							        <img src="assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
 							      </div>
 							      <div className="caption_policy">
-							        <h3>Ticketing Policy</h3>
-							        <p>Latest information on how to purchase, refund, and reschedule</p>
+							        <h3>{defaultLangnya == 'id' ? 'Kebijakan Tiket' : 'Ticketing Policy'}</h3>
+							        <p>{defaultLangnya == 'id' ? 'Informasi terbaru tentang cara pembelian, refund, dan reschedule.' : 'Latest information on how to purchase, refund, and reschedule'}</p>
 							      </div>
 						      	</Link>
 						    </div>

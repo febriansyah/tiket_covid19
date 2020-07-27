@@ -25,7 +25,7 @@ constructor(props) {
       isLoading: false,
       users: [],
       paging: 0,
-      defaultLangnya: langnya == langDef ? langnya : 'id'  
+      defaultLangnya: langnya == langDef ? langnya : 'id'
     };
 
     // Binds our scroll event handler
@@ -114,6 +114,7 @@ constructor(props) {
       hasMore,
       isLoading,
       users,
+      defaultLangnya,
     } = this.state;
     console.log(langnya);
 
@@ -126,7 +127,7 @@ constructor(props) {
 		    </div>
 		    <div className="rows">	
 		    					<div className="main_title_top">
-					<h3>Airport Policy</h3>
+					<h3>{defaultLangnya == 'id' ? 'Kebijakan Bandara' : 'Airport Policy'}</h3>
 				</div>
 			</div>{/* end.rows */}
 
@@ -134,7 +135,7 @@ constructor(props) {
 		    <section id="section_innernya">
 		    	<div className="rows">
 				  <div className="search_row">
-				    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search airport or cities" />
+				    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari bandara atau kota' : 'Search airports or cities'} />
 					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airport_policy"></div>
 				  </div>
 				</div>{/* end.rows */}
@@ -163,7 +164,6 @@ constructor(props) {
 						<span>{user.airportName}</span>
 					  </div>
 					  <div className="content">
-					    <h3>Important</h3>
 					    <p>{user.generalRequirements }</p>
 
 

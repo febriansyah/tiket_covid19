@@ -4,6 +4,7 @@ import $ from 'jquery';
 import axios from 'axios';
 import request from "superagent";
 import debounce from "lodash.debounce";
+import ReadMoreReact from 'read-more-react';
 import StickyShare from './StickyShare';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
@@ -107,6 +108,7 @@ class AirlinePolicyDomestic extends Component{
       hasMore,
       isLoading,
       users,
+      defaultLangnya,
     } = this.state;
 
 		return(
@@ -117,7 +119,7 @@ class AirlinePolicyDomestic extends Component{
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">
-						<h3>Airline Policy</h3>
+						<h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
 					</div>
 				</div>{/* end.rows */}
 
@@ -125,7 +127,7 @@ class AirlinePolicyDomestic extends Component{
 			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search Airline" />
+					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari maskapai' : 'Search airlines'} />
 
 					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
 					  </div>
@@ -148,8 +150,12 @@ class AirlinePolicyDomestic extends Component{
 							<div className="detail-text-project">
 							    <h3>Airlines Ticketing Guideline and Policy</h3>
 				          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
-								<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+								<p>
+									<ReadMoreReact 
+										text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+
+										readMoreText="Read More"/>
+								</p>
 						    </div>{/*><!--end.detail-text-project-->*/}
 						  </div>
 						</div>{/* end.block_policy */}
@@ -166,7 +172,6 @@ class AirlinePolicyDomestic extends Component{
 								<span>{user.airlinesName}</span>
 				              </div>
 				              <div className="content">
-				                <h3>Important</h3>
 				                <p>{user.generalRequirementDesc}</p><br />
 				                
 				              </div>
