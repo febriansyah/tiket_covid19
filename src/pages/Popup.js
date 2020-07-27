@@ -409,7 +409,7 @@ class Popup extends React.Component{
 										placeholder={defaultLangnya == 'id' ? 'Cari kota atau bandara' : 'Search cities or airports'} 
 									/>
 
-									<button onClick={this.onclearCountry}  className="cleanField icon_clean"><img src="assets/images/close_popup_white.png" /></button>
+									<button onClick={this.onclearCountry}  className="cleanField icon_clean"><img src="assets/images/close_popup.png" /></button>
 						        </div>
 								<label style={{fontSize: '10px', display: 'none'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
@@ -468,7 +468,7 @@ class Popup extends React.Component{
 									/>
 
 
-									<button onClick={this.onclearAirline}  className="cleanField icon_clean"><img src="assets/images/close_popup_white.png" /></button>
+									<button onClick={this.onclearAirline}  className="cleanField icon_clean"><img src="assets/images/close_popup.png" /></button>
 						        </div>
 								<label style={{fontSize: '10px', display: 'none'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
@@ -526,7 +526,7 @@ class Popup extends React.Component{
 										onChange={(val) => this.onChangeText(val, 'airport')}
 										placeholder={defaultLangnya == 'id' ? 'Cari bandara atau kota' : 'Search airports or cities'}
 									/>
-									<button onClick={this.onclearAirport}  className="cleanField icon_clean"><img src="assets/images/close_popup_white.png" /></button>
+									<button onClick={this.onclearAirport}  className="cleanField icon_clean"><img src="assets/images/close_popup.png" /></button>
 						        </div>
 								<label style={{fontSize: '10px', display: 'none'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
