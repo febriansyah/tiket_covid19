@@ -153,6 +153,8 @@ class Popup extends React.Component{
 		})
 	}
 
+	
+
 	searchCitiesOrAirport(text, page, type) {
 		if (page === 0) return;
 
@@ -325,8 +327,22 @@ class Popup extends React.Component{
         this.setState({fields});
     }
 
+    onclearCountry = (e) => {
+    	//console.log(this.props.resturl)
+		document.getElementById('search_country').value = ''
+	}
+	onclearAirline = (e) => {
+    	//console.log(this.props.resturl)
+		document.getElementById('search_airline').value = ''
+	}
+	onclearAirport = (e) => {
+    	//console.log(this.props.resturl)
+		document.getElementById('search_airport').value = ''
+	}
+
 	render() {
 		// console.log(this.state, 'state popup');
+		//var rootElement = document.getElementsByClassName('cleanField');
 		
 		return(
 			<div>
@@ -347,7 +363,7 @@ class Popup extends React.Component{
 					</div> {/* end.content_slide_btm */}
 				</div> {/* end.popup_slider */}
 
-				<div id="popup_email" className="popup_slider actived">
+				<div id="popup_email" className="popup_slider hide">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
@@ -390,9 +406,11 @@ class Popup extends React.Component{
 						          <h3>Going Anywhere?</h3>
 						        </div>
 						    </div>{/* end.rows */}
-						    <div className="rows">
+						    <div className="rows relative">
 						        <div className="search_row">
 						          	<input
+
+						          		id="search_country"
 										type="text"
 										className="search_input"
 										name=""
@@ -400,6 +418,8 @@ class Popup extends React.Component{
 										onChange={(val) => this.onChangeText(val, 'country')}
 										placeholder="Search cities or airports"
 									/>
+
+									<button onClick={this.onclearCountry}  className="cleanField icon_clean"><i className="fa fa-times" aria-hidden="true"></i></button>
 						        </div>
 								<label style={{fontSize: '10px'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
@@ -448,6 +468,7 @@ class Popup extends React.Component{
 						    <div className="rows">
 						        <div className="search_row">
 						        	<input
+						        		id="search_airline"
 										type="text"
 										className="search_input"
 										name=""
@@ -455,6 +476,9 @@ class Popup extends React.Component{
 										onChange={(val) => this.onChangeText(val, 'airline_policy')}
 										placeholder="Search airline policy"
 									/>
+
+
+									<button onClick={this.onclearAirline}  className="cleanField icon_clean"><i className="fa fa-times" aria-hidden="true"></i></button>
 						        </div>
 								<label style={{fontSize: '10px'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
@@ -504,6 +528,7 @@ class Popup extends React.Component{
 						    <div className="rows">
 						        <div className="search_row">
 									<input
+										id="search_airport"
 										type="text"
 										className="search_input"
 										name=""
@@ -511,6 +536,7 @@ class Popup extends React.Component{
 										onChange={(val) => this.onChangeText(val, 'airport')}
 										placeholder="Search cities or airports"
 									/>
+									<button onClick={this.onclearAirport}  className="cleanField icon_clean"><i className="fa fa-times" aria-hidden="true"></i></button>
 						        </div>
 								<label style={{fontSize: '10px'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}

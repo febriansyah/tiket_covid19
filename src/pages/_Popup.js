@@ -277,7 +277,7 @@ class Popup extends React.Component{
 				</div> {/* end.popup_slider */}
 
 
-				<div id="popup_search" className="popup_slider hide">
+				<div id="popup_search" className="popup_slider actived">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
@@ -288,7 +288,7 @@ class Popup extends React.Component{
 						        </div>
 						    </div>{/* end.rows */}
 						    <div className="rows">
-						        <div className="search_row">
+						        <div className="search_row relative">
 						          	<input
 										type="text"
 										className="search_input"
@@ -297,6 +297,7 @@ class Popup extends React.Component{
 										onChange={(val) => this.onChangeText(val, 'city')}
 										placeholder="Search cities or airports"
 									/>
+									<span className="cleanField icon_clean"><i class="fa fa-times" aria-hidden="true"></i></span>
 						        </div>
 						    </div> {/* end.rows */}
 						    <div className="rows">

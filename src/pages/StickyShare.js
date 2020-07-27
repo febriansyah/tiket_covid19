@@ -1,16 +1,31 @@
 import React from 'react';
-import ShareButton from 'react-web-share-button';
+
+const btn = document.getElementById("button")
+const url = window.location.href
 
 class StickyShare extends React.Component{
+	onclick = () => {
+		//alert('aaa');
+	    if (navigator.share !== undefined) {
+	      navigator
+	        .share({
+	          url
+	        })
+	        .then(() => console.log("Shared!"))
+	        .catch(err => console.error(err));
+	    } else {
+	      window.location = `mailto:?subject=a&body=a%0A${url}`;
+	    }
+	  };
+
 	render(){
 
-		const url = window.location.href
 		return(
 			<div>
 			<div className="fixed_button_rows">
 
 		    	<div className="button_bottom">
-		    	<ShareButton buttonText="Share" title="My Great Page" text="A really great page" url={url} />
+		    		<button id="buttonnya" onClick={this.onclick} className="share_bt">Share</button>
 
 		    	</div>
 		    </div>{/* end.fixed_button_rows */}

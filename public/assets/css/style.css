@@ -494,7 +494,21 @@ h3.mediumFont{
 .read-more a{
 	color: #0064d2;
 }
-
+.icon_clean{
+	position: absolute;
+    right: 5px;
+    top: 13px;
+    border:none;
+    padding: 0;
+    background: #979797;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 19px;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+}
 /*==============================content===================*/
 
 #tnc-accodion {
