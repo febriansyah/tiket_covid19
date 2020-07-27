@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+import { color } from '../components/color';
+
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*" };
@@ -100,7 +102,7 @@ const Maps = (props) => {
                             listWorldMap.push({
                                 ...e,
                                 ...i,
-                                color: n === '1' ? 'green' : n === '2' ? 'yellow' : 'red'
+                                color: n === '1' ? color.green : n === '2' ? color.yellow : color.red
                             });
                         }
                     })
@@ -108,7 +110,7 @@ const Maps = (props) => {
                     if (i.id === 'ID') {
                         listWorldMap.push({
                             title: 'Indonesia',
-                            color: 'yellow',
+                            color: color.yellow,
                             ...i,
                         })
                     }
@@ -472,7 +474,7 @@ const Maps = (props) => {
         <>
             <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h3>{title}</h3>
-                <label onClick={() => { setLoading(true); listWorldMap = []; }} className="iconReload hide"><img src="assets/images/reaload-icon.png" /></label>
+                {/* <label onClick={() => { setLoading(true); listWorldMap = []; }} className="iconReload"><img src="assets/images/reaload-icon.png" /></label> */}
             </div>
             <div className="frame_peta">
                 <div id='chart' style={{maxWidth: '100%', height: '250px'}} />

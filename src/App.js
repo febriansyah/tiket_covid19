@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
@@ -13,13 +13,15 @@ import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
 
 function App() {
+  const [selectedCountryCode, changeSelectedCountryCode] = useState('');
+
   return (
     <div>
       <Router>
-      <ScrollToTop />
+        <ScrollToTop />
         <Switch>
           <Route exact path='/' component = {Home} />
-          <Route path='/SearchResult' component = {SearchResult} />
+          <Route path='/SearchResult' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
           <Route path='/AirlinePolicyDomestic' component = {AirlinePolicyDomestic} />
           <Route path='/AirlinePolicyInternational' component = {AirlinePolicyInternational} />
           <Route path='/AirlinePolicyDetail' component = {AirlinePolicyDetail} />
@@ -28,7 +30,7 @@ function App() {
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
           <Route component={PageNotFound} />
         </Switch>
-        <Popup />
+        <Popup selectedCountryCode={selectedCountryCode} />
       </Router>
     </div>
   );

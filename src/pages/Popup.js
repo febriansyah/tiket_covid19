@@ -9,9 +9,10 @@ const initialSearch = {
 	searchPage: 1,
 }
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
+
+let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 class Popup extends React.Component{
 	constructor(props){
@@ -27,32 +28,19 @@ class Popup extends React.Component{
 		  ...initialSearch,
 		  listAirport: [],
 		  listAirlines: [],
-		  covid_world_timeline: null,
 		  showNoResult: 'hide',
 		};
 	}
 
-	componentWillMount() {
-		axios({
-            method: 'get',
-            url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
-            headers
-        })
-        .then(res => {
-            let data = res.data.replace(/\s/g, '').split('=')[1];
-            let arrData = JSON.parse(data);
-            let result = [];
-            
-            if (Array.isArray(arrData)) {
-                result = arrData[arrData.length - 1];
-			}
+	componentDidMount() {
+		this._listData();
+		this.getListAirport();
+		this.getListAirlines();
+	}
 
-			this.setState({ covid_world_timeline: result });
-			
-			this._listData();
-			this.getListAirport();
-			this.getListAirlines();
-        })
+	mappingListWordMap(countryCode) {
+		const result = listWorldMap.filter((item) => item.id === countryCode)[0];
+		return result;
 	}
 
 	_listData = () => {
@@ -63,19 +51,13 @@ class Popup extends React.Component{
 		})
 		.then(response => {
 			// console.log(response, 'response popular city');
-			const { covid_world_timeline } = this.state;
-			let newItem = null;
 			let remapCity = [];
-
-			if (covid_world_timeline) {
-				newItem = covid_world_timeline.list.filter((item) => item.id === 'ID')[0];
-			}
 
 			if (Array.isArray(response.data.data)) {
 				response.data.data.forEach(e => {
 					remapCity.push({
 						...e,
-						...newItem,
+						...this.mappingListWordMap(e.countryCode),
 					})
 				});
 			}
@@ -164,21 +146,15 @@ class Popup extends React.Component{
 			headers
 		})
 		.then(res => {
-			// console.log(res, 'res search');
+			console.log(res, 'res search');
 			console.log(apiUrl + `suggestion/location?keyword=${text}&type=${type}&page=${page}`);
-			const { covid_world_timeline } = this.state;
-			let newItem = null;
 			let remapCity = [];
-
-			if (covid_world_timeline) {
-				newItem = covid_world_timeline.list.filter((item) => item.id === 'ID')[0];
-			}
 
 			if (res.data.status === 'success' && Array.isArray(res.data.data)) {
 				res.data.data.forEach(e => {
 					remapCity.push({
 						...e,
-						...newItem,
+						...this.mappingListWordMap(e.countryCode),
 					})
 				});
 			}
@@ -297,28 +273,34 @@ class Popup extends React.Component{
        return formIsValid;
     }
 
-    contactSubmit(e){
-        e.preventDefault();
-
-        if(this.handleValidation()){
-           //alert("Form submitted");
-           fetch('https://www.getpostman.com/collections/908c7d693dd1832cc630', {
-	        method: 'POST',
-	        // We convert the React state to JSON and send it as the POST body
-	        body: JSON.stringify(this.state.fields["email"])
-	      }).then(function(response) {
-	        console.log(response)
-	        return response.json();
-	      });
-
-           $("#popup_email").removeClass("actived");
-           $("#popup_email").addClass("hide");
-           $("#popup_confirmasi").removeClass("hide");
-           $("#popup_confirmasi").addClass("actived");
-        }else{
+    contactSubmit(e) {
+		e.preventDefault();
+		
+        if (this.handleValidation()) {
+			axios.post(apiUrl+"user-submissions", {
+				email: this.state.fields.email,
+				countryCode: this.props.selectedCountryCode,
+			}, {
+				headers
+			})
+			.then(res => {
+				console.log(res, 'res');
+				$("#popup_email").removeClass("actived");
+				$("#popup_email").addClass("hide");
+				$("#popup_confirmasi").removeClass("hide");
+				$("#popup_confirmasi").addClass("actived");
+			})
+			.catch(err => {
+				console.log(err, 'err');
+				
+				$("#popup_email").removeClass("actived");
+				$("#popup_email").addClass("hide");
+				$("#popup_confirmasi").removeClass("hide");
+				$("#popup_confirmasi").addClass("actived");
+			})
+        } else {
            //alert("Form has errors.")
         }
-
     }
 
     handleChange(field, e){         
@@ -341,8 +323,7 @@ class Popup extends React.Component{
 	}
 
 	render() {
-		// console.log(this.state, 'state popup');
-		//var rootElement = document.getElementsByClassName('cleanField');
+		// console.log(this.props, 'state popup');
 		
 		return(
 			<div>
@@ -371,16 +352,20 @@ class Popup extends React.Component{
 					    	<div className="inner_popup">
 					    		<h3>Enter Email Address</h3>
 					    		<p>Notifications about the status of your destination will be sent to this email.</p>
-					    		<form name="contactform" className="contactform" onSubmit= {this.contactSubmit.bind(this)}>
+					    		<form name="contactform" className="contactform" onSubmit={this.contactSubmit.bind(this)}>
 
 					    		<div className="form_row">
 						    		<div className="form_group">
-										<input refs="email" className="input_form" type="text" size="30" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
+										<input
+											refs="email"
+											className="input_form"
+											type="text"
+											size="30"
+											placeholder="Email"
+											onChange={this.handleChange.bind(this, "email")}
+											value={this.state.fields["email"]}
+										/>
 										<span className="erorr_help">{this.state.errors["email"]}</span>
-
-
-						    			<input type="email" className="input_form hide" placeholder="Email" />
-						    			<span className="erorr_help hide">Enter an email address.</span>
 						    		</div>
 					    		</div> {/* end.form_row */}
 

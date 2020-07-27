@@ -7,11 +7,13 @@ import $ from 'jquery';
 import NumberFormat from 'react-number-format';
 
 import Maps from './Maps';
+import { color } from '../components/color';
+
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
 
 class SearchResult extends React.Component{
-	constructor(props){
+	constructor(props) {
 	   super(props);
 	   this.state = {
 			dataItem: null,
@@ -41,10 +43,8 @@ class SearchResult extends React.Component{
 	}
 
 	getCountryByCode(countryCode) {
-		console.log(countryCode, 'cc');
-		
-		const proxyurl = "https://cors-anywhere.herokuapp.com/";
 		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+		this.props.changeSelectedCountryCode(countryCode);
 
 		axios({
 			method: 'get',
@@ -54,7 +54,7 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-			console.log(res, 'country');
+			// console.log(res, 'country');
 			
 			let arrData = [];
 			if (res.data.status === 'success') {
@@ -69,7 +69,6 @@ class SearchResult extends React.Component{
 			})
 		})
 		.catch(err => {
-			console.log(err, 'here');
 			this.setState({ loading: false });
 		})
 	}
@@ -80,26 +79,23 @@ class SearchResult extends React.Component{
 		const { dataItem } = this.state;
 		const { state } = this.props.location;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', color = '', labelReadMode = 'Loading..', countryCode, longitude, latitude;
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 		if (state && state.data) {
 			confirmed = state.data.confirmed;
 			deaths = state.data.deaths;
 			countryCode = state.data.countryCode;
 			recovered = state.data.recovered;
 			countryName = state.data.title;
-			color = state.data.color;
+			mapsColor = state.data.color;
 			longitude = state.data.longitude;
 			latitude = state.data.latitude;
 		}
 
 		if (dataItem) {
 			labelReadMode = 'Read More..';
-			longitude = parseFloat(dataItem.longitude);
-			latitude = parseFloat(dataItem.latitude);
+			longitude = dataItem.longitude;
+			latitude = dataItem.latitude;
 		}
-
-		console.log(dataItem, longitude, 'item');
-		
 		
 		return(
 			<div id="middle-content" className="homePage">
@@ -108,17 +104,17 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
-			    <div className={`block_info alert_warning ${color !== 'yellow' && 'hide'}`}>
+			    <div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
 			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
 			      <span>Partially prohibited, check local policy</span>
 			    </div>
 
-			    <div className={`block_info alert_danger ${color !== 'red' && 'hide'}`}>
+			    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
 			      <img src="assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
 			      <span>Prohibited, avoid non-essential travel</span>
 			    </div>
 
-			    <div className={`block_info alert_safe ${color !== 'green' && 'hide'}`}>
+			    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
 			      <img src="assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
 			      <span>Allowed, travel with safety precautions</span>
 			    </div>
@@ -127,25 +123,23 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="block_shadow">
 			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-						<div className={`block_info block_info_notif trigger_slider_search ${color !== 'red' && 'hide'}`} data-slider="popup_email">
+						<div className={`block_info block_info_notif trigger_slider_search ${mapsColor === color.yellow && 'hide'} ${mapsColor === color.green && 'hide'}`} data-slider="popup_email">
 							<span>Notify when then prohibition is lifted</span>
 						</div>
 			        </div>
 			      </div>
 			      <div className="rows">
 			        <div className="frame_peta">
-			          {/* <img src="assets/images/peta.png" /> */}
 					  <Maps
 					  	parentName='Search'
 						homeZoomLevel={5}
 						countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
 						countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
-						longitude={longitude}
+						longitude={parseFloat(longitude)}
+						latitude={parseFloat(latitude)}
 						loading={this.state.loading}
-						latitude={latitude}
 					  	{...this.props}
 					  />
-
 			        </div>
 			        
 			      </div>
