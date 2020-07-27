@@ -89,8 +89,9 @@ class SearchResult extends React.Component{
 			mapsColor = state.data.color;
 			longitude = state.data.longitude;
 			latitude = state.data.latitude;
+			
 		}
-
+		console.log(mapsColor)
 		if (dataItem) {
 			labelReadMode = 'Read More..';
 			longitude = dataItem.longitude;
