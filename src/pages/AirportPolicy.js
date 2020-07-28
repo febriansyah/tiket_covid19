@@ -5,6 +5,7 @@ import debounce from "lodash.debounce";
 import $ from 'jquery'; 
 import axios from 'axios';
 import StickyShare from './StickyShare';
+import ReadMoreReact from 'read-more-react';
 import ReactMarkdown from 'react-markdown';
 
 //const input = '## This is a header\n\nAnd this is a paragraph'
@@ -164,7 +165,11 @@ constructor(props) {
 						<span>{user.airportName}</span>
 					  </div>
 					  <div className="content">
-					    <p>{user.generalRequirements }</p>
+					    <p>
+              <ReadMoreReact 
+                    text={user.generalRequirements}
+                    readMoreText="Read More"/>
+              </p>
 
 
 					  </div>

@@ -106,17 +106,17 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
-			    <div className={`block_info alertBlock alert_warning ${mapsColor != 'yellow' && 'hide'}`}>
+			    <div className={`block_info alertBlock alert_warning ${mapsColor != color.yellow && 'hide'}`}>
 			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
 			    </div>
 
-			    <div className={`block_info alertBlock alert_danger ${mapsColor != 'red' && 'hide'}`}>
+			    <div className={`block_info alertBlock alert_danger ${mapsColor != color.red && 'hide'}`}>
 			      <img src="assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
 			    </div>
 
-			    <div className={`block_info alertBlock alert_safe ${mapsColor != 'green' && 'hide'}`}>
+			    <div className={`block_info alertBlock alert_safe ${mapsColor != color.green && 'hide'}`}>
 			      <img src="assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan ' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
@@ -125,7 +125,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="block_shadow">
 			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-						<div className={`block_info block_info_notif trigger_slider_search ${mapsColor === 'yellow' && 'hide'} ${mapsColor === 'green' && 'hide'}`} data-slider="popup_email">
+						<div className={`block_info block_info_notif trigger_slider_search ${mapsColor === color.yellow && 'hide'} ${mapsColor === color.green && 'hide'}`} data-slider="popup_email">
 							<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 						</div>
 			        </div>
