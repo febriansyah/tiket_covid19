@@ -142,7 +142,7 @@ class AirlinePolicy extends Component{
 									<ReadMoreReact 
 										text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
 
-										readMoreText="Read More"/>
+										readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}/>
 								</p>
 						    </div>{/*><!--end.detail-text-project-->*/}
 						  </div>

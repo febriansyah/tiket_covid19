@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component,Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import StickyShare from './StickyShare';
@@ -18,6 +18,7 @@ class SearchResult extends React.Component{
 	   super(props);
 	   this.state = {
 			dataItem: null,
+			dataCard:null,
 			dataCovid: null,
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
@@ -66,7 +67,7 @@ class SearchResult extends React.Component{
     }
 
 	getCountryByCode(countryCode) {
-		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 		this.props.changeSelectedCountryCode(countryCode);
 
 		axios({
@@ -77,32 +78,43 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-			// console.log(res, 'country');
+			//console.log(res.data.data[0].items, 'country');
 			
 			let arrData = [];
+			let arrItems = [];
 			if (res.data.status === 'success') {
 				if (res.data.data.length > 0) {
 					arrData = res.data.data[0];
+					arrItems = res.data.data[0].items
 				}
 			}
 
 			this.setState({ dataItem: arrData }, () => {
+				//this.setState({ dataCard:arrItems });
 				$(".halBefore-kuis").fadeOut();
 				this.setState({ loading: false });
 			})
+
+			if (arrItems.length > 0) {
+				this.setState({ dataCard: arrItems });
+			}
+
+			
 		})
 		.catch(err => {
 			this.setState({ loading: false });
 		})
 	}
 
+
 	render() {
-		console.log(this.props,  'search result', this.state);
+		//console.log(this.props,  'search result', this.state);
 
-		const { dataItem, dataCovid, defaultLangnya } = this.state;
+		const { dataItem, dataCovid, defaultLangnya, dataCard } = this.state;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude, name ='',description='';
 
+		console.log(dataCard);
 		if (dataCovid) {
 			confirmed = dataCovid.confirmed;
 			deaths = dataCovid.deaths;
@@ -116,10 +128,15 @@ class SearchResult extends React.Component{
 			longitude = dataItem.longitude;
 			latitude = dataItem.latitude;
 			mapsColor = getColorByStatus(dataItem.status);
-		}		
+		}	
+		if (dataCard){
+			name = dataCard.name;
+			description = dataCard.description;
+		}
 		
 		return(
 			<div id="middle-content" className="homePage">
+			
 			  <div className="wrapper">
 			    <div className="rows">
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
@@ -243,79 +260,23 @@ class SearchResult extends React.Component{
 			      </div>}
 
 			      <div className="rows">
-					<div className="block_policy full_block">
-					  <div className="caption_policy">
-						<div className="detail-text-project">
-						    <h3>{defaultLangnya == 'id' ? 'Pembatasan Masuk' : 'Entry Restrictions'}</h3>
-						    <p>
-							{dataItem && <div><ReadMoreReact
-          text={dataItem.entryRestrictionsDesc}
-		  readMoreText="Read More"/></div>}</p><br />
-						    {/* {dataItem && dataItem.entryRestrictionsDesc}</p><br /> */}
-							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
-					    </div>{/*><!--end.detail-text-project-->*/}
-					  </div>
-					</div>
 
-					<div className="block_policy full_block">
-					  <div className="caption_policy">
-						<div className="detail-text-project">
-							<h3>{defaultLangnya == 'id' ? 'Dispensasi Pembatasan Masuk' : 'Entry Restrictions Exemptions'}</h3>
-							<p>{dataItem && <div><ReadMoreReact
-          text={dataItem.entryRestrictionsExemptionsDesc}
-		  readMoreText="Read More"/></div>}</p><br />
-							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
+					{dataCard && dataCard.map((carding, i) => (
+				    	<Fragment key={i}>
+				    	<div className="block_policy full_block">
+						  <div className="caption_policy">
+							<div className="detail-text-project">
+							    <h3>{carding.name}</h3>
+							    <div>
+									<ReadMoreReact
+		          						text={carding.description}
+				  						readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}/>
+				  				</div>
+						    </div>{/*><!--end.detail-text-project-->*/}
+						  </div>
 						</div>
-					  </div>
-					</div>
-
-					<div className="block_policy full_block">
-					  <div className="caption_policy">
-						<div className="detail-text-project">
-						    <h3>{defaultLangnya == 'id' ? 'Persyaratan Masuk Tambahan ' : 'Additional Entry Requirements'}</h3>
-						    <p>{dataItem && <div><ReadMoreReact
-          text={dataItem.additionalEntryRequirementsDesc}
-		  readMoreText="Read More"/></div>}</p>
-						    {/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
-					    </div>{/*><!--end.detail-text-project-->*/}
-					  </div>
-					</div>
-
-					<div className="block_policy full_block">
-					  <div className="caption_policy">
-						<div className="detail-text-project">
-						    <h3>{defaultLangnya == 'id' ? 'Kebijakan Karantina' : 'Quarantine Policy'}</h3>
-						    <p>{dataItem && <div><ReadMoreReact
-          text={dataItem.quarantinePolicyDesc}
-		  readMoreText="Read More"/></div>}</p><br />
-							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
-					    </div>{/*><!--end.detail-text-project-->*/}
-					  </div>
-					</div>
-
-					<div className="block_policy full_block">
-					  <div className="caption_policy">
-						<div className="detail-text-project">
-						    <h3>{defaultLangnya == 'id' ? 'Kebijakan Visa' : 'Visa Policy'}</h3>
-						    <p>{dataItem && <div><ReadMoreReact
-          text={dataItem.visaPolicyDesc}
-		  readMoreText="Read More"/></div>}</p><br />
-							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
-					    </div>{/*><!--end.detail-text-project-->*/}
-					  </div>
-					</div>
-
-					<div className="block_policy full_block">
-					  <div className="caption_policy">
-						<div className="detail-text-project">
-						    <h3>{defaultLangnya == 'id' ? 'Kebijakan Transit' : 'Transit Policy'}</h3>
-						    <p>{dataItem && <div><ReadMoreReact
-          text={dataItem.transitPolicyDesc}
-		  readMoreText="Read More"/></div>}</p><br />
-						    {/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
-					    </div>{/*><!--end.detail-text-project-->*/}
-					  </div>
-					</div>
+						</Fragment>
+				    ))}
 
 			      </div>{/* end.rows */}
 			    </section>

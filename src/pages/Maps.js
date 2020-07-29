@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { color } from '../components/color';
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
@@ -89,6 +89,7 @@ const Maps = (props) => {
     }
 
     const getCountryStatus = (n) => {
+        //console.log(n);
         axios({
             type: 'get',
             url: proxyurl + apiUrl + `country-status?status=${n}`,
