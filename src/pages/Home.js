@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams
-} from "react-router-dom";
+import { Link } from 'react-router-dom';
 // import * as am4core from "@amcharts/amcharts4/core";
 // import * as am4maps from "@amcharts/amcharts4/maps";
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
@@ -447,7 +441,7 @@ class Home extends React.Component {
 						    </div>
 
 						    <div className="block_policy">
-								<Link to="/TicketingPolicyFlights/Malaysia">
+								<Link to="/TicketingPolicyFlights">
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
 							      </div>

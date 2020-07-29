@@ -207,9 +207,7 @@ class Popup extends React.Component{
 		return list_data_popular.map((value, idx) =>
 			<Link
 				key={idx}
-				to={{ pathname: "/SearchResult", state: {
-					data: value
-				}}}
+				to={{ pathname: "/SearchResult/" + value.countryCode }}
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>

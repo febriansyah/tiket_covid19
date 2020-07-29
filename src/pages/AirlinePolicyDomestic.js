@@ -61,14 +61,14 @@ class AirlinePolicyDomestic extends Component{
       this.state.paging = this.state.paging+1;
 
       request
-        .get('https://api.tiketsafe.com/api/v2/airlines?lang='+this.state.defaultLangnya+'&flightType=1&page='+this.state.paging)
+        .get('https://api.tiketsafe.com/api/v1/airlines?lang='+this.state.defaultLangnya+'&flightType=1&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
           //console.log(results.body.data.length)
           const nextUsers = results.body.data.map(value => ({
             airlinesName: value.airlinesName,
             imageURL: value.imageURL,
-            items: value.items,
+            generalRequirementDesc: value.generalRequirementDesc,
 
           }));
 
@@ -172,12 +172,7 @@ class AirlinePolicyDomestic extends Component{
 								<span>{user.airlinesName}</span>
 				              </div>
 				              <div className="content">
-					              {user.items.map((item, k) => (
-				                      <div className="rowHtml" key={k}>
-				                        <h3>{item.name}</h3>
-				                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
-				                      </div>
-				                    ))}
+				                <p>{user.generalRequirementDesc}</p><br />
 				                
 				              </div>
 				            </div>

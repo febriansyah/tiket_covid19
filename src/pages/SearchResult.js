@@ -18,6 +18,7 @@ class SearchResult extends React.Component{
 	   super(props);
 	   this.state = {
 			dataItem: null,
+			dataCovid: null,
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
 	   };
@@ -33,15 +34,36 @@ class SearchResult extends React.Component{
 		window.readmoreFade();
 		window.popupSlider();
 
-		this.getCountryByCode(this.props.location.state.data.countryCode);
+		this.getCountryByCode(this.props.match.params.countryCode);
+		this.getCovidData(this.props.match.params.countryCode);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.location.state.data.countryCode !== nextProps.location.state.data.countryCode) {
+		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
 			$(".halBefore-kuis").fadeIn();
-			this.getCountryByCode(nextProps.location.state.data.countryCode);
+			this.getCountryByCode(nextProps.match.params.countryCode);
+			this.getCovidData(nextProps.match.params.countryCode);
 		}
 	}
+
+	getCovidData(countryCode) {
+        axios({
+            method: 'get',
+            url: 'https://cors-anywhere.herokuapp.com/' + 'https://covid.amcharts.com/data/js/world_timeline.js',
+            headers: { "Access-Control-Allow-Origin": "*" }
+        })
+        .then(res => {
+            let data = res.data.replace(/\s/g, '').split('=')[1];
+            let arrData = JSON.parse(data);
+            let dataCovid = null;
+            
+            if (Array.isArray(arrData) && arrData.length > 0) {
+				dataCovid = arrData[arrData.length - 1].list.filter(covid => covid.id === countryCode)[0];
+			}
+
+			this.setState({ dataCovid });
+        })
+    }
 
 	getCountryByCode(countryCode) {
 		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
@@ -75,26 +97,22 @@ class SearchResult extends React.Component{
 	}
 
 	render() {
-		// console.log(this.props,  'search result');
+		console.log(this.props,  'search result', this.state);
 
-		const { dataItem,defaultLangnya } = this.state;
-		const { state } = this.props.location;
+		const { dataItem, dataCovid, defaultLangnya } = this.state;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '', labelReadMode = 'Loading..', countryCode, longitude, latitude;
-		if (state && state.data) {
-			confirmed = state.data.confirmed;
-			deaths = state.data.deaths;
-			countryCode = state.data.countryCode;
-			recovered = state.data.recovered;
-			countryName = state.data.title;
-			mapsColor = state.data.color;
-			longitude = state.data.longitude;
-			latitude = state.data.latitude;
-			
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = color.red, labelReadMode = 'Loading..', countryCode, longitude, latitude;
+
+		if (dataCovid) {
+			confirmed = dataCovid.confirmed;
+			deaths = dataCovid.deaths;
+			recovered = dataCovid.recovered;
 		}
 		console.log(mapsColor)
 		if (dataItem) {
-			labelReadMode = defaultLangnya == 'id' ? 'Baca Selengkapnya' : 'Read More';
+			labelReadMode = 'Read More..';
+			countryName = dataItem.countryName;
+			countryCode = dataItem.countryCode;
 			longitude = dataItem.longitude;
 			latitude = dataItem.latitude;
 		}
@@ -106,19 +124,19 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
-			    <div className={`block_info alertBlock alert_warning ${mapsColor != color.yellow && 'hide'}`}>
-			      <img src="assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
+			    <div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
+			      <img src="../assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
+			      <span>Partially prohibited, check local policy</span>
 			    </div>
 
-			    <div className={`block_info alertBlock alert_danger ${mapsColor != color.red && 'hide'}`}>
-			      <img src="assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
+			    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
+			      <img src="../assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
+			      <span>Prohibited, avoid non-essential travel</span>
 			    </div>
 
-			    <div className={`block_info alertBlock alert_safe ${mapsColor != color.green && 'hide'}`}>
-			      <img src="assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan ' : 'Allowed, travel with safety precautions'}</span>
+			    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
+			      <img src="../assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
+			      <span>Allowed, travel with safety precautions</span>
 			    </div>
 
 			    <section id="section_maps">
