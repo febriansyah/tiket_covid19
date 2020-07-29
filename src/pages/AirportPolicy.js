@@ -13,7 +13,7 @@ import ReactMarkdown from 'react-markdown';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 
 const langDef = 'en'
-const apiUrl = 'https://api.tiketsafe.com/api/v2/';
+
 
 class AirportPolicy extends React.Component{
 constructor(props) {
@@ -72,13 +72,13 @@ constructor(props) {
 
       //console.log('ada '+this.state.defaultLangnya);
       request
-        .get('https://api.tiketsafe.com/api/v2/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
+        .get('https://api.tiketsafe.com/api/v1/airports?lang='+this.state.defaultLangnya+'&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
-          console.log('ada '+results.body.data);
+
           const nextUsers = results.body.data.map(value => ({
             airportName: value.airportName,
-            items: value.items,
+            generalRequirements: value.generalRequirements,
           }));
 
           // Merges the next users into our existing users
@@ -161,20 +161,19 @@ constructor(props) {
 			    {users.map((user, i) => (
 		          <Fragment key={i}>
 		            <div className="items" key={i}>
-      					  <div className="page">
-      						<span>{user.airportName}</span>
-      					  </div>
-      					  <div className="content">
-                    {user.items.map((item, k) => (
-                      <div className="rowHtml" key={k}>
-                        <h3>{item.name}</h3>
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
-                      </div>
-                    ))}
+					  <div className="page">
+						<span>{user.airportName}</span>
+					  </div>
+					  <div className="content">
+					    <p>
+              <ReadMoreReact 
+                    text={user.generalRequirements}
+                    readMoreText="Read More"/>
+              </p>
 
 
-      					  </div>
-      					</div>
+					  </div>
+					</div>
 		          </Fragment>
 		        ))}
 		        {error &&

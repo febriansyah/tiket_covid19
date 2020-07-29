@@ -139,6 +139,8 @@ const Maps = (props) => {
 		chart.projection = new am4maps.projections.Miller();
 		chart.homeZoomLevel = homeZoomLevel;
         chart.homeGeoPoint = { longitude, latitude };
+        // chart.logo.height = -15;
+        chart.logo.disabled = true;
 
         let listData = [];
 
@@ -213,13 +215,13 @@ const Maps = (props) => {
   
               let data = event.target.dataItem.dataContext;
 
-              const dataItem = {
-                  ...data,
-                  countryCode: data.id,
-                  ...chart.svgPointToGeo(event.svgPoint),
-              }
+            //   const dataItem = {
+            //       ...data,
+            //       countryCode: data.id,
+            //       ...chart.svgPointToGeo(event.svgPoint),
+            //   }
 
-              history.push({ pathname: '/SearchResult', state: { data: dataItem } });
+              history.push({ pathname: '/SearchResult/' + data.id });
             })
   
             mapPolygonTemplate.events.on("out", function(event) {
@@ -341,7 +343,7 @@ const Maps = (props) => {
             indicator.height = am4core.percent(100);
 
             let hourglass = indicator.createChild(am4core.Image);
-            hourglass.href = "assets/images/loading_static.png";
+            hourglass.href = "../assets/images/loading_static.png";
             hourglass.align = "center";
             hourglass.valign = "middle";
             hourglass.horizontalCenter = "middle";
@@ -474,7 +476,12 @@ const Maps = (props) => {
         <>
             <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h3>{title}</h3>
-                {/* <label onClick={() => { setLoading(true); listWorldMap = []; }} className="iconReload"><img src="assets/images/reaload-icon.png" /></label> */}
+                <label
+                    onClick={() => { setLoading(true); listWorldMap = []; }}
+                    className="iconReload"
+                >
+                    <img src="../assets/images/reaload-icon.png" />
+                </label>
             </div>
             <div className="frame_peta">
                 <div id='chart' style={{maxWidth: '100%', height: '250px'}} />

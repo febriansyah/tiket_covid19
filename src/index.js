@@ -4,6 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import './assets/css/style.css';
+// import './assets/css/reset.css';
+// import './assets/js/js_run.js';
+// import './assets/js/js_lib.js';
+// import './assets/js/jquery.infinitescroll.js';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
