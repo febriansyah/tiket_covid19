@@ -14,7 +14,7 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 
 function App() {
   const [selectedCountryCode, changeSelectedCountryCode] = useState('');
-
+  const [productshistory] = useState('');
   return (
     <div>
       <Router>
@@ -28,6 +28,11 @@ function App() {
           <Route path='/AirportPolicy' component = {AirportPolicy} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
+          <Route exact path="/TicketingPolicyFlights/:product" render={props =>
+              <TicketingPolicyFlights  {...props} productshistory={(c) => productshistory(c)} />}
+            />
+          {/*<Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />*/}
+         
           <Route component={PageNotFound} />
         </Switch>
         <Popup selectedCountryCode={selectedCountryCode} />
