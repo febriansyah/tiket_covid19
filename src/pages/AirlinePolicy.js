@@ -1,29 +1,125 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component,Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import $ from 'jquery'; 
+import axios from 'axios';
+import request from "superagent";
+import debounce from "lodash.debounce";
+import ReadMoreReact from 'read-more-react';
+import StickyShare from './StickyShare';
+
+const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langDef = 'en'
 
 class AirlinePolicy extends Component{
-	constructor(props){
-	   super(props);
-	   this.goBack = this.goBack.bind(this);
-	}
-	goBack(){
-	    this.props.history.goBack();
-	}
-	componentDidMount() {
-		 window.readmoreFade();
-		 window.activeAccordion();
-		 window.popupSlider();
-	}
+	constructor(props) {
+    super(props);
+    
+    // Sets up our initial state
+    this.state = {
+      error: false,
+      hasMore: true,
+      isLoading: false,
+      users: [],
+      paging: 0,
+      defaultLangnya: langnya == langDef ? langnya : 'id' 
+    };
+
+    // Binds our scroll event handler
+    window.onscroll = () => {
+      const {
+        loadUsers,
+        state: {
+          error,
+          isLoading,
+          hasMore,
+        },
+      } = this;
+
+      // Bails early if:
+      // * there's an error
+      // * it's already loading
+      // * there's nothing left to load
+      if (error || isLoading || !hasMore) return;
+
+      // Checks that the page has scrolled to the bottom
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        === document.documentElement.offsetHeight
+      ) {
+        loadUsers();
+      }
+    };
+  }
+
+  componentWillMount() {
+    // Loads some users on initial load
+    this.loadUsers();
+  }
+
+  loadUsers = () => {
+    this.setState({ isLoading: true}, () => {
+      this.state.paging = this.state.paging+1;
+
+      request
+        .get('https://api.tiketsafe.com/api/v2/airlines?lang='+this.state.defaultLangnya+'&flightType=1&page='+this.state.paging)
+        .then((results) => {   
+          // Creates a massaged array of user data
+          //console.log(results.body.data.length)
+          const nextUsers = results.body.data.map(value => ({
+            airlinesName: value.airlinesName,
+            imageURL: value.imageURL,
+            items: value.items,
+
+          }));
+
+          // Merges the next users into our existing users
+          this.setState({
+            // Note: Depending on the API you're using, this value may be
+            // returned as part of the payload to indicate that there is no
+            // additional data to be loaded
+
+            hasMore: (results.body.data.length != 0),
+            isLoading: false,
+            users: [
+              ...this.state.users,
+              ...nextUsers,
+            ],
+          });
+
+    	window.activeAccordion();
+    	window.popupSlider();
+    	window.readmoreFade();
+    	
+        })
+        .catch((err) => {
+          this.setState({
+            error: err.message,
+            isLoading: false,
+           });
+        })
+    });
+  }
+
+	
+
 	render(){
+		const {
+      error,
+      hasMore,
+      isLoading,
+      users,
+      defaultLangnya,
+    } = this.state;
+
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<button onClick={() => this.props.history.goBack()} className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
+			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">
-						<h3>Airline Policy</h3>
+						<h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
 					</div>
 				</div>{/* end.rows */}
 
@@ -31,7 +127,8 @@ class AirlinePolicy extends Component{
 			    <section id="section_innernya">
 			    	<div className="rows">
 					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder="Search Airline" />
+					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari maskapai' : 'Search airlines'} />
+
 					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
 					  </div>
 					</div>{/* end.rows */}
@@ -41,8 +138,12 @@ class AirlinePolicy extends Component{
 							<div className="detail-text-project">
 							    <h3>Airlines Ticketing Guideline and Policy</h3>
 				          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
-								<p className="read-more"><span className="linkBlue button-readmore">Read More..</span></p>
+								<p>
+									<ReadMoreReact 
+										text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+
+										readMoreText="Read More"/>
+								</p>
 						    </div>{/*><!--end.detail-text-project-->*/}
 						  </div>
 						</div>{/* end.block_policy */}
@@ -51,102 +152,53 @@ class AirlinePolicy extends Component{
 
 			    <section id="section_tabs_list">
 			    	<div id="tnc-accodion">
-				    	<div className="items">
-			              <div className="page">
-			              	<img src="assets/images/air_canada_1.png" className="icon_airline" />
-							<span>Air Canada</span>
-			              </div>
-			              <div className="content">
-			                <h3>Important</h3>
-			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
-			                <h3>Refund</h3>
-							<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
-							<p>
-							Ticket Purchase Date: On / before 15 March 2020.<br/>
-							Flight Period: 24 January - 31 August 2020.<br/>
-							Routes: All routes.<br/>
-							Refund Rules: Full refund.</p>
+			    		{users.map((user, i) => (
+				          <Fragment key={i}>
+				            <div className="items" key={i}>
+				              <div className="page">
+				              	<img src={user.imageURL} className="icon_airline" alt='airline_logo' />
+								<span>{user.airlinesName}</span>
+				              </div>
+				              <div className="content">
+					              {user.items.map((item, k) => (
+				                      <div className="rowHtml" key={k}>
+				                        <h3>{item.name}</h3>
+				                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+				                      </div>
+				                    ))}
+				                
+				              </div>
+				            </div>
+				          </Fragment>
+				        ))}
+				        {error &&
+				          <div>
+				            {error}
+				          </div>
+				        }
+				        {isLoading &&
 
-							<p>
-							Ticket Purchase Date: 5 March - 31 August 2020.<br/>
-							Flight Period: -<br/>
-							Routes: All routes.<br/>
-							Refund Rules: As per normal regulation.</p>
-							<p>
-							Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
-
-
-			              </div>{/* end.content */}
-			            </div>
-
-			            <div className="items">
-			              <div className="page">
-			              	<img src="assets/images/air_new_zealand_1.png" className="icon_airline" />
-							<span>Air New Zealand</span>
-			              </div>
-			              <div className="content">
-			                <h3>Important</h3>
-			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
-			                <h3>Refund</h3>
-							<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
-							<p>
-							Ticket Purchase Date: On / before 15 March 2020.<br/>
-							Flight Period: 24 January - 31 August 2020.<br/>
-							Routes: All routes.<br/>
-							Refund Rules: Full refund.</p>
-
-							<p>
-							Ticket Purchase Date: 5 March - 31 August 2020.<br/>
-							Flight Period: -<br/>
-							Routes: All routes.<br/>
-							Refund Rules: As per normal regulation.</p>
-							<p>
-							Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
-
-
-			              </div>{/* end.content */}
-			            </div>
-
-			            <div className="items">
-			              <div className="page">
-			              	<img src="assets/images/ana_1.png" className="icon_airline" />
-							<span>All Nippon Airways</span>
-			              </div>
-			              <div className="content">
-			                <h3>Important</h3>
-			                <p>The terms and conditions informed on this page are fluctuative and are subject to change without prior notice. The applicable policy will still follow the airline regulations when the request is submitted.</p><br />
-			                <h3>Refund</h3>
-							<p>Refund conditions are subject to change without prior notice and follow based on the terms and conditions of the airline.</p>
-							<p>
-							Ticket Purchase Date: On / before 15 March 2020.<br/>
-							Flight Period: 24 January - 31 August 2020.<br/>
-							Routes: All routes.<br/>
-							Refund Rules: Full refund.</p>
-
-							<p>
-							Ticket Purchase Date: 5 March - 31 August 2020.<br/>
-							Flight Period: -<br/>
-							Routes: All routes.<br/>
-							Refund Rules: As per normal regulation.</p>
-							<p>
-							Based on information that we received, the refund process will take longer than usual. Therefore, we suggest you to do an Open Ticket and enjoy the convenience and excellence with the options offered in accordance with the provisions of the ticket issuance date and flight date as above.</p>
-
-
-			              </div>{/* end.content */}
-			            </div>
-
+				          <div className="halBefore-kuis">
+						      <div className="box-loading2">
+						          <div className="spinner">
+						          <div className="bounce1"></div>
+						          <div className="bounce2"></div>
+						          <div className="bounce3"></div>
+						        </div>
+						      </div>
+						    </div>
+				        }
+				        {!hasMore &&
+				          <div></div>
+				        }
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
-			    <div className="rows">
-			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" /> <span>Share</span></button>
-			    	</div>
-			    </div>{/* end.rows */}
+			    <StickyShare />
 			  </div>{/* end.wrapper */}
 			</div>
-
 		)
 	}
 }
+
 export default AirlinePolicy;

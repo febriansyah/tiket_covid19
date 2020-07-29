@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
-import AirlinePolicyDomestic from './pages/AirlinePolicyDomestic';
+import AirlinePolicy from './pages/AirlinePolicy';
 import AirlinePolicyInternational from './pages/AirlinePolicyInternational';
 import AirlinePolicyDetail from './pages/AirlinePolicyDetail';
 import AirportPolicy from './pages/AirportPolicy';
@@ -25,8 +25,7 @@ function App() {
         <Switch>
           <Route exact path='/' component = {Home} />
           <Route path='/SearchResult' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
-          <Route path='/AirlinePolicyDomestic' component = {AirlinePolicyDomestic} />
-          <Route path='/AirlinePolicyInternational' component = {AirlinePolicyInternational} />
+          <Route path='/AirlinePolicy' component = {AirlinePolicy} />
           <Route path='/AirlinePolicyDetail' component = {AirlinePolicyDetail} />
           <Route path='/AirportPolicy' component = {AirportPolicy} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
