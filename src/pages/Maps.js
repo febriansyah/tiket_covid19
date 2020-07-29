@@ -497,7 +497,7 @@ Maps.propTypes = {
 };
   
 Maps.defaultProps = {
-    homeZoomLevel: 1.7,
+    homeZoomLevel: 1,
     latitude: 52,
     longitude: 11,
 };

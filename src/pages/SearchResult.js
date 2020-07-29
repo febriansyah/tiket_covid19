@@ -6,9 +6,9 @@ import moment from 'moment';
 import $ from 'jquery';
 import NumberFormat from 'react-number-format';
 import ReadMoreReact from 'read-more-react';
-
 import Maps from './Maps';
 import { color } from '../components/color';
+import { getColorByStatus } from '../utils/func';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -101,21 +101,22 @@ class SearchResult extends React.Component{
 
 		const { dataItem, dataCovid, defaultLangnya } = this.state;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = color.red, labelReadMode = 'Loading..', countryCode, longitude, latitude;
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 
 		if (dataCovid) {
 			confirmed = dataCovid.confirmed;
 			deaths = dataCovid.deaths;
 			recovered = dataCovid.recovered;
 		}
-		console.log(mapsColor)
+		
 		if (dataItem) {
 			labelReadMode = 'Read More..';
 			countryName = dataItem.countryName;
 			countryCode = dataItem.countryCode;
 			longitude = dataItem.longitude;
 			latitude = dataItem.latitude;
-		}
+			mapsColor = getColorByStatus(dataItem.status);
+		}		
 		
 		return(
 			<div id="middle-content" className="homePage">
@@ -149,19 +150,19 @@ class SearchResult extends React.Component{
 			        </div>
 			      </div>
 			      <div className="rows">
-			        <div className="frame_peta relative">
-					  <Maps
-					  	parentName='Search'
-						homeZoomLevel={5}
-						countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
-						countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
-						longitude={parseFloat(longitude)}
-						latitude={parseFloat(latitude)}
-						loading={this.state.loading}
-					  	{...this.props}
-					  />
+			        <div className="relative">
+						<Maps
+							parentName='Search'
+							homeZoomLevel={5}
+							countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
+							countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
+							longitude={parseFloat(longitude)}
+							latitude={parseFloat(latitude)}
+							loading={this.state.loading}
+							{...this.props}
+						/>
 						<div className="zoom_abs">
-							<img src="assets/images/icon_zoom.png" />
+							<img src="../assets/images/icon_zoom.png" />
 							<span>Zoom</span>
 						</div>
 			        </div>
@@ -247,9 +248,11 @@ class SearchResult extends React.Component{
 						<div className="detail-text-project">
 						    <h3>{defaultLangnya == 'id' ? 'Pembatasan Masuk' : 'Entry Restrictions'}</h3>
 						    <p>
-
-						    {dataItem && dataItem.entryRestrictionsDesc}</p><br />
-							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
+							{dataItem && <ReadMoreReact
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+		  readMoreText="Read More"/>}</p><br />
+						    {/* {dataItem && dataItem.entryRestrictionsDesc}</p><br /> */}
+							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>
