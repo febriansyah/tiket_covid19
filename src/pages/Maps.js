@@ -478,7 +478,7 @@ const Maps = (props) => {
                 <h3>{title}</h3>
                 <label
                     onClick={() => { setLoading(true); listWorldMap = []; }}
-                    className="iconReload"
+                    className="iconReload hide"
                 >
                     <img src="../assets/images/reaload-icon.png" />
                 </label>

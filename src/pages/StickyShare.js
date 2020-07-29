@@ -6,15 +6,17 @@ const url = window.location.href
 class StickyShare extends React.Component{
 	onclick = () => {
 		//alert('aaa');
+		let wew=`${url}`;
 	    if (navigator.share !== undefined) {
 	      navigator
 	        .share({
-	          url
+				wew
 	        })
 	        .then(() => console.log("Shared!"))
 	        .catch(err => console.error(err));
 	    } else {
-	      window.location = `mailto:?subject=a&body=a%0A${url}`;
+			//console.log(`${url}`);
+	      	window.location = `mailto:?subject=a&body=a%0A${url}`;
 	    }
 	  };
 

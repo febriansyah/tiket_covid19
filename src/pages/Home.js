@@ -435,7 +435,7 @@ class Home extends React.Component {
 						    </div>
 
 						    <div className="block_policy">
-								<Link to="/AirportPolicy">
+								<Link to="/AirportPolicyDomestic">
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_airport_policy.png" alt='airport_logo' />
 							      </div>

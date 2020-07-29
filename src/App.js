@@ -3,9 +3,9 @@ import './App.css';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
 import AirlinePolicy from './pages/AirlinePolicy';
-import AirlinePolicyInternational from './pages/AirlinePolicyInternational';
 import AirlinePolicyDetail from './pages/AirlinePolicyDetail';
-import AirportPolicy from './pages/AirportPolicy';
+import AirportPolicyDomestic from './pages/AirportPolicyDomestic';
+import AirportPolicyInternational from './pages/AirportPolicyInternational';
 import AirportPolicyDetail from './pages/AirportPolicyDetail';
 import TicketingPolicyFlights from './pages/TicketingPolicyFlights';
 import ScrollToTop from './pages/ScrollToTop';
@@ -21,16 +21,11 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path='/' component = {Home} />
-<<<<<<< HEAD
-          <Route path='/SearchResult' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
-          <Route path='/AirlinePolicy' component = {AirlinePolicy} />
-=======
           <Route path='/SearchResult/:countryCode' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
-          <Route path='/AirlinePolicyDomestic' component = {AirlinePolicyDomestic} />
-          <Route path='/AirlinePolicyInternational' component = {AirlinePolicyInternational} />
->>>>>>> 364a80aa3f126cc9fb9c48e7c86f7b4ab6d9b76c
+          <Route path='/AirlinePolicy' component = {AirlinePolicy} />
           <Route path='/AirlinePolicyDetail' component = {AirlinePolicyDetail} />
-          <Route path='/AirportPolicy' component = {AirportPolicy} />
+          <Route path='/AirportPolicyDomestic' component = {AirportPolicyDomestic} />
+          <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
           <Route exact path="/TicketingPolicyFlights/:product" render={props =>
