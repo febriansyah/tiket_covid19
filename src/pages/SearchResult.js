@@ -248,9 +248,9 @@ class SearchResult extends React.Component{
 						<div className="detail-text-project">
 						    <h3>{defaultLangnya == 'id' ? 'Pembatasan Masuk' : 'Entry Restrictions'}</h3>
 						    <p>
-							{dataItem && <ReadMoreReact
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-		  readMoreText="Read More"/>}</p><br />
+							{dataItem && <div><ReadMoreReact
+          text={dataItem.entryRestrictionsDesc}
+		  readMoreText="Read More"/></div>}</p><br />
 						    {/* {dataItem && dataItem.entryRestrictionsDesc}</p><br /> */}
 							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 					    </div>{/*><!--end.detail-text-project-->*/}
@@ -261,8 +261,10 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 							<h3>{defaultLangnya == 'id' ? 'Dispensasi Pembatasan Masuk' : 'Entry Restrictions Exemptions'}</h3>
-							<p>{dataItem && dataItem.entryRestrictionsExemptionsDesc}</p><br />
-							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
+							<p>{dataItem && <div><ReadMoreReact
+          text={dataItem.entryRestrictionsExemptionsDesc}
+		  readMoreText="Read More"/></div>}</p><br />
+							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 						</div>
 					  </div>
 					</div>
@@ -271,8 +273,10 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>{defaultLangnya == 'id' ? 'Persyaratan Masuk Tambahan ' : 'Additional Entry Requirements'}</h3>
-						    <p>{dataItem && dataItem.additionalEntryRequirementsDesc}</p>
-						    <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
+						    <p>{dataItem && <div><ReadMoreReact
+          text={dataItem.additionalEntryRequirementsDesc}
+		  readMoreText="Read More"/></div>}</p>
+						    {/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>
@@ -281,8 +285,10 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>{defaultLangnya == 'id' ? 'Kebijakan Karantina' : 'Quarantine Policy'}</h3>
-						    <p>{dataItem && dataItem.quarantinePolicyDesc}</p><br />
-							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
+						    <p>{dataItem && <div><ReadMoreReact
+          text={dataItem.quarantinePolicyDesc}
+		  readMoreText="Read More"/></div>}</p><br />
+							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>
@@ -291,8 +297,10 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>{defaultLangnya == 'id' ? 'Kebijakan Visa' : 'Visa Policy'}</h3>
-						    <p>{dataItem && dataItem.visaPolicyDesc}</p><br />
-							<p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
+						    <p>{dataItem && <div><ReadMoreReact
+          text={dataItem.visaPolicyDesc}
+		  readMoreText="Read More"/></div>}</p><br />
+							{/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>
@@ -301,8 +309,10 @@ class SearchResult extends React.Component{
 					  <div className="caption_policy">
 						<div className="detail-text-project">
 						    <h3>{defaultLangnya == 'id' ? 'Kebijakan Transit' : 'Transit Policy'}</h3>
-						    <p>{dataItem && dataItem.transitPolicyDesc}</p><br />
-						    <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p>
+						    <p>{dataItem && <div><ReadMoreReact
+          text={dataItem.transitPolicyDesc}
+		  readMoreText="Read More"/></div>}</p><br />
+						    {/* <p className="read-more"><span className="linkBlue button-readmore">{labelReadMode}</span></p> */}
 					    </div>{/*><!--end.detail-text-project-->*/}
 					  </div>
 					</div>
