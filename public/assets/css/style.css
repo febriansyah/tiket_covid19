@@ -591,10 +591,19 @@ h3.mediumFont{
 	font-size: 14px;
 	line-height: 20px;
 }
-.tnc_section ol li {
-    padding: 5px 0;
-    font-size: 20px;
-    color: #5d322c;
+
+#tnc-accodion .content ul{
+	padding: 0 0 0 20px;
+}
+#tnc-accodion .content a{
+	color:#0064d2;
+}
+.rowHtml{
+	margin-bottom: 15px;
+}
+#tnc-accodion .content ul li,#tnc-accodion .content ol li {
+    padding: 2px 0;
+    font-size: 13px;
 }
 .tabs_menu{
 	display: inline-block;
