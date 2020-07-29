@@ -60,17 +60,17 @@ class AirlinePolicyDomestic extends Component{
     this.setState({ isLoading: true}, () => {
       this.state.paging = this.state.paging+1;
 
-      request
-        .get('https://api.tiketsafe.com/api/v2/airlines?lang='+this.state.defaultLangnya+'&flightType=1&page='+this.state.paging)
-        .then((results) => {   
-          // Creates a massaged array of user data
-          //console.log(results.body.data.length)
-          const nextUsers = results.body.data.map(value => ({
-            airlinesName: value.airlinesName,
-            imageURL: value.imageURL,
-            items: value.items,
+	  request
+	  .get('https://api.tiketsafe.com/api/v2/airlines?lang='+this.state.defaultLangnya+'&flightType=1&page='+this.state.paging)
+	  .then((results) => {   
+		// Creates a massaged array of user data
+		//console.log(results.body.data.length)
+		const nextUsers = results.body.data.map(value => ({
+		  airlinesName: value.airlinesName,
+		  imageURL: value.imageURL,
+		  items: value.items,
 
-          }));
+		}));
 
           // Merges the next users into our existing users
           this.setState({
@@ -172,13 +172,12 @@ class AirlinePolicyDomestic extends Component{
 								<span>{user.airlinesName}</span>
 				              </div>
 				              <div className="content">
-					              {user.items.map((item, k) => (
+							  {user.items.map((item, k) => (
 				                      <div className="rowHtml" key={k}>
 				                        <h3>{item.name}</h3>
 				                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
 				                      </div>
 				                    ))}
-				                
 				              </div>
 				            </div>
 				          </Fragment>
@@ -193,9 +192,9 @@ class AirlinePolicyDomestic extends Component{
 				          <div className="halBefore-kuis">
 						      <div className="box-loading2">
 						          <div className="spinner">
-						          <div className="bounce1"></div>
+						          {/* <div className="bounce1"></div>
 						          <div className="bounce2"></div>
-						          <div className="bounce3"></div>
+						          <div className="bounce3"></div> */}
 						        </div>
 						      </div>
 						    </div>

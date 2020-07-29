@@ -325,13 +325,10 @@ section {
 }
 .block_info span{
 	font-size: 13px;
-	color: #0064d2;
+	color: #35405a;
 	display: inline-block;
 	font-weight: 700;
 	vertical-align: middle;
-}
-.block_info.alertBlock span{
-	color: #35405a;
 }
 .row-list{
 	margin-right: -15px;
@@ -455,7 +452,7 @@ h3.mediumFont{
 	padding: 10px;
 	text-align: left;
 	color: #0064d2;
-	box-shadow: none;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	background: #e2edfa;
 	font-size: 14px;
 	font-weight: 700;
@@ -491,38 +488,13 @@ h3.mediumFont{
   margin: 0; padding: 100px 0 0 0; 
 	
   /* "transparent" only works here because == rgba(0,0,0,0) */
-  /*background-image: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));*/
+  background-image: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
 }
-.read-more-button{
-	font-size: 13px;
-	line-height: 17px;
-	margin: 5px 0 0 0;
-	color: #0064d2;
-	font-weight: 700;
-}
+
 .read-more a{
 	color: #0064d2;
 }
-.icon_clean{
-	position: absolute;
-    right: 5px;
-    top: 13px;
-    border:none;
-    padding: 0;
-    background: transparent;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    line-height: 19px;
-    text-align: center;
-    color: #fff;
-    font-size: 15px;
-}
-.icon_clean img{
-	width: 80%;
-	display: inline-block;
-	margin-bottom: 0px;
-}
+
 /*==============================content===================*/
 
 #tnc-accodion {
@@ -591,11 +563,21 @@ h3.mediumFont{
 	font-size: 14px;
 	line-height: 20px;
 }
-.tnc_section ol li {
-    padding: 5px 0;
-    font-size: 20px;
-    color: #5d322c;
+
+#tnc-accodion .content ul{
+	padding: 0 0 0 20px;
 }
+#tnc-accodion .content a{
+	color:#0064d2;
+}
+.rowHtml{
+	margin-bottom: 15px;
+}
+#tnc-accodion .content ul li,#tnc-accodion .content ol li {
+    padding: 2px 0;
+    font-size: 13px;
+}
+
 .tabs_menu{
 	display: inline-block;
 	vertical-align: middle;
@@ -741,7 +723,6 @@ h3.mediumFont{
 	vertical-align: middle;
 	font-size: 16px;
 	color: #303135;
-	font-weight: 600;
 }
 .tabs_title h4{
 	font-size: 	14px;
@@ -798,9 +779,6 @@ h3.mediumFont{
 	font-size: 20px;
 	top:10px;
 	color: #979797;
-}
-.button_close_popup img{
-	max-width: 20px;
 }
 .erorr_help{
 	color: #e52424;
@@ -877,28 +855,6 @@ h3.mediumFont{
 }
 .sourceName a{
 	color: #98ade6;
-}
-.zoom_abs{
-	position: absolute;
-	display: inline-block;
-	right: 0;
-	bottom: 0;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-	border-radius: 2px;
-	background: #fff;
-	padding:2px 5px;
-}
-.zoom_abs img{
-	max-width: 10px;
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 5px;
-	padding-bottom: 3px;
-}
-.zoom_abs span{
-	font-size: 10px;
-	display: inline-block;
-	vertical-align: middle;
 }
 /* style Footer
 ----------------------------------------------------------------------------------------------*/
