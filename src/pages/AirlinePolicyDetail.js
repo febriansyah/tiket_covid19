@@ -89,7 +89,7 @@ class AirlinePolicyDetail extends Component{
 			            </div>
 			    	</div>{/* end.tnc-accodion */}
 			    </section>
-			    <StickyShare />
+				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>
 		)

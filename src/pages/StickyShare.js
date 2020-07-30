@@ -1,11 +1,15 @@
 import React from 'react';
 
 const btn = document.getElementById("button")
-const url = window.location.pathname
+
 
 class StickyShare extends React.Component{
+	constructor(props) {
+		super(props)
+	}
 	onclick = () => {
 		//alert('aaa');
+		var url = this.props.url;
 	    if (navigator.share !== undefined) {
 	      navigator
 	        .share({
@@ -14,7 +18,7 @@ class StickyShare extends React.Component{
 	        .then(() => console.log("Shared!"))
 	        .catch(err => console.error(err));
 	    } else {
-	      window.location = `mailto:?subject=a&body=a%0A`+url;
+	      window.location = `mailto:?subject=a&body=a%0A${url}`;
 	    }
 	  };
 
