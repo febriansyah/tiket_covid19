@@ -23,7 +23,7 @@ class SearchResult extends React.Component{
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
 	   };
-
+	  
 	   this.goBack = this.goBack.bind(this);
 	}
 
@@ -37,6 +37,7 @@ class SearchResult extends React.Component{
 
 		this.getCountryByCode(this.props.match.params.countryCode);
 		this.getCovidData(this.props.match.params.countryCode);
+		this.getarrItems(this.props.match.params.countryCode);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -44,6 +45,10 @@ class SearchResult extends React.Component{
 			$(".halBefore-kuis").fadeIn();
 			this.getCountryByCode(nextProps.match.params.countryCode);
 			this.getCovidData(nextProps.match.params.countryCode);
+			this.getarrItems(nextProps.match.params.countryCode);
+
+			$( ".wew" ).load(window.location.href);
+			
 		}
 	}
 
@@ -67,7 +72,7 @@ class SearchResult extends React.Component{
     }
 
 	getCountryByCode(countryCode) {
-		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
+		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 		this.props.changeSelectedCountryCode(countryCode);
 
 		axios({
@@ -104,6 +109,54 @@ class SearchResult extends React.Component{
 		.catch(err => {
 			this.setState({ loading: false });
 		})
+	}
+
+	getarrItems(countryCode) {
+		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
+		this.props.changeSelectedCountryCode(countryCode);
+		let arrItems = [];
+
+		axios({
+			method: 'get',
+			url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			}
+		})
+		.then(res => {
+			
+			
+				arrItems = res.data.data[0].items
+			
+				this.setState({ dataCard: arrItems });
+			
+
+			
+		})
+		.catch(err => {
+			this.setState({ loading: false });
+		})
+	}
+
+	renderdetailinfo(dataCard,defaultLangnya){
+
+		return dataCard.map((carding, i) =>
+			<Fragment key={i}>
+			<div className="block_policy full_block">
+			  <div className="caption_policy">
+				<div className="detail-text-project">
+					<h3>{carding.name}</h3>
+					<div>
+						<ReadMoreReact
+							  text={carding.description}
+							  readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}/>
+					  </div>
+				</div>{/*><!--end.detail-text-project-->*/}
+			  </div>
+			</div>
+			</Fragment>
+		);
+
 	}
 
 
@@ -259,25 +312,9 @@ class SearchResult extends React.Component{
 			        </div>
 			      </div>}
 
-			      <div className="rows">
-
-					{dataCard && dataCard.map((carding, i) => (
-				    	<Fragment key={i}>
-				    	<div className="block_policy full_block">
-						  <div className="caption_policy">
-							<div className="detail-text-project">
-							    <h3>{carding.name}</h3>
-							    <div>
-									<ReadMoreReact
-		          						text={carding.description}
-				  						readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}/>
-				  				</div>
-						    </div>{/*><!--end.detail-text-project-->*/}
-						  </div>
-						</div>
-						</Fragment>
-				    ))}
-
+			      <div className="rows wew">
+					{dataCard && this.renderdetailinfo(dataCard,defaultLangnya)}
+					
 			      </div>{/* end.rows */}
 			    </section>
 			    <StickyShare />

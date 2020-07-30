@@ -11,8 +11,6 @@ const initialSearch = {
 
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
-const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
 
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
@@ -31,7 +29,6 @@ class Popup extends React.Component{
 		  listAirport: [],
 		  listAirlines: [],
 		  showNoResult: 'hide',
-		  defaultLangnya: langnya == langDef ? langnya : 'id'
 		};
 	}
 
@@ -137,8 +134,6 @@ class Popup extends React.Component{
 			}
 		})
 	}
-
-	
 
 	searchCitiesOrAirport(text, page, type) {
 		if (page === 0) return;
@@ -310,24 +305,9 @@ class Popup extends React.Component{
         this.setState({fields});
     }
 
-    onclearCountry = (e) => {
-    	//console.log(this.props.resturl)
-		document.getElementById('search_country').value = ''
-	}
-	onclearAirline = (e) => {
-    	//console.log(this.props.resturl)
-		document.getElementById('search_airline').value = ''
-	}
-	onclearAirport = (e) => {
-    	//console.log(this.props.resturl)
-		document.getElementById('search_airport').value = ''
-	}
-
 	render() {
 		// console.log(this.props, 'state popup');
-		const {
-	      defaultLangnya
-	    } = this.state;
+		
 		return(
 			<div>
 				<div id="popup_confirmasi" className="popup_slider hide">
@@ -335,8 +315,8 @@ class Popup extends React.Component{
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
 					    	<div className="inner_popup">
-					    		<h3>{defaultLangnya == 'id' ? 'Kamu akan mendapat pemberitahuan' : 'You will get a notification'}</h3>
-					    		<p>{defaultLangnya == 'id' ? 'Kami mengirimkan email bila lokasi tujuan sudah boleh dikunjungi' : 'We will send an email when the destination is open for visitors'}</p>
+					    		<h3>You will get a notification</h3>
+					    		<p>We will send an email when the destination is open for visitors.</p>
 					    		<div className="form_row">
 						    		<div className="form_group">
 						    			<button className="block_blue_bt trigger_close_popup" type="submit">Ok </button>
@@ -351,10 +331,10 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src="assets/images/close_popup.png" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 					    	<div className="inner_popup">
-					    		<h3>{defaultLangnya == 'id' ? 'Masukkan Alamat Email' : 'Enter Email Address'}</h3>
-					    		<p>{defaultLangnya == 'id' ? 'Notifikasi tentang status lokasi tujuanmu akan dikirimkan ke email ini' : 'Notifications about the status of your destination will be sent to this email'}</p>
+					    		<h3>Enter Email Address</h3>
+					    		<p>Notifications about the status of your destination will be sent to this email.</p>
 					    		<form name="contactform" className="contactform" onSubmit={this.contactSubmit.bind(this)}>
 
 					    		<div className="form_row">
@@ -375,7 +355,7 @@ class Popup extends React.Component{
 					    		<div className="form_row">
 						    		<div className="form_group">
 						    			<button className="block_blue_bt" id="submit" value="Submit">Send Message</button>
-						    			<button className="block_blue_bt hide" type="submit" >{defaultLangnya == 'id' ? 'Simpan' : 'Save'} </button>
+						    			<button className="block_blue_bt hide" type="submit" >Save </button>
 						    		</div>
 					    		</div> {/* end.form_row */}
 					    		</form>
@@ -391,25 +371,21 @@ class Popup extends React.Component{
 					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} </h3>
+						          <h3>Going Anywhere?</h3>
 						        </div>
 						    </div>{/* end.rows */}
-						    <div className="rows relative">
+						    <div className="rows">
 						        <div className="search_row">
 						          	<input
-
-						          		id="search_country"
 										type="text"
 										className="search_input"
 										name=""
 										value={this.state.searchText}
 										onChange={(val) => this.onChangeText(val, 'country')}
-										placeholder={defaultLangnya == 'id' ? 'Cari kota atau bandara' : 'Search cities or airports'} 
+										placeholder="Search cities or airports"
 									/>
-
-									<button onClick={this.onclearCountry}  className="cleanField icon_clean"><img src="assets/images/close_popup.png" /></button>
 						        </div>
-								<label style={{fontSize: '10px', display: 'none'}}>type at least 3 letters</label>
+								<label style={{fontSize: '10px'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
 						    <div className="rows">
 							    <div className={"main_title grey_title "}>
@@ -431,8 +407,8 @@ class Popup extends React.Component{
 						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
-						        		<h3>{defaultLangnya == 'id' ? 'Ayo pakai kata kunci lain' : 'Let’s use another keyword'} </h3>
-						        		<p>{defaultLangnya == 'id' ? 'Tidak ada hasil untuk kata kunci ini. Ubah kata kuncimu dan coba lagi.' : 'This keyword has no result. Change your keyword and try again'}</p>
+						        		<h3>Let’s use another keyword</h3>
+						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
 						        <div className="list_autocomplete trigger_close_popup">
@@ -450,25 +426,21 @@ class Popup extends React.Component{
 					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
+						          <h3>Airline Policy?</h3>
 						        </div>
 						    </div>{/* end.rows */}
 						    <div className="rows">
 						        <div className="search_row">
 						        	<input
-						        		id="search_airline"
 										type="text"
 										className="search_input"
 										name=""
 										value={this.state.searchText}
 										onChange={(val) => this.onChangeText(val, 'airline_policy')}
-										placeholder={defaultLangnya == 'id' ? 'Cari maskapai' : 'Search airlines'}
+										placeholder="Search airline policy"
 									/>
-
-
-									<button onClick={this.onclearAirline}  className="cleanField icon_clean"><img src="assets/images/close_popup.png" /></button>
 						        </div>
-								<label style={{fontSize: '10px', display: 'none'}}>type at least 3 letters</label>
+								<label style={{fontSize: '10px'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
 						    <div className="rows">
 							    <div className="main_title grey_title ">
@@ -490,8 +462,8 @@ class Popup extends React.Component{
 						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
-						        		<h3>{defaultLangnya == 'id' ? 'Ayo pakai kata kunci lain' : 'Let’s use another keyword'} </h3>
-						        		<p>{defaultLangnya == 'id' ? 'Tidak ada hasil untuk kata kunci ini. Ubah kata kuncimu dan coba lagi.' : 'This keyword has no result. Change your keyword and try again'}</p>
+						        		<h3>Let’s use another keyword</h3>
+						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
 						        <div className="list_autocomplete trigger_close_popup">
@@ -509,24 +481,22 @@ class Popup extends React.Component{
 					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><i className="fa fa-times" aria-hidden="true"></i></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Kebijakan Bandara' : 'Airport Policy'}</h3>
+						          <h3>Airport Policy</h3>
 						        </div>
 						    </div>
 
 						    <div className="rows">
 						        <div className="search_row">
 									<input
-										id="search_airport"
 										type="text"
 										className="search_input"
 										name=""
 										value={this.state.searchText}
 										onChange={(val) => this.onChangeText(val, 'airport')}
-										placeholder={defaultLangnya == 'id' ? 'Cari bandara atau kota' : 'Search airports or cities'}
+										placeholder="Search cities or airports"
 									/>
-									<button onClick={this.onclearAirport}  className="cleanField icon_clean"><img src="assets/images/close_popup.png" /></button>
 						        </div>
-								<label style={{fontSize: '10px', display: 'none'}}>type at least 3 letters</label>
+								<label style={{fontSize: '10px'}}>type at least 3 letters</label>
 						    </div> {/* end.rows */}
 						    <div className="rows">
 							    <div className="main_title grey_title ">
@@ -548,8 +518,8 @@ class Popup extends React.Component{
 						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
-						        		<h3>{defaultLangnya == 'id' ? 'Ayo pakai kata kunci lain' : 'Let’s use another keyword'} </h3>
-						        		<p>{defaultLangnya == 'id' ? 'Tidak ada hasil untuk kata kunci ini. Ubah kata kuncimu dan coba lagi.' : 'This keyword has no result. Change your keyword and try again'}</p>
+						        		<h3>Let’s use another keyword</h3>
+						        		<p>This keyword has no result. Change your keyword and try again.</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
 
