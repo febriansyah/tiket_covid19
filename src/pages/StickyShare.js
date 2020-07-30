@@ -1,7 +1,7 @@
 import React from 'react';
 
 const btn = document.getElementById("button")
-const url = window.location.pathname
+const url = window.location.href.toString();
 
 class StickyShare extends React.Component{
 	onclick = () => {
