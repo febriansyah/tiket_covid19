@@ -1,47 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'
 
 class TicketingPolicyFlights extends React.Component{
 	constructor(props) {
-	    super(props)
+	   super(props);
+	   this.goBack = this.goBack.bind(this);
+	}
 
-	    this.state = {
-	        product: {},
-	        currentId : '',
-	        result: []
-	    }
-	  }
- 	  componentWillMount() {
-		    // alert('componentwillmount')               
-		 
+	goBack() {
+	    this.props.history.goBack();
+	}
 
-		    const currentProductId = this.props.match.params.product    
-		        this.setState({
+	componentDidMount() {
+		 window.activeAccordion();
+	}
 
-		          currentId: currentProductId
-
-		        })
-
-		  }
-		  componentWillReceiveProps(nextProps) {
-		    if (nextProps.match.params.product !== this.props.match.params.product) {
-		      const currentProductId = nextProps.match.params.product
-
-		      this.setState({
-
-		        currentId: currentProductId,
-		        
-
-		      })
-		    }
-		  }
-
-	componentDidMount(){
-        console.log('ini '+this.props.match.params.product)
-      }
 	render() {
-
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
