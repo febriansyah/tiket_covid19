@@ -100,6 +100,8 @@ class TicketingPolicyFlights extends React.Component{
 			    <section id="section_tabs_list">
 			    	<div id="tnc-accodion">
 				    	<div className="items">
+
+							
 			              <div className="page">
 							<span>Important Info</span>
 			              </div>
@@ -185,7 +187,7 @@ class TicketingPolicyFlights extends React.Component{
 			    </section>
 			    <div className="rows fixed_button">
 			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"><img className="icon_bt" src="assets/images/icon_share.png" alt='share' /> <span>Share</span></button>
+			    		<button type="button" className="share_bt"> <span>Share</span></button>
 			    	</div>
 			    </div>{/* end.rows */}
 			  </div>{/* end.wrapper */}

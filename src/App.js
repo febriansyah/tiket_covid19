@@ -27,7 +27,7 @@ function App() {
           <Route path='/AirportPolicyDomestic' component = {AirportPolicyDomestic} />
           <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
-          <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
+          <Route path='/TicketingPolicyFlights/:product' component = {TicketingPolicyFlights} />
          
           <Route component={PageNotFound} />
         </Switch>
