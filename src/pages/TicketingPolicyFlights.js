@@ -1,11 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 
 class TicketingPolicyFlights extends React.Component{
 	constructor(props) {
 	   super(props);
 	   this.goBack = this.goBack.bind(this);
 	}
+=======
+import PropTypes from 'prop-types'
+import axios from 'axios';
+
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+
+class TicketingPolicyFlights extends React.Component{
+	constructor(props) {
+	    super(props)
+
+	    this.state = {
+	        product: {},
+	        currentId : '',
+	        ResAtas: []
+	    }
+	  }
+ 	  componentWillMount() {
+		    // alert('componentwillmount')               
+		 
+
+		    const currentProductId = this.props.match.params.product    
+		        this.setState({
+
+		          currentId: currentProductId
+
+		        })
+
+		  }
+		  componentWillReceiveProps(nextProps) {
+		    if (nextProps.match.params.product !== this.props.match.params.product) {
+		      const currentProductId = nextProps.match.params.product
+
+		      this.setState({
+>>>>>>> aa4bc8e2a5345e95af2f409fe37aabcc37abdbdf
 
 	goBack() {
 	    this.props.history.goBack();
@@ -15,7 +50,56 @@ class TicketingPolicyFlights extends React.Component{
 		 window.activeAccordion();
 	}
 
+<<<<<<< HEAD
 	render() {
+=======
+	componentDidMount(){
+		//console.log('ini '+this.props.match.params.product)
+		this.getResAtas(this.props.match.params.product);
+
+
+	}
+	
+	getResAtas(){
+		
+		let arrItems = [];
+		axios({
+			method: 'get',
+			url: apiUrl + `tickets`,
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			}
+		})
+		.then(res => {
+				arrItems = res.data.data;
+				console.log(arrItems.data)
+				this.setState({ ResAtas: arrItems });
+			
+		})
+		.catch(err => {
+			this.setState({ loading: false });
+		})
+	}
+
+	renderResAtas(dataResatas){
+		
+		return dataResatas.map((val, i) =>
+		
+		<Link to={`/TicketingPolicyFlights/${val.id}`} className={`tabs_menu ${val.id == this.props.match.params.product && 'active'}`} key={i}>
+					<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
+					<span>{val.verticalName}</span>
+		</Link>
+		
+
+		);
+	}
+
+	render() {
+		
+
+		//const { currentId,ResAtas } = this.state;
+		//console.log('kka'+currentId);
+>>>>>>> aa4bc8e2a5345e95af2f409fe37aabcc37abdbdf
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -32,22 +116,7 @@ class TicketingPolicyFlights extends React.Component{
 			    <section id="section_innernya">
 					<div className="rows">
 						<div className="tabs_main_menu overflow_tabs">
-							<Link to="" className="tabs_menu active">
-								<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Flights</span>
-							</Link>
-							<Link to="" className="tabs_menu">
-							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Hotels</span>
-							</Link>
-							<Link to="" className="tabs_menu">
-							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Trains</span>
-							</Link>
-							<Link to="" className="tabs_menu">
-							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>To Do and Events</span>
-							</Link>
+							{this.renderResAtas(this.state.ResAtas)}
 						</div>
 				    </div>{/* end.rows */}
 			    </section>

@@ -28,6 +28,11 @@ function App() {
           <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
+<<<<<<< HEAD
+=======
+          <Route path='/TicketingPolicyFlights/:product' component = {TicketingPolicyFlights} />
+          {/*<Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />*/}
+>>>>>>> aa4bc8e2a5345e95af2f409fe37aabcc37abdbdf
          
           <Route component={PageNotFound} />
         </Switch>
