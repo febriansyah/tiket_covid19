@@ -11,7 +11,6 @@ import ReactMarkdown from 'react-markdown';
 //const input = '## This is a header\n\nAnd this is a paragraph'
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-
 const langDef = 'en'
 const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 

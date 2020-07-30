@@ -1,11 +1,7 @@
 import React from 'react';
 
 const btn = document.getElementById("button")
-<<<<<<< HEAD
 const url = window.location.href.toString();
-=======
-
->>>>>>> 32dabd54a4a7a43966817fa63ae5ba799fefdef3
 
 class StickyShare extends React.Component{
 	constructor(props) {
