@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
+import axios from 'axios';
+
+const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 
 class TicketingPolicyFlights extends React.Component{
 	constructor(props) {
@@ -9,7 +12,7 @@ class TicketingPolicyFlights extends React.Component{
 	    this.state = {
 	        product: {},
 	        currentId : '',
-	        result: []
+	        ResAtas: []
 	    }
 	  }
  	  componentWillMount() {
@@ -38,10 +41,51 @@ class TicketingPolicyFlights extends React.Component{
 		  }
 
 	componentDidMount(){
-        console.log('ini '+this.props.match.params.product)
-      }
-	render() {
+		//console.log('ini '+this.props.match.params.product)
+		this.getResAtas(this.props.match.params.product);
 
+
+	}
+	
+	getResAtas(){
+		
+		let arrItems = [];
+		axios({
+			method: 'get',
+			url: apiUrl + `tickets`,
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			}
+		})
+		.then(res => {
+				arrItems = res.data.data;
+				console.log(arrItems.data)
+				this.setState({ ResAtas: arrItems });
+			
+		})
+		.catch(err => {
+			this.setState({ loading: false });
+		})
+	}
+
+	renderResAtas(dataResatas){
+		
+		return dataResatas.map((val, i) =>
+		
+		<Link to={`/TicketingPolicyFlights/${val.id}`} className={`tabs_menu ${val.id == this.props.match.params.product && 'active'}`} key={i}>
+					<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
+					<span>{val.verticalName}</span>
+		</Link>
+		
+
+		);
+	}
+
+	render() {
+		
+
+		//const { currentId,ResAtas } = this.state;
+		//console.log('kka'+currentId);
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
@@ -58,22 +102,7 @@ class TicketingPolicyFlights extends React.Component{
 			    <section id="section_innernya">
 					<div className="rows">
 						<div className="tabs_main_menu overflow_tabs">
-							<Link to="" className="tabs_menu active">
-								<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Flights</span>
-							</Link>
-							<Link to="" className="tabs_menu">
-							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Hotels</span>
-							</Link>
-							<Link to="" className="tabs_menu">
-							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Trains</span>
-							</Link>
-							<Link to="" className="tabs_menu">
-							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>To Do and Events</span>
-							</Link>
+							{this.renderResAtas(this.state.ResAtas)}
 						</div>
 				    </div>{/* end.rows */}
 			    </section>

@@ -28,9 +28,7 @@ function App() {
           <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
           <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
           <Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />
-          <Route exact path="/TicketingPolicyFlights/:product" render={props =>
-              <TicketingPolicyFlights  {...props} productshistory={(c) => productshistory(c)} />}
-            />
+          <Route path='/TicketingPolicyFlights/:product' component = {TicketingPolicyFlights} />
           {/*<Route path='/TicketingPolicyFlights' component = {TicketingPolicyFlights} />*/}
          
           <Route component={PageNotFound} />
