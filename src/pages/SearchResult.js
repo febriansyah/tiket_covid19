@@ -18,10 +18,11 @@ class SearchResult extends React.Component{
 	   super(props);
 	   this.state = {
 			dataItem: null,
-			dataCard:null,
+			dataCard: [],
 			dataCovid: null,
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
+			readyDataCard: false,
 	   };
 	  
 	   this.goBack = this.goBack.bind(this);
@@ -45,10 +46,12 @@ class SearchResult extends React.Component{
 			$(".halBefore-kuis").fadeIn();
 			this.getCountryByCode(nextProps.match.params.countryCode);
 			this.getCovidData(nextProps.match.params.countryCode);
-			this.getarrItems(nextProps.match.params.countryCode);
 
-			$( ".wew" ).load(window.location.href);
-			
+			this.setState({
+				readyDataCard: false
+			}, () => {
+				this.getarrItems(nextProps.match.params.countryCode);
+			})
 		}
 	}
 
@@ -124,50 +127,50 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-			
-			
-				arrItems = res.data.data[0].items
-			
+				arrItems = res.data.data[0].items;
+				
 				this.setState({ dataCard: arrItems });
-			
 
-			
+				setTimeout(() => {
+					this.setState({ readyDataCard: true });
+				}, 1000);
 		})
 		.catch(err => {
 			this.setState({ loading: false });
 		})
 	}
 
-	renderdetailinfo(dataCard,defaultLangnya){
-
+	renderdetailinfo(dataCard, defaultLangnya) {
+		console.log(this.state.readyDataCard, 'this.state.readyDataCard');
+		
 		return dataCard.map((carding, i) =>
 			<Fragment key={i}>
-			<div className="block_policy full_block">
-			  <div className="caption_policy">
-				<div className="detail-text-project">
-					<h3>{carding.name}</h3>
-					<div>
-						<ReadMoreReact
-							  text={carding.description}
-							  readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}/>
-					  </div>
-				</div>{/*><!--end.detail-text-project-->*/}
-			  </div>
-			</div>
+				<div className="block_policy full_block">
+					<div className="caption_policy">
+						<div className="detail-text-project">
+							<h3>{carding.name}</h3>
+							<div>
+								{this.state.readyDataCard && <ReadMoreReact
+									text={carding.description}
+									readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}
+								/>}
+							</div>
+						</div>{/*><!--end.detail-text-project-->*/}
+					</div>
+				</div>
 			</Fragment>
 		);
-
 	}
-
 
 	render() {
 		//console.log(this.props,  'search result', this.state);
 
 		const { dataItem, dataCovid, defaultLangnya, dataCard } = this.state;
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude, name ='',description='';
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 
-		console.log(dataCard);
+		console.log(dataCard, 'dataCard');
+
 		if (dataCovid) {
 			confirmed = dataCovid.confirmed;
 			deaths = dataCovid.deaths;
@@ -181,10 +184,6 @@ class SearchResult extends React.Component{
 			longitude = dataItem.longitude;
 			latitude = dataItem.latitude;
 			mapsColor = getColorByStatus(dataItem.status);
-		}	
-		if (dataCard){
-			name = dataCard.name;
-			description = dataCard.description;
 		}
 		
 		return(
@@ -312,9 +311,8 @@ class SearchResult extends React.Component{
 			        </div>
 			      </div>}
 
-			      <div className="rows wew">
-					{dataCard && this.renderdetailinfo(dataCard,defaultLangnya)}
-					
+			      <div className="rows">
+					{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 			      </div>{/* end.rows */}
 			    </section>
 			    <StickyShare />
