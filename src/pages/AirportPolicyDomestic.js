@@ -30,6 +30,7 @@ constructor(props) {
 
     // Binds our scroll event handler
     window.onscroll = () => {
+    	//alert(window.innerHeight + window.scrollY+' sama ga '+(document.body.offsetHeight -10));
       const {
         loadUsers,
         state: {
@@ -47,8 +48,7 @@ constructor(props) {
 
       // Checks that the page has scrolled to the bottom
       if (
-        window.innerHeight + document.documentElement.scrollTop
-        === document.documentElement.offsetHeight
+        (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 20)
       ) {
         loadUsers();
       }

@@ -21,7 +21,7 @@ class AirlinePolicy extends Component{
       isLoading: false,
       users: [],
       paging: 0,
-      defaultLangnya: langnya == langDef ? langnya : 'id' 
+      defaultLangnya: langnya == langDef ? langnya : 'id' ,
     };
 
     // Binds our scroll event handler
@@ -43,8 +43,7 @@ class AirlinePolicy extends Component{
 
       // Checks that the page has scrolled to the bottom
       if (
-        window.innerHeight + document.documentElement.scrollTop
-        === document.documentElement.offsetHeight
+        (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 20)
       ) {
         loadUsers();
       }

@@ -48,8 +48,7 @@ constructor(props) {
 
       // Checks that the page has scrolled to the bottom
       if (
-        window.innerHeight + document.documentElement.scrollTop
-        === document.documentElement.offsetHeight
+        (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 20)
       ) {
         loadUsers();
       }
