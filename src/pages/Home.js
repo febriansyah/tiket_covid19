@@ -447,11 +447,7 @@ class Home extends React.Component {
 						    </div>
 
 						    <div className="block_policy">
-<<<<<<< HEAD
-							<Link to="/TicketingPolicyFlights">
-=======
-							<Link to="/TicketingPolicyFlights/1">
->>>>>>> aa4bc8e2a5345e95af2f409fe37aabcc37abdbdf
+								<Link to="/TicketingPolicyFlights/1">
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
 							      </div>

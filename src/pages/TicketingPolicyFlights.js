@@ -1,17 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-
-class TicketingPolicyFlights extends React.Component{
-	constructor(props) {
-	   super(props);
-	   this.goBack = this.goBack.bind(this);
-	}
-=======
 import PropTypes from 'prop-types'
 import axios from 'axios';
 
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+
 
 class TicketingPolicyFlights extends React.Component{
 	constructor(props) {
@@ -35,27 +28,11 @@ class TicketingPolicyFlights extends React.Component{
 		        })
 
 		  }
-		  componentWillReceiveProps(nextProps) {
-		    if (nextProps.match.params.product !== this.props.match.params.product) {
-		      const currentProductId = nextProps.match.params.product
 
-		      this.setState({
->>>>>>> aa4bc8e2a5345e95af2f409fe37aabcc37abdbdf
-
-	goBack() {
-	    this.props.history.goBack();
-	}
-
-	componentDidMount() {
-		 window.activeAccordion();
-	}
-
-<<<<<<< HEAD
-	render() {
-=======
 	componentDidMount(){
 		//console.log('ini '+this.props.match.params.product)
 		this.getResAtas(this.props.match.params.product);
+		window.activeAccordion();
 
 
 	}
@@ -99,7 +76,6 @@ class TicketingPolicyFlights extends React.Component{
 
 		//const { currentId,ResAtas } = this.state;
 		//console.log('kka'+currentId);
->>>>>>> aa4bc8e2a5345e95af2f409fe37aabcc37abdbdf
 		return(
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
