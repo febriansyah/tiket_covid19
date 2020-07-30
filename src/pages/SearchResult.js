@@ -39,6 +39,7 @@ class SearchResult extends React.Component{
 		this.getCountryByCode(this.props.match.params.countryCode);
 		this.getCovidData(this.props.match.params.countryCode);
 		this.getarrItems(this.props.match.params.countryCode);
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -315,7 +316,7 @@ class SearchResult extends React.Component{
 					{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 			      </div>{/* end.rows */}
 			    </section>
-			    <StickyShare />
+				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>
 		)

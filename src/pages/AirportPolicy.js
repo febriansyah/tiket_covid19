@@ -201,7 +201,7 @@ constructor(props) {
 		      
 		    </section>
 		    
-			    <StickyShare />
+        <StickyShare url={window.location.href}/>
 		  </div>{/* end.wrapper */}
 		</div>
 
