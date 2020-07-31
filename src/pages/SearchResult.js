@@ -197,17 +197,17 @@ class SearchResult extends React.Component{
 
 			    <div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
 			      <img src="../assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
-			      <span>Partially prohibited, check local policy</span>
+			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
 			    </div>
 
 			    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
 			      <img src="../assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
-			      <span>Prohibited, avoid non-essential travel</span>
+			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Hindari bila tidak berkepentingan'}</span>
 			    </div>
 
 			    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
 			      <img src="../assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
-			      <span>Allowed, travel with safety precautions</span>
+			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
 
 			    <section id="section_maps">
@@ -254,7 +254,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
-			            <h4>COVID-19 Cases in {dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h4>
+			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h4>
 			            <p className="green hide">No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">
