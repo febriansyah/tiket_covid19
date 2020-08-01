@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery'; 
 import PropTypes from 'prop-types'
 import axios from 'axios';
+import StickyShare from './StickyShare';
 
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
@@ -132,10 +133,6 @@ class TicketingPolicyFlights extends React.Component{
 	}
 
 	render() {
-		
-
-		//const { currentId,ResAtas } = this.state;
-		//console.log('kka '+currentId);
 		return(
 			<div id="middle-content" className="homePage">
 			
@@ -166,11 +163,8 @@ class TicketingPolicyFlights extends React.Component{
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
-			    <div className="rows fixed_button">
-			    	<div className="button_bottom">
-			    		<button type="button" className="share_bt"> <span>Share</span></button>
-			    	</div>
-			    </div>{/* end.rows */}
+			    
+			    <StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>
 
