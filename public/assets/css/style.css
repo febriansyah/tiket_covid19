@@ -864,15 +864,20 @@ h3.mediumFont{
   }
 }
 .infodetail_cause.block_shadow{
+	overflow: hidden;
 }
-.sourceName{
+.sourceName,.sourceNameRight{
 	text-align: left;
 	font-size: 7px;
 	margin-top: 10px;
 	font-style: italic;
 	display: block;
 	color: #9ba1b5;
-	margin-left: -10px;
+	margin-left: -5px;
+	float: left;
+}
+.sourceNameRight{
+	float: right;
 }
 .sourceName a{
 	color: #98ade6;
