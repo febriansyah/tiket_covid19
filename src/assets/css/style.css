@@ -549,6 +549,7 @@ h3.mediumFont{
 	display: inline-block;
 	vertical-align:middle; 
 	font-size:14px;
+	padding-right: 40px;
 	font-weight: 700;
 	color: #35405a;
 }
@@ -795,7 +796,7 @@ h3.mediumFont{
 	position: absolute;
 	left: 20px;
 	font-size: 20px;
-	top:10px;
+	top:25px;
 	color: #979797;
 }
 .button_close_popup img{

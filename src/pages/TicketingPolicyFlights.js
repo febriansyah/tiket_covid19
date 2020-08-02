@@ -118,7 +118,7 @@ class TicketingPolicyFlights extends React.Component{
 		<Fragment key={i}>
 			<div className="items">
               <div className="page">
-				<span>{val.name}</span>
+				<span>{val.description == '' ? '' : val.name}</span>
               </div>
               <div className="content">
                 <p>{val.description}</p>

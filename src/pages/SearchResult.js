@@ -146,7 +146,7 @@ class SearchResult extends React.Component{
 		
 		return dataCard.map((carding, i) =>
 			<Fragment key={i}>
-				<div className="block_policy full_block">
+				<div className={`block_policy full_block ${carding.description == '' ? 'hide' : carding.name}`}>
 					<div className="caption_policy">
 						<div className="detail-text-project">
 							<h3>{carding.name}</h3>
@@ -310,7 +310,7 @@ class SearchResult extends React.Component{
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
 			          <p>{defaultLangnya == 'id' ? 'Daftar persyaratan dan peraturan yang harus ditaati.' : 'List of requirements to fulfill and regulations to follow.'}</p><br />
-			          <span className="blue_rounded_txt">{defaultLangnya == 'id' ? 'Diterbitkan' : 'Published'} {moment(dataItem.updatedTimestamp).format('DD MMMM YYYY')}</span>
+			          <span className="blue_rounded_txt">{defaultLangnya == 'id' ? 'Published' : 'Published'} {moment(dataItem.updatedTimestamp).format('DD MMMM YYYY')}</span>
 			        </div>
 			      </div>}
 
