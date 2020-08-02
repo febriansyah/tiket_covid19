@@ -116,7 +116,7 @@ class TicketingPolicyFlights extends React.Component{
 	renderResBawah(dataResbawah){
 		return dataResbawah.map((val, i) =>
 		<Fragment key={i}>
-			<div className="items">
+			<div className={`items ${val.description == '' ? 'hide' : val.name}`}>
               <div className="page">
 				<span>{val.description == '' ? '' : val.name}</span>
               </div>
