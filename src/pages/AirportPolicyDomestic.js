@@ -25,6 +25,8 @@ constructor(props) {
       isLoading: false,
       users: [],
       paging: 0,
+      expand: false,
+      setHeight:"0px",
       defaultLangnya: langnya == langDef ? langnya : 'id'
     };
 
@@ -54,6 +56,21 @@ constructor(props) {
       }
     };
   }
+  getInitialState(){
+    return {active: null}
+  }
+  handleClick(i){
+    return (e) => {
+      let active = this.state.active === i ? null : i
+      this.setState({active: active, expand: true})
+    }
+  }
+  display(i){
+    return this.state.active === i ? 'block' : 'none'
+  }
+  liClass(i){
+    return this.state.active === i ? 'active' : 'inactive'
+  }
 
   componentWillMount() {
     // Loads some users on initial load
@@ -62,9 +79,9 @@ constructor(props) {
 
    componentDidMount() {
    		
-    	setTimeout(() => {
+    /*setTimeout(() => {
 			window.activeAccordion();
-		}, 1000);
+		}, 1000);*/
     	window.popupSlider();
   	}
 
@@ -161,13 +178,13 @@ constructor(props) {
 			    {users.map((user, i) => (
 		          <Fragment key={i}>
 		            <div className="items" key={i}>
-      					  <div className="page">
+      					  <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i)}>
       						<span>{user.airportName}</span>
       					  </div>
-      					  <div className="content">
+      					  <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>
                     {user.items.map((item, k) => (
                       <div className="rowHtml" key={k}>
-                        <h3>{item.name}</h3>
+                        <h3>{item.description == '' ? '' : item.name}</h3>
                         <div dangerouslySetInnerHTML={{ __html: item.description }} />
                       </div>
                     ))}

@@ -505,7 +505,7 @@ class Popup extends React.Component{
 						    </div> {/* end.rows */}
 						    <div className="rows">
 							    <div className="main_title grey_title ">
-						          <h3>Suggested Airports</h3>
+						          <h3>{defaultLangnya == 'id' ? 'Bandara Rekomendasi' : 'Suggested Airports'}</h3>
 						        </div>
 
 								{this.state.showNoResult === 'hide' && <div className="halBefore-kuis">

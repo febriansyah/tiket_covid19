@@ -4,7 +4,7 @@ import axios from 'axios';
 import StickyShare from './StickyShare';
 
 //const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
@@ -15,15 +15,11 @@ class AirlinePolicyDetail extends Component{
 	   super(props);
 	   this.state = {
 			dataItem: null,
+			descItem:[],
 			defaultLangnya: langnya == langDef ? langnya : 'id',
 	   }
-
-	   this.goBack = this.goBack.bind(this);
 	}
 
-	goBack() {
-	    this.props.history.goBack();
-	}
 
 	componentDidMount() {
 		window.readmoreFade();
@@ -31,6 +27,9 @@ class AirlinePolicyDetail extends Component{
 		window.popupSlider();
 
 		this.getAirlineDetail(this.props.location.state.serial);
+	}
+	componentWillReceiveProps(nextProps) {
+		this.getAirlineDetail(nextProps.location.state.serial);
 	}
 
 	getAirlineDetail(serial) {
@@ -42,6 +41,7 @@ class AirlinePolicyDetail extends Component{
 		.then(res => {
 			if (res.data.status === 'success') {
 				this.setState({ dataItem: res.data.data });
+				this.setState({ descItem: res.data.data.items });
 			}
 			
 		})
@@ -49,7 +49,7 @@ class AirlinePolicyDetail extends Component{
 
 	render() {
 		console.log(this.props, 'airline detail', this.state);
-		const { dataItem,defaultLangnya } = this.state;
+		const { dataItem,defaultLangnya,descItem } = this.state;
 		
 		return(
 			<div id="middle-content" className="homePage">
@@ -82,7 +82,12 @@ class AirlinePolicyDetail extends Component{
 			              </div>
 
 			              <div className="content active">
-			                <p>{dataItem && dataItem.generalRequirementDesc}</p><br />
+							{descItem.map((item, k) => (
+								<div className="rowHtml" key={k}>
+									<h3>{item.description == '' ? '' : item.name}</h3>
+									<div dangerouslySetInnerHTML={{ __html: item.description }} />
+								</div>
+							))}
 			     
 
 			              </div>{/* end.content */}

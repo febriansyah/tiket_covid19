@@ -4,7 +4,7 @@ import axios from 'axios';
 import StickyShare from './StickyShare';
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -14,15 +14,12 @@ class AirportPolicyDetail extends React.Component{
 		super(props);
 		this.state = {
 			dataItem: null,
+			descItem:[],
 			defaultLangnya: langnya == langDef ? langnya : 'id',
 		};
-
-		this.goBack = this.goBack.bind(this);
 	}
 
-	goBack() {
-		this.props.history.goBack();
-	}
+	
 
 	componentDidMount() {
 		if (this.props.location.state && this.props.location.state.airportCode) {
@@ -33,6 +30,12 @@ class AirportPolicyDetail extends React.Component{
 		window.readmoreFade();
 		window.popupSlider();
 	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.location.state && nextProps.location.state.airportCode) {
+			this.getAirportDetail(nextProps.location.state.airportCode);
+		}
+	}
 	
 	getAirportDetail(airportCode) {
 		axios({
@@ -41,16 +44,17 @@ class AirportPolicyDetail extends React.Component{
 			headers
 		})
 		.then(res => {
-			console.log(`airport?lang=`+this.state.defaultLangnya+`&airportCode=${airportCode}`, 'res airport by code');
+			console.log(res.data.data.items, 'res airport by code');
 			if (res.data.status === 'success') {
 				this.setState({ dataItem: res.data.data });
+				this.setState({ descItem: res.data.data.items });
 			}
 		})
 	}
 
 	render() {
 		const {
-	      defaultLangnya
+	      defaultLangnya,descItem
 	    } = this.state;
 		console.log(this.props, 'airport detail');
 		
@@ -104,7 +108,12 @@ class AirportPolicyDetail extends React.Component{
 								<span>{this.state.dataItem && this.state.dataItem.airportName}</span>
 							</div>
 							<div className="content active">
-								<p>{this.state.dataItem && this.state.dataItem.generalRequirements}</p>
+								{descItem.map((item, k) => (
+									<div className="rowHtml" key={k}>
+										<h3>{item.description == '' ? '' : item.name}</h3>
+										<div dangerouslySetInnerHTML={{ __html: item.description }} />
+									</div>
+								))}
 							</div>
 						</div>
 			    	</div>{/* end.tnc-accodion */}
