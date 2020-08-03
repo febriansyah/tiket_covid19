@@ -28,6 +28,8 @@ class Popup extends React.Component{
           errors: {},
       	  defaultLangnya: langnya == langDef ? langnya : 'id' ,
 		  imageSrc:  'http://'+window.location.host +'/assets/images/nav_icon_close.png',
+		  imgGenCitySrc:  'http://'+window.location.host +'/assets/images/icon_general_city.png',
+		  noResultImg:  'http://'+window.location.host +'/assets/images/no_result.png',
 		
 		  ...initialSearch,
 		  listAirport: [],
@@ -206,12 +208,13 @@ class Popup extends React.Component{
 		return list_data_popular.map((value, idx) =>
 			<Link
 				key={idx}
-				to={{ pathname: "/SearchResult/" + value.countryCode }}
+				/*to={{ pathname: "/SearchResult/" + value.countryCode }}*/
+				to={value.type == 'international' ? '/SearchResult/' + value.countryCode : '/AirportPolicyDetail/' + value.airportCode}
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>
-				<img src="assets/images/icon_general_city.png" className="icon_city" alt='city' />
-				<span>{value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
+				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
+				<span>{value.cityName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
 			</Link>
 		)
 	}
@@ -226,7 +229,7 @@ class Popup extends React.Component{
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>
-				<img src="assets/images/icon_general_city.png" className="icon_city" alt='city' />
+				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{item.airportName}</span>
 			</Link>
 		)
@@ -411,7 +414,7 @@ class Popup extends React.Component{
 
 						        <div className={"list_noneResult " + this.state.showNoResult}>
 						        	<div className="icon_noneResult">
-						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
+						        		<img src={this.state.noResultImg} style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
 						        		<h3>{defaultLangnya == 'id' ? 'Ayo pakai kata kunci lain' : 'Let’s use another keyword'}</h3>
@@ -466,7 +469,7 @@ class Popup extends React.Component{
 
 						        <div className={"list_noneResult " + this.state.showNoResult}>
 						        	<div className="icon_noneResult">
-						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
+						        		<img src={this.state.noResultImg} style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
 						        		<h3>{defaultLangnya == 'id' ? 'Ayo pakai kata kunci lain' : 'Let’s use another keyword'}</h3>
@@ -522,7 +525,7 @@ class Popup extends React.Component{
 
 						        <div className={"list_noneResult " + this.state.showNoResult}>
 						        	<div className="icon_noneResult">
-						        		<img src="assets/images/no_result.png" style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
+						        		<img src={this.state.noResultImg} style={{width: 577/2.2, height: 384/2.2}} alt='noresult' />
 						        	</div>
 						        	<div className="caption_noneResult">
 						        		<h3>{defaultLangnya == 'id' ? 'Ayo pakai kata kunci lain' : 'Let’s use another keyword'}</h3>

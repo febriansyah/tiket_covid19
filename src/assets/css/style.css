@@ -699,7 +699,7 @@ h3.mediumFont{
 	padding:40px 20px 20px 20px;
 	border-radius: 10px 10px 0 0;
 	background: #fff;
-	min-height: 80vh;
+	min-height: 90vh;
 	position: relative;
 	text-align: left;
 }
@@ -723,6 +723,8 @@ h3.mediumFont{
 .list_autocomplete{
 	display: block;
 	padding: 10px 0;
+	max-height: 400px;
+	overflow: scroll;
 }
 .row_result_autocomplete{
 	display: block;
