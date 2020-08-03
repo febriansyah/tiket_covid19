@@ -221,7 +221,7 @@ class Popup extends React.Component{
 		return data.map((item, idx) =>
 			<Link
 				key={idx}
-				to={{ pathname: "/AirportPolicyDetail", state: { airportCode: item.airportCode } }}
+				to={{ pathname: '/AirportPolicyDetail/' + item.airportCode }}
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>
@@ -237,7 +237,7 @@ class Popup extends React.Component{
 		return data.map((item, idx) =>
 			<Link
 				key={idx}
-				to={{ pathname: '/AirlinePolicyDetail', state: { serial: item.serial } }}
+				to={{ pathname: '/AirlinePolicyDetail/' + item.serial }}
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>

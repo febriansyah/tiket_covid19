@@ -14,6 +14,9 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 
 function App() {
   const [selectedCountryCode, changeSelectedCountryCode] = useState('');
+  const [selectedAirlaneCode, changeSelectedAirlaneCode] = useState('');
+  const [selectedAirportCode, changeSelectedAirportCode] = useState('');
+  
   //const [productshistory] = useState('');
   return (
     <div>
@@ -23,10 +26,10 @@ function App() {
           <Route exact path='/' component = {Home} />
           <Route path='/SearchResult/:countryCode' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
           <Route path='/AirlinePolicy' component = {AirlinePolicy} />
-          <Route path='/AirlinePolicyDetail' component = {AirlinePolicyDetail} />
+          <Route path='/AirlinePolicyDetail/:airlaneCode' render = {(props) => <AirlinePolicyDetail {...props} changeSelectedAirlaneCode={(c) => changeSelectedAirlaneCode(c)} />} />
           <Route path='/AirportPolicyDomestic' component = {AirportPolicyDomestic} />
           <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
-          <Route path='/AirportPolicyDetail' component = {AirportPolicyDetail} />
+          <Route path='/AirportPolicyDetail/:airportCode' render = {(props) => <AirportPolicyDetail {...props} changeSelectedAirportCode={(c) => changeSelectedAirportCode(c)} />} />
           <Route path='/TicketingPolicyFlights/:product' component = {TicketingPolicyFlights} />
          
           <Route component={PageNotFound} />

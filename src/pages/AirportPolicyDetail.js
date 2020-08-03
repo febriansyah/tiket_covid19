@@ -22,8 +22,9 @@ class AirportPolicyDetail extends React.Component{
 	
 
 	componentDidMount() {
-		if (this.props.location.state && this.props.location.state.airportCode) {
-			this.getAirportDetail(this.props.location.state.airportCode);
+		//console.log('mssu'+this.props.match.params.airportCode);
+		 if (this.props.match.params.airportCode) {
+			this.getAirportDetail(this.props.match.params.airportCode);
 		}
 
 		window.activeAccordion();
@@ -32,12 +33,13 @@ class AirportPolicyDetail extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.location.state && nextProps.location.state.airportCode) {
-			this.getAirportDetail(nextProps.location.state.airportCode);
+		if (nextProps.match.params.airportCode) {
+			this.getAirportDetail(nextProps.match.params.airportCode);
 		}
 	}
 	
 	getAirportDetail(airportCode) {
+		console.log(airportCode);
 		axios({
 			method: 'get',
 			url:apiUrl + `airport?lang=`+this.state.defaultLangnya+`&airportCode=${airportCode}`,

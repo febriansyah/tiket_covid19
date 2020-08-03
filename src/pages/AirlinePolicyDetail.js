@@ -26,10 +26,10 @@ class AirlinePolicyDetail extends Component{
 		window.activeAccordion();
 		window.popupSlider();
 
-		this.getAirlineDetail(this.props.location.state.serial);
+		this.getAirlineDetail(this.props.match.params.airlaneCode);
 	}
 	componentWillReceiveProps(nextProps) {
-		this.getAirlineDetail(nextProps.location.state.serial);
+		this.getAirlineDetail(nextProps.match.params.airlaneCode);
 	}
 
 	getAirlineDetail(serial) {
