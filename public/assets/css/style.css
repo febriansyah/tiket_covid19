@@ -732,7 +732,7 @@ h3.mediumFont{
 .row_result_autocomplete img{
 	display: inline-block;
 	width: 25px;
-	margin-right: 10px;
+	margin-right: 15px;
 	vertical-align: middle;
 }
 .row_result_autocomplete span{
@@ -796,11 +796,11 @@ h3.mediumFont{
 	position: absolute;
 	left: 20px;
 	font-size: 20px;
-	top:25px;
+	top:23px;
 	color: #979797;
 }
 .button_close_popup img{
-	max-width: 20px;
+	max-width: 25px;
 }
 .erorr_help{
 	color: #e52424;
