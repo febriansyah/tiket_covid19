@@ -26,8 +26,9 @@ class Popup extends React.Component{
 		  count_item: 0,
 		  fields: {},
           errors: {},
-      	defaultLangnya: langnya == langDef ? langnya : 'id' ,
-
+      	  defaultLangnya: langnya == langDef ? langnya : 'id' ,
+		  imageSrc:  'http://'+window.location.host +'/assets/images/nav_icon_close.png',
+		
 		  ...initialSearch,
 		  listAirport: [],
 		  listAirlines: [],
@@ -312,7 +313,8 @@ class Popup extends React.Component{
 		// console.log(this.props, 'state popup');
 		const {
      	 defaultLangnya,
-    	} = this.state;
+		} = this.state;
+		
 		return(
 			<div>
 				<div id="popup_confirmasi" className="popup_slider hide">
@@ -336,7 +338,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src="assets/images/nav_icon_close.png" className="icon_close_popup" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 					    	<div className="inner_popup">
 					    		<h3>{defaultLangnya == 'id' ? 'Masukkan Alamat Email' : 'Enter Email Address'}</h3>
 					    		<p>{defaultLangnya == 'id' ? 'Notifikasi tentang status lokasi tujuanmu akan dikirimkan ke email ini.' : 'Notifications about the status of your destination will be sent to this email.'}</p>
@@ -373,7 +375,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src="assets/images/nav_icon_close.png" className="icon_close_popup" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>{defaultLangnya == 'id' ? 'Mau ke Mana?' : 'Going Anywhere?'}</h3>
@@ -428,7 +430,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src="assets/images/nav_icon_close.png" className="icon_close_popup" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
@@ -483,7 +485,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src="assets/images/nav_icon_close.png" className="icon_close_popup" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>{defaultLangnya == 'id' ? 'Kebijakan Bandara' : 'Airport Policy'}</h3>
