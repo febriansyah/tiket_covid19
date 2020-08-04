@@ -818,6 +818,13 @@ h3.mediumFont{
     z-index: 99;
     height: 200px;
 }
+.box_popup_search .halBefore-kuis{
+	margin-top: 0px;
+	position: absolute;
+	height: 100%;
+	background: #fff;
+	width: 100%;
+}
 .box-loading, .box-loading2 {
     position: absolute;
     left: 0;

@@ -27,14 +27,15 @@ class Popup extends React.Component{
 		  fields: {},
           errors: {},
       	  defaultLangnya: langnya == langDef ? langnya : 'id' ,
-		  imageSrc:  'http://'+window.location.host +'/assets/images/nav_icon_close.png',
-		  imgGenCitySrc:  'http://'+window.location.host +'/assets/images/icon_general_city.png',
-		  noResultImg:  'http://'+window.location.host +'/assets/images/no_result.png',
+		  imageSrc:  'https://'+window.location.host +'/assets/images/nav_icon_close.png',
+		  imgGenCitySrc:  'https://'+window.location.host +'/assets/images/icon_general_city.png',
+		  noResultImg:  'https://'+window.location.host +'/assets/images/no_result.png',
 		
 		  ...initialSearch,
 		  listAirport: [],
 		  listAirlines: [],
 		  showNoResult: 'hide',
+		  showPopularText:'show'
 		};
 	}
 
@@ -126,6 +127,7 @@ class Popup extends React.Component{
 			if (searchText.length > 2) {
 				this.setState({ showNoResult: 'hide' });
 				$(".halBefore-kuis").fadeIn();
+				this.setState({ showPopularText: 'hide' });
 
 				this.typingTimeout = setTimeout(() => {
 					if (type === 'airline_policy') {
@@ -137,6 +139,7 @@ class Popup extends React.Component{
 			} else {
 				this.setState({ showNoResult: 'hide' });
 				$(".halBefore-kuis").fadeOut();
+				this.setState({ showPopularText: 'show' });
 			}
 		})
 	}
@@ -167,6 +170,7 @@ class Popup extends React.Component{
 
 			if (remapCity.length === 0) {
 				this.setState({ showNoResult: '' });
+				this.setState({ showPopularText: 'hide' });
 			}
 
 			$(".halBefore-kuis").fadeOut();
@@ -204,6 +208,7 @@ class Popup extends React.Component{
 
 	RenderCityPopular() {
 		let list_data_popular = this.state.searchText.length > 2 ? this.state.searchResult : this.state.list_data_popular;
+
 
 		return list_data_popular.map((value, idx) =>
 			<Link
@@ -398,9 +403,9 @@ class Popup extends React.Component{
 								<label style={{fontSize: '10px',}} className="hide" >type at least 3 letters</label>
 						    </div> {/* end.rows */}
 						    <div className="rows">
-							    <div className={"main_title grey_title "}>
+							    {this.state.showPopularText === 'show' && <div className="main_title grey_title ">
 						          <h3>{defaultLangnya == 'id' ? 'Tujuan Populer' : 'Popular Destinations'}</h3>
-						        </div>
+						        </div>}
 
 								{this.state.showNoResult === 'hide' && <div className="halBefore-kuis">
 									<div className="box-loading2">
