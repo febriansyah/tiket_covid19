@@ -29,6 +29,7 @@ class Popup extends React.Component{
       	  defaultLangnya: langnya == langDef ? langnya : 'id' ,
 		  imageSrc:  'https://'+window.location.host +'/assets/images/nav_icon_close.png',
 		  imgGenCitySrc:  'https://'+window.location.host +'/assets/images/icon_general_city.png',
+		  imgBandaraSrc:  'https://'+window.location.host +'/assets/images/icon_bandara.png',
 		  noResultImg:  'https://'+window.location.host +'/assets/images/no_result.png',
 		
 		  ...initialSearch,
@@ -219,7 +220,7 @@ class Popup extends React.Component{
 				onClick={() => this.setState({ ...initialSearch })}
 			>
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
-				<span>{value.cityName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
+				<span>{value.provinceName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
 			</Link>
 		)
 	}
@@ -234,7 +235,7 @@ class Popup extends React.Component{
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>
-				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
+				<img src={this.state.imgBandaraSrc} className="icon_city" alt='city' />
 				<span>{item.airportName}</span>
 			</Link>
 		)

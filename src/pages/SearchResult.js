@@ -301,7 +301,7 @@ class SearchResult extends React.Component{
 
 						<span className="sourceName">{defaultLangnya == 'id' ? 'Data dari' : 'Source data by'} <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
 
-						<span className="sourceNameRight">{defaultLangnya == 'id' ? 'Data 3 hari terakhir' : 'Last 3 days data'}</span>
+						<span className="sourceNameRight hide">{defaultLangnya == 'id' ? 'Data 3 hari terakhir' : 'Last 3 days data'}</span>
 			        </div>
 
 			      </div>

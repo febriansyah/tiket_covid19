@@ -64,7 +64,7 @@ class AirportPolicyDetail extends React.Component{
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+			    	<Link to="/AirportPolicyDomestic" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">

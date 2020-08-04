@@ -55,7 +55,7 @@ class AirlinePolicyDetail extends Component{
 			<div id="middle-content" className="homePage">
 			  <div className="wrapper">
 			    <div className="rows">
-			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+			    	<Link to="/AirlinePolicy" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
 			    <div className="rows">
