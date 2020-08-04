@@ -98,7 +98,7 @@ class Popup extends React.Component{
 	getListAirlines() {
 		axios({
 			method: 'get',
-			url:apiUrl + 'airlines?lang=id&page=1&flightType=1',
+			url:'https://api.tiketsafe.com/api/v2/airlines?lang=id&page=1&flightType=1',
 			headers
 		})
 		.then(res => {
