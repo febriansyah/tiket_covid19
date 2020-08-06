@@ -220,7 +220,7 @@ class Popup extends React.Component{
 				onClick={() => this.setState({ ...initialSearch })}
 			>
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
-				<span>{value.provinceName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
+				<span>{value.cityName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
 			</Link>
 		)
 	}

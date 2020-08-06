@@ -91,7 +91,7 @@ const Maps = (props) => {
     const getCountryStatus = (n) => {
         axios({
             type: 'get',
-            url: proxyurl + apiUrl + `country-status?status=${n}`,
+            url:`https://api.tiketsafe.com/api/v2/country-status?status=${n}`,
             headers
         })
         .then(res => {
