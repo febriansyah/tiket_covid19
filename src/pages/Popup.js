@@ -213,16 +213,18 @@ class Popup extends React.Component{
 		
 
 		return list_data_popular.map((value, idx) =>
-			<Link
-				key={idx}
-				to={{ pathname: value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode + '?kota='+ value.airportCode : '/SearchResult/' + value.countryCode   }}
-				//to={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
-				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch })}
-			>
+			
+			// <Link
+			// 	key={idx}
+			// 	to={{ pathname: '/SearchResult/' + value.countryCode  }}
+			// 	//to={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
+			// 	className="row_result_autocomplete trigger_close_popup"
+			// 	onClick={() => this.setState({ ...initialSearch })}
+			// >
+				<a key={idx} href={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode+'?kota='+value.airportCode : '/SearchResult/' + value.countryCode  } className="row_result_autocomplete trigger_close_popup">
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{value.cityName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
-			</Link>
+				</a>
 		)
 	}
 

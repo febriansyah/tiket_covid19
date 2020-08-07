@@ -38,18 +38,11 @@ class SearchResult extends React.Component{
 	componentDidMount() {
 		window.readmoreFade();
 		window.popupSlider();
-
 		this.getCountryByCode(this.props.match.params.countryCode);
 		this.getCovidData(this.props.match.params.countryCode);
 		this.getarrItems(this.props.match.params.countryCode);
-
-
 		let param=queryString.parse(this.props.location.search);
-		{!!(param.kota)?this.getCountryByCode('MY',param.kota):this.getCountryByCode(this.props.match.params.countryCode,'')}
-	
-		
-		
-
+		{!!(param.kota)?this.getCountryByCode(this.props.match.params.countryCode,param.kota):this.getCountryByCode(this.props.match.params.countryCode,'')}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -141,7 +134,7 @@ class SearchResult extends React.Component{
 			})
 			.then(res => {
 				//console.log(res.data.data[0].items, 'country');
-				console.log('wew')
+				
 				let arrData = [];
 				let arrItems = [];
 				if (res.data.status === 'success') {
@@ -251,6 +244,10 @@ class SearchResult extends React.Component{
 			longitude = dataItem.longitude;
 			latitude = dataItem.latitude;
 			mapsColor = getColorByStatus(dataItem.status);
+
+			if(dataCardPolicy.length !== 0){
+				countryName = dataCardPolicy.provinceName;
+			}
 		}
 		
 		return(
@@ -261,7 +258,10 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
 
-			    <div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
+			   
+
+			    <section id="section_maps">
+				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
 			      <img src="../assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
 			    </div>
@@ -276,7 +276,6 @@ class SearchResult extends React.Component{
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
 
-			    <section id="section_maps">
 			      <div className="rows">
 			        <div className="block_shadow">
 			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
@@ -320,7 +319,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
-			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h4>
+			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName && countryName ? countryName : countryName}</h4>
 			            <p className="green hide">No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">
