@@ -9,6 +9,7 @@ import ReadMoreReact from 'read-more-react';
 import Maps from './Maps';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
+import queryString from 'query-string';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -19,6 +20,8 @@ class SearchResult extends React.Component{
 	   this.state = {
 			dataItem: null,
 			dataCard: [],
+			dataCardPolicy:[],
+			dataCardPolicyItem:[],
 			dataCovid: null,
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
@@ -40,6 +43,13 @@ class SearchResult extends React.Component{
 		this.getCovidData(this.props.match.params.countryCode);
 		this.getarrItems(this.props.match.params.countryCode);
 
+
+		let param=queryString.parse(this.props.location.search);
+		{!!(param.kota)?this.getCountryByCode('MY',param.kota):this.getCountryByCode(this.props.match.params.countryCode,'')}
+	
+		
+		
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -47,7 +57,10 @@ class SearchResult extends React.Component{
 			$(".halBefore-kuis").fadeIn();
 			this.getCountryByCode(nextProps.match.params.countryCode);
 			this.getCovidData(nextProps.match.params.countryCode);
+			if (this.props.match.params.airportCode !== nextProps.match.params.airportCode) {
+				console.log(this.props.match.params.airportCode);
 
+			}
 			this.setState({
 				readyDataCard: false
 			}, () => {
@@ -75,44 +88,88 @@ class SearchResult extends React.Component{
         })
     }
 
-	getCountryByCode(countryCode) {
-		const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+	getCountryByCode(countryCode,kota) {
+		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 		this.props.changeSelectedCountryCode(countryCode);
 
-		axios({
-			method: 'get',
-			url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
-			headers: {
-				"Access-Control-Allow-Origin": "*"
-			}
-		})
-		.then(res => {
-			//console.log(res.data.data[0].items, 'country');
-			
-			let arrData = [];
-			let arrItems = [];
-			if (res.data.status === 'success') {
-				if (res.data.data.length > 0) {
-					arrData = res.data.data[0];
-					arrItems = res.data.data[0].items
+		if(kota === '')
+		{
+			axios({
+				method: 'get',
+				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
+				headers: {
+					"Access-Control-Allow-Origin": "*"
 				}
-			}
+			})
+			.then(res => {
+				//console.log(res.data.data[0].items, 'country');
+				console.log('wewaw')
+				let arrData = [];
+				let arrItems = [];
+				if (res.data.status === 'success') {
+					if (res.data.data.length > 0) {
+						arrData = res.data.data[0];
+						arrItems = res.data.data[0].items
+					}
+				}
 
-			this.setState({ dataItem: arrData }, () => {
-				//this.setState({ dataCard:arrItems });
-				$(".halBefore-kuis").fadeOut();
+				this.setState({ dataItem: arrData }, () => {
+					//this.setState({ dataCard:arrItems });
+					$(".halBefore-kuis").fadeOut();
+					this.setState({ loading: false });
+				})
+
+				if (arrItems.length > 0) {
+					this.setState({ dataCard: arrItems });
+					//this.setState({ dataCardPolicy:[]});
+				}
+
+				
+			})
+			.catch(err => {
 				this.setState({ loading: false });
 			})
 
-			if (arrItems.length > 0) {
-				this.setState({ dataCard: arrItems });
-			}
+		}else{
 
-			
-		})
-		.catch(err => {
-			this.setState({ loading: false });
-		})
+			axios({
+				method: 'get',
+				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`+`&airportCode=${kota}`,
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
+			})
+			.then(res => {
+				//console.log(res.data.data[0].items, 'country');
+				console.log('wew')
+				let arrData = [];
+				let arrItems = [];
+				if (res.data.status === 'success') {
+					if (res.data.data.length > 0) {
+						arrData = res.data.data[0];
+						arrItems = res.data.data[0].airportItems
+					}
+				}
+
+				this.setState({ dataItem: arrData }, () => {
+					//this.setState({ dataCard:arrItems });
+					$(".halBefore-kuis").fadeOut();
+					this.setState({ loading: false });
+				})
+
+				if (arrItems.length > 0) {
+									this.setState({ dataCard: [] });
+					this.setState({ dataCardPolicy: arrData.provinceCovidCase });
+					this.setState({ dataCardPolicyItem: arrItems  });
+				}
+
+				
+			})
+			.catch(err => {
+				this.setState({ loading: false });
+			})
+
+		}
 	}
 
 	getarrItems(countryCode) {
@@ -166,17 +223,26 @@ class SearchResult extends React.Component{
 	render() {
 		//console.log(this.props,  'search result', this.state);
 
-		const { dataItem, dataCovid, defaultLangnya, dataCard } = this.state;
+		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
 		
 		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 
-		console.log(dataCard, 'dataCard');
+	//console.log(dataCardPolicy.length);	
+			if (dataCovid) {
+				confirmed = dataCovid.confirmed;
+				deaths = dataCovid.deaths;
+				recovered = dataCovid.recovered;
 
-		if (dataCovid) {
-			confirmed = dataCovid.confirmed;
-			deaths = dataCovid.deaths;
-			recovered = dataCovid.recovered;
-		}
+				if(dataCardPolicy.length !== 0){
+					console.log('masuk');
+					confirmed = dataCardPolicy.casePositive;
+					deaths = dataCardPolicy.caseDeaths;
+					recovered = dataCardPolicy.caseRecovered;
+				}
+			}
+			
+			
+
 		
 		if (dataItem) {
 			labelReadMode = 'Read More..';
@@ -315,9 +381,34 @@ class SearchResult extends React.Component{
 			      </div>}
 
 			      <div className="rows">
+				  	{/* {this.state.dataCardPolicy.map((item, k) => (
+                      <div className="rowHtml" key={k}>
+                        <h3>{item.description == '' ? '' : item.name}</h3>
+                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                      </div>
+                    ))} */}
 					{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 			      </div>{/* end.rows */}
 			    </section>
+				{dataCardPolicyItem.length > 0 ?
+				<section id="section_tabs_list">
+			    	<div id="tnc-accodion">
+						<div className="items">
+							<div className="page active">
+								<span>{this.state.dataItem && this.state.dataItem.airportName}</span>
+							</div>
+							<div className="content active">
+								{dataCardPolicyItem.map((item, k) => (
+									<div className="rowHtml" key={k}>
+										<h3>{item.description == '' ? '' : item.name}</h3>
+										<div dangerouslySetInnerHTML={{ __html: item.description }} />
+									</div>
+								))}
+							</div>
+						</div>
+			    	</div>{/* end.tnc-accodion */}
+			      </section> : '' }
+
 				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>

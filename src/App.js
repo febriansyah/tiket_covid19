@@ -7,7 +7,7 @@ import AirlinePolicyDetail from './pages/AirlinePolicyDetail';
 import AirportPolicyDomestic from './pages/AirportPolicyDomestic';
 import AirportPolicyInternational from './pages/AirportPolicyInternational';
 import AirportPolicyDetail from './pages/AirportPolicyDetail';
-import TicketingPolicyFlights from './pages/TicketingPolicyFlights';
+import TicketingPolicy from './pages/TicketingPolicy';
 import ScrollToTop from './pages/ScrollToTop';
 import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
@@ -30,7 +30,7 @@ function App() {
           <Route path='/AirportPolicyDomestic' component = {AirportPolicyDomestic} />
           <Route path='/AirportPolicyInternational' component = {AirportPolicyInternational} />
           <Route path='/AirportPolicyDetail/:airportCode' render = {(props) => <AirportPolicyDetail {...props} changeSelectedAirportCode={(c) => changeSelectedAirportCode(c)} />} />
-          <Route path='/TicketingPolicyFlights/:product' component = {TicketingPolicyFlights} />
+          <Route path='/TicketingPolicy/:product' component = {TicketingPolicy} />
          
           <Route component={PageNotFound} />
         </Switch>

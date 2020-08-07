@@ -210,12 +210,13 @@ class Popup extends React.Component{
 	RenderCityPopular() {
 		let list_data_popular = this.state.searchText.length > 2 ? this.state.searchResult : this.state.list_data_popular;
 
+		
 
 		return list_data_popular.map((value, idx) =>
 			<Link
 				key={idx}
 				/*to={{ pathname: "/SearchResult/" + value.countryCode }}*/
-				to={value.type == 'international' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
+				to={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
 				className="row_result_autocomplete trigger_close_popup"
 				onClick={() => this.setState({ ...initialSearch })}
 			>
