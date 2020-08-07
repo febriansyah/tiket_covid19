@@ -151,7 +151,7 @@ class SearchResult extends React.Component{
 				})
 
 				if (arrItems.length > 0) {
-									this.setState({ dataCard: [] });
+					this.setState({ dataCard: [] });
 					this.setState({ dataCardPolicy: arrData.provinceCovidCase });
 					this.setState({ dataCardPolicyItem: arrItems  });
 				}
@@ -380,33 +380,29 @@ class SearchResult extends React.Component{
 			      </div>}
 
 			      <div className="rows">
-				  	{/* {this.state.dataCardPolicy.map((item, k) => (
-                      <div className="rowHtml" key={k}>
-                        <h3>{item.description == '' ? '' : item.name}</h3>
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
-                      </div>
-                    ))} */}
-					{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+				  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+
+					  {dataCardPolicyItem.length > 0 ?
+						<section id="section_tabs_list">
+								<div id="tnc-accodion">
+									<div className="items">
+										<div className="page active">
+											<span>{this.state.dataItem && this.state.dataItem.airportName} </span>
+										</div>
+										<div className="content active">
+											{dataCardPolicyItem.map((item, k) => (
+												<div className="rowHtml" key={k}>
+													<h3>{item.description == '' ? '' : item.name}</h3>
+													<div dangerouslySetInnerHTML={{ __html: item.description }} />
+												</div>
+											))}
+										</div>
+									</div>
+								</div>{/* end.tnc-accodion */}
+							</section> : '' }
 			      </div>{/* end.rows */}
 			    </section>
-				{dataCardPolicyItem.length > 0 ?
-				<section id="section_tabs_list">
-			    	<div id="tnc-accodion">
-						<div className="items">
-							<div className="page active">
-								<span>{this.state.dataItem && this.state.dataItem.airportName}</span>
-							</div>
-							<div className="content active">
-								{dataCardPolicyItem.map((item, k) => (
-									<div className="rowHtml" key={k}>
-										<h3>{item.description == '' ? '' : item.name}</h3>
-										<div dangerouslySetInnerHTML={{ __html: item.description }} />
-									</div>
-								))}
-							</div>
-						</div>
-			    	</div>{/* end.tnc-accodion */}
-			      </section> : '' }
+				
 
 				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
