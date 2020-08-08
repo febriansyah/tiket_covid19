@@ -38,17 +38,12 @@ const Maps = (props) => {
     const [indonesiaWorld, setIndonesiaWorld] = useState([]);
 
     useEffect(() => {
-        if (parentName !== 'Home') {
-            listWorldMap = [];
-            getCovidData();
-        }
-
         // getIndoData();
     }, [])
 
     useEffect(() => {
-        if (listWorldMap.length === 0) {
-            setLoading(true);
+        if (listWorldMap.length === 0 || parentName !== 'Home') {
+            listWorldMap = [];
             getCovidData();
         } else {
             setLoading(false);
