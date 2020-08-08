@@ -268,7 +268,7 @@ class SearchResult extends React.Component{
 
 			    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
 			      <img src="../assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Hindari bila tidak berkepentingan'}</span>
+			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
 			    </div>
 
 			    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
@@ -383,23 +383,23 @@ class SearchResult extends React.Component{
 				  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 
 					  {dataCardPolicyItem.length > 0 ?
-						<section id="section_tabs_list">
-								<div id="tnc-accodion">
-									<div className="items">
-										<div className="page active">
-											<span>{this.state.dataItem && this.state.dataItem.airportName} </span>
+					  	<div>
+					  	{dataCardPolicyItem.map((item, k) => (
+					  	
+					  	<Fragment key={k}>
+						  	<div className={`block_policy full_block ${item.description == '' ? 'hide' : item.name}`}>
+								<div className="caption_policy">
+									<div className="detail-text-project">
+										<h3>{item.name}</h3>
+										<div>
+											<div dangerouslySetInnerHTML={{ __html: item.description }} />
 										</div>
-										<div className="content active">
-											{dataCardPolicyItem.map((item, k) => (
-												<div className="rowHtml" key={k}>
-													<h3>{item.description == '' ? '' : item.name}</h3>
-													<div dangerouslySetInnerHTML={{ __html: item.description }} />
-												</div>
-											))}
-										</div>
-									</div>
-								</div>{/* end.tnc-accodion */}
-							</section> : '' }
+									</div>{/*><!--end.detail-text-project-->*/}
+								</div>
+							</div>
+						</Fragment>
+						))}
+						</div>: '' }
 			      </div>{/* end.rows */}
 			    </section>
 				
