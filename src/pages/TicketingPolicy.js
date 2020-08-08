@@ -104,11 +104,7 @@ class TicketingPolicyFlights extends React.Component{
 		
 		return dataResatas.map((val, i) =>
 		
-<<<<<<< HEAD
 		<Link to={`/TicketingPolicy/${val.serial}`} className={`tabs_menu ${val.serial == this.props.match.params.product && 'active'}`} key={i}>
-=======
-		<Link to={`/TicketingPolicy/${val.verticalName}`} className={`tabs_menu ${val.verticalName == this.props.match.params.product && 'active'}`} key={i}>
->>>>>>> fcce6e10a92d72df03dfde4e0791a4346bcd8711
 					<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
 					<span>{val.verticalName}</span>
 		</Link>
