@@ -213,7 +213,7 @@ class Popup extends React.Component{
 		
 
 		return list_data_popular.map((value, idx) =>
-			
+			 
 			// <Link
 			// 	key={idx}
 			// 	to={{ pathname: '/SearchResult/' + value.countryCode  }}
