@@ -35,30 +35,18 @@ class SearchResult extends React.Component{
 	    this.props.history.goBack();
 	}
 
-	componentDidMount() {
-		window.readmoreFade();
-		window.popupSlider();
-		this.getarrItems(this.props.match.params.countryCode);
-
-		//console.log(this.props.match.params);
-		let param=this.props.match.params.kota;
-		
-		{!!(param)?this.getCountryByCode(this.props.match.params.countryCode,param):
-			this.getCountryByCode(this.props.match.params.countryCode,'')
-			this.getCovidData(this.props.match.params.countryCode)
-		}
-		
-	}
-
 	componentWillReceiveProps(nextProps) {
 		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
 			$(".halBefore-kuis").fadeIn();
-			this.getCountryByCode(nextProps.match.params.countryCode);
-			this.getCovidData(nextProps.match.params.countryCode);
-			if (this.props.match.params.airportCode !== nextProps.match.params.airportCode) {
-				console.log(this.props.match.params.airportCode);
 
-			}
+			this.setState({
+				dataItem: null
+			}, () => {
+				this.getCountryByCode(nextProps.match.params.countryCode, nextProps.match.params.kota);
+			})
+			
+			this.getCovidData(nextProps.match.params.countryCode);
+
 			this.setState({
 				readyDataCard: false
 			}, () => {
@@ -66,7 +54,21 @@ class SearchResult extends React.Component{
 			})
 		}
 	}
+	
+	componentDidMount() {
+		window.readmoreFade();
+		window.popupSlider();
+		
+		this.getarrItems(this.props.match.params.countryCode);
 
+		let param = this.props.match.params.kota;
+		
+		{!!(param) ? this.getCountryByCode(this.props.match.params.countryCode, param):
+			this.getCountryByCode(this.props.match.params.countryCode, '')
+			this.getCovidData(this.props.match.params.countryCode)
+		}
+	}
+	
 	getCovidData(countryCode) {
         axios({
             method: 'get',
@@ -86,12 +88,11 @@ class SearchResult extends React.Component{
         })
     }
 
-	getCountryByCode(countryCode,kota) {
+	getCountryByCode(countryCode, kota) {
 		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 		this.props.changeSelectedCountryCode(countryCode);
-
-		if(kota === '')
-		{
+	
+		if (!kota || kota === '') {
 			axios({
 				method: 'get',
 				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
@@ -100,14 +101,14 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				//console.log(res.data.data[0].items, 'country');
-				console.log('wewaw')
+				console.log(res.data.data[0].items, 'country');
+				
 				let arrData = [];
 				let arrItems = [];
 				if (res.data.status === 'success') {
 					if (res.data.data.length > 0) {
 						arrData = res.data.data[0];
-						arrItems = res.data.data[0].items
+						arrItems = res.data.data[0].airportItems
 					}
 				}
 
@@ -119,17 +120,14 @@ class SearchResult extends React.Component{
 
 				if (arrItems.length > 0) {
 					this.setState({ dataCard: arrItems });
+					
 					//this.setState({ dataCardPolicy:[]});
 				}
-
-				
 			})
 			.catch(err => {
 				this.setState({ loading: false });
 			})
-
-		}else{
-
+		} else {
 			axios({
 				method: 'get',
 				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`+`&airportCode=${kota}`,
@@ -142,6 +140,7 @@ class SearchResult extends React.Component{
 				
 				let arrData = [];
 				let arrItems = [];
+
 				if (res.data.status === 'success') {
 					if (res.data.data.length > 0) {
 						arrData = res.data.data[0];
@@ -160,13 +159,10 @@ class SearchResult extends React.Component{
 					this.setState({ dataCardPolicy: arrData.provinceCovidCase });
 					this.setState({ dataCardPolicyItem: arrItems  });
 				}
-
-				
 			})
 			.catch(err => {
 				this.setState({ loading: false });
 			})
-
 		}
 	}
 
@@ -197,8 +193,6 @@ class SearchResult extends React.Component{
 	}
 
 	renderdetailinfo(dataCard, defaultLangnya) {
-		console.log(this.state.readyDataCard, 'this.state.readyDataCard');
-		
 		return dataCard.map((carding, i) =>
 			<Fragment key={i}>
 				<div className={`block_policy full_block ${carding.description == '' ? 'hide' : carding.name}`}>
@@ -219,41 +213,40 @@ class SearchResult extends React.Component{
 	}
 
 	render() {
-		//console.log(this.props,  'search result', this.state);
+		// console.log(this.state, 'search result');
 
 		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
 		
 		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 
-	//console.log(dataCardPolicy.length);	
-			if (dataCovid) {
-				confirmed = dataCovid.confirmed;
-				deaths = dataCovid.deaths;
-				recovered = dataCovid.recovered;
+		if (dataCovid) {
+			confirmed = dataCovid.confirmed;
+			deaths = dataCovid.deaths;
+			recovered = dataCovid.recovered;
 
-				if(dataCardPolicy.length !== 0){
-					console.log('masuk');
-					confirmed = dataCardPolicy.casePositive;
-					deaths = dataCardPolicy.caseDeaths;
-					recovered = dataCardPolicy.caseRecovered;
-				}
+			if (dataCardPolicy.length !== 0) {
+				confirmed = dataCardPolicy.casePositive;
+				deaths = dataCardPolicy.caseDeaths;
+				recovered = dataCardPolicy.caseRecovered;
 			}
+		}
 			
-			
-
-		
 		if (dataItem) {
 			labelReadMode = 'Read More..';
 			countryName = dataItem.countryName;
 			countryCode = dataItem.countryCode;
 			longitude = dataItem.longitude;
 			latitude = dataItem.latitude;
+
 			mapsColor = getColorByStatus(dataItem.status);
 
-			if(dataCardPolicy.length !== 0){
+			if (dataCardPolicy.length !== 0) {
 				countryName = dataCardPolicy.provinceName;
 			}
 		}
+
+		console.log(mapsColor, 'mapsColor');
+		
 		
 		return(
 			<div id="middle-content" className="homePage">
@@ -324,7 +317,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
-			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName && countryName ? countryName : countryName}</h4>
+			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName}</h4>
 			            <p className="green hide">No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">

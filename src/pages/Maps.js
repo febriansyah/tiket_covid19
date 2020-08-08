@@ -38,6 +38,11 @@ const Maps = (props) => {
     const [indonesiaWorld, setIndonesiaWorld] = useState([]);
 
     useEffect(() => {
+        if (parentName !== 'Home') {
+            listWorldMap = [];
+            getCovidData();
+        }
+
         // getIndoData();
     }, [])
 
@@ -107,13 +112,13 @@ const Maps = (props) => {
                         }
                     })
 
-                    if (i.id === 'ID') {
-                        listWorldMap.push({
-                            title: 'Indonesia',
-                            color: color.yellow,
-                            ...i,
-                        })
-                    }
+                    // if (i.id === 'ID') {
+                    //     listWorldMap.push({
+                    //         title: 'Indonesia',
+                    //         color: color.yellow,
+                    //         ...i,
+                    //     })
+                    // }
                 })
 
                 setLoading(false);
@@ -145,19 +150,19 @@ const Maps = (props) => {
         let listData = [];
 
         listWorldMap.forEach((e) => {
-            if (e.id === countryCode) {
+            // if (e.id === countryCode) {
+            //     listData.push({
+            //         "name": "Info Covid-19",
+            //         "color": e.color,
+            //         "data": [e]
+            //     })
+            // } else {
                 listData.push({
                     "name": "Info Covid-19",
                     "color": e.color,
                     "data": [e]
                 })
-            } else {
-                listData.push({
-                    "name": "Info Covid-19",
-                    "color": e.color,
-                    "data": [e]
-                })
-            }
+            // }
         })
         
         // This array will be populated with country IDs to exclude from the world series
