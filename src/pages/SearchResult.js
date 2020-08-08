@@ -119,7 +119,7 @@ class SearchResult extends React.Component{
 				})
 
 				if (arrItems.length > 0) {
-					this.setState({ dataCard: arrItems });
+					// this.setState({ dataCard: arrItems });
 					
 					//this.setState({ dataCardPolicy:[]});
 				}
@@ -179,13 +179,15 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-				arrItems = res.data.data[0].items;
-				
-				this.setState({ dataCard: arrItems });
+			console.log(res, 'res');
+			
+			arrItems = res.data.data[0].items;
+			
+			this.setState({ dataCard: arrItems });
 
-				setTimeout(() => {
-					this.setState({ readyDataCard: true });
-				}, 1000);
+			setTimeout(() => {
+				this.setState({ readyDataCard: true });
+			}, 1000);
 		})
 		.catch(err => {
 			this.setState({ loading: false });
@@ -213,7 +215,7 @@ class SearchResult extends React.Component{
 	}
 
 	render() {
-		// console.log(this.state, 'search result');
+		console.log(this.state, 'search result');
 
 		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
 		
