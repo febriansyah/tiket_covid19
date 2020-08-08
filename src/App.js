@@ -24,7 +24,7 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path='/' component = {Home} />
-          <Route path='/SearchResult/:countryCode' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
+          <Route path='/SearchResult/:countryCode/:kota' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
           <Route path='/AirlinePolicy' component = {AirlinePolicy} />
           <Route path='/AirlinePolicyDetail/:airlaneCode' render = {(props) => <AirlinePolicyDetail {...props} changeSelectedAirlaneCode={(c) => changeSelectedAirlaneCode(c)} />} />
           <Route path='/AirportPolicyDomestic' component = {AirportPolicyDomestic} />

@@ -39,9 +39,11 @@ class SearchResult extends React.Component{
 		window.readmoreFade();
 		window.popupSlider();
 		this.getarrItems(this.props.match.params.countryCode);
-		let param=queryString.parse(this.props.location.search);
+
+		//console.log(this.props.match.params);
+		let param=this.props.match.params.kota;
 		
-		{!!(param.kota)?this.getCountryByCode(this.props.match.params.countryCode,param.kota):
+		{!!(param)?this.getCountryByCode(this.props.match.params.countryCode,param):
 			this.getCountryByCode(this.props.match.params.countryCode,'')
 			this.getCovidData(this.props.match.params.countryCode)
 		}
