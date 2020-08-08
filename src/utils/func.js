@@ -6,10 +6,10 @@ const getColorByStatus = (n) => {
             return color.green;
         }
         case 2: {
-            return color.yellow;
+            return color.red;
         }
         case 3: {
-            return color.red;
+            return color.yellow;
         }
         default: {
             return color.red;

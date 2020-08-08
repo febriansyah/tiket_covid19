@@ -218,6 +218,8 @@ class SearchResult extends React.Component{
 		console.log(this.state, 'search result');
 
 		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
+
+		const host='http://'+window.location.host;
 		
 		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 
@@ -262,17 +264,17 @@ class SearchResult extends React.Component{
 
 			    <section id="section_maps">
 				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
-			      <img src="../assets/images/icon_alert_warning.png" className="icon_alert" alt='alert' />
+			      <img src={host+'/assets/images/icon_alert_warning.png'} className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
 			    </div>
 
 			    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
-			      <img src="../assets/images/icon_alert_danger.png" className="icon_alert" alt='alert' />
+			      <img src={host+'/assets/images/icon_alert_danger.png'} className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
 			    </div>
 
 			    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
-			      <img src="../assets/images/icon_alert_safe.png" className="icon_alert" alt='alert' />
+			      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
 
@@ -297,7 +299,7 @@ class SearchResult extends React.Component{
 							{...this.props}
 						/>
 						<div className="zoom_abs">
-							<img src="../assets/images/icon_zoom.png" />
+							<img src={host+"/assets/images/icon_zoom.png"} />
 							<span>Zoom</span>
 						</div>
 			        </div>

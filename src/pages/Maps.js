@@ -36,6 +36,7 @@ const Maps = (props) => {
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
     const [covid_world_timeline, set_covid_world_timeline] = useState(null);
     const [indonesiaWorld, setIndonesiaWorld] = useState([]);
+    const host='http://'+window.location.host;
 
     useEffect(() => {
         // getIndoData();
@@ -343,7 +344,7 @@ const Maps = (props) => {
             indicator.height = am4core.percent(100);
 
             let hourglass = indicator.createChild(am4core.Image);
-            hourglass.href = "../assets/images/loading_static.png";
+            hourglass.href = host+'/assets/images/loading_static.png';
             hourglass.align = "center";
             hourglass.valign = "middle";
             hourglass.horizontalCenter = "middle";
