@@ -103,7 +103,7 @@ const Maps = (props) => {
                             listWorldMap.push({
                                 ...e,
                                 ...i,
-                                color: n === '1' ? color.green : n === '2' ? color.yellow : color.red
+                                color: n === '1' ? color.green : n === '2' ? color.red : color.yellow
                             });
                         }
                     })
