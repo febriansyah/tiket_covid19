@@ -221,7 +221,7 @@ class Popup extends React.Component{
 				onClick={() => this.setState({ ...initialSearch })}
 			>
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
-				<span>{value.cityName == '' ? value.airportName : value.cityName}, {value.countryName ? value.countryName : 'Indonesia'}</span>
+				<span>{value.cityName == '' ? value.airportName : value.cityName}{value.countryName ?', '+value.countryName : ''}</span>
 			</Link>
 		)
 	}
@@ -388,7 +388,7 @@ class Popup extends React.Component{
 					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Mau ke Mana?' : 'Going Anywhere?'}</h3>
+						          <h3>{defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'}</h3>
 						        </div>
 						    </div>{/* end.rows */}
 						    <div className="rows">

@@ -152,11 +152,11 @@ class AirlinePolicy extends Component{
 						<div className="block_policy full_block">
 						  <div className="caption_policy">
 							<div className="detail-text-project">
-							    <h3>Airlines Ticketing Guideline and Policy</h3>
+							    <h3>{defaultLangnya == 'id' ? 'Regulasi Tiket dan Kebijakan Maskapai' : 'Airlines Ticketing Guidelines and Policy'}</h3>
 				          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
 								<p>
 									<ReadMoreReact 
-										text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+										text={defaultLangnya == 'id' ? 'Bagian ini berisi informasi mengenai kebijakan penerbangan dan regulasi terkait pembelian tiket yang dikeluarkan oleh maskapai. Kamu bisa mengecek tentang ketentuan/persyaratan untuk terbang, sekaligus mendapatkan informasi  mengenai refund, reschedule, atau reroute. Info yang tertera di halaman ini bersifat referensi dan dapat diubah sewaktu-waktu oleh maskapai terkait. Kami akan terus berusaha memberikan informasi ter-update. Namun, sobat tiket tetap perlu mencari tahu info sedetail mungkin mengenai kebijakan dari maskapai terkait sebelum membeli tiket, melakukan penerbangan, dan lain-lain.' : 'This section contains information regarding airline policies and regulations of flight tickets issued by airlines. You can check the terms and conditions for flying, as well as detailed information about refund, reschedule, or reroute policies. The information listed on this page is for reference only and can be changed at any time by the airline without prior notice. We will continue to provide the most updated information. However, t-mates still need to find out as much detail as possible about the policies of the airline before purchasing flight tickets, scheduling your flights, and so on.'}
 
 										readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}/>
 								</p>
