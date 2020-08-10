@@ -36,7 +36,7 @@ const Maps = (props) => {
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
     const [covid_world_timeline, set_covid_world_timeline] = useState(null);
     const [indonesiaWorld, setIndonesiaWorld] = useState([]);
-    const host='http://'+window.location.host;
+    const host='https://tiketsafe.com';
 
     useEffect(() => {
         // getIndoData();
