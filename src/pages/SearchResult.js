@@ -227,7 +227,7 @@ class SearchResult extends React.Component{
 		console.log(this.state, 'search result');
 
 		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
-
+ 
 		const host='https://tiketsafe.com'
 		
 		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
