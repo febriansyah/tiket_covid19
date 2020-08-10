@@ -9,7 +9,7 @@ const initialSearch = {
 	searchPage: 1,
 }
 
-const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -54,7 +54,7 @@ class Popup extends React.Component{
 	_listData = () => {
 		axios({
 			method: 'get',
-			url:apiUrl +'suggestion/popular-city',
+			url:'https://api.tiketsafe.com/api/v1/suggestion/popular-city',
 			headers
 		})
 		.then(response => {

@@ -74,7 +74,7 @@ class SearchResult extends React.Component{
 	getCovidData(countryCode) {
         axios({
             method: 'get',
-            url: 'https://cors-anywhere.herokuapp.com/' + 'https://covid.amcharts.com/data/js/world_timeline.js',
+            url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
             headers: { "Access-Control-Allow-Origin": "*" }
         })
         .then(res => {

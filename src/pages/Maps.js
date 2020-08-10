@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { color } from '../components/color';
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const apiUrl = 'https://api.tiketsafe.com/api/v1/';
+const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
@@ -62,7 +62,7 @@ const Maps = (props) => {
     const getCovidData = () => {
         axios({
             method: 'get',
-            url: proxyurl + 'https://covid.amcharts.com/data/js/world_timeline.js',
+            url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
             headers
         })
         .then(res => {
