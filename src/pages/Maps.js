@@ -472,7 +472,7 @@ const Maps = (props) => {
     // }, [])
 
     // console.log(props, 'props');
-
+ 
     return (
         <>
             <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
