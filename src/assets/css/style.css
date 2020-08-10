@@ -534,6 +534,7 @@ h3.mediumFont{
 	padding: 20px;
 	margin-bottom: 20px;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
 }
 
 #tnc-accodion .page {
@@ -585,6 +586,12 @@ h3.mediumFont{
 #tnc-accodion .content h3{
 	font-size: 15px;
     margin: 0 0 5px 0;
+}
+#tnc-accodion .content h3.hideDesc{
+	margin-bottom: 0;
+}
+#tnc-accodion .content .rowHtml{
+	margin-bottom: 15px;
 }
 #tnc-accodion .content p{
 	font-size: 14px;
@@ -659,6 +666,9 @@ h3.mediumFont{
 .iconReload{
 	float: right;
 	max-width: 25px;
+}
+.overflow_table{
+	overflow-x: scroll;
 }
 /* style popup
 ----------------------------------------------------------------------------------------------*/

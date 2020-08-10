@@ -14,6 +14,8 @@ import queryString from 'query-string';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
 
+
+
 class SearchResult extends React.Component{
 	constructor(props) {
 	   super(props);
@@ -215,6 +217,13 @@ class SearchResult extends React.Component{
 	}
 
 	render() {
+		let indonesia
+
+		if (this.state.defaultLangnya == 'en') {
+			indonesia = '';
+		}else{
+			indonesia = require ('moment/locale/id');
+		}
 		console.log(this.state, 'search result');
 
 		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
@@ -377,7 +386,7 @@ class SearchResult extends React.Component{
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
 			          <p>{defaultLangnya == 'id' ? 'Daftar persyaratan dan peraturan yang harus ditaati.' : 'List of requirements to fulfill and regulations to follow.'}</p><br />
-			          <span className="blue_rounded_txt">{defaultLangnya == 'id' ? 'Published' : 'Published'} {moment(dataItem.updatedTimestamp).format('DD MMMM YYYY')}</span>
+			          <span className="blue_rounded_txt">{defaultLangnya == 'id' ? 'Diterbitkan' : 'Published'} {moment(dataItem.updatedTimestamp).format('DD MMMM YYYY')}</span>
 			        </div>
 			      </div>}
 

@@ -184,7 +184,7 @@ constructor(props) {
       					  <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>
                     {user.items.map((item, k) => (
                       <div className="rowHtml" key={k}>
-                        <h3>{item.description == '' ? '' : item.name}</h3>
+                        <h3 className={item.description == '' ? 'hideDesc' : 'showDesc'}>{item.description == '' ? '' : item.name}</h3>
                         <div dangerouslySetInnerHTML={{ __html: item.description }} />
                       </div>
                     ))}
