@@ -153,11 +153,11 @@ class AirlinePolicyDomestic extends Component{
 						<div className="tabs_main_menu">
 							<Link to="" className="tabs_menu active">
 								<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>Domestic</span>
+								<span>{defaultLangnya == 'id' ? 'Domestik' : 'Domestic'}</span>
 							</Link>
 							<Link to="/AirlinePolicyInternational" className="tabs_menu">
 							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
-								<span>International</span>
+								<span>{defaultLangnya == 'id' ? 'Internasional' : 'International'}</span>
 							</Link>
 						</div>
 				    </div>{/* end.rows */}
