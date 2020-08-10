@@ -121,9 +121,10 @@ class SearchResult extends React.Component{
 				})
 
 				if (arrItems.length > 0) {
+					
 					// this.setState({ dataCard: arrItems });
 					
-					//this.setState({ dataCardPolicy:[]});
+					this.setState({ dataCardPolicy:[]});
 				}
 			})
 			.catch(err => {
