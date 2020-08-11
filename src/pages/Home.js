@@ -386,7 +386,11 @@ class Home extends React.Component {
 						</div>{/* end.rows */}
 						<div className="rows">
 							<div className="relative">
-								
+								<Maps
+									parentName='Home'
+									title={defaultLangnya == 'id' ? 'Level Kewaspadaan COVID-19' : 'COVID-19 Travel Advisory Level'}
+									{...this.props}
+								/>
 								<div className="zoom_abs">
 									<img src="assets/images/icon_zoom.png" />
 									<span>Zoom</span>
