@@ -45,19 +45,19 @@ const Maps = (props) => {
     useEffect(() => {
         if (listWorldMap.length === 0 || parentName !== 'Home') {
             listWorldMap = [];
-            getCovidData();
+            //getCovidData();
         } else {
             setLoading(false);
         }
     }, [loading])
 
     useEffect(() => {
-        if (covid_world_timeline) {
+        //if (covid_world_timeline) {
             getCountryStatus('1');
             getCountryStatus('2');
             getCountryStatus('3');
-        }
-    }, [covid_world_timeline])
+        //}
+    }, [])
 
     const getCovidData = () => {
         axios({
@@ -97,16 +97,22 @@ const Maps = (props) => {
         })
         .then(res => {
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
-                covid_world_timeline.list.map((i) => {
+               
                     res.data.data.map((e) => {
-                        if (i.id === e.id) {
+                     
                             listWorldMap.push({
-                                ...e,
-                                ...i,
+                                id: e.id,
+                                latitude: e.latitude,
+                                longitude: e.longitude,
+                                title: e.title,
+                                confirmed:e.countryCovidCase.casePositive,
+                                recovered:e.countryCovidCase.caseRecovered,
+                                deaths:e.countryCovidCase.caseDeaths,
+                                //...i,
                                 color: n === '1' ? color.green : n === '2' ? color.red : color.yellow
                             });
-                        }
-                    })
+                        
+                 
 
                     // if (i.id === 'ID') {
                     //     listWorldMap.push({
@@ -117,8 +123,10 @@ const Maps = (props) => {
                     // }
                 })
 
+                //console.log(listWorldMap,'wew')
+
                 setLoading(false);
-                //localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
+                localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
                 
                 if (n === '1') {
                     setListAllowedCountry(res.data.data);
@@ -136,7 +144,7 @@ const Maps = (props) => {
         let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
         
         chart.geodata = am4geodata_worldLow;
-        // chart.geodataSource.url = 'https://www.amcharts.com/lib/4/geodata/json/indonesiaLow.json';
+        //chart.geodataSource.url = 'https://www.amcharts.com/lib/4/geodata/json/indonesiaLow.json';
 		chart.projection = new am4maps.projections.Miller();
 		chart.homeZoomLevel = homeZoomLevel;
         chart.homeGeoPoint = { longitude, latitude };

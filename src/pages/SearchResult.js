@@ -9,7 +9,7 @@ import ReadMoreReact from 'read-more-react';
 import Maps from './Maps';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
-import queryString from 'query-string';
+//import queryString from 'query-string';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -47,7 +47,7 @@ class SearchResult extends React.Component{
 				this.getCountryByCode(nextProps.match.params.countryCode, nextProps.match.params.kota);
 			})
 			
-			this.getCovidData(nextProps.match.params.countryCode);
+			//this.getCovidData(nextProps.match.params.countryCode);
 
 			this.setState({
 				readyDataCard: false
@@ -67,28 +67,28 @@ class SearchResult extends React.Component{
 		
 		{!!(param) ? this.getCountryByCode(this.props.match.params.countryCode, param):
 			this.getCountryByCode(this.props.match.params.countryCode, '')
-			this.getCovidData(this.props.match.params.countryCode)
+			//this.getCovidData(this.props.match.params.countryCode)
 		}
 	}
 	
-	getCovidData(countryCode) {
-        axios({
-            method: 'get',
-            url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
-            headers: { "Access-Control-Allow-Origin": "*" }
-        })
-        .then(res => {
-            let data = res.data.replace(/\s/g, '').split('=')[1];
-            let arrData = JSON.parse(data);
-            let dataCovid = null;
+	// getCovidData(countryCode) {
+    //     axios({
+    //         method: 'get',
+    //         url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
+    //         headers: { "Access-Control-Allow-Origin": "*" }
+    //     })
+    //     .then(res => {
+    //         let data = res.data.replace(/\s/g, '').split('=')[1];
+    //         let arrData = JSON.parse(data);
+    //         let dataCovid = null;
             
-            if (Array.isArray(arrData) && arrData.length > 0) {
-				dataCovid = arrData[arrData.length - 1].list.filter(covid => covid.id === countryCode)[0];
-			}
-
-			this.setState({ dataCovid });
-        })
-    }
+    //         if (Array.isArray(arrData) && arrData.length > 0) {
+	// 			dataCovid = arrData[arrData.length - 1].list.filter(covid => covid.id === countryCode)[0];
+	// 		}
+	// 		console.log(dataCovid,'datacovid');
+	// 		this.setState({ dataCovid });
+    //     })
+    // }
 
 	getCountryByCode(countryCode, kota) {
 		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
@@ -118,14 +118,15 @@ class SearchResult extends React.Component{
 					//this.setState({ dataCard:arrItems });
 					$(".halBefore-kuis").fadeOut();
 					this.setState({ loading: false });
+					this.setState({ dataCardPolicy:[]});
 				})
 
-				if (arrItems.length > 0) {
+				//if (arrItems.length > 0) {
 					
 					// this.setState({ dataCard: arrItems });
 					
-					this.setState({ dataCardPolicy:[]});
-				}
+					
+				//}
 			})
 			.catch(err => {
 				this.setState({ loading: false });
@@ -233,19 +234,19 @@ class SearchResult extends React.Component{
 		
 		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
 
-		if (dataCovid) {
-			confirmed = dataCovid.confirmed;
-			deaths = dataCovid.deaths;
-			recovered = dataCovid.recovered;
+		
+			
+		if (dataItem) {
+			confirmed = dataItem.countryCovidCase.casePositive;
+			deaths = dataItem.countryCovidCase.caseRecovered;
+			recovered = dataItem.countryCovidCase.caseDeaths;
 
 			if (dataCardPolicy.length !== 0) {
 				confirmed = dataCardPolicy.casePositive;
 				deaths = dataCardPolicy.caseDeaths;
 				recovered = dataCardPolicy.caseRecovered;
 			}
-		}
-			
-		if (dataItem) {
+
 			labelReadMode = 'Read More..';
 			countryName = dataItem.countryName;
 			countryCode = dataItem.countryCode;
@@ -291,7 +292,7 @@ class SearchResult extends React.Component{
 			      <div className="rows">
 			        <div className="block_shadow">
 			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-						<div className={`block_info block_info_notif trigger_slider_search ${mapsColor === color.yellow && 'hide'} ${mapsColor === color.green && 'hide'}`} data-slider="popup_email">
+						<div className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
 							<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 						</div>
 			        </div>
