@@ -126,7 +126,7 @@ const Maps = (props) => {
                 //console.log(listWorldMap,'wew')
 
                 setLoading(false);
-                localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
+                //localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
                 
                 if (n === '1') {
                     setListAllowedCountry(res.data.data);
