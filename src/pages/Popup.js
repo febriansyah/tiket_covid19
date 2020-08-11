@@ -150,12 +150,12 @@ class Popup extends React.Component{
 
 		axios({
 			method: 'get',
-			url:apiUrl + `suggestion/location?keyword=${text}&type=${type}&page=${page}`,
+			url:`https://api.tiketsafe.com/api/v1/suggestion/location?keyword=${text}&type=${type}&page=${page}`,
 			headers
 		})
 		.then(res => {
 			console.log(res, 'res search');
-			console.log(apiUrl + `suggestion/location?keyword=${text}&type=${type}&page=${page}`);
+			console.log(`https://api.tiketsafe.com/api/v1/suggestion/location?keyword=${text}&type=${type}&page=${page}`);
 			let remapCity = [];
 
 			if (res.data.status === 'success' && Array.isArray(res.data.data)) {
@@ -185,7 +185,7 @@ class Popup extends React.Component{
 	searchAirline(text, page) {
 		axios({
 			method: 'get',
-			url:apiUrl + `suggestion/airlines?keyword=${text}&page=${page}`,
+			url:`https://api.tiketsafe.com/api/v1/suggestion/airlines?keyword=${text}&page=${page}`,
 			headers
 		})
 		.then(res => {
