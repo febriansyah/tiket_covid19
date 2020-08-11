@@ -11,7 +11,7 @@ import {
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 // import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-//import Maps from './Maps';
+import Maps from './Maps';
 
 // am4core.useTheme(am4themes_animated);
 
