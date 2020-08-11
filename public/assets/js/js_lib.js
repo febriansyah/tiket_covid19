@@ -3,6 +3,7 @@ Author     : Muhammad Febriansyah
 Date       : Mei 2019
  =============================================================================================================== */
 
+
  $.fn.generate_height = function () {
   var maxHeight = -1;
   $(this).each(function () {

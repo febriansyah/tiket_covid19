@@ -11,7 +11,7 @@ import {
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 // import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-import Maps from './Maps';
+//import Maps from './Maps';
 
 // am4core.useTheme(am4themes_animated);
 
@@ -386,11 +386,7 @@ class Home extends React.Component {
 						</div>{/* end.rows */}
 						<div className="rows">
 							<div className="relative">
-								<Maps
-									parentName='Home'
-									title={defaultLangnya == 'id' ? 'Level Kewaspadaan COVID-19' : 'COVID-19 Travel Advisory Level'}
-									{...this.props}
-								/>
+								
 								<div className="zoom_abs">
 									<img src="assets/images/icon_zoom.png" />
 									<span>Zoom</span>
