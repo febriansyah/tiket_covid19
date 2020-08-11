@@ -52,6 +52,7 @@ const Maps = (props) => {
     }, [loading])
 
     useEffect(() => {
+        //console.log('aaaa '+covid_world_timeline)
         if (covid_world_timeline) {
             getCountryStatus('1');
             getCountryStatus('2');

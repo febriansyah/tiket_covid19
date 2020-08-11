@@ -674,11 +674,11 @@ h3.mediumFont{
 ----------------------------------------------------------------------------------------------*/
 .popup_slider .content_slide_btm{
 	position: fixed;
-	bottom: -100%;
+	top: 100%;
 	opacity: 0;
 }
 .popup_slider.actived .content_slide_btm{
-	bottom: 0;
+	top: 0;
 	opacity: 1;
 }
 .popup_slider{
