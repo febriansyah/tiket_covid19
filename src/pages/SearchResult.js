@@ -304,7 +304,9 @@ class SearchResult extends React.Component{
 			      </div>
 			  }
 			      <div className="rows">
+				  
 			        <div className="relative">
+					 
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}
@@ -315,6 +317,7 @@ class SearchResult extends React.Component{
 							loading={this.state.loading}
 							{...this.props}
 						/>
+						
 						{!this.state.loading && 
 						<div className="zoom_abs">
 							<img src={host+"/assets/images/icon_zoom.png"} />
@@ -322,10 +325,11 @@ class SearchResult extends React.Component{
 						</div>
 						}
 			        </div>
+					
 			        
 			      </div>
 			    </section>
-				{!this.state.loading &&   
+				{this.state.loading &&   
 				<div className="halBefore-kuis">
 					<div className="box-loading2">
 						<div className="spinner">
@@ -336,8 +340,9 @@ class SearchResult extends React.Component{
 					</div>
 				</div>
 				}
-
+				
 			    <section id="section_result_maps">
+				{!this.state.loading &&   
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
@@ -349,6 +354,8 @@ class SearchResult extends React.Component{
 			          </div> */}
 			        </div>
 			      </div>
+				}
+				{!this.state.loading &&   
 			      <div className="rows">
 			        <div className="block_shadow infodetail_cause">
 			          <div className="row-list">
@@ -392,6 +399,7 @@ class SearchResult extends React.Component{
 			        </div>
 
 			      </div>
+				}
 
 			      {dataItem && <div className="rows">
 			        <div className="important_things">
