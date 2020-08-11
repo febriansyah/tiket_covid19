@@ -162,6 +162,7 @@ class SearchResult extends React.Component{
 					this.setState({ dataCard: [] });
 					this.setState({ dataCardPolicy: arrData.provinceCovidCase });
 					this.setState({ dataCardPolicyItem: arrItems  });
+					this.setState({ loading: false });
 				}
 			})
 			.catch(err => {

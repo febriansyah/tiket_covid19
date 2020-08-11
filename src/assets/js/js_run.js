@@ -2,6 +2,7 @@
 Author     : Muhammad Febriansyah
 Date       : Mei 2018
  =============================================================================================================== */
+import $ from 'jquery';
 
 $(document).ready(function() {
 	window.readmoreFade();

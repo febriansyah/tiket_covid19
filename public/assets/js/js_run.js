@@ -2,10 +2,10 @@
 Author     : Muhammad Febriansyah
 Date       : Mei 2018
  =============================================================================================================== */
-
 $(document).ready(function() {
-	window.readmoreFade();
-	window.popupSlider();	
+	readmoreFade();
+	popupSlider();
+	
 });
 
 
