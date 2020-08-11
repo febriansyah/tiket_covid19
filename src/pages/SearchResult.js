@@ -265,15 +265,20 @@ class SearchResult extends React.Component{
 		
 		return(
 			<div id="middle-content" className="homePage">
-			
+				 
 			  <div className="wrapper">
+			  {!this.state.loading &&   
 			    <div className="rows">
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 			    </div>
+				}
+	
+	
 
 			   
 
 			    <section id="section_maps">
+			
 				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
 			      <img src={host+'/assets/images/icon_alert_warning.png'} className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
@@ -288,7 +293,7 @@ class SearchResult extends React.Component{
 			      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
-
+				{!this.state.loading &&   
 			      <div className="rows">
 			        <div className="block_shadow">
 			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
@@ -297,6 +302,7 @@ class SearchResult extends React.Component{
 						</div>
 			        </div>
 			      </div>
+			  }
 			      <div className="rows">
 			        <div className="relative">
 						<Maps
@@ -309,15 +315,17 @@ class SearchResult extends React.Component{
 							loading={this.state.loading}
 							{...this.props}
 						/>
+						{!this.state.loading && 
 						<div className="zoom_abs">
 							<img src={host+"/assets/images/icon_zoom.png"} />
 							<span>Zoom</span>
 						</div>
+						}
 			        </div>
 			        
 			      </div>
 			    </section>
-
+				{!this.state.loading &&   
 				<div className="halBefore-kuis">
 					<div className="box-loading2">
 						<div className="spinner">
@@ -327,6 +335,7 @@ class SearchResult extends React.Component{
 						</div>
 					</div>
 				</div>
+				}
 
 			    <section id="section_result_maps">
 			      <div className="rows">
