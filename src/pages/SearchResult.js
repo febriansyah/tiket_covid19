@@ -239,8 +239,8 @@ class SearchResult extends React.Component{
 			
 		if (dataItem) {
 			confirmed = dataItem.countryCovidCase.casePositive;
-			deaths = dataItem.countryCovidCase.caseRecovered;
-			recovered = dataItem.countryCovidCase.caseDeaths;
+			deaths = dataItem.countryCovidCase.caseDeaths;
+			recovered = dataItem.countryCovidCase.caseRecovered;
 
 			if (dataCardPolicy.length !== 0) {
 				confirmed = dataCardPolicy.casePositive;
