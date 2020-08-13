@@ -38,26 +38,27 @@ const Maps = (props) => {
     const [indonesiaWorld, setIndonesiaWorld] = useState([]);
     const host='https://tiketsafe.com';
 
-    useEffect(() => {
-        // getIndoData();
-    }, [])
+    // useEffect(() => {
+    //     // getIndoData();
+    // }, [])
 
     useEffect(() => {
         if (listWorldMap.length === 0 || parentName !== 'Home') {
             listWorldMap = [];
+            getCountryStatus();
             //getCovidData();
         } else {
             setLoading(false);
         }
     }, [loading])
 
-    useEffect(() => {
-        //if (covid_world_timeline) {
-            getCountryStatus();
-            //getCountryStatus('2');
-            //getCountryStatus('3');
-        //}
-    }, [])
+    // useEffect(() => {
+    //     //if (covid_world_timeline) {
+    //         getCountryStatus();
+    //         //getCountryStatus('2');
+    //         //getCountryStatus('3');
+    //     //}
+    // }, [])
 
     // const getCovidData = () => {
     //     axios({
@@ -139,21 +140,30 @@ const Maps = (props) => {
         chart.logo.disabled = true;
 
         let listData = [];
-
+        //console.log(listWorldMap,'lalala')
         listWorldMap.forEach((e) => {
-            // if (e.id === countryCode) {
-            //     listData.push({
-            //         "name": "Info Covid-19",
-            //         "color": e.color,
-            //         "data": [e]
-            //     })
-            // } else {
+             if (e.id === countryCode) {
+                 //console.log('ulala');
+                 listData.push({
+                     "name": "Info Covid-19",
+                     "color": e.color,
+                     "data": [e]
+                 })
+             } else {
+                console.log('ulala');
                 listData.push({
                     "name": "Info Covid-19",
                     "color": e.color,
                     "data": [e]
                 })
-            // }
+               
+                    // listData.push({
+                    //     "name": "Info Covid-19",
+                    //     "color": e.color,
+                    //     "data": [e]
+                    // })
+                
+             }
         })
         
         // This array will be populated with country IDs to exclude from the world series
@@ -319,7 +329,7 @@ const Maps = (props) => {
         shadowLineSeries.mapLines.template.shortestDistance = false;
         shadowLineSeries.zIndex = 5;
           
-        function addLine(from, to) {
+        //function addLine(from, to) {
             //   let line = lineSeries.mapLines.create();
             //   line.imagesToConnect = [from, to];
             //   line.line.controlPointDistance = -0.3;
@@ -328,7 +338,7 @@ const Maps = (props) => {
             //   shadowLine.imagesToConnect = [from, to];
           
             //   return line;
-        }
+        //}
           
         // addLine(chine, jakarta);
           
@@ -398,7 +408,7 @@ const Maps = (props) => {
         let currentLine = 0;
         let direction = 1;
 
-        function flyPlane() {
+        //function flyPlane() {
             //   plane.mapLine = lineSeries.mapLines.getIndex(currentLine);
             //   plane.parent = lineSeries;
             //   shadowPlane.mapLine = shadowLineSeries.mapLines.getIndex(currentLine);
@@ -448,9 +458,9 @@ const Maps = (props) => {
             //       currentLine = numLines - 1;
             //       direction = -1;
             //   }
-        }
+       // }
           
-        flyPlane();
+        //flyPlane();
 
         window.popupSlider();
     }, [
