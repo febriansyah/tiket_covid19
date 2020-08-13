@@ -4,7 +4,7 @@ import $ from 'jquery';
 import axios from 'axios';
 import request from "superagent";
 import ReadMoreReact from 'read-more-react';
-import debounce from "lodash.debounce";
+//import debounce from "lodash.debounce";
 import StickyShare from './StickyShare';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
