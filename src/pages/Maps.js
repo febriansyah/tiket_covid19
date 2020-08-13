@@ -54,8 +54,8 @@ const Maps = (props) => {
     useEffect(() => {
         //if (covid_world_timeline) {
             getCountryStatus('1');
-            getCountryStatus('2');
-            getCountryStatus('3');
+            //getCountryStatus('2');
+            //getCountryStatus('3');
         //}
     }, [])
 
@@ -92,42 +92,24 @@ const Maps = (props) => {
     const getCountryStatus = (n) => {
         axios({
             type: 'get',
-            url:`https://api.tiketsafe.com/api/v2/country-status?status=${n}`,
+            url:`https://api.tiketsafe.com/api/v2/country-status`,
             headers
         })
         .then(res => {
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
-               
-                    res.data.data.map((e) => {
-                     
+                        res.data.data.map((e) => {
                             listWorldMap.push({
                                 id: e.id,
                                 latitude: e.latitude,
                                 longitude: e.longitude,
                                 title: e.title,
-                                confirmed:e.countryCovidCase.casePositive,
-                                recovered:e.countryCovidCase.caseRecovered,
-                                deaths:e.countryCovidCase.caseDeaths,
-                                //...i,
-                                color: n === '1' ? color.green : n === '2' ? color.red : color.yellow
+                                color: e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow
                             });
-                        
-                 
-
-                    // if (i.id === 'ID') {
-                    //     listWorldMap.push({
-                    //         title: 'Indonesia',
-                    //         color: color.yellow,
-                    //         ...i,
-                    //     })
-                    // }
-                })
+                  })
 
                 //console.log(listWorldMap,'wew')
 
                 setLoading(false);
-                //localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
-                
                 if (n === '1') {
                     setListAllowedCountry(res.data.data);
                 } else if (n === '2') {
@@ -135,6 +117,7 @@ const Maps = (props) => {
                 } else if (n === '3') {
                     setListPartiallyProhibited(res.data.data);
                 }
+               // localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
             }
         })
     }
@@ -244,7 +227,8 @@ const Maps = (props) => {
             hoverState.properties.fill = am4core.color("#CC0000");
           
             // Tooltip
-            mapPolygonTemplate.tooltipText = "{title} confirmed = {confirmed}"; // enables tooltip
+            // mapPolygonTemplate.tooltipText = "{title} confirmed = {confirmed}"; 
+            // enables tooltip
             // series.tooltip.getFillFromObject = false; // prevents default colorization, which would make all tooltips red on hover
             // series.tooltip.background.fill = am4core.color(group.color);
           
@@ -344,31 +328,31 @@ const Maps = (props) => {
           
         // addLine(chine, jakarta);
           
-        function showIndicator() {
-            let indicator = chart.tooltipContainer.createChild(am4core.Container);
-            indicator.background.fill = am4core.color("#fff");
-            indicator.background.fillOpacity = 0.5;
-            indicator.width = am4core.percent(100);
-            indicator.height = am4core.percent(100);
+        // function showIndicator() {
+        //     let indicator = chart.tooltipContainer.createChild(am4core.Container);
+        //     indicator.background.fill = am4core.color("#fff");
+        //     indicator.background.fillOpacity = 0.5;
+        //     indicator.width = am4core.percent(100);
+        //     indicator.height = am4core.percent(100);
 
-            let hourglass = indicator.createChild(am4core.Image);
-            hourglass.href = host+'/assets/images/loading_static.png';
-            hourglass.align = "center";
-            hourglass.valign = "middle";
-            hourglass.horizontalCenter = "middle";
-            hourglass.verticalCenter = "middle";
-            hourglass.scale = 0.5;
+        //     let hourglass = indicator.createChild(am4core.Image);
+        //     hourglass.href = host+'/assets/images/loading_static.png';
+        //     hourglass.align = "center";
+        //     hourglass.valign = "middle";
+        //     hourglass.horizontalCenter = "middle";
+        //     hourglass.verticalCenter = "middle";
+        //     hourglass.scale = 0.5;
 
-            setInterval(function() {
-                hourglass.animate([{
-                  from: 0,
-                  to: 360,
-                  property: "rotation"
-                }], 1000);
-            }, 1000);
-        }
+        //     setInterval(function() {
+        //         hourglass.animate([{
+        //           from: 0,
+        //           to: 360,
+        //           property: "rotation"
+        //         }], 1000);
+        //     }, 1000);
+        // }
         
-        if (loading || listData.length === 0 || props.loading) showIndicator();
+        // if (loading || listData.length === 0 || props.loading) showIndicator();
           
           // Add plane
         //   let plane = lineSeries.mapLines.getIndex(0).lineObjects.create();
@@ -506,7 +490,7 @@ Maps.propTypes = {
 };
   
 Maps.defaultProps = {
-    homeZoomLevel: 1,
+    homeZoomLevel: 0,
     latitude: 52,
     longitude: 11,
 };
