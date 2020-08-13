@@ -82,7 +82,7 @@ const Maps = (props) => {
                             
                   })
                   setLoading(false);
-                  localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
+                 // localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
 
                 //console.log(listWorldMap,'wew')
 
@@ -106,7 +106,7 @@ const Maps = (props) => {
         let listData = [];
        
         
-        JSON.parse(localStorage.getItem('request:worlds-maps')).forEach((e) => {
+        listWorldMap.forEach((e) => {
             
                
                 listData.push({
