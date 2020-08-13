@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
@@ -12,7 +12,8 @@ import ScrollToTop from './pages/ScrollToTop';
 import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
 
-/*const Home = lazy(() => import('./pages/Home'));
+/*
+const Home = lazy(() => import('./pages/Home'));
 const SearchResult = lazy(() => import('./pages/SearchResult'));
 const AirlinePolicy = lazy(() => import('./pages/AirlinePolicy'));
 const AirlinePolicyDetail = lazy(() => import('./pages/AirlinePolicyDetail'));
@@ -32,7 +33,6 @@ function App() {
   return (
     <div>
       <Router>
-
         <ScrollToTop />
         <Switch>
           <Route exact path='/' component = {Home} />

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 import { color } from '../components/color';
 
+const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
@@ -27,27 +28,29 @@ const Maps = (props) => {
     } = props;
 
     const history = useHistory();
+
     const [loading, setLoading] = useState(true);
     const [listAllowedCountry, setListAllowedCountry] = useState([]);
     const [listEntryProhibited, setListEntryProhibited] = useState([]);
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
-    
-  
+    const [covid_world_timeline, set_covid_world_timeline] = useState(null);
+    const [indonesiaWorld, setIndonesiaWorld] = useState([]);
+    const host='https://tiketsafe.com';
+
+    // useEffect(() => {
+    //     // getIndoData();
+    // }, [])
+
     useEffect(() => {
-      
         if (listWorldMap.length === 0 || parentName !== 'Home') {
             listWorldMap = [];
-            
+            getCountryStatus();
             //getCovidData();
         } else {
             
             setLoading(false);
         }
     }, [loading])
-
-     useEffect(() => {
-        getCountryStatus();
-     }, [])
 
    
 
@@ -75,10 +78,14 @@ const Maps = (props) => {
                             } else if (e.status === '3') {
                                 setListPartiallyProhibited(res.data.data);
                             }
-                        })
-
+                           
+                            
+                  })
                   setLoading(false);
-                  localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
+                 // localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
+
+                //console.log(listWorldMap,'wew')
+
                
             }
         })
@@ -86,31 +93,29 @@ const Maps = (props) => {
 
     useLayoutEffect(() => {
         let chart = am4core.create("chart", am4maps.MapChart);
-       
+        let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
         
         chart.geodata = am4geodata_worldLow;
       
 		chart.projection = new am4maps.projections.Miller();
 		chart.homeZoomLevel = homeZoomLevel;
         chart.homeGeoPoint = { longitude, latitude };
+     
         chart.logo.disabled = true;
-        let listData = [];
 
-        listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
+        let listData = [];
+       
+        
         listWorldMap.forEach((e) => {
-            // if (e.id === countryCode) {
-            //     listData.push({
-            //         "name": "Info Covid-19",
-            //         "color": e.color,
-            //         "data": [e]
-            //     })
-            // } else {
+            
+               
                 listData.push({
                     "name": "Info Covid-19",
                     "color": e.color,
                     "data": [e]
                 })
-            // }
+               
+                  
         })
         
         // This array will be populated with country IDs to exclude from the world series
@@ -132,10 +137,6 @@ const Maps = (props) => {
   
             series.include = includedCountries;
             series.fill = am4core.color(group.color);
-            
-            // By creating a hover state and setting setStateOnChildren to true, when we
-            // hover over the series itself, it will trigger the hover SpriteState of all
-            // its countries (provided those countries have a hover SpriteState, too!).
             series.setStateOnChildren = true;
             series.calculateVisualCenter = true;
             // Country shape properties & behaviors
@@ -153,28 +154,11 @@ const Maps = (props) => {
               event.target.isHover = false;
               event.target.isHover = true;
             })
-          //   mapPolygonTemplate.events.on("hit", function(event) {
-          // 	series.mapPolygons.each(function(mapPolygon) {
-          // 	  var data=event.target.dataItem.dataContext;
-          // 	  //console.log(JSON.parse(data.customData));
-          // 	  console.log(JSON.parse(JSON.stringify(data.name)));
-          // 	})
-          //   })
+        
 
             mapPolygonTemplate.events.on("hit", function(event) {
-            //   series.mapPolygons.each(function(mapPolygon) {
-            //     console.log(mapPolygon, 'mapPolygon');
-            //   })
-  
-              let data = event.target.dataItem.dataContext;
-
-            //   const dataItem = {
-            //       ...data,
-            //       countryCode: data.id,
-            //       ...chart.svgPointToGeo(event.svgPoint),
-            //   }
-
-              history.push({ pathname: '/SearchResult/' + data.id });
+            let data = event.target.dataItem.dataContext;
+            history.push({ pathname: '/SearchResult/' + data.id });
             })
   
             mapPolygonTemplate.events.on("out", function(event) {
@@ -187,7 +171,15 @@ const Maps = (props) => {
             let hoverState = mapPolygonTemplate.states.create("hover");
             hoverState.properties.fill = am4core.color("#0064D2");
           
+            // Tooltip
+            // mapPolygonTemplate.tooltipText = "{title} confirmed = {confirmed}"; 
+            // enables tooltip
+            // series.tooltip.getFillFromObject = false; // prevents default colorization, which would make all tooltips red on hover
+            // series.tooltip.background.fill = am4core.color(group.color);
           
+            // MapPolygonSeries will mutate the data assigned to it, 
+            // we make and provide a copy of the original data array to leave it untouched.
+            // (This method of copying works only for simple objects, e.g. it will not work
             //  as predictably for deep copying custom Classes.)
             series.data = JSON.parse(JSON.stringify(group.data));
         });
@@ -202,9 +194,8 @@ const Maps = (props) => {
         worldSeries.hiddenInLegend = true;
         worldSeries.mapPolygons.template.nonScalingStroke = true;
           
-         
           
-        // Add line bullets
+   
         let cities = chart.series.push(new am4maps.MapImageSeries());
         cities.mapImages.template.nonScaling = true;
         
@@ -221,24 +212,8 @@ const Maps = (props) => {
               city.tooltipText = title;
               return city;
         }
-
+          
         if (parentName === 'Search') addCity({ latitude, longitude }, countryName );
-        
-        // Add lines
-        let lineSeries = chart.series.push(new am4maps.MapArcSeries());
-        lineSeries.mapLines.template.line.strokeWidth = 2;
-        lineSeries.mapLines.template.line.strokeOpacity = 0.5;
-        lineSeries.mapLines.template.line.stroke = city.fill;
-        lineSeries.mapLines.template.line.nonScalingStroke = true;
-        lineSeries.mapLines.template.line.strokeDasharray = "1,1";
-        lineSeries.zIndex = 10;
-        
-        let shadowLineSeries = chart.series.push(new am4maps.MapLineSeries());
-        shadowLineSeries.mapLines.template.line.strokeOpacity = 0;
-        shadowLineSeries.mapLines.template.line.nonScalingStroke = true;
-        shadowLineSeries.mapLines.template.shortestDistance = false;
-        shadowLineSeries.zIndex = 5;
-
         window.popupSlider();
     }, [
         props,
