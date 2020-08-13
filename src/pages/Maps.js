@@ -53,43 +53,43 @@ const Maps = (props) => {
 
     useEffect(() => {
         //if (covid_world_timeline) {
-            getCountryStatus('1');
+            getCountryStatus();
             //getCountryStatus('2');
             //getCountryStatus('3');
         //}
     }, [])
 
-    const getCovidData = () => {
-        axios({
-            method: 'get',
-            url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
-            headers
-        })
-        .then(res => {
-            let data = res.data.replace(/\s/g, '').split('=')[1];
-            let arrData = JSON.parse(data);
-            let result = [];
+    // const getCovidData = () => {
+    //     axios({
+    //         method: 'get',
+    //         url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
+    //         headers
+    //     })
+    //     .then(res => {
+    //         let data = res.data.replace(/\s/g, '').split('=')[1];
+    //         let arrData = JSON.parse(data);
+    //         let result = [];
             
-            if (Array.isArray(arrData)) {
-                result = arrData[arrData.length - 1];
-            }
+    //         if (Array.isArray(arrData)) {
+    //             result = arrData[arrData.length - 1];
+    //         }
 
-            set_covid_world_timeline(result);
-        })
-    }
+    //         set_covid_world_timeline(result);
+    //     })
+    // }
 
-    const getIndoData = () => {
-        axios({
-            method: 'get',
-            url: proxyurl + 'https://www.amcharts.com/lib/4/geodata/json/indonesiaLow.json',
-            headers
-        })
-        .then(res => {
-            setIndonesiaWorld(res.data.features);
-        })
-    }
+    // const getIndoData = () => {
+    //     axios({
+    //         method: 'get',
+    //         url: proxyurl + 'https://www.amcharts.com/lib/4/geodata/json/indonesiaLow.json',
+    //         headers
+    //     })
+    //     .then(res => {
+    //         setIndonesiaWorld(res.data.features);
+    //     })
+    // }
 
-    const getCountryStatus = (n) => {
+    const getCountryStatus = () => {
         axios({
             type: 'get',
             url:`https://api.tiketsafe.com/api/v2/country-status`,
@@ -98,6 +98,7 @@ const Maps = (props) => {
         .then(res => {
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
                         res.data.data.map((e) => {
+
                             listWorldMap.push({
                                 id: e.id,
                                 latitude: e.latitude,
@@ -105,19 +106,22 @@ const Maps = (props) => {
                                 title: e.title,
                                 color: e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow
                             });
+                            if (e.status === '1') {
+                                setListAllowedCountry(res.data.data);
+                            } else if (e.status === '2') {
+                                setListEntryProhibited(res.data.data);
+                            } else if (e.status === '3') {
+                                setListPartiallyProhibited(res.data.data);
+                            }
+                           
+                            
                   })
+                  setLoading(false);
+                  localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
 
                 //console.log(listWorldMap,'wew')
 
-                setLoading(false);
-                if (n === '1') {
-                    setListAllowedCountry(res.data.data);
-                } else if (n === '2') {
-                    setListEntryProhibited(res.data.data);
-                } else if (n === '3') {
-                    setListPartiallyProhibited(res.data.data);
-                }
-               // localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
+               
             }
         })
     }
