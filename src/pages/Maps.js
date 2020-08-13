@@ -169,7 +169,7 @@ const Maps = (props) => {
           
             // States  
             let hoverState = mapPolygonTemplate.states.create("hover");
-            hoverState.properties.fill = am4core.color("#3b8bb0");
+            hoverState.properties.fill = am4core.color("#0064D2");
           
             // Tooltip
             // mapPolygonTemplate.tooltipText = "{title} confirmed = {confirmed}"; 
