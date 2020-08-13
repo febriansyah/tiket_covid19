@@ -93,8 +93,6 @@ constructor(props) {
               ...nextUsers,
             ],
           });
-
-    	window.activeAccordion();
     	window.popupSlider();
     	
         })

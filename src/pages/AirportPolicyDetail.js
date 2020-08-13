@@ -27,8 +27,6 @@ class AirportPolicyDetail extends React.Component{
 			this.getAirportDetail(this.props.match.params.airportCode);
 		}
 
-		window.activeAccordion();
-		window.readmoreFade();
 		window.popupSlider();
 	}
 

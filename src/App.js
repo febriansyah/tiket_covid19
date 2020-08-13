@@ -1,6 +1,6 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState} from 'react';
 import './App.css';
-/*import Home from './pages/Home';
+import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
 import AirlinePolicy from './pages/AirlinePolicy';
 import AirlinePolicyDetail from './pages/AirlinePolicyDetail';
@@ -9,10 +9,10 @@ import AirportPolicyInternational from './pages/AirportPolicyInternational';
 import AirportPolicyDetail from './pages/AirportPolicyDetail';
 import TicketingPolicy from './pages/TicketingPolicy';
 import ScrollToTop from './pages/ScrollToTop';
-import Popup from './pages/Popup';*/
+import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
 
-const Home = lazy(() => import('./pages/Home'));
+/*const Home = lazy(() => import('./pages/Home'));
 const SearchResult = lazy(() => import('./pages/SearchResult'));
 const AirlinePolicy = lazy(() => import('./pages/AirlinePolicy'));
 const AirlinePolicyDetail = lazy(() => import('./pages/AirlinePolicyDetail'));
@@ -21,7 +21,7 @@ const AirportPolicyInternational = lazy(() => import('./pages/AirportPolicyInter
 const AirportPolicyDetail = lazy(() => import('./pages/AirportPolicyDetail'));
 const TicketingPolicy = lazy(() => import('./pages/TicketingPolicy'));
 const ScrollToTop = lazy(() => import('./pages/ScrollToTop'));
-const Popup = lazy(() => import('./pages/Popup'));
+const Popup = lazy(() => import('./pages/Popup'));*/
 
 function App() {
   const [selectedCountryCode, changeSelectedCountryCode] = useState('');
@@ -33,7 +33,6 @@ function App() {
     <div>
       <Router>
 
-        <Suspense fallback={<div>Loading...</div>}>
         <ScrollToTop />
         <Switch>
           <Route exact path='/' component = {Home} />
@@ -48,7 +47,6 @@ function App() {
           <Route component={PageNotFound} />
         </Switch>
         <Popup selectedCountryCode={selectedCountryCode} />
-        </Suspense>
       </Router>
     </div>
   );

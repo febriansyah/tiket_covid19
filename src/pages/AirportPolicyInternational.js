@@ -77,9 +77,6 @@ constructor(props) {
   }
 
    componentDidMount() {
-   		setTimeout(() => {
-			window.activeAccordion();
-		}, 1000);
     	window.popupSlider();
   	}
 

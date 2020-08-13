@@ -22,8 +22,6 @@ class AirlinePolicyDetail extends Component{
 
 
 	componentDidMount() {
-		window.readmoreFade();
-		window.activeAccordion();
 		window.popupSlider();
 
 		this.getAirlineDetail(this.props.match.params.airlaneCode);
