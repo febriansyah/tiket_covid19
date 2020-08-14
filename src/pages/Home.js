@@ -15,7 +15,7 @@ class Home extends React.Component {
 
 		return (
 			<div>
-				<Suspense fallback={<div className="splashScreen" ><img src="assets/images/logo-tiket.png" alt='splashScreen logo' /></div>}>
+				<Suspense fallback={<div style={{backgroundColor:'#fff',position:'fixed',zIndex: 99,width:'100%',height:'100%',textAlign:'center'}} ><img style={{maxWidth: '100px',display: 'inline-block',paddingTop:'40vh'}} src="assets/images/logo-tiket.png" alt='splashScreen logo' /></div>}>
 			          <HomeLazy />
 			    </Suspense>
 			</div>
