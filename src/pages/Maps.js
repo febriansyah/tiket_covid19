@@ -42,7 +42,7 @@ const Maps = (props) => {
     // }, [])
 
     useEffect(() => {
-        if (listWorldMap.length === 0 || parentName !== 'Home') {
+        if (listWorldMap.length === 0 || parentName === 'Home') {
             listWorldMap = [];
             getCountryStatus();
             //getCovidData();
@@ -51,6 +51,8 @@ const Maps = (props) => {
             setLoading(false);
         }
     }, [loading])
+
+    
 
    
 
