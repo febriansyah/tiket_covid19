@@ -235,7 +235,6 @@ const Maps = (props) => {
                     onClick={() => { setLoading(true); }}
                     className="iconReload hide"
                 >
-                    <img src="../assets/images/reaload-icon.png" />
                 </label>
             </div>
             <div className="frame_peta">

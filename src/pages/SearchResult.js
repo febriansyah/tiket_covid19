@@ -58,7 +58,6 @@ class SearchResult extends React.Component{
 	}
 	
 	componentDidMount() {
-		window.readmoreFade();
 		window.popupSlider();
 		
 		this.getarrItems(this.props.match.params.countryCode);
