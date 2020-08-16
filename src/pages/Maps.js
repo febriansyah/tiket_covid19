@@ -29,7 +29,6 @@ const Maps = (props) => {
 
     const history = useHistory();
 
-    const [loading, setLoading] = useState(true);
     const [listAllowedCountry, setListAllowedCountry] = useState([]);
     const [listEntryProhibited, setListEntryProhibited] = useState([]);
     const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
@@ -37,24 +36,12 @@ const Maps = (props) => {
     const [indonesiaWorld, setIndonesiaWorld] = useState([]);
     const host='https://tiketsafe.com';
 
-    // useEffect(() => {
-    //     // getIndoData();
-    // }, [])
-
     useEffect(() => {
         if (listWorldMap.length === 0 || parentName === 'Home') {
             listWorldMap = [];
             getCountryStatus();
-            //getCovidData();
-        } else {
-            
-            setLoading(false);
         }
-    }, [loading])
-
-    
-
-   
+    }, [])
 
     const getCountryStatus = () => {
         axios({
@@ -63,6 +50,8 @@ const Maps = (props) => {
             headers
         })
         .then(res => {
+            console.log(res, 'res country status');
+            
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
                         res.data.data.map((e) => {
 
@@ -83,12 +72,6 @@ const Maps = (props) => {
                            
                             
                   })
-                  setLoading(false);
-                 // localStorage.setItem('request:worlds-maps', JSON.stringify(listWorldMap));
-
-                //console.log(listWorldMap,'wew')
-
-               
             }
         })
     }
@@ -219,7 +202,6 @@ const Maps = (props) => {
         window.popupSlider();
     }, [
         props,
-        loading,
         listAllowedCountry,
         listEntryProhibited,
         listPartiallyProhibited
@@ -231,11 +213,6 @@ const Maps = (props) => {
         <>
             <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h3>{title}</h3>
-                <label
-                    onClick={() => { setLoading(true); }}
-                    className="iconReload hide"
-                >
-                </label>
             </div>
             <div className="frame_peta">
                 <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
