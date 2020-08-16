@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -11,6 +11,8 @@ import {
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 // import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
+import PopupCountry from './PopupCountry';
+
 import Maps from './Maps';
 
 // am4core.useTheme(am4themes_animated);
@@ -18,7 +20,9 @@ import Maps from './Maps';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
 
+
 class HomeLazy extends React.Component {
+
 	constructor(props){
 		super(props)
 		this.state = {
@@ -361,6 +365,7 @@ class HomeLazy extends React.Component {
 
 	render() {
 		// console.log(this.props, 'home');
+		const [selectedCountryCode, changeSelectedCountryCode] = useState('');
 		const {
 	      defaultLangnya
 	    } = this.state;
@@ -462,7 +467,10 @@ class HomeLazy extends React.Component {
 					</section>
 
 				</div>{/* end.wrapper */}
+				<PopupCountry selectedCountryCode={selectedCountryCode} />
 			</div>
+
+        	
 		)
 	}
 }

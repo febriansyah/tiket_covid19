@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState} from 'react';
 import './App.css';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
@@ -9,7 +9,6 @@ import AirportPolicyInternational from './pages/AirportPolicyInternational';
 import AirportPolicyDetail from './pages/AirportPolicyDetail';
 import TicketingPolicy from './pages/TicketingPolicy';
 import ScrollToTop from './pages/ScrollToTop';
-import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
 
 /*
@@ -46,7 +45,6 @@ function App() {
          
           <Route component={PageNotFound} />
         </Switch>
-        <Popup selectedCountryCode={selectedCountryCode} />
       </Router>
     </div>
   );
