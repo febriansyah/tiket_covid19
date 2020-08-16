@@ -16,6 +16,8 @@ am4core.useTheme(am4themes_animated);
 
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
+const host = 'https://tiketsafe.com';
+
 const Maps = (props) => {
     const {
         parentName,
@@ -29,12 +31,7 @@ const Maps = (props) => {
 
     const history = useHistory();
 
-    const [listAllowedCountry, setListAllowedCountry] = useState([]);
-    const [listEntryProhibited, setListEntryProhibited] = useState([]);
-    const [listPartiallyProhibited, setListPartiallyProhibited] = useState([]);
-    const [covid_world_timeline, set_covid_world_timeline] = useState(null);
-    const [indonesiaWorld, setIndonesiaWorld] = useState([]);
-    const host='https://tiketsafe.com';
+    // console.log(listWorldMap, 'listWorldMap');
 
     useEffect(() => {
         if (listWorldMap.length === 0 || parentName === 'Home') {
@@ -53,25 +50,15 @@ const Maps = (props) => {
             console.log(res, 'res country status');
             
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
-                        res.data.data.map((e) => {
-
-                            listWorldMap.push({
-                                id: e.id,
-                                latitude: e.latitude,
-                                longitude: e.longitude,
-                                title: e.title,
-                                color: e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow
-                            });
-                            if (e.status === '1') {
-                                setListAllowedCountry(res.data.data);
-                            } else if (e.status === '2') {
-                                setListEntryProhibited(res.data.data);
-                            } else if (e.status === '3') {
-                                setListPartiallyProhibited(res.data.data);
-                            }
-                           
-                            
-                  })
+                res.data.data.map((e) => {
+                    listWorldMap.push({
+                        id: e.id,
+                        latitude: e.latitude,
+                        longitude: e.longitude,
+                        title: e.title,
+                        color: e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow
+                    }); 
+                })
             }
         })
     }
@@ -92,16 +79,15 @@ const Maps = (props) => {
        
         
         listWorldMap.forEach((e) => {
-            
-               
-                listData.push({
-                    "name": "Info Covid-19",
-                    "color": e.color,
-                    "data": [e]
-                })
-               
-                  
+            listData.push({
+                "name": "Info Covid-19",
+                "color": e.color,
+                "data": [e]
+            })     
         })
+
+        console.log(listData, '');
+        
         
         // This array will be populated with country IDs to exclude from the world series
         let excludedCountries = [];
@@ -200,14 +186,8 @@ const Maps = (props) => {
           
         if (parentName === 'Search') addCity({ latitude, longitude }, countryName );
         window.popupSlider();
-    }, [
-        props,
-        listAllowedCountry,
-        listEntryProhibited,
-        listPartiallyProhibited
-    ])
-
-   
+        
+    }, [listWorldMap])
  
     return (
         <>

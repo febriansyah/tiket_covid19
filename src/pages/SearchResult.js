@@ -9,12 +9,9 @@ import ReadMoreReact from 'read-more-react';
 import Maps from './Maps';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
-//import queryString from 'query-string';
 
-const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
+const langnya = window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
-
-
 
 class SearchResult extends React.Component{
 	constructor(props) {
@@ -24,7 +21,6 @@ class SearchResult extends React.Component{
 			dataCard: [],
 			dataCardPolicy:[],
 			dataCardPolicyItem:[],
-			dataCovid: null,
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
 			readyDataCard: false,
@@ -42,16 +38,10 @@ class SearchResult extends React.Component{
 			$(".halBefore-kuis").fadeIn();
 
 			this.setState({
-				dataItem: null
-			}, () => {
-				this.getCountryByCode(nextProps.match.params.countryCode, nextProps.match.params.kota);
-			})
-			
-			//this.getCovidData(nextProps.match.params.countryCode);
-
-			this.setState({
+				dataItem: null,
 				readyDataCard: false
 			}, () => {
+				this.getCountryByCode(nextProps.match.params.countryCode, nextProps.match.params.kota);
 				this.getarrItems(nextProps.match.params.countryCode);
 			})
 		}
@@ -59,35 +49,19 @@ class SearchResult extends React.Component{
 	
 	componentDidMount() {
 		window.popupSlider();
+
+		if (this.state.defaultLangnya == 'id') {
+			require('moment/locale/id');
+		}
 		
 		this.getarrItems(this.props.match.params.countryCode);
 
 		let param = this.props.match.params.kota;
 		
 		{!!(param) ? this.getCountryByCode(this.props.match.params.countryCode, param):
-			this.getCountryByCode(this.props.match.params.countryCode, '')
-			//this.getCovidData(this.props.match.params.countryCode)
+			this.getCountryByCode(this.props.match.params.countryCode, '');
 		}
 	}
-	
-	// getCovidData(countryCode) {
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://api.tiketsafe.com/api/v2/amcharts-assets',
-    //         headers: { "Access-Control-Allow-Origin": "*" }
-    //     })
-    //     .then(res => {
-    //         let data = res.data.replace(/\s/g, '').split('=')[1];
-    //         let arrData = JSON.parse(data);
-    //         let dataCovid = null;
-            
-    //         if (Array.isArray(arrData) && arrData.length > 0) {
-	// 			dataCovid = arrData[arrData.length - 1].list.filter(covid => covid.id === countryCode)[0];
-	// 		}
-	// 		console.log(dataCovid,'datacovid');
-	// 		this.setState({ dataCovid });
-    //     })
-    // }
 
 	getCountryByCode(countryCode, kota) {
 		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
@@ -102,7 +76,7 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				console.log(res.data.data[0].items, 'country');
+				console.log(res.data.data[0].items, 'res country by CODE');
 				
 				let arrData = [];
 				let arrItems = [];
@@ -119,13 +93,6 @@ class SearchResult extends React.Component{
 					this.setState({ loading: false });
 					this.setState({ dataCardPolicy:[]});
 				})
-
-				//if (arrItems.length > 0) {
-					
-					// this.setState({ dataCard: arrItems });
-					
-					
-				//}
 			})
 			.catch(err => {
 				this.setState({ loading: false });
@@ -139,7 +106,7 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				//console.log(res.data.data[0].items, 'country');
+				console.log(res.data.data[0].items, 'res country by CITY');
 				
 				let arrData = [];
 				let arrItems = [];
@@ -183,7 +150,7 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-			console.log(res, 'res');
+			console.log(res, 'res detail card');
 			
 			arrItems = res.data.data[0].items;
 			
@@ -219,22 +186,13 @@ class SearchResult extends React.Component{
 	}
 
 	render() {
-		let indonesia
+		// console.log(this.state, 'search result');
 
-		if (this.state.defaultLangnya == 'en') {
-			indonesia = '';
-		}else{
-			indonesia = require ('moment/locale/id');
-		}
-		console.log(this.state, 'search result');
-
-		const { dataItem, dataCovid, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
+		const { dataItem, defaultLangnya, dataCard ,dataCardPolicy,dataCardPolicyItem} = this.state;
  
-		const host='https://tiketsafe.com'
+		const host = 'https://tiketsafe.com';
 		
-		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', labelReadMode = 'Loading..', countryCode, longitude, latitude;
-
-		
+		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', countryCode, longitude, latitude;
 			
 		if (dataItem) {
 			confirmed = dataItem.countryCovidCase.casePositive;
@@ -247,7 +205,6 @@ class SearchResult extends React.Component{
 				recovered = dataCardPolicy.caseRecovered;
 			}
 
-			labelReadMode = 'Read More..';
 			countryName = dataItem.countryName;
 			countryCode = dataItem.countryCode;
 			longitude = dataItem.longitude;
@@ -259,23 +216,15 @@ class SearchResult extends React.Component{
 				countryName = dataCardPolicy.provinceName;
 			}
 		}
-
-		console.log(mapsColor, 'mapsColor');
 		
-		
-		return(
+		return (
 			<div id="middle-content" className="homePage">
-				 
 			  <div className="wrapper">
-			  {!this.state.loading &&   
-			    <div className="rows">
+			  	{!this.state.loading && (
+				  <div className="rows">
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
-			    </div>
-				}
-	
-	
-
-			   
+				  </div>
+				)}
 
 			    <section id="section_maps">
 			
@@ -293,20 +242,20 @@ class SearchResult extends React.Component{
 			      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
-				{!this.state.loading &&   
-			      <div className="rows">
-			        <div className="block_shadow">
-			          <h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-						<div className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
-							<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
+
+				{!this.state.loading && (
+					<div className="rows">
+						<div className="block_shadow">
+						<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
+							<div className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
+								<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
+							</div>
 						</div>
-			        </div>
-			      </div>
-			  }
-			      <div className="rows">
-				  
+					</div>
+				)}
+
+				<div className="rows">
 			        <div className="relative">
-					 
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}
@@ -318,31 +267,32 @@ class SearchResult extends React.Component{
 							{...this.props}
 						/>
 						
-						{!this.state.loading && 
-						<div className="zoom_abs">
-							<img src={host+"/assets/images/icon_zoom.png"} />
-							<span>Zoom</span>
-						</div>
-						}
+						{!this.state.loading && (
+							<div className="zoom_abs">
+								<img src={host+"/assets/images/icon_zoom.png"} />
+								<span>Zoom</span>
+							</div>
+						)}
 			        </div>
-					
-			        
 			      </div>
+
 			    </section>
-				{this.state.loading &&   
-				<div className="halBefore-kuis">
-					<div className="box-loading2">
-						<div className="spinner">
-							<div className="bounce1"></div>
-							<div className="bounce2"></div>
-							<div className="bounce3"></div>
+
+				{this.state.loading && (
+					<div className="halBefore-kuis">
+						<div className="box-loading2">
+							<div className="spinner">
+								<div className="bounce1"></div>
+								<div className="bounce2"></div>
+								<div className="bounce3"></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				}
+				)}
 				
 			    <section id="section_result_maps">
-				{!this.state.loading &&   
+
+				{!this.state.loading && (
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
@@ -354,8 +304,9 @@ class SearchResult extends React.Component{
 			          </div> */}
 			        </div>
 			      </div>
-				}
-				{!this.state.loading &&   
+				)}
+
+				{!this.state.loading && (
 			      <div className="rows">
 			        <div className="block_shadow infodetail_cause">
 			          <div className="row-list">
@@ -399,41 +350,46 @@ class SearchResult extends React.Component{
 			        </div>
 
 			      </div>
-				}
+				)}
 
-			      {dataItem && <div className="rows">
+				{dataItem && (
+				  <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
 			          <p>{defaultLangnya == 'id' ? 'Daftar persyaratan dan peraturan yang harus ditaati.' : 'List of requirements to fulfill and regulations to follow.'}</p><br />
 			          <span className="blue_rounded_txt">{defaultLangnya == 'id' ? 'Diterbitkan' : 'Published'} {moment(dataItem.updatedTimestamp).format('DD MMMM YYYY')}</span>
 			        </div>
-			      </div>}
+				  </div>
+				)}
 
-			      <div className="rows">
+				<div className="rows">
 				  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 
-					  {dataCardPolicyItem.length > 0 ?
+					{dataCardPolicyItem.length > 0 ?
 					  	<div>
-					  	{dataCardPolicyItem.map((item, k) => (
-					  	
-					  	<Fragment key={k}>
-						  	<div className={`block_policy full_block ${item.description == '' ? 'hide' : item.name}`}>
-								<div className="caption_policy">
-									<div className="detail-text-project">
-										<h3>{item.name}</h3>
-										<div>
-											<div dangerouslySetInnerHTML={{ __html: item.description }} />
-										</div>
-									</div>{/*><!--end.detail-text-project-->*/}
+							{dataCardPolicyItem.map((item, k) => (
+							
+							<Fragment key={k}>
+								<div className={`block_policy full_block ${item.description == '' ? 'hide' : item.name}`}>
+									<div className="caption_policy">
+										<div className="detail-text-project">
+											<h3>{item.name}</h3>
+											<div>
+												<div dangerouslySetInnerHTML={{ __html: item.description }} />
+											</div>
+										</div>{/*><!--end.detail-text-project-->*/}
+									</div>
 								</div>
-							</div>
-						</Fragment>
-						))}
-						</div>: '' }
-			      </div>{/* end.rows */}
+							</Fragment>
+							))}
+						</div>
+						:
+						''
+					}
+				</div>{/* end.rows */}
+
 			    </section>
 				
-
 				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>
