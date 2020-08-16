@@ -76,7 +76,7 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				console.log(res.data.data[0].items, 'res country by CODE');
+				// console.log(res.data.data[0].items, 'res country by CODE');
 				
 				let arrData = [];
 				let arrItems = [];
@@ -106,7 +106,7 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				console.log(res.data.data[0].items, 'res country by CITY');
+				// console.log(res.data.data[0].items, 'res country by CITY');
 				
 				let arrData = [];
 				let arrItems = [];
@@ -150,7 +150,7 @@ class SearchResult extends React.Component{
 			}
 		})
 		.then(res => {
-			console.log(res, 'res detail card');
+			// console.log(res, 'res detail card');
 			
 			arrItems = res.data.data[0].items;
 			

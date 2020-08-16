@@ -14,8 +14,6 @@ const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
 
-let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
-
 const host = 'https://tiketsafe.com';
 
 const Maps = (props) => {
@@ -31,11 +29,13 @@ const Maps = (props) => {
 
     const history = useHistory();
 
+    const [listWorldMap, setListWorldMap] = useState(JSON.parse(localStorage.getItem('request:worlds-maps')) || []);
+    const [loading, setLoading] = useState(true);
+
     // console.log(listWorldMap, 'listWorldMap');
 
     useEffect(() => {
         if (listWorldMap.length === 0 || parentName === 'Home') {
-            listWorldMap = [];
             getCountryStatus();
         }
     }, [])
@@ -47,19 +47,33 @@ const Maps = (props) => {
             headers
         })
         .then(res => {
-            console.log(res, 'res country status');
+            // console.log(res, 'res country status');
+
+            let remapWorldMap = [];
+
+            localStorage.removeItem('request:worlds-maps');
             
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
                 res.data.data.map((e) => {
-                    listWorldMap.push({
-                        id: e.id,
-                        latitude: e.latitude,
-                        longitude: e.longitude,
-                        title: e.title,
-                        color: e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow
-                    }); 
+                    remapWorldMap.push({
+                        "name": "Info Covid-19",
+                        "color": e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow,
+                        "data": [{
+                            id: e.id,
+                            latitude: e.latitude,
+                            longitude: e.longitude,
+                            title: e.title,
+                            color: e.status === 1 ? color.green : e.status === 2 ? color.red : color.yellow
+                        }]
+                    })     
                 })
             }
+
+            setListWorldMap(remapWorldMap);
+            setLoading(false);
+        })
+        .catch(err => {
+            setLoading(false);
         })
     }
 
@@ -74,26 +88,12 @@ const Maps = (props) => {
         chart.homeGeoPoint = { longitude, latitude };
      
         chart.logo.disabled = true;
-
-        let listData = [];
-       
-        
-        listWorldMap.forEach((e) => {
-            listData.push({
-                "name": "Info Covid-19",
-                "color": e.color,
-                "data": [e]
-            })     
-        })
-
-        console.log(listData, '');
-        
         
         // This array will be populated with country IDs to exclude from the world series
         let excludedCountries = [];
         
         // Create a series for each group, and populate the above array
-        listData.forEach(function(group) {
+        listWorldMap.forEach(function(group) {
             let series = chart.series.push(new am4maps.MapPolygonSeries());
   
             series.name = group.name;
@@ -101,10 +101,12 @@ const Maps = (props) => {
   
             let includedCountries = [];
   
-            group.data.forEach(function(country) {
-              includedCountries.push(country.id);
-              excludedCountries.push(country.id);
-            });
+            if (group.data) {
+                group.data.forEach(function(country) {
+                    includedCountries.push(country.id);
+                    excludedCountries.push(country.id);
+                });
+            }
   
             series.include = includedCountries;
             series.fill = am4core.color(group.color);
@@ -152,7 +154,7 @@ const Maps = (props) => {
             // we make and provide a copy of the original data array to leave it untouched.
             // (This method of copying works only for simple objects, e.g. it will not work
             //  as predictably for deep copying custom Classes.)
-            series.data = JSON.parse(JSON.stringify(group.data));
+            series.data = group.data && JSON.parse(JSON.stringify(group.data));
         });
         
         // The rest of the world.
@@ -187,7 +189,10 @@ const Maps = (props) => {
         if (parentName === 'Search') addCity({ latitude, longitude }, countryName );
         window.popupSlider();
         
-    }, [listWorldMap])
+    }, [
+        listWorldMap,
+        latitude
+    ])
  
     return (
         <>
