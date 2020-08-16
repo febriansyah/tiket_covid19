@@ -76,7 +76,7 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				console.log(res.data.data[0].items, 'res country by CODE');
+				//console.log(res.data.data[0].items, 'res country by CODE');
 				
 				let arrData = [];
 				let arrItems = [];
