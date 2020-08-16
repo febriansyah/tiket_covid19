@@ -42,7 +42,7 @@ class SearchResult extends React.Component{
 				readyDataCard: false
 			}, () => {
 				this.getCountryByCode(nextProps.match.params.countryCode, nextProps.match.params.kota);
-				this.getarrItems(nextProps.match.params.countryCode);
+				//this.getarrItems(nextProps.match.params.countryCode);
 			})
 		}
 	}
@@ -54,7 +54,7 @@ class SearchResult extends React.Component{
 			require('moment/locale/id');
 		}
 		
-		this.getarrItems(this.props.match.params.countryCode);
+		//this.getarrItems(this.props.match.params.countryCode);
 
 		let param = this.props.match.params.kota;
 		
@@ -76,22 +76,25 @@ class SearchResult extends React.Component{
 				}
 			})
 			.then(res => {
-				// console.log(res.data.data[0].items, 'res country by CODE');
+				console.log(res.data.data[0].items, 'res country by CODE');
 				
 				let arrData = [];
 				let arrItems = [];
 				if (res.data.status === 'success') {
 					if (res.data.data.length > 0) {
 						arrData = res.data.data[0];
-						arrItems = res.data.data[0].airportItems
+						arrItems = res.data.data[0].items
 					}
 				}
 
 				this.setState({ dataItem: arrData }, () => {
-					//this.setState({ dataCard:arrItems });
+					this.setState({ dataCard:arrItems });
 					$(".halBefore-kuis").fadeOut();
 					this.setState({ loading: false });
 					this.setState({ dataCardPolicy:[]});
+					setTimeout(() => {
+						this.setState({ readyDataCard: true });
+					}, 500);
 				})
 			})
 			.catch(err => {
@@ -137,33 +140,33 @@ class SearchResult extends React.Component{
 		}
 	}
 
-	getarrItems(countryCode) {
-		const apiUrl = 'https://api.tiketsafe.com/api/v2/';
-		this.props.changeSelectedCountryCode(countryCode);
-		let arrItems = [];
+	// getarrItems(countryCode) {
+	// 	const apiUrl = 'https://api.tiketsafe.com/api/v2/';
+	// 	this.props.changeSelectedCountryCode(countryCode);
+	// 	let arrItems = [];
 
-		axios({
-			method: 'get',
-			url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
-			headers: {
-				"Access-Control-Allow-Origin": "*"
-			}
-		})
-		.then(res => {
-			// console.log(res, 'res detail card');
+	// 	axios({
+	// 		method: 'get',
+	// 		url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
+	// 		headers: {
+	// 			"Access-Control-Allow-Origin": "*"
+	// 		}
+	// 	})
+	// 	.then(res => {
+	// 		// console.log(res, 'res detail card');
 			
-			arrItems = res.data.data[0].items;
+	// 		arrItems = res.data.data[0].items;
 			
-			this.setState({ dataCard: arrItems });
+	// 		this.setState({ dataCard: arrItems });
 
-			setTimeout(() => {
-				this.setState({ readyDataCard: true });
-			}, 1000);
-		})
-		.catch(err => {
-			this.setState({ loading: false });
-		})
-	}
+	// 		setTimeout(() => {
+	// 			this.setState({ readyDataCard: true });
+	// 		}, 1000);
+	// 	})
+	// 	.catch(err => {
+	// 		this.setState({ loading: false });
+	// 	})
+	// }
 
 	renderdetailinfo(dataCard, defaultLangnya) {
 		return dataCard.map((carding, i) =>
