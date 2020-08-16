@@ -7,6 +7,7 @@ import $ from 'jquery';
 import NumberFormat from 'react-number-format';
 import ReadMoreReact from 'read-more-react';
 import Maps from './Maps';
+import PopupForm from './PopupForm';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
 
@@ -392,7 +393,7 @@ class SearchResult extends React.Component{
 				</div>{/* end.rows */}
 
 			    </section>
-				
+				<PopupForm selectedCountryCode={countryCode}/>
 				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>

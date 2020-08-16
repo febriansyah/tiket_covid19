@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import StickyShare from './StickyShare';
+import PopupAirlines from './PopupAirlines';
 
 //const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v2/';
@@ -92,6 +93,7 @@ class AirlinePolicyDetail extends Component{
 			            </div>
 			    	</div>{/* end.tnc-accodion */}
 			    </section>
+          		<PopupAirlines />
 				<StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>

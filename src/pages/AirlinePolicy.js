@@ -5,6 +5,7 @@ import axios from 'axios';
 import request from "superagent";
 //import debounce from "lodash.debounce";
 import ReadMoreReact from 'read-more-react';
+import PopupAirlines from './PopupAirlines';
 import StickyShare from './StickyShare';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
@@ -208,6 +209,8 @@ class AirlinePolicy extends Component{
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
+
+          <PopupAirlines />
 			    <StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 			</div>

@@ -6,6 +6,7 @@ import $ from 'jquery';
 import axios from 'axios';
 import StickyShare from './StickyShare';
 import ReadMoreReact from 'read-more-react';
+import PopupAirport from './PopupAirport';
 import ReactMarkdown from 'react-markdown';
 
 //const input = '## This is a header\n\nAnd this is a paragraph'
@@ -214,6 +215,7 @@ constructor(props) {
 		      
 		    </section>
 		    
+        <PopupAirport />
         <StickyShare url={window.location.href}/>
 		  </div>{/* end.wrapper */}
 		</div>

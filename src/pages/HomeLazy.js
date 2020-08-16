@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React from 'react';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -365,7 +365,7 @@ class HomeLazy extends React.Component {
 
 	render() {
 		// console.log(this.props, 'home');
-		const [selectedCountryCode, changeSelectedCountryCode] = useState('');
+
 		const {
 	      defaultLangnya
 	    } = this.state;
@@ -467,7 +467,7 @@ class HomeLazy extends React.Component {
 					</section>
 
 				</div>{/* end.wrapper */}
-				<PopupCountry selectedCountryCode={selectedCountryCode} />
+				<PopupCountry />
 			</div>
 
         	

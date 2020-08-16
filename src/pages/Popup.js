@@ -13,7 +13,7 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
-
+const pathnya = window.location.pathname;
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 class Popup extends React.Component{
@@ -321,6 +321,7 @@ class Popup extends React.Component{
 
 	render() {
 		// console.log(this.props, 'state popup');
+		console.log('aa'+pathnya);
 		const {
      	 defaultLangnya,
 		} = this.state;
