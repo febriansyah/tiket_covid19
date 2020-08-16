@@ -14,15 +14,32 @@ class TicketingPolicyFlights extends React.Component{
 	    super(props)
 
 	    this.state = {
-	        product: {},
-	        currentId : '',
-	        ResAtas: [],
-	        ResBawah: [],
-	        defaultLangnya: langnya == langDef ? langnya : 'id',
+			product: {},
+			currentId : '',
+			ResAtas: [],
+			ResBawah: [],
+			expand: false,
+			setHeight:"0px",
+			defaultLangnya: langnya == langDef ? langnya : 'id',
 
 	    }
 	  }
 
+	  getInitialState(){
+	    return {active: null}
+	  }
+	  handleClick(i){
+	    return (e) => {
+	      let active = this.state.active === i ? null : i
+	      this.setState({active: active, expand: true})
+	    }
+	  }
+	  display(i){
+	    return this.state.active === i ? 'block' : 'none'
+	  }
+	  liClass(i){
+	    return this.state.active === i ? 'active' : 'inactive'
+	  }
 
 	  componentWillReceiveProps(nextProps) {
 		this.getResAtas(nextProps.match.params.product);
@@ -49,9 +66,7 @@ class TicketingPolicyFlights extends React.Component{
 		//console.log('ini '+this.props.match.params.product)
 		this.getResAtas(this.props.match.params.product);
 		this.getResBawah(this.props.match.params.product);
-		setTimeout(() => {
-			window.activeAccordion();
-		}, 1000);
+		
 	}
 	
 	getResAtas(){
@@ -117,10 +132,10 @@ class TicketingPolicyFlights extends React.Component{
 		return dataResbawah.map((val, i) =>
 		<Fragment key={i}>
 			<div className={`items ${val.description == '' ? 'hide' : val.name}`}>
-              <div className="page">
+              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i)}>
 				<span>{val.description == '' ? '' : val.name}</span>
               </div>
-              <div className="content">
+              <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>
                 <p>{val.description}</p>
 
 
