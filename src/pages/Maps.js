@@ -131,6 +131,8 @@ const Maps = (props) => {
 
             mapPolygonTemplate.events.on("hit", function(event) {
             let data = event.target.dataItem.dataContext;
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({'event': 'click', 'eventCategory': 'chooseDestination', 'eventLabel:': 'flight'});
             history.push({ pathname: '/SearchResult/' + data.id });
             })
   

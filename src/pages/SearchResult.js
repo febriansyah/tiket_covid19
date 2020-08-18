@@ -317,7 +317,7 @@ class SearchResult extends React.Component{
 			            <div className="cols4">
 			              <div className="info_cause">
 			                <h4 className="number_cause">
-			                	<NumberFormat value={confirmed} displayType={'text'} thousandSeparator={true}/>
+			                	<NumberFormat value={confirmed - recovered - deaths} displayType={'text'} thousandSeparator={true}/>
 			                </h4>
 			                <p>{defaultLangnya == 'id' ? 'Kasus Aktif' : 'Active Cases'}</p>
 			              </div>
@@ -325,7 +325,7 @@ class SearchResult extends React.Component{
 			            <div className="cols4">
 			              <div className="info_cause">
 			                <h4 className="number_cause">
-			                	<NumberFormat value={confirmed+ deaths} displayType={'text'} thousandSeparator={true}/>
+			                	<NumberFormat value={confirmed} displayType={'text'} thousandSeparator={true}/>
 			                </h4>
 			                <p>{defaultLangnya == 'id' ? 'Total' : 'Total'}</p>
 			              </div>
@@ -360,7 +360,10 @@ class SearchResult extends React.Component{
 				  <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
-			          <p>{defaultLangnya == 'id' ? 'Daftar persyaratan dan peraturan yang harus ditaati.' : 'List of requirements to fulfill and regulations to follow.'}</p><br />
+			          <p><ReadMoreReact
+							text={defaultLangnya == 'id' ? 'Informasi di infopage ini dibuat hanya sebagai referensi dan tidak dapat digunakan sebagai rujukan sepenuhnya untuk melakukan perjalanan atau membeli produk. Sobat tiket dianjurkan untuk melakukan pencarian informasi yang komprehensif dari sumber yang dibuat oleh otoritas terkait, melakukan protokol kesehatan yang disarankan, dan cek status COVID-19 di mana pun berada agar tetap aman.' : 'The information on this infopage is made only for reference and cannot be used as a full reference for traveling or purchasing products. t-mates are advised to do information search from sources made by the relevant authorities as well as carrying out the recommended health protocols and check COVID-19 status in the destination.'}
+							readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}
+								/></p><br />
 			          <span className="blue_rounded_txt">{defaultLangnya == 'id' ? 'Diterbitkan' : 'Published'} {moment(dataItem.updatedTimestamp).format('DD MMMM YYYY')}</span>
 			        </div>
 				  </div>

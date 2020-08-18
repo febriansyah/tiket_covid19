@@ -74,14 +74,14 @@ class TicketingPolicyFlights extends React.Component{
 		let arrItems = [];
 		axios({
 			method: 'get',
-			url: apiUrl + `tickets`,
+			url: `https://api.tiketsafe.com/api/v1/tickets`,
 			headers: {
 				"Access-Control-Allow-Origin": "*"
 			}
 		})
 		.then(res => {
 				arrItems = res.data.data;
-				//console.log(arrItems.data)
+				console.log('aaa'+res)
 				this.setState({ ResAtas: arrItems });
 
 				
@@ -95,7 +95,7 @@ class TicketingPolicyFlights extends React.Component{
 
 	getResBawah(currentId){
 		let arrContent = [];
-		console.log('aaa'+currentId);
+		//console.log('aaa'+currentId);
 
 		axios({
 			method: 'get',
@@ -148,6 +148,9 @@ class TicketingPolicyFlights extends React.Component{
 	}
 
 	render() {
+		const {
+      defaultLangnya,
+    } = this.state;
 		return(
 			<div id="middle-content" className="homePage">
 			
@@ -157,7 +160,7 @@ class TicketingPolicyFlights extends React.Component{
 			    </div>
 			    <div className="rows">
 					<div className="main_title_top">
-						<h3>Ticketing Policy</h3>
+						<h3>{defaultLangnya == 'id' ? 'Kebijakan Tiket' : 'Ticketing Policy'}</h3>
 					</div>
 				</div>{/* end.rows */}
 

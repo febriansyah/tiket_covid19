@@ -13,6 +13,7 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 class PopupAirport extends React.Component{
 	constructor(props){
@@ -41,6 +42,11 @@ class PopupAirport extends React.Component{
 		this.getListAirport();
 	}
 
+	mappingListWordMap(countryCode) {
+		const result = listWorldMap.filter((item) => item.id === countryCode)[0];
+		return result;
+	}
+
 	getListAirport() {
 		axios({
 			method: 'get',
@@ -58,7 +64,6 @@ class PopupAirport extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-
 	
 	typingTimeout;
 
@@ -142,6 +147,7 @@ class PopupAirport extends React.Component{
 			</Link>
 		)
 	}
+
 
 	render() {
 		const {
