@@ -8,6 +8,7 @@ import StickyShare from './StickyShare';
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 
 class TicketingPolicyFlights extends React.Component{
 	constructor(props) {
@@ -28,8 +29,9 @@ class TicketingPolicyFlights extends React.Component{
 	  getInitialState(){
 	    return {active: null}
 	  }
-	  handleClick(i){
+	  handleClick(i,name){
 	    return (e) => {
+      		dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : name });
 	      let active = this.state.active === i ? null : i
 	      this.setState({active: active, expand: true})
 	    }
@@ -81,7 +83,6 @@ class TicketingPolicyFlights extends React.Component{
 		})
 		.then(res => {
 				arrItems = res.data.data;
-				console.log('aaa'+res)
 				this.setState({ ResAtas: arrItems });
 
 				
@@ -114,12 +115,18 @@ class TicketingPolicyFlights extends React.Component{
 			this.setState({ loading: false });
 		})
 	}
+	handleClickMenu(verticalName){
+	    return (e) => {
+      		dataLayer.push({'event': 'click','eventCategory' : 'filter', 'eventLabel' : verticalName });
+	    	console.log(dataLayer);
+	    }
+	  }
 
 	renderResAtas(dataResatas){
 		
 		return dataResatas.map((val, i) =>
 		
-		<Link to={`/TicketingPolicy/${val.serial}`} className={`tabs_menu ${val.serial == this.props.match.params.product && 'active'}`} key={i}>
+		<Link to={`/TicketingPolicy/${val.serial}`} onClick={this.handleClickMenu(val.verticalName)} className={`tabs_menu ${val.serial == this.props.match.params.product && 'active'}`} key={i}>
 					<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
 					<span>{val.verticalName}</span>
 		</Link>
@@ -132,7 +139,7 @@ class TicketingPolicyFlights extends React.Component{
 		return dataResbawah.map((val, i) =>
 		<Fragment key={i}>
 			<div className={`items ${val.description == '' ? 'hide' : val.name}`}>
-              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i)}>
+              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i,val.name)}>
 				<span>{val.description == '' ? '' : val.name}</span>
               </div>
               <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>

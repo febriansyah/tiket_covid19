@@ -29,6 +29,8 @@ const hideInd ="Sembunyikan";
 const readMoreEng ="Read More";
 const hideEng ="Show Less";
 
+const dataLayer = window.dataLayer || [];
+
 class AirportPolicyInternational extends React.Component{
 constructor(props) {
     super(props);
@@ -78,8 +80,9 @@ constructor(props) {
   getInitialState(){
     return {active: null}
   }
-  handleClick(i){
+  handleClick(i,airportName){
     return (e) => {
+      dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : airportName });
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
     }
@@ -109,7 +112,6 @@ constructor(props) {
         .get('https://api.tiketsafe.com/api/v2/airports?airportType=2&lang='+this.state.defaultLangnya+'&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
-          console.log('ada '+results.body.data);
           const nextUsers = results.body.data.map(value => ({
             airportName: value.airportName,
             items: value.items,
@@ -144,6 +146,9 @@ constructor(props) {
       ...prevState,
       showOriginalHTML: !prevState.showOriginalHTML
     }));
+  }
+  DomesticFilterGtm = () => {
+    dataLayer.push({'event': 'click','eventCategory' : 'filter', 'eventLabel' : ' domestic}' });
   }
 	
 
@@ -206,7 +211,7 @@ constructor(props) {
         </div>{/* end.rows */}
 				<div className="rows">
 					<div className="tabs_main_menu">
-						<Link to="/AirportPolicyDomestic" className="tabs_menu ">
+						<Link to="/AirportPolicyDomestic" className="tabs_menu " onClick={this.DomesticFilterGtm}>
 							<div className="circleCheck"><i className="fa fa-check" aria-hidden="true"></i></div>
 							<span>{defaultLangnya == 'id' ? 'Domestik' : 'Domestic'}</span>
 						</Link>
@@ -224,7 +229,7 @@ constructor(props) {
 			    {users.map((user, i) => (
 		          <Fragment key={i}>
 		            <div className="items" key={i}>
-                  <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i)}>
+                  <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i,user.airportName)}>
       						<span>{user.airportName}</span>
       					  </div>
       					  <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>

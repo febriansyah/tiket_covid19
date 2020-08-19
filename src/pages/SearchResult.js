@@ -13,6 +13,7 @@ import { getColorByStatus } from '../utils/func';
 
 const langnya = window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 
 class SearchResult extends React.Component{
 	constructor(props) {
@@ -169,6 +170,11 @@ class SearchResult extends React.Component{
 	// 	})
 	// }
 
+	NotifyMeGtm = () => {
+		dataLayer.push({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
+		console.log(dataLayer)
+	}
+
 	renderdetailinfo(dataCard, defaultLangnya) {
 		return dataCard.map((carding, i) =>
 			<Fragment key={i}>
@@ -251,7 +257,7 @@ class SearchResult extends React.Component{
 					<div className="rows">
 						<div className="block_shadow">
 						<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-							<div className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
+							<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
 								<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 							</div>
 						</div>

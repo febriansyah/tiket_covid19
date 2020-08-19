@@ -19,6 +19,7 @@ import Maps from './Maps';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 
 
 class HomeLazy extends React.Component {
@@ -26,7 +27,7 @@ class HomeLazy extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-		  defaultLangnya: langnya == langDef ? langnya : 'id'
+		  defaultLangnya: langnya == langDef ? langnya : 'id',
 		};
 	}
 	// componentDidMount() {
@@ -362,6 +363,17 @@ class HomeLazy extends React.Component {
 		// 	this.chart.dispose();
 		// }
 	}
+	AirlinePolicyGtm = () => {
+		dataLayer.push({'event': 'click','eventCategory' : 'viewAirlinePolicy', 'eventLabel' : 'flight' });
+	}
+
+	AirportPolicyGtm = () => {
+		dataLayer.push({'event': 'click','eventCategory' : ' viewAirportPolicy', 'eventLabel' : 'flight' });
+	}
+
+	TicketingPolicyGtm = () => {
+		dataLayer.push({'event': 'click','eventCategory' : ' viewTicketingPolicy', 'eventLabel' : 'flight' });
+	}
 
 	render() {
 		// console.log(this.props, 'home');
@@ -428,7 +440,7 @@ class HomeLazy extends React.Component {
 						  <div className="list_policy">
 						    <div className="block_policy">
 
-						      <Link to="/AirlinePolicy">
+						      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_airlines_polic.png" alt='airline_logo' />
 							      </div>
@@ -440,7 +452,7 @@ class HomeLazy extends React.Component {
 						    </div>
 
 						    <div className="block_policy">
-								<Link to="/AirportPolicyDomestic">
+								<Link to="/AirportPolicyDomestic" onClick={this.AirportPolicyGtm} >
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_airport_policy.png" alt='airport_logo' />
 							      </div>
@@ -452,7 +464,7 @@ class HomeLazy extends React.Component {
 						    </div>
 
 						    <div className="block_policy">
-								<Link to="/TicketingPolicy/Flights">
+								<Link to="/TicketingPolicy/Flights" onClick={this.TicketingPolicyGtm} >
 							      <div className="icon_policy">
 							        <img src="assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
 							      </div>

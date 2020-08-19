@@ -25,6 +25,8 @@ const hideInd ="Sembunyikan";
 const readMoreEng ="Read More";
 const hideEng ="Show Less";
 
+const dataLayer = window.dataLayer || [];
+
 
 class AirlinePolicy extends Component{
 	constructor(props) {
@@ -75,8 +77,10 @@ class AirlinePolicy extends Component{
   getInitialState(){
     return {active: null}
   }
-  handleClick(i){
+  handleClick(i,airlinesName){
     return (e) => {
+      dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : airlinesName });
+      //console.log(dataLayer);
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
     }
@@ -94,6 +98,7 @@ class AirlinePolicy extends Component{
   }
 
 handleShowText = () => {
+    dataLayer.push({'event': 'click','eventCategory' : 'readMore', 'eventLabel' : 'Regulasi Tiket dan Kebijakan Maskapai' })
     this.setState( prevState  => ({
       ...prevState,
       showOriginalHTML: !prevState.showOriginalHTML
@@ -207,7 +212,7 @@ handleShowText = () => {
 			    		{users.map((user, i) => (
 				          <Fragment key={i}>
 				            <div className="items" key={i}>
-				              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i)}>
+				              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i,user.airlinesName)}>
 				              	<img src={user.imageURL} className="icon_airline" alt='airline_logo' />
 								<span>{user.airlinesName}</span>
 				              </div>

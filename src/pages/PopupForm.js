@@ -13,6 +13,7 @@ const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 
 class Popup extends React.Component{
 	constructor(props){
@@ -71,6 +72,7 @@ class Popup extends React.Component{
 				$("#popup_email").addClass("hide");
 				$("#popup_confirmasi").removeClass("hide");
 				$("#popup_confirmasi").addClass("actived");
+				dataLayer.push({'event': 'click','eventCategory' : 'saveEmail', 'eventLabel' : 'flight' });
 			})
 			.catch(err => {
 				console.log(err, 'err');

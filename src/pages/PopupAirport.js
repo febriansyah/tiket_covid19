@@ -13,6 +13,7 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 class PopupAirport extends React.Component{
@@ -122,6 +123,7 @@ class PopupAirport extends React.Component{
 			if (remapCity.length === 0) {
 				this.setState({ showNoResult: '' });
 				this.setState({ showPopularText: 'hide' });
+				dataLayer.push({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
 			}
 
 			$(".halBefore-kuis").fadeOut();
@@ -130,6 +132,10 @@ class PopupAirport extends React.Component{
 			this.setState({ showNoResult: '' });
 			$(".halBefore-kuis").fadeOut();
 		})
+	}
+	AirportGtmPush = () =>  {
+		dataLayer.push({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+	  	//console.log(dataLayer);
 	}
 
 	renderAirport() {
@@ -140,7 +146,7 @@ class PopupAirport extends React.Component{
 				key={idx}
 				to={{ pathname: '/AirportPolicyDetail/' + item.airportCode }}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch })}
+				onClick={() => this.setState({ ...initialSearch }),this.AirportGtmPush}
 			>
 				<img src={this.state.imgBandaraSrc} className="icon_city" alt='city' />
 				<span>{item.airportName}</span>

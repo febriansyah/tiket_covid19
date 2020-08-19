@@ -4,6 +4,7 @@ const btn = document.getElementById("button")
 const url = window.location.href.toString();
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 
 
 class StickyShare extends React.Component{
@@ -15,7 +16,7 @@ class StickyShare extends React.Component{
 
 	}
 	onclick = () => {
-		//alert('aaa');
+		dataLayer.push({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : 'destination' });
 		var url = this.props.url;
 	    if (navigator.share !== undefined) {
 	      navigator
