@@ -9,6 +9,8 @@ import AirportPolicyInternational from './pages/AirportPolicyInternational';
 import AirportPolicyDetail from './pages/AirportPolicyDetail';
 import TicketingPolicy from './pages/TicketingPolicy';
 import ScrollToTop from './pages/ScrollToTop';
+import Header from './pages/Header';
+import Footer from './pages/Footer';
 //import Popup from './pages/Popup';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'; 
 
@@ -34,6 +36,8 @@ function App() {
     <div>
       <Router>
         <ScrollToTop />
+
+        <Header />
         <Switch>
           <Route exact path='/' component = {Home} />
           <Route path='/SearchResult/:countryCode/:kota?' render = {(props) => <SearchResult {...props} changeSelectedCountryCode={(c) => changeSelectedCountryCode(c)} />} />
@@ -46,6 +50,8 @@ function App() {
          
           <Route component={PageNotFound} />
         </Switch>
+
+        <Footer />
       </Router>
     </div>
   );

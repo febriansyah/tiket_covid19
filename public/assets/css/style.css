@@ -143,8 +143,13 @@ section {
 .with_pad {
     padding: 60px 0;
 }
+.wrapperBig {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 .wrapper {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -164,8 +169,51 @@ section {
 .hide {
     display: none !important;
 }
-.back_button {
+header{
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding:10px 10px;
+    box-shadow: 0 4px 20px 0 rgba(53, 64, 90, 0.1);
+    background-color: #ffffff;
+    width: 100%;
+    z-index: 999;
+}
+.logo{
+    float: left;
+    max-width: 150px;
+}
+.mainMenu{
+    float: left;
+    padding-left: 40px;
+}
+.mainMenu ul{
+    padding: 5px 0 0 0;
+    margin: 0;
+}
+.mainMenu ul li{
     display: inline-block;
+    margin-left: 30px;
+    font-size: 14px;
+    line-height: 1.57;
+    letter-spacing: normal;
+    color: #35405a;
+}
+
+
+#chart{
+    height: 350px !important; 
+}
+.top_section{
+    padding-bottom: 40px;
+}
+.bottom_section{
+    padding: 40px 0;
+    background: #f5f6fa;
+}
+.back_button {
+    display: none;
     font-size: 27px;
     background: 0 0;
     border: none;
@@ -184,8 +232,9 @@ section {
     clear: both;
 }
 .main_title,
-.main_title_top {
-    display: block;
+.main_title_top { 
+    text-align: center !important;
+    display: block !important;
 }
 .main_title h3 {
     font-size: 18px;
@@ -220,20 +269,36 @@ section {
     border-radius: 4px;
     font-size: 18px;
 }
+.top_bg_section .search_input{
+    background: url(../images/icon_search.png) 10px center #fff no-repeat;
+    background-size: 20px;
+    width: 70%;
+    margin: 0 auto;
+}
 .frame_peta {
     display: block;
     margin-top: 10px;
     margin-bottom: 20px;
 }
+
+.row_legend:first-child{
+    padding-left: 0;
+}
 .row_legend {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: 33%;
     margin-bottom: 3px;
+    padding-left: 15px;
 }
 .row_legend p {
     display: inline-block;
     vertical-align: middle;
     font-size: 12px;
+}
+.row_legend span{
+    width: 90%;
+    display: inline-block;
+    vertical-align: top;
 }
 .circle_l {
     display: inline-block;
@@ -253,12 +318,18 @@ section {
     background: #e52424;
 }
 .block_policy {
+    background: #fff;
     display: block;
     width: 100%;
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+.bottom_section .block_policy{
+    text-align: center;
+    padding: 20px 4px;
 }
 .block_shadow {
     display: block;
@@ -271,12 +342,12 @@ section {
     display: inline-block;
     max-width: 50px;
     vertical-align: top;
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 .block_policy .caption_policy {
     display: inline-block;
     vertical-align: middle;
-    width: 75%;
+    width: 100%;
 }
 .block_policy.full_block .caption_policy {
     display: block;
@@ -343,6 +414,14 @@ section {
 .cols4 {
     float: left;
     width: 25%;
+    padding-right: 15px;
+    padding-left: 15px;
+    min-height: 1px;
+    position: relative;
+}
+.cols3 {
+    float: left;
+    width: 33.33%;
     padding-right: 15px;
     padding-left: 15px;
     min-height: 1px;
@@ -649,13 +728,63 @@ h3.mediumFont {
     white-space: normal;
 }
 #middle-content {
-    padding-bottom: 100px;
+    padding-top: 70px;
+}
+#middle-content.innerPages{
+    padding-top: 60px;
+}
+.top_bg_section{
+    width: 100%;
+    background: #f4f7fe;
+    padding: 60px 0;
+    display: block;
+}
+.bottom_bg_section{
+    padding: 40px 0;
+    position: relative;
+}
+.contSticky{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.shareSocmed{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5em;
+    padding-top: 10px;
+    margin-right: 20px;
+}
+.facebookShare,.twitterShare,.waShare,.linkShare{
+    display: block;
+    width: 30px;
+    margin-bottom: 10px;
+    height: 30px;
+    border: none;
+}
+.facebookShare{
+    background: url(../images/icon_fb.png) no-repeat center center;
+    background-size: 100%;
+}
+.twitterShare{
+    background: url(../images/icon_twitter.png) no-repeat center center;
+    background-size: 100%;
+}
+.waShare{
+    background: url(../images/icon_wa.png) no-repeat center center;
+    background-size: 100%;   
+}
+.linkShare{
+    background: url(../images/icon_link.png) no-repeat center center;
+    background-size: 100%;   
 }
 .fixed_button_rows {
     position: fixed;
     width: 100%;
     left: 0;
     bottom: 0;
+    display: none;
     text-align: center;
 }
 .iconReload {
@@ -669,9 +798,10 @@ h3.mediumFont {
     position: fixed;
     bottom: -100%;
     opacity: 0;
+    text-align: center;
 }
 .popup_slider.actived .content_slide_btm {
-    bottom: 0;
+    bottom: 11vh;
     opacity: 1;
 }
 .popup_slider {
@@ -690,20 +820,21 @@ h3.mediumFont {
 .content_slide_btm {
     position: fixed;
     text-align: center;
-    bottom: 0;
     left: 0;
     width: 100%;
     transition: all 0.3s ease-in-out 0s;
     z-index: 5;
 }
 .box_popup_search {
-    min-width: 100%;
+    max-width:600px;
+    width: 100%;
     display: inline-block;
     padding: 40px 20px 20px 20px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
     background: #fff;
-    min-height: 100vh;
+    height: 500px;
     position: relative;
+    overflow: hidden;
     text-align: left;
 }
 .box_popup_search_auto {
@@ -726,7 +857,7 @@ h3.mediumFont {
 .list_autocomplete {
     display: block;
     padding: 10px 0;
-    max-height: 400px;
+    max-height: 280px;
     overflow: scroll;
 }
 .row_result_autocomplete {
@@ -1012,4 +1143,42 @@ h3.mediumFont {
     100% {
         transform: translateX(100%);
     }
+}
+#linkCopied{
+    position: fixed;
+    top: 100px;
+    left: 0;    
+    width: 100%;
+    text-align: center;
+    display: none;
+    z-index: 99;
+}
+#linkCopied p{
+    text-align: left;
+    display: inline-block;
+    width: 460px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px 0 rgba(48, 49, 53, 0.1);
+    background-color: #303135;
+    font-size: 14px;
+    color: #ffffff;
+}
+footer{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background: #35405a;
+}
+footer p{
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    margin: 0;
+    color: #ffffff;
 }

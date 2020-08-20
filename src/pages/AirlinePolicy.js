@@ -1,5 +1,11 @@
 import React, { Component,Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import $ from 'jquery'; 
 import axios from 'axios';
 import request from "superagent";
@@ -27,6 +33,8 @@ const hideEng ="Show Less";
 
 const dataLayer = window.dataLayer || [];
 
+const urlCop = window.location.href;
+
 
 class AirlinePolicy extends Component{
 	constructor(props) {
@@ -46,7 +54,9 @@ class AirlinePolicy extends Component{
       hideMoreTxt: langnya == langDef ? hideEng : hideInd,
       showOriginalHTML: false,
       originalHTML: htmlText,
-      trimmedHTML: trimText(htmlText, 20, 200)[0]
+      trimmedHTML: trimText(htmlText, 20, 200)[0],
+      valueCopy: urlCop,
+      copied: false,
     };
 
     // Binds our scroll event handler
@@ -147,6 +157,13 @@ handleShowText = () => {
     });
   }
 
+  onCopy = () => {
+    this.setState({copied: true});
+    $("#linkCopied").fadeIn();
+     setTimeout(function() { 
+      $("#linkCopied").fadeOut();
+    }, 2000);
+  };
 	
 
 	render(){
@@ -164,97 +181,120 @@ handleShowText = () => {
     } = this.state;
 
 		return(
-			<div id="middle-content" className="homePage">
-			  <div className="wrapper">
-			    <div className="rows">
-			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
-			    </div>
-			    <div className="rows">
-					<div className="main_title_top">
-						<h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
-					</div>
-				</div>{/* end.rows */}
+			<div id="middle-content" className="innerPages">
+        <div id="linkCopied">
+          <p>{defaultLangnya == 'id' ? 'Link sudah disalin!' : 'Link is copied!'}</p>
+        </div>
+        <div className="top_bg_section">
+          <div className="wrapper">
+  			    <div className="rows">
+  			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+  			    </div>
+  			    <div className="rows">
+    					<div className="main_title_top">
+    						<h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
+    					</div>
+  			 	 </div>{/* end.rows */}
 
+              <div className="rows">
+                <div className="search_row">
+                  <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari maskapai' : 'Search airlines'} />
 
-			    <section id="section_innernya">
-			    	<div className="rows">
-					  <div className="search_row">
-					    <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari maskapai' : 'Search airlines'} />
+                  <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
+                </div>
+              </div>{/* end.rows */}
+          </div>{/* end.wrapper */}
+        </div>{/* end.top_bg_section */}
 
-					    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
-					  </div>
-					</div>{/* end.rows */}
-					<div className="rows">
-						<div className="block_policy full_block">
-						  <div className="caption_policy">
-							<div className="detail-text-project">
-							    <h3>{defaultLangnya == 'id' ? 'Regulasi Tiket dan Kebijakan Maskapai' : 'Airlines Ticketing Guidelines and Policy'}</h3>
-				          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
-                <div
-                  className="text"
-                  dangerouslySetInnerHTML={{
-                    __html: `${
-                      !showOriginalHTML ? trimmedHTML : originalHTML
-                    }`
-                  }}
-                />
-                <button className="read-more" onClick={this.handleShowText}>
-                  {!showOriginalHTML ? readMoreTxt : hideMoreTxt }
-                </button>
-						    </div>{/*><!--end.detail-text-project-->*/}
-						  </div>
-						</div>{/* end.block_policy */}
-				    </div>{/* end.rows */}
-			    </section>
+        <div className="bottom_bg_section">
+          <div className="wrapper relative contSticky">
 
-			    <section id="section_tabs_list">
-			    	<div id="tnc-accodion">
-			    		{users.map((user, i) => (
-				          <Fragment key={i}>
-				            <div className="items" key={i}>
-				              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i,user.airlinesName)}>
-				              	<img src={user.imageURL} className="icon_airline" alt='airline_logo' />
-								<span>{user.airlinesName}</span>
-				              </div>
-				              <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>
-					              {user.items.map((item, k) => (
-				                      <div className="rowHtml" key={k}>
-				                        <h3>{item.description == '' ? '' : item.name}</h3>
-				                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
-				                      </div>
-				                    ))}
-				                
-				              </div>
-				            </div>
-				          </Fragment>
-				        ))}
-				        {error &&
-				          <div>
-				            {error}
-				          </div>
-				        }
-				        {isLoading &&
+            <div className="shareSocmed">
+              <FacebookShareButton className="facebookShare" />
+              <TwitterShareButton className="twitterShare" />
+              <WhatsappShareButton className="waShare" />
+              <CopyToClipboard onCopy={this.onCopy} text={this.state.valueCopy}>
+                <button className="linkShare"></button>
+              </CopyToClipboard>
+            </div>
 
-				          <div className="halBefore-kuis">
-						      <div className="box-loading2">
-						          <div className="spinner">
-						          <div className="bounce1"></div>
-						          <div className="bounce2"></div>
-						          <div className="bounce3"></div>
-						        </div>
-						      </div>
-						    </div>
-				        }
-				        {!hasMore &&
-				          <div></div>
-				        }
-			    	</div>{/* end.tnc-accodion */}
-			      
-			    </section>
+            <div className="flex_block">
+
+    			    <section id="section_innernya">
+    					<div className="rows">
+    						<div className="block_policy full_block">
+    						  <div className="caption_policy">
+    							<div className="detail-text-project">
+    							    <h3>{defaultLangnya == 'id' ? 'Regulasi Tiket dan Kebijakan Maskapai' : 'Airlines Ticketing Guidelines and Policy'}</h3>
+    				          		<span className="blue_rounded_txt no_marg">Published 29 April 2020</span>
+                    <div
+                      className="text"
+                      dangerouslySetInnerHTML={{
+                        __html: `${
+                          !showOriginalHTML ? trimmedHTML : originalHTML
+                        }`
+                      }}
+                    />
+                    <button className="read-more" onClick={this.handleShowText}>
+                      {!showOriginalHTML ? readMoreTxt : hideMoreTxt }
+                    </button>
+    						    </div>{/*><!--end.detail-text-project-->*/}
+    						  </div>
+    						</div>{/* end.block_policy */}
+    				    </div>{/* end.rows */}
+    			    </section>
+
+    			    <section id="section_tabs_list">
+    			    	<div id="tnc-accodion">
+    			    		{users.map((user, i) => (
+    				          <Fragment key={i}>
+    				            <div className="items" key={i}>
+    				              <div className={`page ${this.display(i) == 'block' && 'active'}`}  onClick={this.handleClick(i,user.airlinesName)}>
+    				              	<img src={user.imageURL} className="icon_airline" alt='airline_logo' />
+    								<span>{user.airlinesName}</span>
+    				              </div>
+    				              <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>
+    					              {user.items.map((item, k) => (
+    				                      <div className="rowHtml" key={k}>
+    				                        <h3>{item.description == '' ? '' : item.name}</h3>
+    				                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+    				                      </div>
+    				                    ))}
+    				                
+    				              </div>
+    				            </div>
+    				          </Fragment>
+    				        ))}
+    				        {error &&
+    				          <div>
+    				            {error}
+    				          </div>
+    				        }
+    				        {isLoading &&
+
+    				          <div className="halBefore-kuis">
+    						      <div className="box-loading2">
+    						          <div className="spinner">
+    						          <div className="bounce1"></div>
+    						          <div className="bounce2"></div>
+    						          <div className="bounce3"></div>
+    						        </div>
+    						      </div>
+    						    </div>
+    				        }
+    				        {!hasMore &&
+    				          <div></div>
+    				        }
+    			    	</div>{/* end.tnc-accodion */}
+    			      
+    			    </section>
+          </div>
 
           <PopupAirlines />
 			    <StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
+
+        </div>{/* end.bottom_bg_section */}
 			</div>
 		)
 	}

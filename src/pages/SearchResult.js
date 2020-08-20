@@ -1,5 +1,11 @@
 import React, { Component,Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import axios from 'axios';
 import StickyShare from './StickyShare';
 import moment from 'moment';
@@ -14,6 +20,7 @@ import { getColorByStatus } from '../utils/func';
 const langnya = window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
 const dataLayer = window.dataLayer || [];
+const urlCop = window.location.href;
 
 class SearchResult extends React.Component{
 	constructor(props) {
@@ -26,6 +33,8 @@ class SearchResult extends React.Component{
 			loading: true,
 			defaultLangnya: langnya == langDef ? langnya : 'id',
 			readyDataCard: false,
+			valueCopy: urlCop,
+		    copied: false,
 	   };
 	  
 	   this.goBack = this.goBack.bind(this);
@@ -174,6 +183,13 @@ class SearchResult extends React.Component{
 		dataLayer.push({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
 		console.log(dataLayer)
 	}
+	onCopy = () => {
+	    this.setState({copied: true});
+	    $("#linkCopied").fadeIn();
+	     setTimeout(function() { 
+	      $("#linkCopied").fadeOut();
+	    }, 2000);
+	  };
 
 	renderdetailinfo(dataCard, defaultLangnya) {
 		return dataCard.map((carding, i) =>
@@ -229,6 +245,9 @@ class SearchResult extends React.Component{
 		
 		return (
 			<div id="middle-content" className="homePage">
+				<div id="linkCopied">
+			        <p>{defaultLangnya == 'id' ? 'Link sudah disalin!' : 'Link is copied!'}</p>
+			    </div>
 			  <div className="wrapper">
 			  	{!this.state.loading && (
 				  <div className="rows">
@@ -375,31 +394,42 @@ class SearchResult extends React.Component{
 				  </div>
 				)}
 
-				<div className="rows">
-				  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 
-					{dataCardPolicyItem.length > 0 ?
-					  	<div>
-							{dataCardPolicyItem.map((item, k) => (
-							
-							<Fragment key={k}>
-								<div className={`block_policy full_block ${item.description == '' ? 'hide' : item.name}`}>
-									<div className="caption_policy">
-										<div className="detail-text-project">
-											<h3>{item.name}</h3>
-											<div>
-												<div dangerouslySetInnerHTML={{ __html: item.description }} />
-											</div>
-										</div>{/*><!--end.detail-text-project-->*/}
+		        <div className="contSticky">
+		        	<div className="shareSocmed">
+		              <FacebookShareButton className="facebookShare" />
+		              <TwitterShareButton className="twitterShare" />
+		              <WhatsappShareButton className="waShare" />
+		              <CopyToClipboard onCopy={this.onCopy} text={this.state.valueCopy}>
+		                <button className="linkShare"></button>
+		              </CopyToClipboard>
+		            </div>
+					<div className="rows">
+					  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+
+						{dataCardPolicyItem.length > 0 ?
+						  	<div>
+								{dataCardPolicyItem.map((item, k) => (
+								
+								<Fragment key={k}>
+									<div className={`block_policy full_block ${item.description == '' ? 'hide' : item.name}`}>
+										<div className="caption_policy">
+											<div className="detail-text-project">
+												<h3>{item.name}</h3>
+												<div>
+													<div dangerouslySetInnerHTML={{ __html: item.description }} />
+												</div>
+											</div>{/*><!--end.detail-text-project-->*/}
+										</div>
 									</div>
-								</div>
-							</Fragment>
-							))}
-						</div>
-						:
-						''
-					}
-				</div>{/* end.rows */}
+								</Fragment>
+								))}
+							</div>
+							:
+							''
+						}
+					</div>{/* end.rows */}
+				</div>
 
 			    </section>
 				<PopupForm selectedCountryCode={countryCode}/>

@@ -383,10 +383,13 @@ class HomeLazy extends React.Component {
 	    } = this.state;
 
 		return (
+			
 			<div id="middle-content" className="homePage">
-				<div className="wrapper">
+				
+				<div className="top_section">
+					<div className="wrapper">
 					<div className="rows">
-					<br /><br />
+						<br /><br />
 					</div>{/* end.rows */}
 					<div className="rows">
 						<div className="main_title_top">
@@ -429,7 +432,11 @@ class HomeLazy extends React.Component {
 						  </div>{/* end.legend_info */}
 						</div>{/* end.rows */}
 					</section>
+					</div>{/* end.wrapper */}
+				</div>{/* end.top_section */}
 
+				<div className="bottom_section">
+					<div className="wrapper">
 					<section id="section_regulation">
 						<div className="rows">
 						  <div className="main_title">
@@ -438,47 +445,54 @@ class HomeLazy extends React.Component {
 						</div>
 						<div className="rows">
 						  <div className="list_policy">
-						    <div className="block_policy">
+						  	<div className="row-list">
+						  		<div className="cols3">
+								    <div className="block_policy">
+								      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_airlines_polic.png" alt='airline_logo' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Informasi terbaru mengenai layanan dan kebijakan maskapai.' : 'Latest information on airline service and policy.'}</p>
+									      </div>
+								      </Link>
+								    </div>
+						    	</div>{/* end.cols3 */}
 
-						      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-							      <div className="icon_policy">
-							        <img src="assets/images/icon_airlines_polic.png" alt='airline_logo' />
-							      </div>
-							      <div className="caption_policy">
-							        <h3>{defaultLangnya == 'id' ? 'Kebijakan Maskapai' : 'Airline Policy'}</h3>
-							        <p>{defaultLangnya == 'id' ? 'Informasi terbaru mengenai layanan dan kebijakan maskapai.' : 'Latest information on airline service and policy.'}</p>
-							      </div>
-						      </Link>
-						    </div>
+						  		<div className="cols3">
+								    <div className="block_policy">
+										<Link to="/AirportPolicyDomestic" onClick={this.AirportPolicyGtm} >
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_airport_policy.png" alt='airport_logo' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Kebijakan Bandara' : 'Airport Policy'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Kebijakan terbaru mengenai regulasi dan kebijakan perjalanan bandara.' : 'Latest information on airport travel regulations & policy.'}</p>
+									      </div>
+								      </Link>
+								    </div>
+						    	</div>{/* end.cols3 */}
 
-						    <div className="block_policy">
-								<Link to="/AirportPolicyDomestic" onClick={this.AirportPolicyGtm} >
-							      <div className="icon_policy">
-							        <img src="assets/images/icon_airport_policy.png" alt='airport_logo' />
-							      </div>
-							      <div className="caption_policy">
-							        <h3>{defaultLangnya == 'id' ? 'Kebijakan Bandara' : 'Airport Policy'}</h3>
-							        <p>{defaultLangnya == 'id' ? 'Kebijakan terbaru mengenai regulasi dan kebijakan perjalanan bandara.' : 'Latest information on airport travel regulations & policy.'}</p>
-							      </div>
-						      </Link>
-						    </div>
-
-						    <div className="block_policy">
-								<Link to="/TicketingPolicy/Flights" onClick={this.TicketingPolicyGtm} >
-							      <div className="icon_policy">
-							        <img src="assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
-							      </div>
-							      <div className="caption_policy">
-							        <h3>{defaultLangnya == 'id' ? 'Kebijakan Tiket' : 'Ticketing Policy'}</h3>
-							        <p>{defaultLangnya == 'id' ? 'Informasi terbaru tentang cara pembelian, refund, dan reschedule.' : 'Latest information on how to purchase, refund, and reschedule'}</p>
-							      </div>
-						      	</Link>
-						    </div>
+						  		<div className="cols3">
+								    <div className="block_policy">
+										<Link to="/TicketingPolicy/Flights" onClick={this.TicketingPolicyGtm} >
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_how_to_buy_tic.png" alt='ticket_logo' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Kebijakan Tiket' : 'Ticketing Policy'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Informasi terbaru tentang cara pembelian, refund, dan reschedule.' : 'Latest information on how to purchase, refund, and reschedule'}</p>
+									      </div>
+								      	</Link>
+								    </div>
+						    	</div>{/* end.cols3 */}
+						    </div>{/* end.row-list */}
 						  </div>
 						</div>
 					</section>
-
 				</div>{/* end.wrapper */}
+			</div>{/* end.bottom */}
 				<PopupCountry />
 			</div>
 
