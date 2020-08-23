@@ -439,6 +439,9 @@ header{
 .info_cause span.red {
     color: #e52424;
 }
+.info_cause span.growth span{
+    display: inline-block;
+}
 .info_cause span.green {
     color: #0bae54;
 }

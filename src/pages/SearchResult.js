@@ -219,11 +219,21 @@ class SearchResult extends React.Component{
 		const host = 'https://tiketsafe.com';
 		
 		let confirmed = 0, deaths = 0, recovered = 0, countryName = '', mapsColor = '#FFFFFF', countryCode, longitude, latitude;
+
+		let increaseConfirm = 0, increaseDeaths = 0, increaseRecovered = 0, increaseActived = 0;
 			
 		if (dataItem) {
 			confirmed = dataItem.countryCovidCase.casePositive;
 			deaths = dataItem.countryCovidCase.caseDeaths;
 			recovered = dataItem.countryCovidCase.caseRecovered;
+
+			increaseConfirm = dataItem.increaseCountryCovidCase.casePositive;
+			increaseDeaths = dataItem.increaseCountryCovidCase.caseDeaths;
+			increaseRecovered = dataItem.increaseCountryCovidCase.caseRecovered;
+
+			increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
+
+
 
 			if (dataCardPolicy.length !== 0) {
 				confirmed = dataCardPolicy.casePositive;
@@ -326,7 +336,7 @@ class SearchResult extends React.Component{
 			        <div className="inner_section tabs_title">
 			          <div className="left">
 			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName}</h4>
-			            <p className="green hide">No new cases in {countryName} for 1 day</p>
+			            <p className={`green ${increaseConfirm >= 0 ? 'hide' : ''}`}>No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">
 			            <a href="#" className="arrow_up"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
@@ -341,6 +351,9 @@ class SearchResult extends React.Component{
 			          <div className="row-list">
 			            <div className="cols4">
 			              <div className="info_cause">
+			              	<span className={`growth ${increaseActived <= 0 ? 'green' : 'red'}`}>
+			                	{increaseActived > 0 ? '+' : ''} <NumberFormat value={increaseActived} displayType={'text'} thousandSeparator={true}/>
+			                </span>
 			                <h4 className="number_cause">
 			                	<NumberFormat value={confirmed - recovered - deaths} displayType={'text'} thousandSeparator={true}/>
 			                </h4>
@@ -349,6 +362,10 @@ class SearchResult extends React.Component{
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
+			              	<span className={`growth ${increaseConfirm <= 0 ? 'green' : 'red'}`}>
+			                	{increaseConfirm > 0 ? '+' : ''} <NumberFormat value={increaseConfirm} displayType={'text'} thousandSeparator={true}/>
+			                </span>
+
 			                <h4 className="number_cause">
 			                	<NumberFormat value={confirmed} displayType={'text'} thousandSeparator={true}/>
 			                </h4>
@@ -357,6 +374,9 @@ class SearchResult extends React.Component{
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
+			              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'red'}`}>
+			                	{increaseRecovered > 0 ? '+' : ''} <NumberFormat value={increaseRecovered} displayType={'text'} thousandSeparator={true}/>
+			                </span>
 			                <h4 className="number_cause">
 			                	<NumberFormat value={recovered} displayType={'text'} thousandSeparator={true}/>
 			                </h4>
@@ -365,6 +385,9 @@ class SearchResult extends React.Component{
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
+			              	<span className={`growth ${increaseDeaths <= 0 ? 'green' : 'red'}`}>
+			                	{increaseDeaths > 0 ? '+' : ''} <NumberFormat value={increaseDeaths} displayType={'text'} thousandSeparator={true}/>
+			                </span>
 			                <h4 className="number_cause">
 			                	<NumberFormat value={deaths} displayType={'text'} thousandSeparator={true}/>
 			                </h4>
