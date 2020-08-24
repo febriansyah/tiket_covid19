@@ -16,9 +16,11 @@ class StickyShare extends React.Component{
 
 	}
 	onclick = () => {
-		dataLayer.push({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : 'destination' });
 		var url = this.props.url;
+		var pathGtm = this.props.pathGtm;
 	    if (navigator.share !== undefined) {
+			dataLayer.push({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm });
+			//console.log(dataLayer);
 	      navigator
 	        .share({
 	          url
@@ -27,6 +29,8 @@ class StickyShare extends React.Component{
 	        .catch(err => console.error(err));
 	    } else {
 	      window.location = `mailto:?subject=a&body=a%0A${url}`;
+			dataLayer.push({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm });
+			//console.log(dataLayer);
 	    }
 	  };
 

@@ -62,6 +62,10 @@ class AirlinePolicyDetail extends Component{
 	      $("#linkCopied").fadeOut();
 	    }, 2000);
 	  };
+	urlCopy = () => {
+		let urlnya = window.location.href;
+		return urlnya;
+	}
 
 	render() {
 		console.log(this.props, 'airline detail', this.state);
@@ -98,10 +102,10 @@ class AirlinePolicyDetail extends Component{
 		          <div className="wrapper relative contSticky">
 
 		            <div className="shareSocmed">
-		              <FacebookShareButton className="facebookShare" />
-		              <TwitterShareButton className="twitterShare" />
-		              <WhatsappShareButton className="waShare" />
-		              <CopyToClipboard onCopy={this.onCopy} text={this.state.valueCopy}>
+		              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
+		              <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
+		              <WhatsappShareButton url={this.urlCopy()}  className="waShare" />
+		              <CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
 		                <button className="linkShare"></button>
 		              </CopyToClipboard>
 		            </div>

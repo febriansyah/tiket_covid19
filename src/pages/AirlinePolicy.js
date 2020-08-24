@@ -145,7 +145,7 @@ handleShowText = () => {
             ],
           });
 
-    	window.popupSlider();
+    	//window.popupSlider();
     	
         })
         .catch((err) => {
@@ -164,6 +164,18 @@ handleShowText = () => {
       $("#linkCopied").fadeOut();
     }, 2000);
   };
+
+  urlCopy = () => {
+    let urlnya = window.location.href;
+    return urlnya;
+  }
+  popupShow = () => {
+      $("#popup_search_airplane_policy").removeClass("hide");
+      setTimeout(function() {
+          $("#popup_search_airplane_policy").addClass("actived");
+        }, 500);
+    }
+  
 	
 
 	render(){
@@ -200,7 +212,7 @@ handleShowText = () => {
                 <div className="search_row">
                   <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari maskapai' : 'Search airlines'} />
 
-                  <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
+                  <div onClick={this.popupShow} className="overlay_trigger trigger_slider_search" data-slider="popup_search_airplane_policy"></div>
                 </div>
               </div>{/* end.rows */}
           </div>{/* end.wrapper */}
@@ -210,10 +222,10 @@ handleShowText = () => {
           <div className="wrapper relative contSticky">
 
             <div className="shareSocmed">
-              <FacebookShareButton className="facebookShare" />
-              <TwitterShareButton className="twitterShare" />
-              <WhatsappShareButton className="waShare" />
-              <CopyToClipboard onCopy={this.onCopy} text={this.state.valueCopy}>
+              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
+              <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
+              <WhatsappShareButton url={this.urlCopy()}  className="waShare" />
+              <CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
                 <button className="linkShare"></button>
               </CopyToClipboard>
             </div>
@@ -291,7 +303,7 @@ handleShowText = () => {
           </div>
 
           <PopupAirlines />
-			    <StickyShare url={window.location.href}/>
+			    <StickyShare url={window.location.href} pathGtm='airlinePolicy'/>
 			  </div>{/* end.wrapper */}
 
         </div>{/* end.bottom_bg_section */}

@@ -190,7 +190,10 @@ class SearchResult extends React.Component{
 	      $("#linkCopied").fadeOut();
 	    }, 2000);
 	  };
-
+	  urlCopy = () => {
+	    let urlnya = window.location.href;
+	    return urlnya;
+	  }
 	renderdetailinfo(dataCard, defaultLangnya) {
 		return dataCard.map((carding, i) =>
 			<Fragment key={i}>
@@ -420,12 +423,12 @@ class SearchResult extends React.Component{
 
 		        <div className="contSticky">
 		        	<div className="shareSocmed">
-		              <FacebookShareButton className="facebookShare" />
-		              <TwitterShareButton className="twitterShare" />
-		              <WhatsappShareButton className="waShare" />
-		              <CopyToClipboard onCopy={this.onCopy} text={this.state.valueCopy}>
-		                <button className="linkShare"></button>
-		              </CopyToClipboard>
+		              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
+			            <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
+			            <WhatsappShareButton url={this.urlCopy()}  className="waShare" />
+			            <CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
+			              <button className="linkShare"></button>
+			            </CopyToClipboard>
 		            </div>
 					<div className="rows">
 					  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
@@ -456,7 +459,7 @@ class SearchResult extends React.Component{
 
 			    </section>
 				<PopupForm selectedCountryCode={countryCode}/>
-				<StickyShare url={window.location.href}/>
+				<StickyShare url={window.location.href} pathGtm='destination' />
 			  </div>{/* end.wrapper */}
 			</div>
 		)

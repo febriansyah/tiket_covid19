@@ -219,7 +219,7 @@ class AirlinePolicyDomestic extends Component{
 			    	</div>{/* end.tnc-accodion */}
 			      
 			    </section>
-				<StickyShare url={window.location.href}/>
+				<StickyShare url={window.location.href} pathGtm='airportPolicy'/>
 			  </div>{/* end.wrapper */}
 			</div>
 		)

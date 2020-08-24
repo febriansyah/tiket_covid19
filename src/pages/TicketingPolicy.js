@@ -189,7 +189,7 @@ class TicketingPolicyFlights extends React.Component{
 			      
 			    </section>
 			    
-			    <StickyShare url={window.location.href}/>
+			    <StickyShare url={window.location.href} pathGtm='ticketingPolicy' />
 			  </div>{/* end.wrapper */}
 			</div>
 

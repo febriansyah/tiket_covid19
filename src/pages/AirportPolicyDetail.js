@@ -70,6 +70,11 @@ class AirportPolicyDetail extends React.Component{
 	    }, 2000);
 	  };
 
+	urlCopy = () => {
+		let urlnya = window.location.href;
+		return urlnya;
+	}
+
 	render() {
 		const {
 	      defaultLangnya,descItem
@@ -106,12 +111,12 @@ class AirportPolicyDetail extends React.Component{
 			        <div className="wrapper relative contSticky">
 
 			          <div className="shareSocmed">
-			            <FacebookShareButton className="facebookShare" />
-			            <TwitterShareButton className="twitterShare" />
-			            <WhatsappShareButton className="waShare" />
-			            <CopyToClipboard onCopy={this.onCopy} text={this.state.valueCopy}>
-			              <button className="linkShare"></button>
-			            </CopyToClipboard>
+						<FacebookShareButton url={this.urlCopy()} className="facebookShare" />
+						<TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
+						<WhatsappShareButton url={this.urlCopy()}  className="waShare" />
+						<CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
+							<button className="linkShare"></button>
+						</CopyToClipboard>
 			          </div>
 
 			          <div className="flex_block">
