@@ -189,7 +189,7 @@ const Maps = (props) => {
         }
           
         if (parentName === 'Search') addCity({ latitude, longitude }, countryName );
-        window.popupSlider();
+        //window.popupSlider();
         
     }, [
         listWorldMap,

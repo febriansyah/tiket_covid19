@@ -307,15 +307,9 @@ handleShowText = () => {
     			      
     			    </section>
           </div>
-<<<<<<< HEAD
-
-          <PopupAirlines />
-			    <StickyShare url={window.location.href} pathGtm='airlinePolicy'/>
-=======
         {myArray.length >0 &&
           <PopupAirlines param={myArray}/> }
-			    <StickyShare url={window.location.href}/>
->>>>>>> 9bc1c357d83bade1cc9e5ea2f3c6c9d52320a1b6
+			    <StickyShare url={window.location.href} pathGtm='airlinePolicy'/>
 			  </div>{/* end.wrapper */}
 
         </div>{/* end.bottom_bg_section */}

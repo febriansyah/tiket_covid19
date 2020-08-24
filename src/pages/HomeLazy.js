@@ -10,6 +10,7 @@ import {
 // import * as am4maps from "@amcharts/amcharts4/maps";
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 // import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import $ from 'jquery'; 
 
 import PopupCountry from './PopupCountry';
 
@@ -374,6 +375,12 @@ class HomeLazy extends React.Component {
 	TicketingPolicyGtm = () => {
 		dataLayer.push({'event': 'click','eventCategory' : ' viewTicketingPolicy', 'eventLabel' : 'flight' });
 	}
+	popupShow = () => {
+      $("#popup_search").removeClass("hide");
+      setTimeout(function() {
+          $("#popup_search").addClass("actived");
+        }, 500);
+    }
 
 	render() {
 		// console.log(this.props, 'home');
@@ -401,7 +408,7 @@ class HomeLazy extends React.Component {
 						<div className="rows">
 						  <div className="search_row">
 						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder={defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} />
-						    <div className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>
+						    <div onClick={this.popupShow} className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">

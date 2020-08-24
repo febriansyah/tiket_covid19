@@ -108,7 +108,7 @@ constructor(props) {
   }
 
    componentDidMount() {
-    	window.popupSlider();
+    	//window.popupSlider();
   	}
 
   loadUsers = () => {
@@ -170,6 +170,12 @@ constructor(props) {
     let urlnya = window.location.href;
     return urlnya;
   }
+  popupShow = () => {
+      $("#popup_search_airport_policy").removeClass("hide");
+      setTimeout(function() {
+          $("#popup_search_airport_policy").addClass("actived");
+        }, 500);
+    }
 
 	render(){
 		const {
@@ -206,7 +212,7 @@ constructor(props) {
           <div className="rows">
             <div className="search_row">
               <input type="text" id="searchTrigger_airlines" className="search_input" name="" placeholder={defaultLangnya == 'id' ? 'Cari bandara atau kota' : 'Search airports or cities'} />
-                <div className="overlay_trigger trigger_slider_search" data-slider="popup_search_airport_policy"></div>
+                <div onClick={this.popupShow} className="overlay_trigger trigger_slider_search" data-slider="popup_search_airport_policy"></div>
             </div>
           </div>{/* end.rows */}
         </div>{/* end.wrapper */}

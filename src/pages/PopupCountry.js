@@ -165,6 +165,13 @@ class PopupCountry extends React.Component{
 		)
 	}
 
+	popupCLose = () => {
+		$(".popup_slider").removeClass("actived");
+		setTimeout(function() {
+			$(".popup_slider").addClass("hide");
+		}, 500);
+    }
+
 
 	render() {
 		// console.log(this.props, 'state popup');
@@ -178,7 +185,7 @@ class PopupCountry extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>{defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'}</h3>
