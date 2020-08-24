@@ -146,7 +146,7 @@ handleShowText = () => {
               ...this.state.users,
               ...nextUsers,
             ],
-            tempPopup:results.body.data 
+            tempPopup:results.body.data
           });
 
     	//window.popupSlider();

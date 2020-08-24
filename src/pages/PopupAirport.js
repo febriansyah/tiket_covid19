@@ -40,7 +40,20 @@ class PopupAirport extends React.Component{
 	}
 
 	componentDidMount() {
-		this.getListAirport();
+		if(!this.props.param)
+		{
+			this.getListAirport();
+		}else{
+			this.airportTemp();
+		}
+	}
+
+	airportTemp(){
+		if(this.props.param.length > 0 ){
+			let wadaw=this.props.param;
+			this.setState({ ...initialSearch ,listAirport: wadaw });
+			$(".halBefore-kuis").fadeOut();
+		}
 	}
 
 	mappingListWordMap(countryCode) {

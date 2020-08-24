@@ -139,6 +139,7 @@ constructor(props) {
               ...this.state.users,
               ...nextUsers,
             ],
+            tempPopup:results.body.data
           });
 
     	
@@ -189,9 +190,11 @@ constructor(props) {
       originalHTML,
       trimmedHTML,
       readMoreTxt,
-      hideMoreTxt
+      hideMoreTxt,
+      tempPopup
     } = this.state;
-    console.log(langnya);
+    var myArray = tempPopup;
+    console.log(myArray,'my');
 
 		return(
 
@@ -317,7 +320,8 @@ constructor(props) {
     		    </section>
           </div>
   		    
-          <PopupAirport />
+          {myArray.length >0 &&
+          <PopupAirport param={myArray}/> }
           <StickyShare url={window.location.href} pathGtm='airportPolicy' />
 		  </div>{/* end.wrapper */}
       </div>{/* end.bottom_bg_section */}

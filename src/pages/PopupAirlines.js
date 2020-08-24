@@ -44,16 +44,16 @@ class PopupAirlines extends React.Component{
 		{
 			this.getListAirlines();
 		}else{
-			this.wadidaw();
+			this.arlinesTemp();
 		}
 
 
 	}
 
-	wadidaw(){
+	arlinesTemp(){
 		if(this.props.param.length > 0 ){
-			let wadaw=this.props.param;
-			this.setState({ ...initialSearch ,listAirlines: wadaw });
+			let arlinesData=this.props.param;
+			this.setState({ ...initialSearch ,listAirlines: arlinesData });
 			$(".halBefore-kuis").fadeOut();
 		}
 	}
@@ -66,7 +66,7 @@ class PopupAirlines extends React.Component{
 			headers
 		})
 		.then(res => {
-			console.log(res.data.data,'wadidaw')
+			console.log(res.data.data,'arlinesTemp')
 			if (res.data.status === 'success') {
 				this.setState({ listAirlines: res.data.data })
 			}
