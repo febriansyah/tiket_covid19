@@ -57,6 +57,7 @@ class AirlinePolicy extends Component{
       trimmedHTML: trimText(htmlText, 20, 200)[0],
       valueCopy: urlCop,
       copied: false,
+      tempPopup:[],
     };
 
     // Binds our scroll event handler
@@ -123,14 +124,16 @@ handleShowText = () => {
         .get('https://api.tiketsafe.com/api/v2/airlines?lang='+this.state.defaultLangnya+'&flightType=1&page='+this.state.paging)
         .then((results) => {   
           // Creates a massaged array of user data
-          //console.log(results.body.data.length)
+         // console.log(results.body.data,'ss')
+
+          
           const nextUsers = results.body.data.map(value => ({
             airlinesName: value.airlinesName,
             imageURL: value.imageURL,
             items: value.items,
 
           }));
-
+          
           // Merges the next users into our existing users
           this.setState({
             // Note: Depending on the API you're using, this value may be
@@ -143,6 +146,7 @@ handleShowText = () => {
               ...this.state.users,
               ...nextUsers,
             ],
+            tempPopup:results.body.data 
           });
 
     	window.popupSlider();
@@ -177,9 +181,11 @@ handleShowText = () => {
       originalHTML,
       trimmedHTML,
       readMoreTxt,
-      hideMoreTxt
+      hideMoreTxt,
+      tempPopup
     } = this.state;
-
+    var myArray = tempPopup;
+    console.log(myArray,'my');
 		return(
 			<div id="middle-content" className="innerPages">
         <div id="linkCopied">
@@ -289,8 +295,8 @@ handleShowText = () => {
     			      
     			    </section>
           </div>
-
-          <PopupAirlines />
+        {myArray.length >0 &&
+          <PopupAirlines param={myArray}/> }
 			    <StickyShare url={window.location.href}/>
 			  </div>{/* end.wrapper */}
 

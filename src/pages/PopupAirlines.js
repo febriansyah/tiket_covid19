@@ -39,17 +39,34 @@ class PopupAirlines extends React.Component{
 	}
 
 	componentDidMount() {
-		this.getListAirlines();
+		
+		if(!this.props.param)
+		{
+			this.getListAirlines();
+		}else{
+			this.wadidaw();
+		}
+
+
 	}
 
+	wadidaw(){
+		if(this.props.param.length > 0 ){
+			let wadaw=this.props.param;
+			this.setState({ ...initialSearch ,listAirlines: wadaw });
+			$(".halBefore-kuis").fadeOut();
+		}
+	}
 
 	getListAirlines() {
+	
 		axios({
 			method: 'get',
 			url:'https://api.tiketsafe.com/api/v2/airlines?lang=id&page=1&flightType=1',
 			headers
 		})
 		.then(res => {
+			console.log(res.data.data,'wadidaw')
 			if (res.data.status === 'success') {
 				this.setState({ listAirlines: res.data.data })
 			}
@@ -124,7 +141,7 @@ class PopupAirlines extends React.Component{
 
 	renderAirlines() {
 		let data = this.state.searchText.length > 2 ? this.state.searchResult : this.state.listAirlines;
-
+	
 		return data.map((item, idx) =>
 			<Link
 				key={idx}
