@@ -59,7 +59,7 @@ class SearchResult extends React.Component{
 	}
 	
 	componentDidMount() {
-		window.popupSlider();
+		//window.popupSlider();
 
 		if (this.state.defaultLangnya == 'id') {
 			require('moment/locale/id');
@@ -242,6 +242,12 @@ class SearchResult extends React.Component{
 				confirmed = dataCardPolicy.casePositive;
 				deaths = dataCardPolicy.caseDeaths;
 				recovered = dataCardPolicy.caseRecovered;
+
+				increaseConfirm = dataItem.increaseProvinceCovidCase.casePositive;
+				increaseDeaths = dataItem.increaseProvinceCovidCase.caseDeaths;
+				increaseRecovered = dataItem.increaseProvinceCovidCase.caseRecovered;
+
+				increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
 			}
 
 			countryName = dataItem.countryName;
