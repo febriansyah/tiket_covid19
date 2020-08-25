@@ -59,7 +59,7 @@ class SearchResult extends React.Component{
 	}
 	
 	componentDidMount() {
-		//window.popupSlider();
+		// window.popupSlider();
 
 		if (this.state.defaultLangnya == 'id') {
 			require('moment/locale/id');
@@ -79,13 +79,7 @@ class SearchResult extends React.Component{
 		this.props.changeSelectedCountryCode(countryCode);
 	
 		if (!kota || kota === '') {
-			axios({
-				method: 'get',
-				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
-				headers: {
-					"Access-Control-Allow-Origin": "*"
-				}
-			})
+			axios.get(apiUrl + 'country?lang='+this.state.defaultLangnya+`&countryCode=${countryCode}`)
 			.then(res => {
 				//console.log(res.data.data[0].items, 'res country by CODE');
 				
@@ -112,13 +106,8 @@ class SearchResult extends React.Component{
 				this.setState({ loading: false });
 			})
 		} else {
-			axios({
-				method: 'get',
-				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`+`&airportCode=${kota}`,
-				headers: {
-					"Access-Control-Allow-Origin": "*"
-				}
-			})
+			
+			axios.get(apiUrl + 'country?lang='+this.state.defaultLangnya+`&countryCode=${countryCode}`+`&airportCode=${kota}`)
 			.then(res => {
 				// console.log(res.data.data[0].items, 'res country by CITY');
 				

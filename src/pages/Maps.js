@@ -41,12 +41,11 @@ const Maps = (props) => {
     }, [])
 
     const getCountryStatus = () => {
-        axios({
-            type: 'get',
-            url:`https://api.tiketsafe.com/api/v2/country-status`,
-            headers
-        })
-        .then(res => {
+      
+
+        axios.get('https://api.tiketsafe.com/api/v2/country-status')
+  .then(function (res) {
+      
             // console.log(res, 'res country status');
 
             let remapWorldMap = [];
