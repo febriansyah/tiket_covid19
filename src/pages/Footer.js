@@ -12,7 +12,7 @@ class Footer extends React.Component{
 		return(
 			<div>
 				<footer>
-					<p>© 2011-2018 PT. Global Tiket Network. All Rights Reserved</p>
+					<p>© 2011-2020 PT. Global Tiket Network. All Rights Reserved</p>
 				</footer>
 			</div>
 

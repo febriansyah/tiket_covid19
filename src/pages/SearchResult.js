@@ -222,7 +222,6 @@ class SearchResult extends React.Component{
 			increaseConfirm = dataItem.increaseCountryCovidCase.casePositive;
 			increaseDeaths = dataItem.increaseCountryCovidCase.caseDeaths;
 			increaseRecovered = dataItem.increaseCountryCovidCase.caseRecovered;
-
 			increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
 
 
@@ -231,6 +230,11 @@ class SearchResult extends React.Component{
 				confirmed = dataCardPolicy.casePositive;
 				deaths = dataCardPolicy.caseDeaths;
 				recovered = dataCardPolicy.caseRecovered;
+
+				increaseConfirm = dataItem.increaseProvinceCovidCase.casePositive;
+				increaseDeaths = dataItem.increaseProvinceCovidCase.caseDeaths;
+				increaseRecovered = dataItem.increaseProvinceCovidCase.caseRecovered;
+				increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
 			}
 
 			countryName = dataItem.countryName;
@@ -247,6 +251,7 @@ class SearchResult extends React.Component{
 		
 		return (
 			<div id="middle-content" className="homePage">
+
 				<div id="linkCopied">
 			        <p>{defaultLangnya == 'id' ? 'Link sudah disalin!' : 'Link is copied!'}</p>
 			    </div>
@@ -330,7 +335,7 @@ class SearchResult extends React.Component{
 			        <div className="inner_section tabs_title">
 			          <div className="left">
 			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName}</h4>
-			            <p className={`green ${increaseConfirm >= 0 ? 'hide' : ''}`}>No new cases in {countryName} for 1 day</p>
+			            <p className={`green ${increaseConfirm <= 0 ? '' : 'hide'}`}>No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">
 			            <a href="#" className="arrow_up"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
@@ -368,7 +373,7 @@ class SearchResult extends React.Component{
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'red'}`}>
+			              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'green'}`}>
 			                	{increaseRecovered > 0 ? '+' : ''} <NumberFormat value={increaseRecovered} displayType={'text'} thousandSeparator={true}/>
 			                </span>
 			                <h4 className="number_cause">
