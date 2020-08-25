@@ -231,12 +231,6 @@ class SearchResult extends React.Component{
 				confirmed = dataCardPolicy.casePositive;
 				deaths = dataCardPolicy.caseDeaths;
 				recovered = dataCardPolicy.caseRecovered;
-
-				increaseConfirm = dataItem.increaseProvinceCovidCase.casePositive;
-				increaseDeaths = dataItem.increaseProvinceCovidCase.caseDeaths;
-				increaseRecovered = dataItem.increaseProvinceCovidCase.caseRecovered;
-
-				increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
 			}
 
 			countryName = dataItem.countryName;
@@ -263,6 +257,7 @@ class SearchResult extends React.Component{
 				  </div>
 				)}
 
+				
 			    <section id="section_maps">
 			
 				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
@@ -293,6 +288,7 @@ class SearchResult extends React.Component{
 
 				<div className="rows">
 			        <div className="relative">
+					{!this.state.loading &&  dataItem && (
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}
@@ -302,7 +298,7 @@ class SearchResult extends React.Component{
 							latitude={parseFloat(latitude)}
 							loading={this.state.loading}
 							{...this.props}
-						/>
+						/>)}
 						
 						{!this.state.loading && (
 							<div className="zoom_abs">
@@ -315,7 +311,7 @@ class SearchResult extends React.Component{
 
 			    </section>
 
-				{this.state.loading && (
+				{this.state.loading && dataItem && (
 					<div className="halBefore-kuis">
 						<div className="box-loading2">
 							<div className="spinner">
@@ -329,7 +325,7 @@ class SearchResult extends React.Component{
 				
 			    <section id="section_result_maps">
 
-				{!this.state.loading && (
+				{!this.state.loading &&  dataItem &&  (
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
@@ -343,7 +339,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{!this.state.loading && (
+				{!this.state.loading &&  dataItem &&  (
 			      <div className="rows">
 			        <div className="block_shadow infodetail_cause">
 			          <div className="row-list">
@@ -402,7 +398,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{dataItem && (
+				{dataItem &&  dataItem && (
 				  <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
