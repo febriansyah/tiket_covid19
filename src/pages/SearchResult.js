@@ -195,10 +195,7 @@ class SearchResult extends React.Component{
 						<div className="detail-text-project">
 							<h3>{carding.name}</h3>
 							<div>
-								{this.state.readyDataCard && <ReadMoreReact
-									text={carding.description}
-									readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}
-								/>}
+								{this.state.readyDataCard && <div dangerouslySetInnerHTML={{ __html: carding.description }} />}
 							</div>
 						</div>{/*><!--end.detail-text-project-->*/}
 					</div>
