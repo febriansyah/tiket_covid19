@@ -316,7 +316,7 @@ class SearchResult extends React.Component{
 
 			    </section>
 
-				{this.state.loading && dataItem && (
+				{this.state.loading && (
 					<div className="halBefore-kuis">
 						<div className="box-loading2">
 							<div className="spinner">
@@ -330,7 +330,7 @@ class SearchResult extends React.Component{
 				
 			    <section id="section_result_maps">
 
-				{!this.state.loading &&  dataItem &&  (
+				{!this.state.loading &&  dataItem && dataCard && (
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
@@ -418,7 +418,7 @@ class SearchResult extends React.Component{
 
 
 		        <div className="contSticky">
-				{dataCard && dataItem &&
+				{ dataItem &&
 		        	<div className="shareSocmed">
 		              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
 			            <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
@@ -458,7 +458,15 @@ class SearchResult extends React.Component{
 				<PopupForm selectedCountryCode={countryCode}/>
 				<StickyShare url={window.location.href} pathGtm='destination' />
 			  </div>{/* end.wrapper */}
+			  <div>
+			  {dataCard && dataItem &&  (
+				<footer>
+					<p>© 2011-2020 PT. Global Tiket Network. All Rights Reserved</p>
+				</footer>
+			  )}
 			</div>
+			</div>
+			
 		)
 	}
 }

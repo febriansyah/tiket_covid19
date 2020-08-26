@@ -18,7 +18,7 @@ const dataLayer = window.dataLayer || [];
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 class PopupCountry extends React.Component{
-	constructor(props) {
+	constructor(props){
 		super(props)
 		this.state = {
 		  list_data_popular: [], 
@@ -156,8 +156,8 @@ class PopupCountry extends React.Component{
 				key={idx}
 				to={{pathname: value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode + '/'+ value.airportCode : '/SearchResult/' + value.countryCode   }}
 				//to={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
-				className="row_result_autocomplete"
-				onClick={() => this.setState({ ...initialSearch }, () => this.props.onClose()), this.CityGtmPush}
+				className="row_result_autocomplete trigger_close_popup"
+				onClick={() => this.setState({ ...initialSearch }),this.CityGtmPush}
 			>
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{value.cityName == '' ? value.airportName : value.cityName}{value.countryName ?', '+value.countryName : ''}</span>
@@ -174,21 +174,18 @@ class PopupCountry extends React.Component{
 
 
 	render() {
-		// console.log(this.props, 'popup country');
+		// console.log(this.props, 'state popup');
 		const {
      	 defaultLangnya,
 		} = this.state;
-		const { visible, onClose } = this.props;
-
-		const openPupup = visible ? 'popup_slider actived' : 'popup_slider hide';
 		
-		return (
+		return(
 			<div>
-				<div id="popup_search" className={openPupup}>
+				<div id="popup_search" className="popup_slider hide">
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div onClick={() => this.setState({ ...initialSearch }, () => onClose())} className="button_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
+					    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
 						          <h3>{defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'}</h3>
@@ -231,13 +228,15 @@ class PopupCountry extends React.Component{
 						        		<p>{defaultLangnya == 'id' ? 'Tidak ada hasil untuk kata kunci ini. Ubah kata kuncimu dan coba lagi.' : 'This keyword has no result. Change your keyword and try again.'}</p>
 						        	</div>
 						        </div>{/* end.list_noneResult */}
-						        <div className="list_autocomplete">
+						        <div className="list_autocomplete trigger_close_popup">
 									{this.RenderCityPopular()}
 						        </div> {/* end.list_autocomplete */}
 						    </div> {/* end.rows */}
 				    	</div> {/* end.box_popup_search_auto */}
 				    </div> {/* end.content_slide_btm */}
 				</div>{/* end.popup_slider */}
+
+
 			</div>
 		)
 	}
