@@ -293,7 +293,7 @@ class SearchResult extends React.Component{
 
 				<div className="rows">
 			        <div className="relative">
-					{!this.state.loading &&   dataCard && (
+					{!this.state.loading && dataItem &&  dataCard && (
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}

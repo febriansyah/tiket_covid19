@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 //import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+//import 'antd-mobile/dist/antd-mobile.css';
 //import './assets/css/style.css';
 // import './assets/css/reset.css';
 // import './assets/js/js_run.js';
