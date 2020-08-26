@@ -47,6 +47,7 @@ class SearchResult extends React.Component{
 	componentWillReceiveProps(nextProps) {
 		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
 			$(".halBefore-kuis").fadeIn();
+			this.setState({ loading: true });
 
 			this.setState({
 				dataItem: null,
