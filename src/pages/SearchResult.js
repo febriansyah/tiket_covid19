@@ -45,9 +45,12 @@ class SearchResult extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps) {
+		this.setState({ loading: true });
+		this.setState({ dataItem: null});
+		this.setState({ dataCard: []});
 		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
 			$(".halBefore-kuis").fadeIn();
-			this.setState({ loading: true });
+			
 
 			this.setState({
 				dataItem: null,
@@ -429,9 +432,9 @@ class SearchResult extends React.Component{
 			            </CopyToClipboard>
 				</div> }
 					<div className="rows">
-					  	{dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
-
-						{dataCardPolicyItem.length > 0 ?
+					  	{!this.state.loading && dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
+						
+						{!this.state.loading && dataCardPolicyItem.length > 0 ?
 						  	<div>
 								{dataCardPolicyItem.map((item, k) => (
 								
