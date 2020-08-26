@@ -280,7 +280,7 @@ class SearchResult extends React.Component{
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
 
-				{!this.state.loading && (
+				{!this.state.loading && dataItem &&(
 					<div className="rows">
 						<div className="block_shadow">
 						<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
@@ -293,7 +293,7 @@ class SearchResult extends React.Component{
 
 				<div className="rows">
 			        <div className="relative">
-					{!this.state.loading &&  dataItem && (
+					{!this.state.loading &&   dataCard && (
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}
@@ -305,7 +305,7 @@ class SearchResult extends React.Component{
 							{...this.props}
 						/>)}
 						
-						{!this.state.loading && (
+						{!this.state.loading && dataItem && (
 							<div className="zoom_abs">
 								<img src={host+"/assets/images/icon_zoom.png"} />
 								<span>Zoom</span>
@@ -403,7 +403,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{dataItem &&  dataItem && (
+				{dataCard && dataItem &&  (
 				  <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
@@ -418,6 +418,7 @@ class SearchResult extends React.Component{
 
 
 		        <div className="contSticky">
+				{dataCard && dataItem &&
 		        	<div className="shareSocmed">
 		              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
 			            <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
@@ -425,9 +426,9 @@ class SearchResult extends React.Component{
 			            <CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
 			              <button className="linkShare"></button>
 			            </CopyToClipboard>
-		            </div>
+				</div> }
 					<div className="rows">
-					  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+					  	{dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
 
 						{dataCardPolicyItem.length > 0 ?
 						  	<div>
