@@ -404,7 +404,7 @@ class HomeLazy extends React.Component {
 						</div>
 					</div>{/* end.rows */}
 
-					<section id="section_maps">
+					<section id="section_maps" className="homeMaps">
 						<div className="rows">
 						  <div className="search_row">
 						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder={defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} />
@@ -418,8 +418,14 @@ class HomeLazy extends React.Component {
 									title={defaultLangnya == 'id' ? 'Level Kewaspadaan COVID-19' : 'COVID-19 Travel Advisory Level'}
 									{...this.props}
 								/>
+
+								<div className="zoom_abs_desktop">
+									<div class="box"><img src="/assets/images/plus.png" /></div>
+									<div class="box"><img src="/assets/images/minus.png" /></div>
+								</div>
+
 								<div className="zoom_abs">
-									<img src="assets/images/icon_zoom.png" />
+									<img src="/assets/images/icon_zoom.png" />
 									<span>Zoom</span>
 								</div>
 						  	</div>

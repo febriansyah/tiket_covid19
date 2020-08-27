@@ -231,10 +231,18 @@ header{
     content: "";
     clear: both;
 }
+.homeMaps .search_row{
+    display: block;
+    max-width: 460px;
+    margin: 0 auto;
+}
 .main_title,
 .main_title_top { 
     text-align: center !important;
     display: block !important;
+}
+.titleMaps{
+    display: none !important;
 }
 .main_title h3 {
     font-size: 18px;
@@ -365,6 +373,7 @@ header{
     font-size: 13px;
     line-height: 17px;
     margin: 0;
+    color: #8c909e;
 }
 .block_info {
     display: block;
@@ -1039,15 +1048,31 @@ h3.mediumFont {
 .sourceName a {
     color: #98ade6;
 }
+.zoom_abs_desktop{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: inline-block;
+}
+.zoom_abs_desktop .box{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    background: #fff;
+    padding: 2px 5px;
+    margin-bottom: 5px;
+}
+.zoom_abs_desktop .box img{
+    max-width: 20px;
+}
 .zoom_abs {
     position: absolute;
-    display: inline-block;
     right: 0;
     bottom: 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     background: #fff;
     padding: 2px 5px;
+    display: none;
 }
 .zoom_abs img {
     max-width: 10px;
@@ -1958,6 +1983,9 @@ footer p{
     .sourceName a {
         color: #98ade6;
     }
+    .zoom_abs_desktop{
+        display: none;
+    }
     .zoom_abs {
         position: absolute;
         display: inline-block;
@@ -2098,6 +2126,9 @@ footer p{
         background: #fff;
     }
     .contSticky{
+        display: block;
+    }
+    .titleMaps{
         display: block;
     }
 }
