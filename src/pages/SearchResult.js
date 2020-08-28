@@ -12,7 +12,8 @@ import moment from 'moment';
 import $ from 'jquery';
 import NumberFormat from 'react-number-format';
 import ReadMoreReact from 'read-more-react';
-import Maps from './Maps';
+//import Maps from './Maps';
+import MapsLoadAwal from './MapsLoadAwal';
 import PopupForm from './PopupForm';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
@@ -288,10 +289,9 @@ class SearchResult extends React.Component{
 					</div>
 				)}
 
-				<div className="rows">
+<div className="rows">
 			        <div className="relative">
-					{!this.state.loading && dataItem &&  dataCard && (
-						<Maps
+						<MapsLoadAwal
 							parentName='Search'
 							homeZoomLevel={5}
 							countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
@@ -300,9 +300,9 @@ class SearchResult extends React.Component{
 							latitude={parseFloat(latitude)}
 							loading={this.state.loading}
 							{...this.props}
-						/>)}
+						/>
 						
-						{!this.state.loading && dataItem && (
+						{!this.state.loading && (
 							<div className="zoom_abs">
 								<img src={host+"/assets/images/icon_zoom.png"} />
 								<span>Zoom</span>
@@ -425,7 +425,7 @@ class SearchResult extends React.Component{
 			            </CopyToClipboard>
 				</div> }
 					<div className="rows">
-					  	{!this.state.loading && dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+					  	{!this.state.loading && dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
 						
 						{!this.state.loading && dataCardPolicyItem.length > 0 ?
 						  	<div>
