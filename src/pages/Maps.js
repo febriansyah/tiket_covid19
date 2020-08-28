@@ -77,16 +77,15 @@ const Maps = (props) => {
     }
 
     useLayoutEffect(() => {
-
-        am4core.options.onlyShowOnViewport=true;
-        am4core.options.queue=true;
         let chart = am4core.create("chart", am4maps.MapChart);
+        let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
         
-        //let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
         chart.geodata = am4geodata_worldLow;
-        chart.projection = new am4maps.projections.Miller();
+      
+		chart.projection = new am4maps.projections.Miller();
 		chart.homeZoomLevel = homeZoomLevel;
         chart.homeGeoPoint = { longitude, latitude };
+     
         chart.logo.disabled = true;
         
         // This array will be populated with country IDs to exclude from the world series
@@ -109,7 +108,6 @@ const Maps = (props) => {
             }
   
             series.include = includedCountries;
-            series.minBulletDistance = 20;
             series.fill = am4core.color(group.color);
             series.setStateOnChildren = true;
             series.calculateVisualCenter = true;
@@ -199,7 +197,7 @@ const Maps = (props) => {
  
     return (
         <>
-            <div className="main_title titleMaps" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h3>{title}</h3>
             </div>
             <div className="frame_peta">
