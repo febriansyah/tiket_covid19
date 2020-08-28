@@ -78,7 +78,7 @@ const MapsLoadAwal = (props) => {
 
     useEffect(() => {
 
-        am4core.options.onlyShowOnViewport=false;
+        am4core.options.onlyShowOnViewport=true;
         am4core.options.queue=false;
         let chart = am4core.create("chart", am4maps.MapChart);
         
@@ -205,6 +205,8 @@ const MapsLoadAwal = (props) => {
             <div className="frame_peta">
                 <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
             </div>
+            	
+					
         </>
     )
 }
