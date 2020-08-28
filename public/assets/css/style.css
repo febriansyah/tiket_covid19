@@ -853,6 +853,9 @@ h3.mediumFont {
     overflow: hidden;
     text-align: left;
 }
+.box_popup_search .main_title{
+    text-align: left !important;
+}
 .box_popup_search_auto {
     min-width: 320px;
     display: inline-block;
