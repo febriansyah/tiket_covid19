@@ -78,10 +78,10 @@ const Maps = (props) => {
 
     useLayoutEffect(() => {
 
-        
-        let chart = am4core.create("chart", am4maps.MapChart);
         am4core.options.onlyShowOnViewport=true;
         am4core.options.queue=true;
+        let chart = am4core.create("chart", am4maps.MapChart);
+        
         //let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
         chart.geodata = am4geodata_worldLow;
         chart.projection = new am4maps.projections.Miller();
