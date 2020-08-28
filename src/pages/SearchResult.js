@@ -425,7 +425,7 @@ class SearchResult extends React.Component{
 			            </CopyToClipboard>
 				</div> }
 					<div className="rows">
-					  	{!this.state.loading && dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
+					  	{!this.state.loading && dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
 						
 						{!this.state.loading && dataCardPolicyItem.length > 0 ?
 						  	<div>
