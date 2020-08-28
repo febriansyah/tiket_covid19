@@ -109,6 +109,7 @@ const Maps = (props) => {
             }
   
             series.include = includedCountries;
+            series.minBulletDistance = 20;
             series.fill = am4core.color(group.color);
             series.setStateOnChildren = true;
             series.calculateVisualCenter = true;
