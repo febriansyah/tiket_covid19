@@ -13,6 +13,10 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
+am4core.options.queue = true;
+am4core.options.onlyShowOnViewport = true;
+am4core.options.minPolylineStep = 2.0;
+am4core.options.animationsEnabled = false;
 
 const host = 'https://tiketsafe.com';
 
@@ -41,11 +45,12 @@ const Maps = (props) => {
     }, [])
 
     const getCountryStatus = () => {
-      
-
-        axios.get('https://api.tiketsafe.com/api/v2/country-status')
-  .then(function (res) {
-      
+        axios({
+            type: 'get',
+            url:`https://api.tiketsafe.com/api/v2/country-status`,
+            headers
+        })
+        .then(res => {
             // console.log(res, 'res country status');
 
             let remapWorldMap = [];
@@ -94,9 +99,10 @@ const Maps = (props) => {
         // Create a series for each group, and populate the above array
         listWorldMap.forEach(function(group) {
             let series = chart.series.push(new am4maps.MapPolygonSeries());
-  
+            
             series.name = group.name;
             series.useGeodata = true;
+            series.minBulletDisatance = 40;
   
             let includedCountries = [];
   
@@ -115,7 +121,7 @@ const Maps = (props) => {
             let mapPolygonTemplate = series.mapPolygons.template;
             // Instead of our custom title, we could also use {name} which comes from geodata  
             mapPolygonTemplate.fill = am4core.color(group.color);
-            mapPolygonTemplate.fillOpacity = 0.8;
+            mapPolygonTemplate.fillOpacity = 1 || 0.8;
             mapPolygonTemplate.nonScalingStroke = true;
             mapPolygonTemplate.tooltipPosition = "fixed"
           
@@ -164,7 +170,7 @@ const Maps = (props) => {
         worldSeries.name = worldSeriesName;
         worldSeries.useGeodata = true;
         worldSeries.exclude = excludedCountries;
-        worldSeries.fillOpacity = 0.8;
+        worldSeries.fillOpacity = 1 || 0.8;
         worldSeries.hiddenInLegend = true;
         worldSeries.mapPolygons.template.nonScalingStroke = true;
           
