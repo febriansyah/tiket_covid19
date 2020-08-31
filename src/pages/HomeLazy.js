@@ -405,13 +405,12 @@ class HomeLazy extends React.Component {
 					</div>{/* end.rows */}
 
 					<section id="section_maps">
-						<div className="rows" onClick={() => this.setState({ openPopup: true })}>
+					<div className="rows">
 						  <div className="search_row">
 						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder={defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} />
-						    <div className="overlay_trigger"></div>
+						    <div onClick={this.popupShow} className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>
 						  </div>
 						</div>{/* end.rows */}
-
 						<div className="rows">
 							<div className="relative">
 								<Maps
