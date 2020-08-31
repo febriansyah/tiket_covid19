@@ -36,21 +36,22 @@ class SearchResult extends React.Component{
 			valueCopy: urlCop,
 		    copied: false,
 	   };
+	  
+	   this.goBack = this.goBack.bind(this);
 	}
 
-
+	goBack() {
+	    this.props.history.goBack();
+	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ loading: true });
-		this.setState({ dataItem: null});
-		this.setState({ dataCard: []});
 		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
 			$(".halBefore-kuis").fadeIn();
-			
 
 			this.setState({
 				dataItem: null,
-				readyDataCard: false
+				readyDataCard: false,
+				loading: true,
 			}, () => {
 				this.getCountryByCode(nextProps.match.params.countryCode, nextProps.match.params.kota);
 				//this.getarrItems(nextProps.match.params.countryCode);
@@ -68,10 +69,12 @@ class SearchResult extends React.Component{
 		//this.getarrItems(this.props.match.params.countryCode);
 
 		let param = this.props.match.params.kota;
-		
-		{!!(param) ? this.getCountryByCode(this.props.match.params.countryCode, param):
-			this.getCountryByCode(this.props.match.params.countryCode, '');
-		}
+
+		this.setState({ loading: true }, () => {
+			{!!(param) ? this.getCountryByCode(this.props.match.params.countryCode, param):
+				this.getCountryByCode(this.props.match.params.countryCode, '');
+			}
+		});
 	}
 
 	getCountryByCode(countryCode, kota) {
@@ -79,7 +82,13 @@ class SearchResult extends React.Component{
 		this.props.changeSelectedCountryCode(countryCode);
 	
 		if (!kota || kota === '') {
-			axios.get(apiUrl + 'country?lang='+this.state.defaultLangnya+`&countryCode=${countryCode}`)
+			axios({
+				method: 'get',
+				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`,
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
+			})
 			.then(res => {
 				//console.log(res.data.data[0].items, 'res country by CODE');
 				
@@ -95,10 +104,10 @@ class SearchResult extends React.Component{
 				this.setState({ dataItem: arrData }, () => {
 					this.setState({ dataCard:arrItems });
 					$(".halBefore-kuis").fadeOut();
-					this.setState({ loading: false });
 					this.setState({ dataCardPolicy:[]});
+
 					setTimeout(() => {
-						this.setState({ readyDataCard: true });
+						this.setState({ readyDataCard: true, loading: false });
 					}, 500);
 				})
 			})
@@ -106,8 +115,13 @@ class SearchResult extends React.Component{
 				this.setState({ loading: false });
 			})
 		} else {
-			
-			axios.get(apiUrl + 'country?lang='+this.state.defaultLangnya+`&countryCode=${countryCode}`+`&airportCode=${kota}`)
+			axios({
+				method: 'get',
+				url:apiUrl + `country?lang=`+this.state.defaultLangnya+`&countryCode=${countryCode}`+`&airportCode=${kota}`,
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
+			})
 			.then(res => {
 				// console.log(res.data.data[0].items, 'res country by CITY');
 				
@@ -172,17 +186,20 @@ class SearchResult extends React.Component{
 		dataLayer.push({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
 		console.log(dataLayer)
 	}
+	
 	onCopy = () => {
 	    this.setState({copied: true});
 	    $("#linkCopied").fadeIn();
 	     setTimeout(function() { 
 	      $("#linkCopied").fadeOut();
 	    }, 2000);
-	  };
-	  urlCopy = () => {
+	};
+
+	urlCopy = () => {
 	    let urlnya = window.location.href;
 	    return urlnya;
-	  }
+	}
+
 	renderdetailinfo(dataCard, defaultLangnya) {
 		return dataCard.map((carding, i) =>
 			<Fragment key={i}>
@@ -191,7 +208,10 @@ class SearchResult extends React.Component{
 						<div className="detail-text-project">
 							<h3>{carding.name}</h3>
 							<div>
-								{this.state.readyDataCard && <div dangerouslySetInnerHTML={{ __html: carding.description }} />}
+								{this.state.readyDataCard && <ReadMoreReact
+									text={carding.description}
+									readMoreText={defaultLangnya == 'id' ? 'Selengkapnya' : 'Read More'}
+								/>}
 							</div>
 						</div>{/*><!--end.detail-text-project-->*/}
 					</div>
@@ -219,6 +239,7 @@ class SearchResult extends React.Component{
 			increaseConfirm = dataItem.increaseCountryCovidCase.casePositive;
 			increaseDeaths = dataItem.increaseCountryCovidCase.caseDeaths;
 			increaseRecovered = dataItem.increaseCountryCovidCase.caseRecovered;
+
 			increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
 
 
@@ -227,11 +248,6 @@ class SearchResult extends React.Component{
 				confirmed = dataCardPolicy.casePositive;
 				deaths = dataCardPolicy.caseDeaths;
 				recovered = dataCardPolicy.caseRecovered;
-
-				increaseConfirm = dataItem.increaseProvinceCovidCase.casePositive;
-				increaseDeaths = dataItem.increaseProvinceCovidCase.caseDeaths;
-				increaseRecovered = dataItem.increaseProvinceCovidCase.caseRecovered;
-				increaseActived = increaseConfirm - increaseRecovered - increaseDeaths;
 			}
 
 			countryName = dataItem.countryName;
@@ -248,7 +264,6 @@ class SearchResult extends React.Component{
 		
 		return (
 			<div id="middle-content" className="homePage">
-
 				<div id="linkCopied">
 			        <p>{defaultLangnya == 'id' ? 'Link sudah disalin!' : 'Link is copied!'}</p>
 			    </div>
@@ -259,7 +274,6 @@ class SearchResult extends React.Component{
 				  </div>
 				)}
 
-				
 			    <section id="section_maps">
 			
 				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
@@ -277,7 +291,7 @@ class SearchResult extends React.Component{
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
 
-				{!this.state.loading && dataItem &&(
+				{!this.state.loading && (
 					<div className="rows">
 						<div className="block_shadow">
 						<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
@@ -290,7 +304,6 @@ class SearchResult extends React.Component{
 
 				<div className="rows">
 			        <div className="relative">
-					{!this.state.loading && dataItem &&  dataCard && (
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}
@@ -298,15 +311,20 @@ class SearchResult extends React.Component{
 							countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
 							longitude={parseFloat(longitude)}
 							latitude={parseFloat(latitude)}
-							loading={this.state.loading}
+							readyMap={this.state.loading ? false : true}
 							{...this.props}
-						/>)}
+						/>
 						
-						{!this.state.loading && dataItem && (
-							<div className="zoom_abs">
-								<img src={host+"/assets/images/icon_zoom.png"} />
-								<span>Zoom</span>
+						{!this.state.loading && (
+
+							<div className="zoom_abs_desktop">
+							<div class="box"><img src="/assets/images/plus.png" /></div>
+							<div class="box"><img src="/assets/images/minus.png" /></div>
 							</div>
+							// <div className="zoom_abs">
+							// 	<img src={host+"/assets/images/icon_zoom.png"} />
+							// 	<span>Zoom</span>
+							// </div>
 						)}
 			        </div>
 			      </div>
@@ -327,12 +345,12 @@ class SearchResult extends React.Component{
 				
 			    <section id="section_result_maps">
 
-				{!this.state.loading &&  dataItem && dataCard && (
+				{!this.state.loading && (
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
 			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName}</h4>
-			            <p className={`green ${increaseConfirm <= 0 ? '' : 'hide'}`}>No new cases in {countryName} for 1 day</p>
+			            <p className={`green ${increaseConfirm >= 0 ? 'hide' : ''}`}>No new cases in {countryName} for 1 day</p>
 			          </div>
 			          {/* <div className="right">
 			            <a href="#" className="arrow_up"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
@@ -341,7 +359,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{!this.state.loading &&  dataItem &&  (
+				{!this.state.loading && (
 			      <div className="rows">
 			        <div className="block_shadow infodetail_cause">
 			          <div className="row-list">
@@ -370,7 +388,7 @@ class SearchResult extends React.Component{
 			            </div>
 			            <div className="cols4">
 			              <div className="info_cause">
-			              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'green'}`}>
+			              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'red'}`}>
 			                	{increaseRecovered > 0 ? '+' : ''} <NumberFormat value={increaseRecovered} displayType={'text'} thousandSeparator={true}/>
 			                </span>
 			                <h4 className="number_cause">
@@ -400,7 +418,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{dataCard && dataItem &&  (
+				{dataItem && (
 				  <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
@@ -415,7 +433,6 @@ class SearchResult extends React.Component{
 
 
 		        <div className="contSticky">
-				{ dataItem &&
 		        	<div className="shareSocmed">
 		              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
 			            <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
@@ -423,11 +440,11 @@ class SearchResult extends React.Component{
 			            <CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
 			              <button className="linkShare"></button>
 			            </CopyToClipboard>
-				</div> }
+		            </div>
 					<div className="rows">
-					  	{!this.state.loading && dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
-						
-						{!this.state.loading && dataCardPolicyItem.length > 0 ?
+					  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+
+						{dataCardPolicyItem.length > 0 ?
 						  	<div>
 								{dataCardPolicyItem.map((item, k) => (
 								
@@ -455,15 +472,7 @@ class SearchResult extends React.Component{
 				<PopupForm selectedCountryCode={countryCode}/>
 				<StickyShare url={window.location.href} pathGtm='destination' />
 			  </div>{/* end.wrapper */}
-			  <div>
-			  {dataCard && dataItem &&  (
-				<footer>
-					<p>© 2011-2020 PT. Global Tiket Network. All Rights Reserved</p>
-				</footer>
-			  )}
 			</div>
-			</div>
-			
 		)
 	}
 }

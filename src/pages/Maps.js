@@ -28,7 +28,8 @@ const Maps = (props) => {
         homeZoomLevel,
         countryName,
         latitude,
-        longitude
+        longitude,
+        readyMap,
     } = props;
 
     const history = useHistory();
@@ -82,6 +83,8 @@ const Maps = (props) => {
     }
 
     useLayoutEffect(() => {
+        if (readyMap === false) return;
+        
         let chart = am4core.create("chart", am4maps.MapChart);
         let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
         
@@ -97,6 +100,7 @@ const Maps = (props) => {
         let excludedCountries = [];
         
         // Create a series for each group, and populate the above array
+        
         listWorldMap.forEach(function(group) {
             let series = chart.series.push(new am4maps.MapPolygonSeries());
             
@@ -198,8 +202,10 @@ const Maps = (props) => {
         
     }, [
         listWorldMap,
-        latitude
+        readyMap
     ])
+
+    console.log(readyMap, 'loading');
  
     return (
         <>
@@ -207,7 +213,9 @@ const Maps = (props) => {
                 <h3>{title}</h3>
             </div>
             <div className="frame_peta">
-                <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
+                {readyMap ? <div id='chart' style={{maxWidth: '100%', height: '250px'}} />
+                : <div style={{maxWidth: '100%', height: '250px', backgroundColor: '#F4F4F4'}} />
+                }
             </div>
         </>
     )
