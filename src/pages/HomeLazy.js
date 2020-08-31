@@ -405,7 +405,7 @@ class HomeLazy extends React.Component {
 					</div>{/* end.rows */}
 
 					<section id="section_maps">
-					<div className="rows">
+					<div className="rows homeMaps">
 						  <div className="search_row">
 						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder={defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} />
 						    <div onClick={this.popupShow} className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>

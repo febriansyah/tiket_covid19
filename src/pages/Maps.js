@@ -209,7 +209,7 @@ const Maps = (props) => {
  
     return (
         <>
-            <div className="main_title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div className="main_title titleMaps" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <h3>{title}</h3>
             </div>
             <div className="frame_peta">

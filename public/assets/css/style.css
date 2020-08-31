@@ -266,6 +266,7 @@ header{
     top: 0;
     background: 0 0;
     z-index: 1;
+    cursor: pointer;
 }
 .search_input {
     display: block;
@@ -625,6 +626,7 @@ h3.mediumFont {
     margin-bottom: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    cursor: pointer;
 }
 #tnc-accodion .page {
     position: relative;
@@ -741,6 +743,7 @@ h3.mediumFont {
 }
 #middle-content {
     padding-top: 70px;
+    min-height: 100vh;
 }
 #middle-content.innerPages{
     padding-top: 60px;
@@ -809,6 +812,7 @@ h3.mediumFont {
 }
 .overflow_table {
     overflow-x: scroll;
+    max-width: 650px;
 }
 .popup_slider .content_slide_btm {
     position: fixed;
@@ -877,7 +881,7 @@ h3.mediumFont {
     display: block;
     padding: 10px 0;
     max-height: 280px;
-    overflow: scroll;
+    overflow: auto;
 }
 .row_result_autocomplete {
     display: block;
@@ -1291,6 +1295,7 @@ footer p{
         top: 0;
         background: 0 0;
         z-index: 1;
+        cursor: pointer;
     }
     .search_input,.top_bg_section .search_input{
         display: block;
@@ -1617,6 +1622,7 @@ footer p{
         margin-bottom: 20px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         overflow: hidden;
+        cursor: pointer;
     }
     #tnc-accodion .page {
         position: relative;
