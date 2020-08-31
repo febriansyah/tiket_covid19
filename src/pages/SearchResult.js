@@ -312,15 +312,16 @@ class SearchResult extends React.Component{
 						/>
 						
 						{!this.state.loading && (
-
-							<div className="zoom_abs_desktop">
-							<div class="box"><img src="/assets/images/plus.png" /></div>
-							<div class="box"><img src="/assets/images/minus.png" /></div>
+							<div>
+								<div className="zoom_abs_desktop">
+									<div class="box"><img src="/assets/images/plus.png" /></div>
+									<div class="box"><img src="/assets/images/minus.png" /></div>
+								</div>
+									<div className="zoom_abs">
+									<img src={host+"/assets/images/icon_zoom.png"} />
+									<span>Zoom</span>
+								</div>
 							</div>
-							// <div className="zoom_abs">
-							// 	<img src={host+"/assets/images/icon_zoom.png"} />
-							// 	<span>Zoom</span>
-							// </div>
 						)}
 			        </div>
 			      </div>

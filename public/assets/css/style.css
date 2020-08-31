@@ -1106,6 +1106,17 @@ h3.mediumFont {
     display: inline-block;
     padding-top: 40vh;
 }
+#skeleton_desktop{
+    position: fixed;
+    z-index: 9999999;
+    background:rgba(255,255,255,1);
+    text-align: center;
+    padding-top: 125px;
+    display: block;
+}
+#skeleton_mobile{
+    display: none;
+}
 .skeletonLoading {
     position: fixed;
     width: 100%;
@@ -1124,6 +1135,9 @@ h3.mediumFont {
     width: 50%;
     margin: 1rem 0;
     border-radius: 3px;
+}
+#skeleton_desktop .card__title.loading{
+    display: inline-block;
 }
 .card__titleFull.loading {
     height: 1.3rem;
@@ -1177,6 +1191,30 @@ h3.mediumFont {
     background: -webkit-linear-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0)));
     background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
     animation: loading 0.8s infinite;
+}
+#skeleton_desktop .card__description.loading{
+    display: inline-block;
+    width: 460px;
+}
+#skeleton_desktop .card__image.loading{
+    height: 340px;
+}
+#skeleton_desktop .card__title2.loading{
+    display: inline-block;
+    width: 28%;
+    margin: 1rem 15px;
+}
+#skeleton_desktop .block_policy{
+    display: inline-block;
+    width: 28%;
+    margin: 0 15px;
+}
+#skeleton_desktop .block_policy .caption_policy{
+    width: 55%;
+}
+#skeleton_desktop .block_policy .caption_policy .card__title2{
+    width: 100%;
+    margin: 0.5rem 0px;
 }
 @keyframes loading {
     100% {
@@ -2029,6 +2067,12 @@ footer p{
         max-width: 100px;
         display: inline-block;
         padding-top: 40vh;
+    }
+    #skeleton_desktop{
+        display: none;
+    }
+    #skeleton_mobile{
+        display: block;
     }
     .skeletonLoading {
         position: fixed;

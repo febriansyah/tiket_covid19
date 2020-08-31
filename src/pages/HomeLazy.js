@@ -392,7 +392,6 @@ class HomeLazy extends React.Component {
 
 		return (
 			<div id="middle-content" className="homePage">
-				
 				<div className="top_section">
 					<div className="wrapper">
 					<div className="rows">
@@ -423,10 +422,10 @@ class HomeLazy extends React.Component {
 									<div class="box"><img src="/assets/images/plus.png" /></div>
 									<div class="box"><img src="/assets/images/minus.png" /></div>
 								</div>
-								{/* <div className="zoom_abs">
+								<div className="zoom_abs">
 									<img src="assets/images/icon_zoom.png" />
 									<span>Zoom</span>
-								</div> */}
+								</div> 
 						  	</div>
 						  <div className="legend_info">
 						    <div className="row_legend">
