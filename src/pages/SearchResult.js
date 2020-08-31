@@ -37,11 +37,6 @@ class SearchResult extends React.Component{
 		    copied: false,
 	   };
 	  
-	   this.goBack = this.goBack.bind(this);
-	}
-
-	goBack() {
-	    this.props.history.goBack();
 	}
 
 	componentWillReceiveProps(nextProps) {
