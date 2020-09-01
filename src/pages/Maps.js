@@ -39,6 +39,7 @@ const Maps = (props) => {
     // console.log(listWorldMap, 'listWorldMap');
     
     useEffect(() => {
+        if (readyMap === false) return;
         if (listWorldMap.length === 0 ) {
             console.log('overhere');
             getCountryStatus();
@@ -73,8 +74,8 @@ const Maps = (props) => {
                 })
             }
            //console.log(remapWorldMap,'sss');
-           localStorage.setItem('request:worlds-maps', JSON.stringify(remapWorldMap));
-           //localStorage.getItem('request:worlds-maps');
+        //    localStorage.setItem('request:worlds-maps', JSON.stringify(remapWorldMap));
+        //    localStorage.clear();
             setListWorldMap(remapWorldMap);
             setLoading(false);
         })
