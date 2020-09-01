@@ -272,64 +272,146 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 				  </div>
 				)}
+			  	<div className="searchResultMapsTop">
+			  	
 				 {!this.state.loading && dataItem &&  dataCard && ( 
 			    <section id="section_maps">
-			
-				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
-			      <img src={host+'/assets/images/icon_alert_warning.png'} className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
-			    </div>
+			    <div className="row-list">
 
-			    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
-			      <img src={host+'/assets/images/icon_alert_danger.png'} className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
-			    </div>
+				    <div className="cols2">
+				
+						<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
+					      <img src={host+'/assets/images/icon_alert_warning.png'} className="icon_alert" alt='alert' />
+					      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
+					    </div>
 
-			    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
-			      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
-			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
-			    </div>
+					    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
+					      <img src={host+'/assets/images/icon_alert_danger.png'} className="icon_alert" alt='alert' />
+					      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
+					    </div>
 
-				{!this.state.loading && dataItem && dataCard &&(
-					<div className="rows">
-						<div className="block_shadow">
-						<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-							<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
-								<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
-							</div>
-						</div>
-					</div>
-				)}
+					    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
+					      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
+					      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
+					    </div>
 
-				<div className="rows">
-			        <div className="relative">
-					 {!this.state.loading && dataItem &&  dataCard && ( 
-						<Maps
-							parentName='Search'
-							homeZoomLevel={5}
-							countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
-							countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
-							longitude={parseFloat(longitude)}
-							latitude={parseFloat(latitude)}
-							readyMap={this.state.loading ? false : true}
-							{...this.props}
-						/>
-					)}
-						
-					{!this.state.loading && dataItem && (
-							<div>
-								<div className="zoom_abs_desktop">
-									<div class="box"><img src="/assets/images/plus.png" /></div>
-									<div class="box"><img src="/assets/images/minus.png" /></div>
-								</div>
-									<div className="zoom_abs">
-									<img src={host+"/assets/images/icon_zoom.png"} />
-									<span>Zoom</span>
+						{!this.state.loading && dataItem && dataCard &&(
+							<div className="rows">
+								<div className="block_shadow">
+								<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
+									<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
+										<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
+									</div>
 								</div>
 							</div>
 						)}
-			        </div>
-			      </div>
+
+						<div className="rows">
+					        <div className="relative">
+							 {!this.state.loading && dataItem &&  dataCard && ( 
+								<Maps
+									parentName='Search'
+									homeZoomLevel={5}
+									countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
+									countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
+									longitude={parseFloat(longitude)}
+									latitude={parseFloat(latitude)}
+									readyMap={this.state.loading ? false : true}
+									{...this.props}
+								/>
+							)}
+								
+							{!this.state.loading && dataItem && (
+									<div>
+										<div className="zoom_abs_desktop">
+											<div class="box"><img src="/assets/images/plus.png" /></div>
+											<div class="box"><img src="/assets/images/minus.png" /></div>
+										</div>
+											<div className="zoom_abs">
+											<img src={host+"/assets/images/icon_zoom.png"} />
+											<span>Zoom</span>
+										</div>
+									</div>
+								)}
+					        </div>
+					      </div>
+				      </div>{/*end.cols2 */}
+				    
+				    <div className="cols2">
+
+					{!this.state.loading &&  dataItem && dataCard && (
+				      <div className="rows">
+				        <div className="inner_section tabs_title">
+				          <div className="left">
+				            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName}</h4>
+				            <p className={`green ${increaseConfirm >= 0 ? 'hide' : ''}`}>No new cases in {countryName} for 1 day</p>
+				          </div>
+				          {/* <div className="right">
+				            <a href="#" className="arrow_up"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
+				          </div> */}
+				        </div>
+				      </div>
+					)}
+					{!this.state.loading &&  dataItem && dataCard &&  (
+				      <div className="rows">
+				        <div className="block_shadow infodetail_cause">
+				          <div className="row-list">
+				            <div className="cols4">
+				              <div className="info_cause">
+				              	<span className={`growth ${increaseActived <= 0 ? 'green' : 'red'}`}>
+				                	{increaseActived > 0 ? '+' : ''} <NumberFormat value={increaseActived} displayType={'text'} thousandSeparator={true}/>
+				                </span>
+				                <h4 className="number_cause">
+				                	<NumberFormat value={confirmed - recovered - deaths} displayType={'text'} thousandSeparator={true}/>
+				                </h4>
+				                <p>{defaultLangnya == 'id' ? 'Kasus Aktif' : 'Active Cases'}</p>
+				              </div>
+				            </div>
+				            <div className="cols4">
+				              <div className="info_cause">
+				              	<span className={`growth ${increaseConfirm <= 0 ? 'green' : 'red'}`}>
+				                	{increaseConfirm > 0 ? '+' : ''} <NumberFormat value={increaseConfirm} displayType={'text'} thousandSeparator={true}/>
+				                </span>
+
+				                <h4 className="number_cause">
+				                	<NumberFormat value={confirmed} displayType={'text'} thousandSeparator={true}/>
+				                </h4>
+				                <p>{defaultLangnya == 'id' ? 'Total' : 'Total'}</p>
+				              </div>
+				            </div>
+				            <div className="cols4">
+				              <div className="info_cause">
+				              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'red'}`}>
+				                	{increaseRecovered > 0 ? '+' : ''} <NumberFormat value={increaseRecovered} displayType={'text'} thousandSeparator={true}/>
+				                </span>
+				                <h4 className="number_cause">
+				                	<NumberFormat value={recovered} displayType={'text'} thousandSeparator={true}/>
+				                </h4>
+				                <p>{defaultLangnya == 'id' ? 'Sembuh' : 'Recoveries'}</p>
+				              </div>
+				            </div>
+				            <div className="cols4">
+				              <div className="info_cause">
+				              	<span className={`growth ${increaseDeaths <= 0 ? 'green' : 'red'}`}>
+				                	{increaseDeaths > 0 ? '+' : ''} <NumberFormat value={increaseDeaths} displayType={'text'} thousandSeparator={true}/>
+				                </span>
+				                <h4 className="number_cause">
+				                	<NumberFormat value={deaths} displayType={'text'} thousandSeparator={true}/>
+				                </h4>
+				                <p>{defaultLangnya == 'id' ? 'Meninggal' : 'Deaths'}</p>
+				              </div>
+				            </div>
+				          </div>
+
+							<span className="sourceName hide">{defaultLangnya == 'id' ? 'Data dari' : 'Source data by'} <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
+
+							<span className="sourceNameRight hide">{defaultLangnya == 'id' ? 'Data 3 hari terakhir' : 'Last 3 days data'}</span>
+				        </div>
+
+				      </div>
+					)}
+					</div>{/*end.cols2 */}
+				</div>{/*end.rowlist */}
 
 			    </section>
 				 )}
@@ -345,81 +427,14 @@ class SearchResult extends React.Component{
 						</div>
 					</div>
 				)}
+
+			</div>{/*end.searchResultMapsTop */}
 				
 			    <section id="section_result_maps">
 
-				{!this.state.loading &&  dataItem && dataCard && (
-			      <div className="rows">
-			        <div className="inner_section tabs_title">
-			          <div className="left">
-			            <h4>{defaultLangnya == 'id' ? 'Kasus COVID-19 di' : 'COVID-19 Cases in'} {countryName}</h4>
-			            <p className={`green ${increaseConfirm >= 0 ? 'hide' : ''}`}>No new cases in {countryName} for 1 day</p>
-			          </div>
-			          {/* <div className="right">
-			            <a href="#" className="arrow_up"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
-			          </div> */}
-			        </div>
-			      </div>
-				)}
+				
 
-				{!this.state.loading &&  dataItem && dataCard &&  (
-			      <div className="rows">
-			        <div className="block_shadow infodetail_cause">
-			          <div className="row-list">
-			            <div className="cols4">
-			              <div className="info_cause">
-			              	<span className={`growth ${increaseActived <= 0 ? 'green' : 'red'}`}>
-			                	{increaseActived > 0 ? '+' : ''} <NumberFormat value={increaseActived} displayType={'text'} thousandSeparator={true}/>
-			                </span>
-			                <h4 className="number_cause">
-			                	<NumberFormat value={confirmed - recovered - deaths} displayType={'text'} thousandSeparator={true}/>
-			                </h4>
-			                <p>{defaultLangnya == 'id' ? 'Kasus Aktif' : 'Active Cases'}</p>
-			              </div>
-			            </div>
-			            <div className="cols4">
-			              <div className="info_cause">
-			              	<span className={`growth ${increaseConfirm <= 0 ? 'green' : 'red'}`}>
-			                	{increaseConfirm > 0 ? '+' : ''} <NumberFormat value={increaseConfirm} displayType={'text'} thousandSeparator={true}/>
-			                </span>
-
-			                <h4 className="number_cause">
-			                	<NumberFormat value={confirmed} displayType={'text'} thousandSeparator={true}/>
-			                </h4>
-			                <p>{defaultLangnya == 'id' ? 'Total' : 'Total'}</p>
-			              </div>
-			            </div>
-			            <div className="cols4">
-			              <div className="info_cause">
-			              	<span className={`growth ${increaseRecovered <= 0 ? 'green' : 'red'}`}>
-			                	{increaseRecovered > 0 ? '+' : ''} <NumberFormat value={increaseRecovered} displayType={'text'} thousandSeparator={true}/>
-			                </span>
-			                <h4 className="number_cause">
-			                	<NumberFormat value={recovered} displayType={'text'} thousandSeparator={true}/>
-			                </h4>
-			                <p>{defaultLangnya == 'id' ? 'Sembuh' : 'Recoveries'}</p>
-			              </div>
-			            </div>
-			            <div className="cols4">
-			              <div className="info_cause">
-			              	<span className={`growth ${increaseDeaths <= 0 ? 'green' : 'red'}`}>
-			                	{increaseDeaths > 0 ? '+' : ''} <NumberFormat value={increaseDeaths} displayType={'text'} thousandSeparator={true}/>
-			                </span>
-			                <h4 className="number_cause">
-			                	<NumberFormat value={deaths} displayType={'text'} thousandSeparator={true}/>
-			                </h4>
-			                <p>{defaultLangnya == 'id' ? 'Meninggal' : 'Deaths'}</p>
-			              </div>
-			            </div>
-			          </div>
-
-						<span className="sourceName hide">{defaultLangnya == 'id' ? 'Data dari' : 'Source data by'} <a href="http://amcharts.com/" target="_blank">AMcharts</a></span>
-
-						<span className="sourceNameRight hide">{defaultLangnya == 'id' ? 'Data 3 hari terakhir' : 'Last 3 days data'}</span>
-			        </div>
-
-			      </div>
-				)}
+				
 
 				{!this.state.loading &&  dataCard && dataItem && (
 				  <div className="rows">

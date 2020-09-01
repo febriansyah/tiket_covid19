@@ -429,9 +429,25 @@ header{
     min-height: 1px;
     position: relative;
 }
+.infodetail_cause.block_shadow .cols4{
+    width: 50%;
+    margin-bottom: 30px;
+}
+.infodetail_cause.block_shadow{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
 .cols3 {
     float: left;
     width: 33.33%;
+    padding-right: 15px;
+    padding-left: 15px;
+    min-height: 1px;
+    position: relative;
+}
+.cols2 {
+    float: left;
+    width: 50%;
     padding-right: 15px;
     padding-left: 15px;
     min-height: 1px;
@@ -443,7 +459,7 @@ header{
     text-align: center;
 }
 .info_cause span {
-    font-size: 12px;
+    font-size: 18px;
     display: block;
 }
 .info_cause span.red {
@@ -458,12 +474,12 @@ header{
 .info_cause h4.number_cause,
 .info_cause h4.number_cause span {
     margin: 3px 0;
-    font-size: 14px;
+    font-size: 28px;
     color: #303135;
 }
 .info_cause p {
     margin: 0;
-    font-size: 12px;
+    font-size: 17px;
     color: #8a93a7;
     line-height: 14px;
 }
@@ -1269,6 +1285,8 @@ footer p{
     z-index: 999;
     background: #fff;
 }
+
+
 @media all and (max-width:1050px){
 
     .wrapper,.mid-wrapper{
@@ -2183,6 +2201,17 @@ footer p{
     }
     .titleMaps{
         display: block;
+    }
+    .searchResultMapsTop .cols2{
+        width: 100%;
+        padding: 0;
+    }
+    .infodetail_cause.block_shadow .cols4{
+        margin-bottom: 0;
+        width: 25%;
+    }
+    .infodetail_cause.block_shadow{
+        padding: 15px 20px;
     }
 }
 
