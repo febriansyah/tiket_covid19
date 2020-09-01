@@ -40,6 +40,9 @@ class SearchResult extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps) {
+		this.setState({ loading: true });
+		this.setState({ dataItem: null});
+		this.setState({ dataCard: []});
 		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
 			$(".halBefore-kuis").fadeIn();
 
@@ -269,7 +272,7 @@ class SearchResult extends React.Component{
 			    	<Link to="/" className="back_button"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
 				  </div>
 				)}
-
+				 {!this.state.loading && dataItem &&  dataCard && ( 
 			    <section id="section_maps">
 			
 				<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
@@ -287,7 +290,7 @@ class SearchResult extends React.Component{
 			      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
 			    </div>
 
-				{!this.state.loading && (
+				{!this.state.loading && dataItem && dataCard &&(
 					<div className="rows">
 						<div className="block_shadow">
 						<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
@@ -300,6 +303,7 @@ class SearchResult extends React.Component{
 
 				<div className="rows">
 			        <div className="relative">
+					 {!this.state.loading && dataItem &&  dataCard && ( 
 						<Maps
 							parentName='Search'
 							homeZoomLevel={5}
@@ -310,8 +314,9 @@ class SearchResult extends React.Component{
 							readyMap={this.state.loading ? false : true}
 							{...this.props}
 						/>
+					)}
 						
-						{!this.state.loading && (
+					{!this.state.loading && dataItem && (
 							<div>
 								<div className="zoom_abs_desktop">
 									<div class="box"><img src="/assets/images/plus.png" /></div>
@@ -327,6 +332,7 @@ class SearchResult extends React.Component{
 			      </div>
 
 			    </section>
+				 )}
 
 				{this.state.loading && (
 					<div className="halBefore-kuis">
@@ -342,7 +348,7 @@ class SearchResult extends React.Component{
 				
 			    <section id="section_result_maps">
 
-				{!this.state.loading && (
+				{!this.state.loading &&  dataItem && dataCard && (
 			      <div className="rows">
 			        <div className="inner_section tabs_title">
 			          <div className="left">
@@ -356,7 +362,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{!this.state.loading && (
+				{!this.state.loading &&  dataItem && dataCard &&  (
 			      <div className="rows">
 			        <div className="block_shadow infodetail_cause">
 			          <div className="row-list">
@@ -415,7 +421,7 @@ class SearchResult extends React.Component{
 			      </div>
 				)}
 
-				{dataItem && (
+				{!this.state.loading &&  dataCard && dataItem && (
 				  <div className="rows">
 			        <div className="important_things">
 			          <h3 className="mediumFont">{defaultLangnya == 'id' ? 'Hal Penting Untuk Diketahui' : 'Important Things to Know'}</h3>
@@ -430,16 +436,20 @@ class SearchResult extends React.Component{
 
 
 		        <div className="contSticky">
+				{!this.state.loading &&  dataCard && dataItem &&
 		        	<div className="shareSocmed">
+					
 		              <FacebookShareButton url={this.urlCopy()} className="facebookShare" />
 			            <TwitterShareButton url={this.urlCopy()}  className="twitterShare" />
 			            <WhatsappShareButton url={this.urlCopy()}  className="waShare" />
 			            <CopyToClipboard onCopy={this.onCopy} text={this.urlCopy()}>
 			              <button className="linkShare"></button>
 			            </CopyToClipboard>
-		            </div>
+						
+		            </div>}
+				
 					<div className="rows">
-					  	{dataCard && this.renderdetailinfo(dataCard, defaultLangnya)}
+					  	{!this.state.loading &&  dataCard && dataItem && this.renderdetailinfo(dataCard, defaultLangnya)}
 
 						{dataCardPolicyItem.length > 0 ?
 						  	<div>

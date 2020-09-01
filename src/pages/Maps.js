@@ -16,9 +16,8 @@ am4core.useTheme(am4themes_animated);
 am4core.options.queue = true;
 am4core.options.onlyShowOnViewport = true;
 am4core.options.minPolylineStep = 2.0;
-am4core.options.animationsEnabled = false;
+am4core.options.animationsEnabled = true;
 
-const host = 'https://tiketsafe.com';
 
 const Maps = (props) => {
     const {
@@ -38,9 +37,9 @@ const Maps = (props) => {
     const [loading, setLoading] = useState(true);
 
     // console.log(listWorldMap, 'listWorldMap');
-
+    
     useEffect(() => {
-        if (listWorldMap.length === 0 || parentName === 'Home') {
+        if (listWorldMap.length === 0 ) {
             getCountryStatus();
         }
     }, [])
@@ -52,11 +51,10 @@ const Maps = (props) => {
             headers
         })
         .then(res => {
-            // console.log(res, 'res country status');
-
+         
             let remapWorldMap = [];
 
-            localStorage.removeItem('request:worlds-maps');
+            //localStorage.removeItem('request:worlds-maps');
             
             if (res.data.status === 'success' && Array.isArray(res.data.data)) {
                 res.data.data.map((e) => {
@@ -73,7 +71,9 @@ const Maps = (props) => {
                     })     
                 })
             }
-
+           //console.log(remapWorldMap,'sss');
+           localStorage.setItem('request:worlds-maps', JSON.stringify(remapWorldMap));
+           //localStorage.getItem('request:worlds-maps');
             setListWorldMap(remapWorldMap);
             setLoading(false);
         })
@@ -193,7 +193,7 @@ const Maps = (props) => {
               let city = cities.mapImages.create();
               city.latitude = coords.latitude;
               city.longitude = coords.longitude;
-              city.tooltipText = title;
+              //city.tooltipText = title;
               return city;
         }
           
