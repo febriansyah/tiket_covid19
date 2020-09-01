@@ -13,10 +13,10 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 
 am4core.useTheme(am4themes_animated);
-am4core.options.queue = true;
+//am4core.options.queue = true;
 am4core.options.onlyShowOnViewport = true;
 am4core.options.minPolylineStep = 2.0;
-am4core.options.animationsEnabled = true;
+am4core.options.animationsEnabled = false;
 
 
 const Maps = (props) => {
@@ -40,6 +40,7 @@ const Maps = (props) => {
     
     useEffect(() => {
         if (listWorldMap.length === 0 ) {
+            console.log('overhere');
             getCountryStatus();
         }
     }, [])
