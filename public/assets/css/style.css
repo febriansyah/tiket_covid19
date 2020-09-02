@@ -433,9 +433,17 @@ header{
     width: 50%;
     margin-bottom: 30px;
 }
+.infodetail_cause.block_shadow .info_cause{
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 .infodetail_cause.block_shadow{
-    padding-top: 30px;
+    padding-top: 0px;
     padding-bottom: 30px;
+    box-shadow: none;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 .cols3 {
     float: left;
@@ -474,18 +482,17 @@ header{
 .info_cause h4.number_cause,
 .info_cause h4.number_cause span {
     margin: 3px 0;
-    font-size: 28px;
+    font-size: 20px;
     color: #303135;
 }
 .info_cause p {
     margin: 0;
-    font-size: 17px;
+    font-size: 14px;
     color: #8a93a7;
     line-height: 14px;
 }
 .infodetail_cause .cols4 {
-    padding-right: 0;
-    padding-left: 0;
+
 }
 h3.mediumFont {
     font-size: 18px;
@@ -1286,6 +1293,19 @@ footer p{
     background: #fff;
 }
 
+.block_searchResultShadow.block_shadow{
+    overflow: hidden;
+}
+.block_searchResultShadow.block_shadow h3{
+    float: left;
+}
+.block_searchResultShadow.block_shadow .block_info_notif{
+    display: inline-block;
+    float: right;
+    width: auto;
+    margin: 0;
+    padding: 5px 15px;
+}
 
 @media all and (max-width:1050px){
 
@@ -2212,6 +2232,21 @@ footer p{
     }
     .infodetail_cause.block_shadow{
         padding: 15px 20px;
+    }
+    .block_searchResultShadow.block_shadow h3,.block_searchResultShadow.block_shadow .block_info_notif{
+        float: none;
+        margin-top: 0px;
+        display: block;
+        width: 100%;
+        padding: 10px;
+    }
+    .infodetail_cause.block_shadow .info_cause{
+        box-shadow: none;
+        padding: 0;
+    }
+    .infodetail_cause.block_shadow{
+        padding: 15px 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 }
 

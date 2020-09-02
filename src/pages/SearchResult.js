@@ -276,35 +276,36 @@ class SearchResult extends React.Component{
 			  	
 				 {!this.state.loading && dataItem &&  dataCard && ( 
 			    <section id="section_maps">
-			    <div className="row-list">
-
-				    <div className="cols2">
+			    
 				
-						<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
-					      <img src={host+'/assets/images/icon_alert_warning.png'} className="icon_alert" alt='alert' />
-					      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
-					    </div>
+					<div className={`block_info alert_warning ${mapsColor != color.yellow && 'hide'}`}>
+				      <img src={host+'/assets/images/icon_alert_warning.png'} className="icon_alert" alt='alert' />
+				      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
+				    </div>
 
-					    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
-					      <img src={host+'/assets/images/icon_alert_danger.png'} className="icon_alert" alt='alert' />
-					      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
-					    </div>
+				    <div className={`block_info alert_danger ${mapsColor != color.red && 'hide'}`}>
+				      <img src={host+'/assets/images/icon_alert_danger.png'} className="icon_alert" alt='alert' />
+				      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
+				    </div>
 
-					    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
-					      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
-					      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
-					    </div>
+				    <div className={`block_info alert_safe ${mapsColor != color.green && 'hide'}`}>
+				      <img src={host+'/assets/images/icon_alert_safe.png'} className="icon_alert" alt='alert' />
+				      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
+				    </div>
 
-						{!this.state.loading && dataItem && dataCard &&(
-							<div className="rows">
-								<div className="block_shadow">
-								<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-									<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
-										<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
-									</div>
+					{!this.state.loading && dataItem && dataCard &&(
+						<div className="rows">
+							<div className="block_shadow block_searchResultShadow">
+							<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
+								<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
+									<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 								</div>
 							</div>
-						)}
+						</div>
+					)}
+					<div className="row-list">
+
+				    	<div className="cols2">
 
 						<div className="rows">
 					        <div className="relative">
