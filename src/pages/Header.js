@@ -27,7 +27,7 @@ class Header extends React.Component{
 				<div className="wrapperBig">
 					<div className="inner_section">
 						<div className="logo">
-							<a href="/">
+							<a href="https://www.tiket.com/">
 								<img src="/assets/images/tiket-com-blue@2x.png" alt='logo_tiket' />
 							</a>
 						</div>{/* end.logo */}
