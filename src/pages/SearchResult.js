@@ -40,10 +40,11 @@ class SearchResult extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ loading: true });
-		this.setState({ dataItem: null});
-		this.setState({ dataCard: []});
+		
 		if (this.props.match.params.countryCode !== nextProps.match.params.countryCode) {
+			this.setState({ loading: true });
+			this.setState({ dataItem: null});
+			this.setState({ dataCard: []});
 			$(".halBefore-kuis").fadeIn();
 
 			this.setState({
