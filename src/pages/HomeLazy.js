@@ -419,8 +419,8 @@ class HomeLazy extends React.Component {
 									{...this.props}
 								/>
 									<div className="zoom_abs_desktop">
-									<div class="box"><img src="/assets/images/plus.png" /></div>
-									<div class="box"><img src="/assets/images/minus.png" /></div>
+									<div className="box"><img src="/assets/images/plus.png" /></div>
+									<div className="box"><img src="/assets/images/minus.png" /></div>
 								</div>
 								<div className="zoom_abs">
 									<img src="assets/images/icon_zoom.png" />
@@ -496,6 +496,74 @@ class HomeLazy extends React.Component {
 									        <p>{defaultLangnya == 'id' ? 'Informasi terbaru tentang cara pembelian, refund, dan reschedule.' : 'Latest information on how to purchase, refund, and reschedule'}</p>
 									      </div>
 								      	</Link>
+								    </div>
+						    	</div>{/* end.cols3 */}
+						    </div>{/* end.row-list */}
+						  </div>
+						</div>
+					</section>
+
+					<section id="section_before_go">
+						<div className="rows">
+						  <div className="main_title">
+						    <h3>{defaultLangnya == 'id' ? 'Know Before You Go' : 'Know Before You Go'}</h3>
+						  </div>
+						</div>
+						<div className="rows">
+						  <div className="list_policy">
+						  	<div className="row-list">
+						  		<div className="cols3">
+								    <div className="block_policy">
+								      <Link to="/" >
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_check_all.png" alt='check_all' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Check All The Requirements Before You Fly' : 'Check All The Requirements Before You Fly'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Latest travel requirements from the government of your origin destination.' : 'Latest travel requirements from the government of your origin destination.'}</p>
+									      </div>
+								      </Link>
+								    </div>
+						    	</div>{/* end.cols3 */}
+						    </div>{/* end.row-list */}
+						  </div>
+						</div>
+					</section>
+
+					<section id="section_essential">
+						<div className="rows">
+						  <div className="main_title">
+						    <h3>{defaultLangnya == 'id' ? 'COVID-19 Essentials' : 'COVID-19 Essentials'}</h3>
+						  </div>
+						</div>
+						<div className="rows">
+						  <div className="list_policy">
+						  	<div className="row-list">
+						  		<div className="cols3">
+								    <div className="block_policy">
+								      <Link to="/" >
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_take_covide.png" alt='covid_test' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Take COVID-19 Test' : 'Take COVID-19 Test'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'A COVID-19-free health certificate is required to take air travel.' : 'A COVID-19-free health certificate is required to take air travel.'}</p>
+									      </div>
+								      </Link>
+								    </div>
+						    	</div>{/* end.cols3 */}
+
+						  		<div className="cols3">
+								    <div className="block_policy">
+										<Link to="/">
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_book_safe.png" alt='book_safe' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Book Safe Accommodations' : 'Book Safe Accommodations'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Accommodations with tiket CLEAN tag ensuring cleanliness with extra measures.' : 'Accommodations with tiket CLEAN tag ensuring cleanliness with extra measures.'}</p>
+									      </div>
+								      </Link>
 								    </div>
 						    	</div>{/* end.cols3 */}
 						    </div>{/* end.row-list */}
