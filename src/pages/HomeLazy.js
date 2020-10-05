@@ -90,11 +90,12 @@ class HomeLazy extends React.Component {
         }, 500);
     }
 
+
 	render() {
 		// console.log(this.state, 'home');
 
 		const {
-	      defaultLangnya, openPopup
+	      defaultLangnya, openPopup, dataEssential
 	    } = this.state;
 
 		return (
@@ -210,7 +211,7 @@ class HomeLazy extends React.Component {
 						</div>
 					</section>
 
-					<section id="section_before_go">
+					<section id="section_before_go" className="hide">
 						<div className="rows">
 						  <div className="main_title">
 						    <h3>{defaultLangnya == 'id' ? 'Know Before You Go' : 'Know Before You Go'}</h3>
@@ -246,33 +247,22 @@ class HomeLazy extends React.Component {
 						<div className="rows">
 						  <div className="list_policy">
 						  	<div className="row-list">
-						  		<div className="cols3">
-								    <div className="block_policy">
-								      <Link to="/" >
-									      <div className="icon_policy">
-									        <img src="/assets/images/icon_take_covide.png" alt='covid_test' />
-									      </div>
-									      <div className="caption_policy">
-									        <h3>{defaultLangnya == 'id' ? 'Take COVID-19 Test' : 'Take COVID-19 Test'}</h3>
-									        <p>{defaultLangnya == 'id' ? 'A COVID-19-free health certificate is required to take air travel.' : 'A COVID-19-free health certificate is required to take air travel.'}</p>
-									      </div>
-								      </Link>
-								    </div>
-						    	</div>{/* end.cols3 */}
 
-						  		<div className="cols3">
-								    <div className="block_policy">
-										<Link to="/">
-									      <div className="icon_policy">
-									        <img src="/assets/images/icon_book_safe.png" alt='book_safe' />
-									      </div>
-									      <div className="caption_policy">
-									        <h3>{defaultLangnya == 'id' ? 'Book Safe Accommodations' : 'Book Safe Accommodations'}</h3>
-									        <p>{defaultLangnya == 'id' ? 'Accommodations with tiket CLEAN tag ensuring cleanliness with extra measures.' : 'Accommodations with tiket CLEAN tag ensuring cleanliness with extra measures.'}</p>
-									      </div>
-								      </Link>
-								    </div>
-						    	</div>{/* end.cols3 */}
+						  		{dataEssential.map((itemE, k) => (
+						  			<div className="cols3"  key={k}>
+									    <div className="block_policy">
+									      <a href={itemE.landingPageURL}  >
+										      <div className="icon_policy">
+										        <img src={itemE.iconURL} alt='covid_test' />
+										      </div>
+										      <div className="caption_policy">
+										        <h3>{defaultLangnya == 'id' ? 'Take COVID-19 Test' : 'Take COVID-19 Test'}</h3>
+										        <p>{itemE.summary}</p>
+										      </div>
+									      </a>
+									    </div>
+							    	</div>
+								))}
 						    </div>{/* end.row-list */}
 						  </div>
 						</div>
