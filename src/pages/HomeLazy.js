@@ -59,8 +59,8 @@ class HomeLazy extends React.Component {
 			}
 		})
 		.then(res => {
-				essentialItems = JSON.stringify(res.data.data);
-				console.log('masuk '+(essentialItems.summary))
+				essentialItems = res.data.data;
+				console.log(essentialItems,'lalala')
 				
 				this.setState({dataEssential:essentialItems});
 				//console.log(this.state.dataEssential)
