@@ -111,67 +111,45 @@ class HomeLazy extends React.Component {
 						</div>
 					</div>{/* end.rows */}
 
-					<section id="section_maps_new">
-						<div className="rows homeMaps">
+					<section id="section_maps">
+					<div className="rows homeMaps">
 						  <div className="search_row">
 						    <input type="text" id="searchTrigger" className="search_input"   name="" placeholder={defaultLangnya == 'id' ? 'Mau ke mana?' : 'Going anywhere?'} />
 						    <div onClick={this.popupShow} className="overlay_trigger trigger_slider_search" data-slider="popup_search"></div>
 						  </div>
 						</div>{/* end.rows */}
 						<div className="rows">
-						  <div className="main_title">
-						    <h3>{defaultLangnya == 'id' ? 'Level Kewaspadaan COVID-19' : 'COVID-19 Travel Advisory Level'}</h3>
-						  </div>
-						</div>
-
-						<div className="rows">
-							<div className="list_maps_p">
-								<div className="row-list">
-									<div className="cols3">
-									    <div className="block_policy">
-									      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-										      <div className="icon_policy">
-										        <img src="/assets/images/icon_prohibited.png" alt='airline_logo' />
-										      </div>
-										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
-										        <p>{defaultLangnya == 'id' ? 'Hindari bila tidak penting, ada pembatasan untuk wisatawan tertentu.' : 'Avoid non-essential travel. Restrictions are applied to certain travelers.'}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-										      </div>
-									      </Link>
-									    </div>
-							    	</div>{/* end.cols3 */}
-									<div className="cols3">
-									    <div className="block_policy">
-									      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-										      <div className="icon_policy">
-										        <img src="/assets/images/icon_prohibited_partial.png" alt='airline_logo' />
-										      </div>
-										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
-										        <p>{defaultLangnya == 'id' ? 'Cek kebijakan lokal dan kunjungi dengan kewaspadaan ekstra. ' : 'Check the local policy and visit with extra caution.'}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-										      </div>
-									      </Link>
-									    </div>
-							    	</div>{/* end.cols3 */}
-							    	<div className="cols3">
-									    <div className="block_policy">
-									      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-										      <div className="icon_policy">
-										        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />
-										      </div>
-										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
-										        <p>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan dan ikuti protokol kesehatan. ' : 'Travel with safety precautions and follow health protocols. '}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-										      </div>
-									      </Link>
-									    </div>
-							    	</div>{/* end.cols3 */}
+							<div className="relative">
+								<Maps
+									parentName='Home'
+									title={defaultLangnya == 'id' ? 'Level Kewaspadaan COVID-19' : 'COVID-19 Travel Advisory Level'}
+									readyMap={true}
+									{...this.props}
+								/>
+									<div className="zoom_abs_desktop">
+									<div className="box"><img src="/assets/images/plus.png" /></div>
+									<div className="box"><img src="/assets/images/minus.png" /></div>
 								</div>
-							</div>
-						</div>
+								<div className="zoom_abs">
+									<img src="assets/images/icon_zoom.png" />
+									<span>Zoom</span>
+								</div> 
+						  	</div>
+						  <div className="legend_info">
+						    <div className="row_legend">
+						      <div className="circle_l green_c"></div>
+						      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan' : 'Allowed, travel with safety precautions'}</span>
+						    </div>{/* end.row_legend */}
+						    <div className="row_legend">
+						      <div className="circle_l yellow_c"></div>
+						      <span>{defaultLangnya == 'id' ? 'Kunjungi dengan kewaspadaan ekstra' : 'Partially prohibited, check local policy'}</span>
+						    </div>{/* end.row_legend */}
+						    <div className="row_legend">
+						      <div className="circle_l red_c"></div>
+						      <span>{defaultLangnya == 'id' ? 'Hindari bila tidak berkepentingan' : 'Prohibited, avoid non-essential travel'}</span>
+						    </div>{/* end.row_legend */}
+						  </div>{/* end.legend_info */}
+						</div>{/* end.rows */}
 					</section>
 					</div>{/* end.wrapper */}
 				</div>{/* end.top_section */}

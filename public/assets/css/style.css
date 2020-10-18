@@ -1307,6 +1307,29 @@ footer p{
     padding: 5px 15px;
 }
 
+#section_essential .row-list{
+    text-align: center;
+}
+#section_essential .row-list .cols3{
+    display: inline-block;
+    float: inherit;
+    width: 32%;
+    vertical-align: top;
+}
+#section_essential .row-list .cols3 .block_policy{
+    min-height: 200px;
+}
+.small_blue{
+    color: #0064d2;
+    font-size: 12px;
+    display: block;
+    font-weight: 600;
+}
+.list_maps_p  .block_policy{
+    text-align: center;
+    min-height: 200px;
+}
+
 @media all and (max-width:1050px){
 
     .wrapper,.mid-wrapper{
@@ -1319,6 +1342,12 @@ footer p{
 
 @media all and (max-width:1023px){}
 @media all and (max-width:767px){
+    #section_essential .row-list .cols3{
+        width: 100%;
+    }
+    #section_essential .row-list .cols3 .block_policy{
+        min-height: auto;
+    }
     .back_button {
     display: inline-block;
     font-size: 27px;
@@ -2247,6 +2276,10 @@ footer p{
     .infodetail_cause.block_shadow{
         padding: 15px 20px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .list_maps_p .block_policy{
+        min-height: auto;
+        text-align: left;
     }
 }
 
