@@ -59,7 +59,7 @@ class PopupCountry extends React.Component{
 
 			if (response && Array.isArray(response.data)) {
 				response.data.map((item) => {
-					if (item.status === 3) {
+					if (item.status === 2) {
 						countryByStatus.prohibited.push(item);
 					}
 				})
@@ -79,7 +79,7 @@ class PopupCountry extends React.Component{
 	_listData = () => {
 		axios({
 			method: 'get',
-			url:'https://api.tiketsafe.com/api/v1/suggestion/popular-city',
+			url:'https://api.tiketsafe.com/api/v2/suggestion/popular-city',
 			headers
 		})
 		.then(response => {
@@ -140,12 +140,12 @@ class PopupCountry extends React.Component{
 
 		axios({
 			method: 'get',
-			url:`https://api.tiketsafe.com/api/v1/suggestion/location?keyword=${text}&type=${type}&page=${page}`,
+			url:`https://api.tiketsafe.com/api/v2/suggestion/location?keyword=${text}&type=${type}&page=${page}`,
 			headers
 		})
 		.then(res => {
 			console.log(res, 'res search');
-			console.log(`https://api.tiketsafe.com/api/v1/suggestion/location?keyword=${text}&type=${type}&page=${page}`);
+			console.log(`https://api.tiketsafe.com/api/v2/suggestion/location?keyword=${text}&type=${type}&page=${page}`);
 			let remapCity = [];
 
 			if (res.data.status === 'success' && Array.isArray(res.data.data)) {

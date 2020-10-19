@@ -69,9 +69,9 @@ class HomeLazy extends React.Component {
 				response.data.map((item) => {
 					if (item.status === 1) {
 						countryByStatus.allowed += 1;
-					} else if (item.status === 2) {
-						countryByStatus.partially += 1;
 					} else if (item.status === 3) {
+						countryByStatus.partially += 1;
+					} else if (item.status === 2) {
 						countryByStatus.prohibited += 1;
 					}
 				})
