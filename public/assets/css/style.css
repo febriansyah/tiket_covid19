@@ -1328,6 +1328,7 @@ footer p{
 .list_maps_p  .block_policy{
     text-align: center;
     min-height: 200px;
+    cursor: pointer;
 }
 
 @media all and (max-width:1050px){

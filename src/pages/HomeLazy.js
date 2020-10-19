@@ -15,6 +15,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 import PopupCountry from './PopupCountry';
+import PopupStatus from './PopupStatus';
 
 import Maps from './Maps';
 
@@ -90,6 +91,13 @@ class HomeLazy extends React.Component {
         }, 500);
     }
 
+    popupStatus = () => {
+      $("#popup_status").removeClass("hide");
+      setTimeout(function() {
+          $("#popup_status").addClass("actived");
+        }, 500);
+    }
+
 
 	render() {
 		// console.log(this.state, 'home');
@@ -128,45 +136,39 @@ class HomeLazy extends React.Component {
 							<div className="list_maps_p">
 								<div className="row-list">
 									<div className="cols3">
-									    <div className="block_policy">
-									      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-										      <div className="icon_policy">
-										        <img src="/assets/images/icon_prohibited.png" alt='airline_logo' />
-										      </div>
-										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
-										        <p>{defaultLangnya == 'id' ? 'Hindari bila tidak penting, ada pembatasan untuk wisatawan tertentu.' : 'Avoid non-essential travel. Restrictions are applied to certain travelers.'}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-										      </div>
-									      </Link>
+									    <div className="block_policy" onClick={this.popupShow} >
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_prohibited.png" alt='airline_logo' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Hindari bila tidak penting, ada pembatasan untuk wisatawan tertentu.' : 'Avoid non-essential travel. Restrictions are applied to certain travelers.'}</p>
+									        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
+									      </div>
 									    </div>
 							    	</div>{/* end.cols3 */}
 									<div className="cols3">
-									    <div className="block_policy">
-									      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-										      <div className="icon_policy">
-										        <img src="/assets/images/icon_prohibited_partial.png" alt='airline_logo' />
-										      </div>
-										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
-										        <p>{defaultLangnya == 'id' ? 'Cek kebijakan lokal dan kunjungi dengan kewaspadaan ekstra. ' : 'Check the local policy and visit with extra caution.'}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-										      </div>
-									      </Link>
+									    <div className="block_policy" onClick={this.popupShow}>
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_prohibited_partial.png" alt='airline_logo' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Cek kebijakan lokal dan kunjungi dengan kewaspadaan ekstra. ' : 'Check the local policy and visit with extra caution.'}</p>
+									        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
+									      </div>
 									    </div>
 							    	</div>{/* end.cols3 */}
-							    	<div className="cols3">
+							    	<div className="cols3" onClick={this.popupShow}>
 									    <div className="block_policy">
-									      <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} >
-										      <div className="icon_policy">
-										        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />
-										      </div>
-										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
-										        <p>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan dan ikuti protokol kesehatan. ' : 'Travel with safety precautions and follow health protocols. '}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-										      </div>
-									      </Link>
+									      <div className="icon_policy">
+									        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />
+									      </div>
+									      <div className="caption_policy">
+									        <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
+									        <p>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan dan ikuti protokol kesehatan. ' : 'Travel with safety precautions and follow health protocols. '}</p>
+									        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
+									      </div>
 									    </div>
 							    	</div>{/* end.cols3 */}
 								</div>
@@ -296,6 +298,12 @@ class HomeLazy extends React.Component {
 				visible={openPopup}
 				onClose={() => this.setState({ openPopup: false })}
 			/>
+
+			<PopupStatus
+				visible={openPopup}
+				onClose={() => this.setState({ openPopup: false })}
+			/>
+
 			</div>
 
         	
