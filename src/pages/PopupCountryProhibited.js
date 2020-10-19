@@ -184,7 +184,7 @@ class PopupCountry extends React.Component{
 				to={{pathname: '/SearchResult/' + value.id }}
 				className="row_result_autocomplete trigger_close_popup"
 			>
-				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
+		
 				<span>{value.title}</span>
 			</Link>
 		)
