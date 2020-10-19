@@ -14,7 +14,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 import PopupCountry from './PopupCountry';
-import PopupCountryStatus from './PopupCountryStatus';
+import PopupCountryProhibited from './PopupCountryProhibited';
 import PopupCountryAllowed from './PopupCountryAllowed';
 import PopupCountryPartially from './PopupCountryPartially';
 
@@ -33,18 +33,12 @@ class HomeLazy extends React.Component {
 		super(props)
 		this.state = {
 		  defaultLangnya: langnya == langDef ? langnya : 'id',
-		  openPopup: false,
 		  dataEssential: [],
 		  countryByStatus: {
-			allowed: [],
-			partially: [],
-			prohibited: [],
+			allowed: 0,
+			partially: 0,
+			prohibited: 0,
 		  },
-		  modalByStatus: {
-			allowed: false,
-			partially: false,
-			prohibited: false,
-		  }
 		};
 	}
 		
@@ -74,16 +68,16 @@ class HomeLazy extends React.Component {
 			if (response && Array.isArray(response.data)) {
 				response.data.map((item) => {
 					if (item.status === 1) {
-						countryByStatus.allowed.push(item);
+						countryByStatus.allowed += 1;
 					} else if (item.status === 2) {
-						countryByStatus.partially.push(item);
+						countryByStatus.partially += 1;
 					} else if (item.status === 3) {
-						countryByStatus.prohibited.push(item);
+						countryByStatus.prohibited += 1;
 					}
 				})
-			}
 
-			this.setState({ countryByStatus });
+				this.setState({ countryByStatus });
+			}
         })
         .catch(err => {
         })
@@ -133,7 +127,7 @@ class HomeLazy extends React.Component {
         }, 500);
     }
 
-	popupShowStatus = () => {
+	popupShowProhibited = () => {
 		$("#popup_prohibited_country").removeClass("hide");
 		setTimeout(function() {
 			$("#popup_prohibited_country").addClass("actived");
@@ -158,7 +152,7 @@ class HomeLazy extends React.Component {
 		console.log(this.state, 'home');
 
 		const {
-	      defaultLangnya, openPopup, dataEssential, countryByStatus, modalByStatus
+	      defaultLangnya, dataEssential, countryByStatus
 	    } = this.state;
 
 		return (
@@ -199,8 +193,8 @@ class HomeLazy extends React.Component {
 										      <div className="caption_policy">
 										        <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
 										        <p>{defaultLangnya == 'id' ? 'Hindari bila tidak penting, ada pembatasan untuk wisatawan tertentu.' : 'Avoid non-essential travel. Restrictions are applied to certain travelers.'}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? `See ${countryByStatus.prohibited.length} Countries` : `Lihat ${countryByStatus.prohibited.length} Negara`}</span>
-												<div onClick={this.popupShowStatus} className="overlay_trigger trigger_slider_search" data-slider="popup_prohibited_country"></div>
+										        <span className="small_blue">{defaultLangnya == 'id' ? `Lihat ${countryByStatus.prohibited} Negara` : `See ${countryByStatus.prohibited} Countries`}</span>
+												<div onClick={this.popupShowProhibited} className="overlay_trigger trigger_slider_search" data-slider="popup_prohibited_country"></div>
 										      </div>
 									      {/* </Link> */}
 									    </div>
@@ -214,14 +208,14 @@ class HomeLazy extends React.Component {
 										      <div className="caption_policy">
 										        <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
 										        <p>{defaultLangnya == 'id' ? 'Cek kebijakan lokal dan kunjungi dengan kewaspadaan ekstra. ' : 'Check the local policy and visit with extra caution.'}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? `See ${countryByStatus.partially.length} Countries` : `Lihat ${countryByStatus.partially.length} Negara`}</span>
+										        <span className="small_blue">{defaultLangnya == 'id' ? `Lihat ${countryByStatus.partially} Negara` : `See ${countryByStatus.partially} Countries`}</span>
 												<div onClick={this.popupShowPartially} className="overlay_trigger trigger_slider_search" data-slider="popup_partially_country"></div>
 										      </div>
 									      {/* </Link> */}
 									    </div>
 							    	</div>{/* end.cols3 */}
-							    	<div className="cols3" onClick={this.popupShow}>
-									    <div className="block_policy green_ornamen">
+							    	<div className="cols3">
+									    <div className="block_policy">
 									      {/* <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} > */}
 										      <div className="icon_policy">
 										        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />
@@ -229,7 +223,7 @@ class HomeLazy extends React.Component {
 										      <div className="caption_policy">
 										        <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
 										        <p>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan dan ikuti protokol kesehatan. ' : 'Travel with safety precautions and follow health protocols. '}</p>
-										        <span className="small_blue">{defaultLangnya == 'id' ? `See ${countryByStatus.allowed.length} Countries` : `Lihat ${countryByStatus.allowed.length} Negara`}</span>
+										        <span className="small_blue">{defaultLangnya == 'id' ? `Lihat ${countryByStatus.allowed} Negara` : `See ${countryByStatus.allowed} Countries`}</span>
 												<div onClick={this.popupShowAllowed} className="overlay_trigger trigger_slider_search" data-slider="popup_allowed_country"></div>
 										      </div>
 									      {/* </Link> */}
@@ -358,12 +352,8 @@ class HomeLazy extends React.Component {
 				</div>{/* end.wrapper */}
 			</div>{/* end.bottom */}
 
-			<PopupCountry
-				visible={modalByStatus.allowed}
-				onClose={() => this.setState({ openPopup: false })}
-			/>
-
-			<PopupCountryStatus />
+			<PopupCountry />
+			<PopupCountryProhibited />
 			<PopupCountryAllowed />
 			<PopupCountryPartially />
 			</div>

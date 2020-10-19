@@ -37,7 +37,7 @@ class PopupCountry extends React.Component{
 		  showNoResult: 'hide',
 		  showPopularText:'show',
 		  countryByStatus: {
-			  allowed: []
+			  prohibited: []
 		  }
 		};
 	}
@@ -48,22 +48,19 @@ class PopupCountry extends React.Component{
 	}
 
 	getCountryStatus() {
-		console.log('allow');
-
         axios({
             type: 'get',
             url:`https://api.tiketsafe.com/api/v2/country-status`,
             headers: { "Access-Control-Allow-Origin": "*" },
         })
         .then(res => {
-			console.log(res, 'ereer')
 			const response = res.data;
 			let countryByStatus = this.state.countryByStatus;
 
 			if (response && Array.isArray(response.data)) {
 				response.data.map((item) => {
-					if (item.status === 1) {
-						countryByStatus.allowed.push(item);
+					if (item.status === 3) {
+						countryByStatus.prohibited.push(item);
 					}
 				})
 
@@ -181,12 +178,13 @@ class PopupCountry extends React.Component{
 	  	//console.log(dataLayer);
 	}
 	RenderCityPopular() {
-		return this.state.countryByStatus.allowed.map((value, idx) =>
+		return this.state.countryByStatus.prohibited.map((value, idx) =>
 			<Link
 				key={idx}
 				to={{pathname: '/SearchResult/' + value.id }}
 				className="row_result_autocomplete trigger_close_popup"
 			>
+				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{value.title}</span>
 			</Link>
 		)
@@ -208,14 +206,14 @@ class PopupCountry extends React.Component{
 		
 		return(
 			<div>
-				<div id="popup_allowed_country" className="popup_slider hide">
+				<div id="popup_prohibited_country" className="popup_slider hide">
 				<div className="bg_popup"></div>
-					<div className="content_slide_btm popup_status_country">
+					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
 					    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
+						          <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
 						        </div>
 						    </div>{/* end.rows */}
 						    <div className="rows">

@@ -181,6 +181,8 @@ class PopupCountry extends React.Component{
 		return this.state.countryByStatus.partially.map((value, idx) =>
 			<Link
 				key={idx}
+				to={{pathname: '/SearchResult/' + value.id }}
+				className="row_result_autocomplete trigger_close_popup"
 			>
 				<span>{value.title}</span>
 			</Link>
@@ -210,7 +212,7 @@ class PopupCountry extends React.Component{
 					    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">
 						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Partially' : 'Partially'}</h3>
+						          <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
 						        </div>
 						    </div>{/* end.rows */}
 						    <div className="rows">
