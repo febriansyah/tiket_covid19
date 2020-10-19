@@ -429,10 +429,6 @@ header{
     min-height: 1px;
     position: relative;
 }
-.infodetail_cause.block_shadow .cols4{
-    width: 50%;
-    margin-bottom: 30px;
-}
 .infodetail_cause.block_shadow .info_cause{
     border-radius: 4px;
     padding: 20px;
@@ -1329,6 +1325,22 @@ footer p{
     text-align: center;
     min-height: 200px;
     cursor: pointer;
+}
+.red_ornamen{
+    background: url(../images/ornaments_red.png) #fff no-repeat right top;
+    background-size: 50%;
+}
+.yellow_ornamen{
+    background: url(../images/ornaments_yellow.png) #fff no-repeat right top;
+    background-size: 50%;
+}
+.green_ornamen{
+    background: url(../images/ornaments_green.png) #fff no-repeat right top;
+    background-size: 50%;
+}
+.searchResultMapsTop .cols2 {
+    width: 100%;
+    padding: 0 15px;
 }
 
 @media all and (max-width:1050px){
@@ -2256,10 +2268,6 @@ footer p{
         width: 100%;
         padding: 0;
     }
-    .infodetail_cause.block_shadow .cols4{
-        margin-bottom: 0;
-        width: 25%;
-    }
     .infodetail_cause.block_shadow{
         padding: 15px 20px;
     }
@@ -2281,6 +2289,18 @@ footer p{
     .list_maps_p .block_policy{
         min-height: auto;
         text-align: left;
+    }
+    .red_ornamen{
+        background: url(../images/ornaments_red.png) #fff no-repeat right top;
+        background-size: 30%;
+    }
+    .yellow_ornamen{
+        background: url(../images/ornaments_yellow.png) #fff no-repeat right top;
+        background-size: 30%;
+    }
+    .green_ornamen{
+        background: url(../images/ornaments_green.png) #fff no-repeat right top;
+        background-size: 30%;
     }
 }
 

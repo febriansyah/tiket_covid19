@@ -305,39 +305,6 @@ class SearchResult extends React.Component{
 						</div>
 					)}
 					<div className="row-list">
-
-				    	<div className="cols2">
-
-						<div className="rows">
-					        <div className="relative">
-							 {!this.state.loading && dataItem &&  dataCard && ( 
-								<Maps
-									parentName='Search'
-									homeZoomLevel={5}
-									countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
-									countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
-									longitude={parseFloat(longitude)}
-									latitude={parseFloat(latitude)}
-									readyMap={this.state.loading ? false : true}
-									{...this.props}
-								/>
-							)}
-								
-							{!this.state.loading && dataItem && (
-									<div>
-										<div className="zoom_abs_desktop">
-											<div class="box"><img src="/assets/images/plus.png" /></div>
-											<div class="box"><img src="/assets/images/minus.png" /></div>
-										</div>
-											<div className="zoom_abs">
-											<img src={host+"/assets/images/icon_zoom.png"} />
-											<span>Zoom</span>
-										</div>
-									</div>
-								)}
-					        </div>
-					      </div>
-				      </div>{/*end.cols2 */}
 				    
 				    <div className="cols2">
 
