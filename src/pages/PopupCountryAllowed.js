@@ -185,7 +185,6 @@ class PopupCountry extends React.Component{
 			<Link
 				key={idx}
 			>
-				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{value.title}</span>
 			</Link>
 		)
@@ -209,7 +208,7 @@ class PopupCountry extends React.Component{
 			<div>
 				<div id="popup_allowed_country" className="popup_slider hide">
 				<div className="bg_popup"></div>
-					<div className="content_slide_btm">
+					<div className="content_slide_btm popup_status_country">
 				    	<div className="box_popup_search">
 					    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 				    		<div className="rows">

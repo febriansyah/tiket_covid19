@@ -1343,6 +1343,19 @@ footer p{
     padding: 0 15px;
 }
 
+.popup_status_country .list_autocomplete a{
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.popup_status_country .list_autocomplete a span{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #303135;
+    font-weight: 600;
+    width: 80%;
+}
 @media all and (max-width:1050px){
 
     .wrapper,.mid-wrapper{
