@@ -10,12 +10,13 @@ import {
 // import * as am4maps from "@amcharts/amcharts4/maps";
 // import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 // import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import $ from 'jquery'; 
-
+import $ from 'jquery';
 import axios from 'axios';
 
 import PopupCountry from './PopupCountry';
-import PopupStatus from './PopupStatus';
+import PopupCountryStatus from './PopupCountryStatus';
+import PopupCountryAllowed from './PopupCountryAllowed';
+import PopupCountryPartially from './PopupCountryPartially';
 
 import Maps from './Maps';
 
@@ -33,7 +34,17 @@ class HomeLazy extends React.Component {
 		this.state = {
 		  defaultLangnya: langnya == langDef ? langnya : 'id',
 		  openPopup: false,
-		  dataEssential:[]
+		  dataEssential: [],
+		  countryByStatus: {
+			allowed: [],
+			partially: [],
+			prohibited: [],
+		  },
+		  modalByStatus: {
+			allowed: false,
+			partially: false,
+			prohibited: false,
+		  }
 		};
 	}
 		
@@ -43,10 +54,40 @@ class HomeLazy extends React.Component {
 		// }
 		
 	}
+
 	componentDidMount(){
 		this.getEssential();
-		//console.log("masuk")	
+		//console.log("masuk")
+		this.getCountryStatus();	
 	}
+
+	getCountryStatus() {
+        axios({
+            type: 'get',
+            url:`https://api.tiketsafe.com/api/v2/country-status`,
+            headers: { "Access-Control-Allow-Origin": "*" },
+        })
+        .then(res => {
+			const response = res.data;
+			let countryByStatus = this.state.countryByStatus;
+
+			if (response && Array.isArray(response.data)) {
+				response.data.map((item) => {
+					if (item.status === 1) {
+						countryByStatus.allowed.push(item);
+					} else if (item.status === 2) {
+						countryByStatus.partially.push(item);
+					} else if (item.status === 3) {
+						countryByStatus.prohibited.push(item);
+					}
+				})
+			}
+
+			this.setState({ countryByStatus });
+        })
+        .catch(err => {
+        })
+    }
 
 	getEssential = () => {
 		let essentialItems = [];
@@ -84,6 +125,7 @@ class HomeLazy extends React.Component {
 	TicketingPolicyGtm = () => {
 		dataLayer.push({'event': 'click','eventCategory' : ' viewTicketingPolicy', 'eventLabel' : 'flight' });
 	}
+
 	popupShow = () => {
       $("#popup_search").removeClass("hide");
       setTimeout(function() {
@@ -91,19 +133,32 @@ class HomeLazy extends React.Component {
         }, 500);
     }
 
-    popupStatus = () => {
-      $("#popup_status").removeClass("hide");
-      setTimeout(function() {
-          $("#popup_status").addClass("actived");
-        }, 500);
-    }
+	popupShowStatus = () => {
+		$("#popup_prohibited_country").removeClass("hide");
+		setTimeout(function() {
+			$("#popup_prohibited_country").addClass("actived");
+		  }, 500);
+	}
 
+	popupShowAllowed = () => {
+		$("#popup_allowed_country").removeClass("hide");
+		setTimeout(function() {
+			$("#popup_allowed_country").addClass("actived");
+		  }, 500);
+	}
+
+	popupShowPartially = () => {
+		$("#popup_partially_country").removeClass("hide");
+		setTimeout(function() {
+			$("#popup_partially_country").addClass("actived");
+		  }, 500);
+	}
 
 	render() {
-		// console.log(this.state, 'home');
+		console.log(this.state, 'home');
 
 		const {
-	      defaultLangnya, openPopup, dataEssential
+	      defaultLangnya, openPopup, dataEssential, countryByStatus, modalByStatus
 	    } = this.state;
 
 		return (
@@ -136,39 +191,48 @@ class HomeLazy extends React.Component {
 							<div className="list_maps_p">
 								<div className="row-list">
 									<div className="cols3">
-									    <div className="block_policy" onClick={this.popupShow} >
-									      <div className="icon_policy">
-									        <img src="/assets/images/icon_prohibited.png" alt='airline_logo' />
-									      </div>
-									      <div className="caption_policy">
-									        <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
-									        <p>{defaultLangnya == 'id' ? 'Hindari bila tidak penting, ada pembatasan untuk wisatawan tertentu.' : 'Avoid non-essential travel. Restrictions are applied to certain travelers.'}</p>
-									        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-									      </div>
+									    <div className="block_policy">
+									      {/* <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} > */}
+										      <div className="icon_policy">
+										        <img src="/assets/images/icon_prohibited.png" alt='airline_logo' />
+										      </div>
+										      <div className="caption_policy">
+										        <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
+										        <p>{defaultLangnya == 'id' ? 'Hindari bila tidak penting, ada pembatasan untuk wisatawan tertentu.' : 'Avoid non-essential travel. Restrictions are applied to certain travelers.'}</p>
+										        <span className="small_blue">{defaultLangnya == 'id' ? `See ${countryByStatus.prohibited.length} Countries` : `Lihat ${countryByStatus.prohibited.length} Negara`}</span>
+												<div onClick={this.popupShowStatus} className="overlay_trigger trigger_slider_search" data-slider="popup_prohibited_country"></div>
+										      </div>
+									      {/* </Link> */}
 									    </div>
 							    	</div>{/* end.cols3 */}
 									<div className="cols3">
-									    <div className="block_policy" onClick={this.popupShow}>
-									      <div className="icon_policy">
-									        <img src="/assets/images/icon_prohibited_partial.png" alt='airline_logo' />
-									      </div>
-									      <div className="caption_policy">
-									        <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
-									        <p>{defaultLangnya == 'id' ? 'Cek kebijakan lokal dan kunjungi dengan kewaspadaan ekstra. ' : 'Check the local policy and visit with extra caution.'}</p>
-									        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-									      </div>
+									    <div className="block_policy">
+									      {/* <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} > */}
+										      <div className="icon_policy">
+										        <img src="/assets/images/icon_prohibited_partial.png" alt='airline_logo' />
+										      </div>
+										      <div className="caption_policy">
+										        <h3>{defaultLangnya == 'id' ? 'Dilarang Sebagian' : 'Partially Prohibited'}</h3>
+										        <p>{defaultLangnya == 'id' ? 'Cek kebijakan lokal dan kunjungi dengan kewaspadaan ekstra. ' : 'Check the local policy and visit with extra caution.'}</p>
+										        <span className="small_blue">{defaultLangnya == 'id' ? `See ${countryByStatus.partially.length} Countries` : `Lihat ${countryByStatus.partially.length} Negara`}</span>
+												<div onClick={this.popupShowPartially} className="overlay_trigger trigger_slider_search" data-slider="popup_partially_country"></div>
+										      </div>
+									      {/* </Link> */}
 									    </div>
 							    	</div>{/* end.cols3 */}
 							    	<div className="cols3" onClick={this.popupShow}>
 									    <div className="block_policy">
-									      <div className="icon_policy">
-									        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />
-									      </div>
-									      <div className="caption_policy">
-									        <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
-									        <p>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan dan ikuti protokol kesehatan. ' : 'Travel with safety precautions and follow health protocols. '}</p>
-									        <span className="small_blue">{defaultLangnya == 'id' ? 'See 24 Countries' : 'Lihat 24 Negara'}</span>
-									      </div>
+									      {/* <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} > */}
+										      <div className="icon_policy">
+										        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />
+										      </div>
+										      <div className="caption_policy">
+										        <h3>{defaultLangnya == 'id' ? 'Diizinkan' : 'Allowed'}</h3>
+										        <p>{defaultLangnya == 'id' ? 'Kunjungi dengan tindakan pencegahan dan ikuti protokol kesehatan. ' : 'Travel with safety precautions and follow health protocols. '}</p>
+										        <span className="small_blue">{defaultLangnya == 'id' ? `See ${countryByStatus.allowed.length} Countries` : `Lihat ${countryByStatus.allowed.length} Negara`}</span>
+												<div onClick={this.popupShowAllowed} className="overlay_trigger trigger_slider_search" data-slider="popup_allowed_country"></div>
+										      </div>
+									      {/* </Link> */}
 									    </div>
 							    	</div>{/* end.cols3 */}
 								</div>
@@ -295,15 +359,13 @@ class HomeLazy extends React.Component {
 			</div>{/* end.bottom */}
 
 			<PopupCountry
-				visible={openPopup}
+				visible={modalByStatus.allowed}
 				onClose={() => this.setState({ openPopup: false })}
 			/>
 
-			<PopupStatus
-				visible={openPopup}
-				onClose={() => this.setState({ openPopup: false })}
-			/>
-
+			<PopupCountryStatus />
+			<PopupCountryAllowed />
+			<PopupCountryPartially />
 			</div>
 
         	
