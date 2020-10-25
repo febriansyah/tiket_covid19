@@ -876,6 +876,9 @@ h3.mediumFont {
     overflow: hidden;
     text-align: left;
 }
+.box_popup_search .main_title_top{
+    text-align: left !important;
+}
 .box_popup_search .main_title{
     text-align: left !important;
 }
@@ -1355,6 +1358,23 @@ footer p{
     color: #303135;
     font-weight: 600;
     width: 80%;
+}
+.top_popup{
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    -webkit-box-shadow: 0 8px 6px -6px rgba(32, 33, 36, 0.28);
+       -moz-box-shadow: 0 8px 6px -6px rgba(32, 33, 36, 0.28);
+            box-shadow: 0 8px 6px -6px rgba(32, 33, 36, 0.28);
+}
+.top_popup .button_close_popup{
+    display: inline-block;position: relative;
+    left: 0;
+    top: 0;
+    margin-right: 10px;
+}
+.title_popup_teks{
+    display: inline-block;
 }
 @media all and (max-width:1050px){
 

@@ -215,7 +215,7 @@ class HomeLazy extends React.Component {
 									    </div>
 							    	</div>{/* end.cols3 */}
 							    	<div className="cols3">
-									    <div className="block_policy">
+									    <div className="block_policy green_ornamen">
 									      {/* <Link to="/AirlinePolicy" onClick={this.AirlinePolicyGtm} > */}
 										      <div className="icon_policy">
 										        <img src="/assets/images/icon_allowed.png" alt='airline_logo' />

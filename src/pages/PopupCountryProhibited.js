@@ -210,12 +210,14 @@ class PopupCountry extends React.Component{
 				<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 				    	<div className="box_popup_search">
-					    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
-				    		<div className="rows">
-						        <div className="main_title_top">
-						          <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
-						        </div>
-						    </div>{/* end.rows */}
+				    		<div className="top_popup">
+						    	<div onClick={() => this.setState({ ...initialSearch }),this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
+					    		<div className="title_popup_teks">
+							        <div className="main_title_top">
+							          <h3>{defaultLangnya == 'id' ? 'Dilarang' : 'Prohibited'}</h3>
+							        </div>
+							    </div>{/* end.rows */}
+						    </div>
 						    <div className="rows">
 								{this.state.showNoResult === 'hide' && <div className="halBefore-kuis">
 									<div className="box-loading2">
