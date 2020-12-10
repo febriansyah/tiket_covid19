@@ -143,7 +143,8 @@ class TicketingPolicyFlights extends React.Component{
 				<span>{val.description == '' ? '' : val.name}</span>
               </div>
               <div className={`content ${this.display(i) == 'block' && 'active'}`}  style={{display: this.display(i)}}>
-                <p>{val.description}</p>
+
+                <div dangerouslySetInnerHTML={{ __html: val.description }} />
 
 
               </div>{/* end.content */}
@@ -183,6 +184,7 @@ class TicketingPolicyFlights extends React.Component{
 			    <section id="section_tabs_list">
 			    
 			    	<div id="tnc-accodion">
+
 			    		{this.renderResBawah(this.state.ResBawah)}
 				    	
 			    	</div>{/* end.tnc-accodion */}

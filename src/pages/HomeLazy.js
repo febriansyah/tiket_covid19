@@ -87,7 +87,7 @@ class HomeLazy extends React.Component {
 		let essentialItems = [];
 		axios({
 			method: 'get',
-			url:'https://api.tiketsafe.com/api/v1/information/covid-essential',
+			url:'https://api.tiketsafe.com/api/v1/information/covid-essential?lang='+this.state.defaultLangnya,
 			headers: {
 				"Access-Control-Allow-Origin": "*",
 				'Accept': 'application/json',

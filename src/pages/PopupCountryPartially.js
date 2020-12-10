@@ -205,7 +205,7 @@ class PopupCountry extends React.Component{
 		
 		return(
 			<div>
-				<div id="popup_partially_country" className="popup_slider hide">
+				<div id="popup_partially_country" className="popup_slider popup_new_style hide">
 				<div className="bg_popup"></div>
 					<div className="content_slide_btm popup_status_country">
 				    	<div className="box_popup_search">
