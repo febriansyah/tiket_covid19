@@ -110,7 +110,10 @@ class HomeLazy extends React.Component {
 
 	AirlinePolicyGtm = () => {
 		dataLayer.push({'event': 'click','eventCategory' : 'viewAirlinePolicy', 'eventLabel' : 'flight' });
+		this.pushGTM(dataLayer);
+		console.log('console',dataLayer);
 	}
+
 
 	AirportPolicyGtm = () => {
 		dataLayer.push({'event': 'click','eventCategory' : ' viewAirportPolicy', 'eventLabel' : 'flight' });
@@ -147,6 +150,15 @@ class HomeLazy extends React.Component {
 			$("#popup_partially_country").addClass("actived");
 		  }, 500);
 	}
+	pushGTM = (object) => {
+	    window.gtm = window.gtm || {};
+
+	    window.gtm = {
+	      ...window.gtm,
+	      ...object,
+	    };
+	    console.log("gtmnya",window.gtm)
+	  }
 
 	render() {
 		console.log(this.state, 'home');
@@ -338,7 +350,7 @@ class HomeLazy extends React.Component {
 										        <img src={itemE.iconURL} alt='covid_test' />
 										      </div>
 										      <div className="caption_policy">
-										        <h3>{defaultLangnya == 'id' ? 'Take COVID-19 Test' : 'Take COVID-19 Test'}</h3>
+										        <h3>{itemE.title}</h3>
 										        <p>{itemE.summary}</p>
 										      </div>
 									      </a>

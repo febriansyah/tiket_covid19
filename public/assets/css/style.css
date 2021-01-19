@@ -564,6 +564,7 @@ h3.mediumFont {
     background: #e2edfa;
     font-size: 14px;
     font-weight: 700;
+    cursor: pointer;
 }
 .caption_noneResult {
     display: block;

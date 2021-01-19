@@ -14,6 +14,8 @@ import NumberFormat from 'react-number-format';
 import ReadMoreReact from 'read-more-react';
 import Maps from './Maps';
 import PopupForm from './PopupForm';
+
+import PopupNotify from './PopupNotify';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
 
@@ -181,9 +183,14 @@ class SearchResult extends React.Component{
 	// 	})
 	// }
 
+
 	NotifyMeGtm = () => {
 		dataLayer.push({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
 		console.log(dataLayer)
+		$("#popup_email").removeClass("hide");
+		setTimeout(function() {
+			$("#popup_email").addClass("actived");
+		  }, 500);
 	}
 	
 	onCopy = () => {
@@ -298,46 +305,13 @@ class SearchResult extends React.Component{
 						<div className="rows">
 							<div className="block_shadow block_searchResultShadow">
 							<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-								<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
+								<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email" >
 									<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 								</div>
 							</div>
 						</div>
 					)}
 					<div className="row-list">
-
-				    	<div className="cols2">
-
-						<div className="rows">
-					        <div className="relative">
-							 {!this.state.loading && dataItem &&  dataCard && ( 
-								<Maps
-									parentName='Search'
-									homeZoomLevel={5}
-									countryCode={dataItem && dataItem.countryCode ? dataItem.countryCode : countryCode}
-									countryName={dataItem && dataItem.countryName ? dataItem.countryName : countryName}
-									longitude={parseFloat(longitude)}
-									latitude={parseFloat(latitude)}
-									readyMap={this.state.loading ? false : true}
-									{...this.props}
-								/>
-							)}
-								
-							{!this.state.loading && dataItem && (
-									<div>
-										<div className="zoom_abs_desktop">
-											<div class="box"><img src="/assets/images/plus.png" /></div>
-											<div class="box"><img src="/assets/images/minus.png" /></div>
-										</div>
-											<div className="zoom_abs">
-											<img src={host+"/assets/images/icon_zoom.png"} />
-											<span>Zoom</span>
-										</div>
-									</div>
-								)}
-					        </div>
-					      </div>
-				      </div>{/*end.cols2 */}
 				    
 				    <div className="cols2">
 
@@ -495,6 +469,8 @@ class SearchResult extends React.Component{
 			    </section>
 				<PopupForm selectedCountryCode={countryCode}/>
 				<StickyShare url={window.location.href} pathGtm='destination' />
+
+				<PopupNotify />
 			  </div>{/* end.wrapper */}
 			</div>
 		)

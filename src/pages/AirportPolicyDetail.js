@@ -16,6 +16,7 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
+const dataLayer = window.dataLayer || [];
 const urlCop = window.location.href;
 
 class AirportPolicyDetail extends React.Component{
@@ -80,10 +81,14 @@ class AirportPolicyDetail extends React.Component{
           $("#popup_search_airport_policy").addClass("actived");
         }, 500);
     }
+    accordionHide = () => {
+      $("#accorList").toggleClass("active");
+      $("#contentAcc").toggleClass("active");
+    }
 
 	render() {
 		const {
-	      defaultLangnya,descItem
+	      defaultLangnya,descItem,dataItem
 	    } = this.state;
 		console.log(this.props, 'airport detail');
 		
@@ -125,7 +130,7 @@ class AirportPolicyDetail extends React.Component{
 						</CopyToClipboard>
 			          </div>
 
-			          <div className="flex_block">
+			          <div className="flex_block" style={{ flex: '1' }}>
 					    <section id="section_innernya">
 							<div className="rows hide">
 								<div className="tabs_main_menu">
@@ -154,10 +159,10 @@ class AirportPolicyDetail extends React.Component{
 					    <section id="section_tabs_list">
 					    	<div id="tnc-accodion">
 								<div className="items">
-									<div className="page active">
-										<span>{this.state.dataItem && this.state.dataItem.airportName}</span>
+									<div id="accorList" className="page active" onClick={this.accordionHide}>
+										<span>{dataItem && dataItem.airportName}</span>
 									</div>
-									<div className="content active">
+									<div id="contentAcc" className="content active">
 										{descItem.map((item, k) => (
 											<div className="rowHtml" key={k}>
 												<h3>{item.description == '' ? '' : item.name}</h3>

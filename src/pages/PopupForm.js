@@ -93,6 +93,13 @@ class Popup extends React.Component{
         this.setState({fields});
     }
 
+
+    popupCLose = () => {
+	    $(".popup_slider").removeClass("actived");
+		setTimeout(function() {
+			$(".popup_slider").addClass("hide");
+		}, 500);
+	};
 	render() {
 		const {
      	 defaultLangnya,
@@ -109,7 +116,7 @@ class Popup extends React.Component{
 					    		<p>{defaultLangnya == 'id' ? 'Ada kesalahan dalam proses pengiriman email' : 'There was an error sending the email'}</p>
 					    		<div className="form_row">
 						    		<div className="form_group">
-						    			<button className="block_blue_bt trigger_close_popup" type="submit">Ok </button>
+						    			<button className="block_blue_bt trigger_close_popup" onClick={this.popupCLose}  type="button">Ok </button>
 						    		</div>
 					    		</div> {/* end.form_row */}
 					    	</div> {/* end.inner_popup */}
@@ -126,7 +133,7 @@ class Popup extends React.Component{
 					    		<p>{defaultLangnya == 'id' ? 'Kami mengirimkan email bila lokasi tujuan sudah boleh dikunjungi.' : 'We will send an email when the destination is open for visitors.'}</p>
 					    		<div className="form_row">
 						    		<div className="form_group">
-						    			<button className="block_blue_bt trigger_close_popup" type="submit">Ok </button>
+						    			<button onClick={this.popupCLose}  className="block_blue_bt trigger_close_popup" type="button">Ok </button>
 						    		</div>
 					    		</div> {/* end.form_row */}
 					    	</div> {/* end.inner_popup */}
@@ -138,7 +145,7 @@ class Popup extends React.Component{
 					<div className="bg_popup"></div>
 					<div className="content_slide_btm">
 					    <div className="box_popup_search_auto">
-					    	<div onClick={() => this.setState({ ...initialSearch })} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
+					    	<div onClick={this.popupCLose} className="button_close_popup trigger_close_popup"><img src={this.state.imageSrc} className="icon_close_popup" /></div>
 					    	<div className="inner_popup">
 					    		<h3>{defaultLangnya == 'id' ? 'Masukkan Alamat Email' : 'Enter Email Address'}</h3>
 					    		<p>{defaultLangnya == 'id' ? 'Notifikasi tentang status lokasi tujuanmu akan dikirimkan ke email ini.' : 'Notifications about the status of your destination will be sent to this email.'}</p>
