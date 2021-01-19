@@ -25,6 +25,7 @@ import Maps from './Maps';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
 const dataLayer = window.dataLayer || [];
+const datagtm = window.gtm || [];
 
 
 class HomeLazy extends React.Component {
@@ -109,9 +110,30 @@ class HomeLazy extends React.Component {
 	}
 
 	AirlinePolicyGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : 'viewAirlinePolicy', 'eventLabel' : 'flight' });
-		this.pushGTM(dataLayer);
-		console.log('console',dataLayer);
+		
+		dataLayer.push({'event': 'click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' });
+		datagtm.push({'screenName': '','vertical' : 'flight', 'platform' : 'Weblocal'});
+		console.log(dataLayer,'ss')
+		let kirimGtm= JSON.stringify(Object.assign({}, 
+		 {"dataLayer": {'event': 'click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' }},
+		 {"gtm": { "trackingid":dataLayer[0],
+				   "vertical":"flight",
+				   "platform":"dekstop",
+				   "flight":{
+					"destinationCity":"",
+					"Keyword":"",
+					"destinationStatus":"",
+					"airline":"",
+					"destinationAirport":"",
+					"type":""
+				   }
+				
+				},datagtm}));
+		
+
+		this.pushGTM(kirimGtm);
+		
+		
 	}
 
 
