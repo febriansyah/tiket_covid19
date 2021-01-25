@@ -17,8 +17,32 @@ import PopupCountry from './PopupCountry';
 import PopupCountryProhibited from './PopupCountryProhibited';
 import PopupCountryAllowed from './PopupCountryAllowed';
 import PopupCountryPartially from './PopupCountryPartially';
-
+import TagManager from 'react-gtm-module'
 import Maps from './Maps';
+
+
+ 
+const tagManagerArgs = {
+	
+	gtmId: 'GTM-PLRJPPQ',
+	screenName : 'tiketSafe',
+	vertical:'flight',
+	platform:'',
+	dataLayer:{
+		'event': 'click',
+		'eventCategory':'viewAirlinePolicy',
+		'eventLabel':'flight'
+	},
+	flight: {
+		'destinationCity': 'click',
+		'Keyword' : ' viewAirportPolicy', 
+		'destinationStatus' : 'flight',
+		'airline': 'click',
+		'destinationAirport' : ' viewAirportPolicy', 
+		'type' : 'flight'
+	}
+
+}
 
 // am4core.useTheme(am4themes_animated);
 
@@ -51,6 +75,11 @@ class HomeLazy extends React.Component {
 	}
 
 	componentDidMount(){
+	
+	
+		this.pushGTM(tagManagerArgs);
+
+
 		this.getEssential();
 		//console.log("masuk")
 		this.getCountryStatus();	
@@ -111,27 +140,9 @@ class HomeLazy extends React.Component {
 
 	AirlinePolicyGtm = () => {
 		
-		dataLayer.push({'event': 'click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' });
-		datagtm.push({'screenName': '','vertical' : 'flight', 'platform' : 'Weblocal'});
-		console.log(dataLayer,'ss')
-		let kirimGtm= JSON.stringify(Object.assign({}, 
-		 {"dataLayer": {'event': 'click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' }},
-		 {"gtm": { "trackingid":dataLayer[0],
-				   "vertical":"flight",
-				   "platform":"dekstop",
-				   "flight":{
-					"destinationCity":"",
-					"Keyword":"",
-					"destinationStatus":"",
-					"airline":"",
-					"destinationAirport":"",
-					"type":""
-				   }
-				
-				},datagtm}));
-		
-
-		this.pushGTM(kirimGtm);
+		dataLayer.push({'event': 'gtm.click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' });
+		TagManager.dataLayer(tagManagerArgs)
+		this.pushGTM(TagManager);
 		
 		
 	}
@@ -178,8 +189,10 @@ class HomeLazy extends React.Component {
 	    window.gtm = {
 	      ...window.gtm,
 	      ...object,
-	    };
-	    console.log("gtmnya",window.gtm)
+		};
+		console.log("gtmnya",window.gtm)
+		
+	    
 	  }
 
 	render() {
