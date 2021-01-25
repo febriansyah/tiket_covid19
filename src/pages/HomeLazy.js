@@ -78,8 +78,6 @@ class HomeLazy extends React.Component {
 	
 	
 		this.pushGTM(tagManagerArgs);
-
-
 		this.getEssential();
 		//console.log("masuk")
 		this.getCountryStatus();	
@@ -141,8 +139,8 @@ class HomeLazy extends React.Component {
 	AirlinePolicyGtm = () => {
 		
 		dataLayer.push({'event': 'gtm.click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' });
-		TagManager.dataLayer(tagManagerArgs)
-		this.pushGTM(TagManager);
+	
+		this.pushGTM(tagManagerArgs);
 		
 		
 	}
