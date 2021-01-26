@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
+import { sendEventGTM } from '../utils/gtm';
 
 const initialSearch = {
 	searchText: '',
@@ -12,8 +13,7 @@ const initialSearch = {
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
+const langDef = 'en';
 
 class Popup extends React.Component{
 	constructor(props){
@@ -72,7 +72,7 @@ class Popup extends React.Component{
 				$("#popup_email").addClass("hide");
 				$("#popup_confirmasi").removeClass("hide");
 				$("#popup_confirmasi").addClass("actived");
-				dataLayer.push({'event': 'click','eventCategory' : 'saveEmail', 'eventLabel' : 'flight' });
+				sendEventGTM({'event': 'click','eventCategory' : 'saveEmail', 'eventLabel' : 'flight' });
 			})
 			.catch(err => {
 				console.log(err, 'err');

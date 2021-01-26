@@ -10,10 +10,12 @@ import request from "superagent";
 //import debounce from "lodash.debounce";
 import $ from 'jquery'; 
 import axios from 'axios';
+
 import StickyShare from './StickyShare';
 //import ReadMoreReact from 'read-more-react';
 import trimText from "../utils/trimText";
 import PopupAirport from './PopupAirport';
+import { sendEventGTM } from '../utils/gtm';
 
 //import ReactMarkdown from 'react-markdown';
 
@@ -34,7 +36,6 @@ const hideInd ="Sembunyikan";
 
 const readMoreEng ="Read More";
 const hideEng ="Show Less";
-const dataLayer = window.dataLayer || [];
 const urlCop = window.location.href;
 
 class AirportPolicyDomestic extends React.Component{
@@ -92,7 +93,8 @@ constructor(props) {
   }
   handleClick(i,airportName){
     return (e) => {
-      dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : airportName });
+      sendEventGTM({'event': 'click', 'eventCategory': 'expandDetail', 'eventLabel': airportName });
+
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
     }
@@ -159,7 +161,7 @@ constructor(props) {
     }));
   }
   InternationalFilterGtm = () => {
-    dataLayer.push({'event': 'click','eventCategory' : 'filter', 'eventLabel' : ' international}' });
+    sendEventGTM({'event': 'click', 'eventCategory': 'filter', 'eventLabel' : 'international' });
   }
 	onCopy = () => {
     this.setState({copied: true});

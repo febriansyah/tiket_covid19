@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
+import { sendEventGTM } from '../utils/gtm';
 
 const initialSearch = {
 	searchText: '',
@@ -12,8 +13,7 @@ const initialSearch = {
 const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
+const langDef = 'en';
 
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
@@ -134,8 +134,7 @@ class PopupCountry extends React.Component{
 			if (remapCity.length === 0) {
 				this.setState({ showNoResult: '' });
 				this.setState({ showPopularText: 'hide' });
-				dataLayer.push({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
-				console.log(dataLayer);
+				sendEventGTM({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
 			}
 
 			$(".halBefore-kuis").fadeOut();
@@ -146,8 +145,7 @@ class PopupCountry extends React.Component{
 		})
 	}
 	CityGtmPush = () =>  {
-		dataLayer.push({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
-	  	//console.log(dataLayer);
+		sendEventGTM({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
 	}
 	RenderCityPopular() {
 		let list_data_popular = this.state.searchText.length > 2 ? this.state.searchResult : this.state.list_data_popular;

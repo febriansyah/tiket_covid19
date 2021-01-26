@@ -11,9 +11,11 @@ import axios from 'axios';
 import request from "superagent";
 //import debounce from "lodash.debounce";
 //import ReadMoreReact from 'read-more-react';
+
 import trimText from "../utils/trimText";
 import PopupAirlines from './PopupAirlines';
 import StickyShare from './StickyShare';
+import { sendEventGTM } from '../utils/gtm';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -30,8 +32,6 @@ const hideInd ="Sembunyikan";
 
 const readMoreEng ="Read More";
 const hideEng ="Show Less";
-
-const dataLayer = window.dataLayer || [];
 
 const urlCop = window.location.href;
 
@@ -90,8 +90,8 @@ class AirlinePolicy extends Component{
   }
   handleClick(i,airlinesName){
     return (e) => {
-      dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : airlinesName });
-      //console.log(dataLayer);
+      sendEventGTM({'event': 'click', 'eventCategory': 'expandDetail', 'eventLabel': airlinesName });
+      
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
     }
@@ -109,7 +109,8 @@ class AirlinePolicy extends Component{
   }
 
 handleShowText = () => {
-    dataLayer.push({'event': 'click','eventCategory' : 'readMore', 'eventLabel' : 'Regulasi Tiket dan Kebijakan Maskapai' })
+    sendEventGTM({'event': 'click','eventCategory': 'readMore', 'eventLabel': 'Regulasi Tiket dan Kebijakan Maskapai' });
+    
     this.setState( prevState  => ({
       ...prevState,
       showOriginalHTML: !prevState.showOriginalHTML

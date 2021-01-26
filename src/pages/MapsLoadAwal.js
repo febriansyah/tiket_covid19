@@ -8,6 +8,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import { color } from '../components/color';
+import { sendEventGTM } from '../utils/gtm';
 
 const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
@@ -132,8 +133,7 @@ const MapsLoadAwal = (props) => {
 
             mapPolygonTemplate.events.on("hit", function(event) {
             let data = event.target.dataItem.dataContext;
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({'event': 'click', 'eventCategory': 'chooseDestination', 'eventLabel:': 'flight'});
+            sendEventGTM({'event': 'click', 'eventCategory': 'chooseDestination', 'eventLabel:': 'flight'});
             history.push({ pathname: '/SearchResult/' + data.id });
             })
   

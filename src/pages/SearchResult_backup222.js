@@ -16,10 +16,10 @@ import Maps from './Maps';
 import PopupForm from './PopupForm';
 import { color } from '../components/color';
 import { getColorByStatus } from '../utils/func';
+import { sendEventGTM } from '../utils/gtm';
 
 const langnya = window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
+const langDef = 'en';
 const urlCop = window.location.href;
 
 class SearchResult extends React.Component{
@@ -182,8 +182,7 @@ class SearchResult extends React.Component{
 	// }
 
 	NotifyMeGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
-		console.log(dataLayer)
+		sendEventGTM({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
 	}
 	
 	onCopy = () => {
