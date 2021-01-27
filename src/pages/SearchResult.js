@@ -192,7 +192,7 @@ class SearchResult extends React.Component{
 			destinationStatus: '',
 		};
 		sendEventGTM(
-			{'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' },
+			{'event': 'click','eventCategory' : city, 'eventLabel' : 'flight' },
 			gtmProperty,
 			gtmFlight,
 		);
