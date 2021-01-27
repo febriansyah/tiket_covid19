@@ -48,7 +48,7 @@ class PopupCountry extends React.Component{
 	}
 
 	getCountryStatus() {
-		console.log('allow');
+		//console.log('allow');
 
         axios({
             type: 'get',
@@ -56,7 +56,7 @@ class PopupCountry extends React.Component{
             headers: { "Access-Control-Allow-Origin": "*" },
         })
         .then(res => {
-			console.log(res, 'ereer')
+			//console.log(res, 'ereer')
 			const response = res.data;
 			let countryByStatus = this.state.countryByStatus;
 
@@ -147,8 +147,8 @@ class PopupCountry extends React.Component{
 			headers
 		})
 		.then(res => {
-			console.log(res, 'res search');
-			console.log(`https://api.tiketsafe.com/api/v1/suggestion/location?keyword=${text}&type=${type}&page=${page}`);
+			//console.log(res, 'res search');
+			//console.log(`https://api.tiketsafe.com/api/v1/suggestion/location?keyword=${text}&type=${type}&page=${page}`);
 			let remapCity = [];
 
 			if (res.data.status === 'success' && Array.isArray(res.data.data)) {

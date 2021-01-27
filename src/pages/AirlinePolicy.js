@@ -216,7 +216,7 @@ class AirlinePolicy extends Component{
       tempPopup
     } = this.state;
     var myArray = tempPopup;
-    console.log(myArray,'my');
+    //console.log(myArray,'my');
 		return(
 			<div id="middle-content" className="innerPages">
         <div id="linkCopied">

@@ -94,7 +94,7 @@ class HomeLazy extends React.Component {
 		})
 		.then(res => {
 				essentialItems = res.data.data;
-				console.log(essentialItems,'lalala')
+				//console.log(essentialItems,'lalala')
 				
 				this.setState({dataEssential:essentialItems});
 				//console.log(this.state.dataEssential)
@@ -154,7 +154,7 @@ class HomeLazy extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, 'home');
+		//console.log(this.state, 'home');
 
 		const {
 	      defaultLangnya, dataEssential, countryByStatus
