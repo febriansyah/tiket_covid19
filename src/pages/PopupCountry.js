@@ -166,7 +166,7 @@ class PopupCountry extends React.Component{
 				to={{pathname: value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode + '/'+ value.airportCode : '/SearchResult/' + value.countryCode   }}
 				//to={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.CityGtmPush(value.cityName == '' ? value.airportName : value.cityName)}
+				onClick={() => this.setState({ ...initialSearch })}
 			>
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{value.cityName == '' ? value.airportName : value.cityName}{value.countryName ?', '+value.countryName : ''}</span>
