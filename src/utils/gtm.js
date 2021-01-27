@@ -1,5 +1,5 @@
 // initial params
-const tagManagerArgs = {
+let tagManagerArgs = {
 	gtmId: 'GTM-PLRJPPQ',
 	screenName: 'tiketSafe',
 	vertical: 'flight',
@@ -48,5 +48,5 @@ export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
         ...tagManagerArgs,
     };
     
-    console.log("gtmnya => ", window.gtm);
+    //console.log("gtmnya => ", window.gtm);
 };
