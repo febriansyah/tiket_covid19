@@ -19,7 +19,7 @@ import PopupCountryAllowed from './PopupCountryAllowed';
 import PopupCountryPartially from './PopupCountryPartially';
 // import Maps from './Maps';
 //import datagtm from '../helper';
-import { sendEventGTM } from '../utils/gtm';
+import { initialGTM,sendEventGTM } from '../utils/gtm';
 
 // am4core.useTheme(am4themes_animated);
 
@@ -49,6 +49,7 @@ class HomeLazy extends React.Component {
 	}
 
 	componentDidMount() {
+		sendEventGTM({'event': '', 'eventCategory': '', 'eventLabel' : '' });
 		this.getEssential();
 		this.getCountryStatus();	
 	}
@@ -108,7 +109,7 @@ class HomeLazy extends React.Component {
 
 	AirlinePolicyGtm = () => {
 		const objEventGTM = {
-			'event': 'gtm.click',
+			'event': 'click',
 			'eventCategory': 'viewAirlinePolicy',
 			'eventLabel': 'flight'
 		};
