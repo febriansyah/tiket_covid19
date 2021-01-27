@@ -197,6 +197,11 @@ class SearchResult extends React.Component{
 			gtmFlight,
 		);
 		
+		
+	}
+
+	popupnotifyme=()=>{
+		
 		$("#popup_email").removeClass("hide");
 		setTimeout(function() {
 			$("#popup_email").addClass("actived");
@@ -315,7 +320,7 @@ class SearchResult extends React.Component{
 						<div className="rows">
 							<div className="block_shadow block_searchResultShadow">
 							<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-								<div onClick={this.NotifyMeGtm(dataItem && dataItem.countryName ? dataItem.countryName : countryName)} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email" >
+								<div onClick={this.NotifyMeGtm(dataItem && dataItem.countryName ? dataItem.countryName : countryName),this.popupnotifyme} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email" >
 									<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 								</div>
 							</div>
