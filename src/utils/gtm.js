@@ -2,22 +2,26 @@
 let tagManagerArgs = {
 	gtmId: 'GTM-PLRJPPQ',
 	screenName: 'tiketSafe',
-	vertical: 'flight',
+	vertical: '',
 	platform: '',
 	dataLayer: {
-		'event': 'click',
-		'eventCategory': 'viewAirlinePolicy',
-		'eventLabel': 'flight'
+		'event': '',
+		'eventCategory': '',
+		'eventLabel': ''
 	},
 	flight: {
-		'destinationCity': 'click',
-		'Keyword': ' viewAirportPolicy', 
-		'destinationStatus' : 'flight',
-		'airline': 'click',
-		'destinationAirport' : ' viewAirportPolicy', 
-		'type': 'flight'
+		'destinationCity': '',
+		'Keyword': '', 
+		'destinationStatus' : '',
+		'airline': '',
+		'destinationAirport' : '', 
+		'type': ''
 	}
 };
+export const initialGTM = () => {
+    sendEventGTM(tagManagerArgs);
+};
+
 
 export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
     const dataLayer = window.dataLayer;
@@ -48,5 +52,5 @@ export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
         ...tagManagerArgs,
     };
     
-    //console.log("gtmnya => ", window.gtm);
+    console.log("gtmnya => ", window.gtm);
 };

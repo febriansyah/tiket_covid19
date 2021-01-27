@@ -156,7 +156,8 @@ class PopupAirlines extends React.Component{
 				key={idx}
 				to={{ pathname: '/AirlinePolicyDetail/' + item.serial }}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.AirlinesGtmPush(item.airlinesName)}
+				onClick={() => { this.setState({ ...initialSearch }); this.AirlinesGtmPush(item.airlinesName);}}
+				//onClick={() => this.setState({ ...initialSearch }),this.AirlinesGtmPush(item.airlinesName)}
 			>
 				<img src={item.imageURL} className="icon_city" alt='city' />
 				<span>{item.airlinesName}</span>
