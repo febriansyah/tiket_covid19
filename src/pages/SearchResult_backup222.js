@@ -181,8 +181,18 @@ class SearchResult extends React.Component{
 	// 	})
 	// }
 
-	NotifyMeGtm = () => {
-		sendEventGTM({'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' });
+	NotifyMeGtm = (city) => {
+		const gtmProperty = {screenName: 'tiketSafeDestination'};
+		const gtmFlight = {
+			destinationCity: city,
+			keyword: '',
+			destinationStatus: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'notifyUser', 'eventLabel' : 'flight' },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 	
 	onCopy = () => {
@@ -297,7 +307,7 @@ class SearchResult extends React.Component{
 						<div className="rows">
 							<div className="block_shadow block_searchResultShadow">
 							<h3>{dataItem && dataItem.countryName ? dataItem.countryName : countryName}</h3>
-								<div onClick={this.NotifyMeGtm} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
+								<div onClick={this.NotifyMeGtm(dataItem && dataItem.countryName ? dataItem.countryName : countryName)} className={`block_info block_info_notif trigger_slider_search ${mapsColor != color.red && 'hide'}`} data-slider="popup_email">
 									<span>{defaultLangnya == 'id' ? 'Beritahu bila larangan sudah dicabut' : 'Notify when then prohibition is lifted'}</span>
 								</div>
 							</div>

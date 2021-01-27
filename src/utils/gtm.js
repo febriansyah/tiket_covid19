@@ -1,3 +1,4 @@
+// initial params
 const tagManagerArgs = {
 	gtmId: 'GTM-PLRJPPQ',
 	screenName: 'tiketSafe',
@@ -10,35 +11,42 @@ const tagManagerArgs = {
 	},
 	flight: {
 		'destinationCity': 'click',
-		'Keyword' : ' viewAirportPolicy', 
+		'Keyword': ' viewAirportPolicy', 
 		'destinationStatus' : 'flight',
 		'airline': 'click',
 		'destinationAirport' : ' viewAirportPolicy', 
-		'type' : 'flight'
+		'type': 'flight'
 	}
 };
 
-export const initialGTM = () => {
-    pushGTM(tagManagerArgs);
-};
+export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
+    const dataLayer = window.dataLayer;
+	dataLayer.push(objDataLayer);
 
-export const pushGTM = (obj) => {
-    window.gtm = window.gtm || {};
+	const objProperty = gtmProperty || {};
+	const objFlight = gtmFlight || {};
 
-    window.gtm = {
+	// set data
+	tagManagerArgs = {
+		...tagManagerArgs,
+		...objProperty,
+		dataLayer: {
+			...tagManagerArgs.dataLayer,
+			...objDataLayer
+		},
+		flight: {
+			...tagManagerArgs.flight,
+			...objFlight
+		}
+	};
+	
+	//show on gtm
+	window.gtm = window.gtm || {};
+
+	window.gtm = {
         ...window.gtm,
-        ...obj,
+        ...tagManagerArgs,
     };
     
     console.log("gtmnya => ", window.gtm);
-}
-
-export const sendEventGTM = (objEvent) => {
-    const dataLayer = window.dataLayer;
-	dataLayer.push(objEvent);
-
-	const newObj = tagManagerArgs;
-	newObj.dataLayer = objEvent;
-	
-    pushGTM(newObj);
-}
+};

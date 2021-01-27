@@ -146,8 +146,17 @@ class PopupAirport extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-	AirportGtmPush = () =>  {
-		sendEventGTM({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+	AirportGtmPush = (airportName) =>  {
+		const gtmProperty = {};
+		const gtmFlight = {
+			destinationCity: airportName,
+			keyword: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 
 	renderAirport() {
@@ -158,7 +167,7 @@ class PopupAirport extends React.Component{
 				key={idx}
 				to={{ pathname: '/AirportPolicyDetail/' + item.airportCode }}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.AirportGtmPush}
+				onClick={() => this.setState({ ...initialSearch }),this.AirportGtmPush(item.airportName)}
 			>
 				<img src={this.state.imgBandaraSrc} className="icon_city" alt='city' />
 				<span>{item.airportName}</span>

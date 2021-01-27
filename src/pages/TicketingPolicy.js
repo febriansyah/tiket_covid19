@@ -31,10 +31,19 @@ class TicketingPolicyFlights extends React.Component{
 	  }
 	  handleClick(i,name){
 	    return (e) => {
-		sendEventGTM({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : name });
-	      let active = this.state.active === i ? null : i
-	      this.setState({active: active, expand: true})
-	    }
+			const gtmProperty = {screenName: 'tiketSafeAirline'};
+			const gtmFlight = {
+        		airline: name
+			};
+			sendEventGTM(
+				{'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : name },
+				gtmProperty,
+				gtmFlight,
+			);
+
+			let active = this.state.active === i ? null : i
+			this.setState({active: active, expand: true})
+		}
 	  }
 	  display(i){
 	    return this.state.active === i ? 'block' : 'none'
@@ -117,9 +126,17 @@ class TicketingPolicyFlights extends React.Component{
 	}
 	handleClickMenu(verticalName){
 	    return (e) => {
-      		sendEventGTM({'event': 'click','eventCategory' : 'filter', 'eventLabel' : verticalName });
+			const gtmProperty = {screenName: 'tiketSafeAirport'};
+			const gtmFlight = {
+				type: verticalName
+			};
+      		sendEventGTM(
+				{'event': 'click','eventCategory' : 'filter', 'eventLabel' : verticalName },
+				gtmProperty,
+				gtmFlight,
+			);
 	    }
-	  }
+	}
 
 	renderResAtas(dataResatas){
 		

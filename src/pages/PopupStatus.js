@@ -144,8 +144,17 @@ class PopupCountry extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-	CityGtmPush = () =>  {
-		sendEventGTM({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+	CityGtmPush = (city) =>  {
+		const gtmProperty = {};
+		const gtmFlight = {
+			destinationCity: city,
+			keyword: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 	RenderCityPopular() {
 		let list_data_popular = this.state.searchText.length > 2 ? this.state.searchResult : this.state.list_data_popular;
@@ -155,7 +164,7 @@ class PopupCountry extends React.Component{
 				to={{pathname: value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode + '/'+ value.airportCode : '/SearchResult/' + value.countryCode   }}
 				//to={value.countryCode === 'ID' ? '/SearchResult/' + value.countryCode :  value.airportCode,value.airportCode ?  '/AirportPolicyDetail/' +value.airportCode: '/AirportPolicyDetail/'+value.cityName}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.CityGtmPush}
+				onClick={() => this.setState({ ...initialSearch }),this.CityGtmPush(value.cityName == '' ? value.airportName : value.cityName)}
 			>
 				<img src={this.state.imgGenCitySrc} className="icon_city" alt='city' />
 				<span>{value.cityName == '' ? value.airportName : value.cityName}{value.countryName ?', '+value.countryName : ''}</span>

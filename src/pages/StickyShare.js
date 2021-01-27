@@ -18,7 +18,17 @@ class StickyShare extends React.Component{
 		var url = this.props.url;
 		var pathGtm = this.props.pathGtm;
 	    if (navigator.share !== undefined) {
-			sendEventGTM({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm });
+			const gtmProperty = {screenName: 'tiketSafeDestination'};
+			const gtmFlight = {
+				destinationCity: '',
+				keyword: '',
+				destinationStatus: '',
+			};
+			sendEventGTM(
+				{'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm },
+				gtmProperty,
+				gtmFlight,
+			);
 	      navigator
 	        .share({
 	          url
@@ -26,8 +36,19 @@ class StickyShare extends React.Component{
 	        .then(() => console.log("Shared!"))
 	        .catch(err => console.error(err));
 	    } else {
-	      window.location = `mailto:?subject=a&body=a%0A${url}`;
-			sendEventGTM({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm });
+			window.location = `mailto:?subject=a&body=a%0A${url}`;
+			  
+			const gtmProperty = {screenName: 'tiketSafeDestination'};
+			const gtmFlight = {
+				destinationCity: '',
+				keyword: '',
+				destinationStatus: '',
+			};
+			sendEventGTM(
+				{'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm },
+				gtmProperty,
+				gtmFlight,
+			);
 	    }
 	  };
 

@@ -176,7 +176,16 @@ class PopupCountry extends React.Component{
 		})
 	}
 	CityGtmPush = () =>  {
-		sendEventGTM({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+		const gtmProperty = {};
+		const gtmFlight = {
+			destinationCity: '',
+			keyword: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 	RenderCityPopular() {
 		return this.state.countryByStatus.allowed.map((value, idx) =>

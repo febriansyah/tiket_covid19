@@ -88,9 +88,17 @@ class AirlinePolicy extends Component{
   getInitialState(){
     return {active: null}
   }
-  handleClick(i,airlinesName){
+  handleClick(i,airlinesName) {
     return (e) => {
-      sendEventGTM({'event': 'click', 'eventCategory': 'expandDetail', 'eventLabel': airlinesName });
+      const gtmProperty = {screenName: 'tiketSafeAirline'};
+			const gtmFlight = {
+        airline: airlinesName
+			};
+      sendEventGTM(
+        {'event': 'click', 'eventCategory': 'expandDetail', 'eventLabel': airlinesName },
+        gtmProperty,
+        gtmFlight,
+      );
       
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
@@ -108,8 +116,18 @@ class AirlinePolicy extends Component{
     this.loadUsers();
   }
 
-handleShowText = () => {
-    sendEventGTM({'event': 'click','eventCategory': 'readMore', 'eventLabel': 'Regulasi Tiket dan Kebijakan Maskapai' });
+  handleShowText = () => {
+    const gtmProperty = {screenName: 'tiketSafeDestination'};
+    const gtmFlight = {
+      destinationCity: '',
+      keyword: '',
+      destinationStatus: ''
+    };
+    sendEventGTM(
+      {'event': 'click','eventCategory': 'readMore', 'eventLabel': 'Regulasi Tiket dan Kebijakan Maskapai' },
+      gtmProperty,
+      gtmFlight,
+    );
     
     this.setState( prevState  => ({
       ...prevState,

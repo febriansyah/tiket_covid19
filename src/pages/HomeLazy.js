@@ -19,7 +19,7 @@ import PopupCountryAllowed from './PopupCountryAllowed';
 import PopupCountryPartially from './PopupCountryPartially';
 // import Maps from './Maps';
 //import datagtm from '../helper';
-import { initialGTM, sendEventGTM } from '../utils/gtm';
+import { sendEventGTM } from '../utils/gtm';
 
 // am4core.useTheme(am4themes_animated);
 
@@ -48,8 +48,7 @@ class HomeLazy extends React.Component {
 		
 	}
 
-	componentDidMount(){
-		initialGTM();
+	componentDidMount() {
 		this.getEssential();
 		this.getCountryStatus();	
 	}

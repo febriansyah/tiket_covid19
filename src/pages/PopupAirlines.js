@@ -134,8 +134,18 @@ class PopupAirlines extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-	AirlinesGtmPush = () =>  {
-		sendEventGTM({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+
+	AirlinesGtmPush = (airlinesName) => {
+		const gtmProperty = {};
+		const gtmFlight = {
+			destinationCity: airlinesName,
+			keyword: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 
 	renderAirlines() {
@@ -146,7 +156,7 @@ class PopupAirlines extends React.Component{
 				key={idx}
 				to={{ pathname: '/AirlinePolicyDetail/' + item.serial }}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.AirlinesGtmPush}
+				onClick={() => this.setState({ ...initialSearch }),this.AirlinesGtmPush(item.airlinesName)}
 			>
 				<img src={item.imageURL} className="icon_city" alt='city' />
 				<span>{item.airlinesName}</span>

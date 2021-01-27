@@ -132,9 +132,14 @@ const MapsLoadAwal = (props) => {
         
 
             mapPolygonTemplate.events.on("hit", function(event) {
-            let data = event.target.dataItem.dataContext;
-            sendEventGTM({'event': 'click', 'eventCategory': 'chooseDestination', 'eventLabel:': 'flight'});
-            history.push({ pathname: '/SearchResult/' + data.id });
+                let data = event.target.dataItem.dataContext;
+
+                const gtmProperty = {destinationCity: data.id};
+                sendEventGTM(
+                    {'event': 'click', 'eventCategory': 'chooseDestination', 'eventLabel:': 'flight'},
+                    gtmProperty,
+                );
+                history.push({ pathname: '/SearchResult/' + data.id });
             })
   
             mapPolygonTemplate.events.on("out", function(event) {

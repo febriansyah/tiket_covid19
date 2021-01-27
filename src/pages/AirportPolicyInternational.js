@@ -92,7 +92,16 @@ constructor(props) {
   }
   handleClick(i,airportName){
     return (e) => {
-      sendEventGTM({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel': airportName });
+      const gtmProperty = {screenName: 'tiketSafeAirport'};
+			const gtmFlight = {
+        airline: airportName
+			};
+      sendEventGTM(
+        {'event': 'click','eventCategory' : 'expandDetail', 'eventLabel': airportName },
+        gtmProperty,
+        gtmFlight,
+      );
+
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
     }
@@ -158,7 +167,15 @@ constructor(props) {
     }));
   }
   DomesticFilterGtm = () => {
-    sendEventGTM({'event': 'click','eventCategory' : 'filter', 'eventLabel' : 'domestic}' });
+    const gtmProperty = {screenName: 'tiketSafeAirport'};
+    const gtmFlight = {
+      type: 'domestic'
+    };
+    sendEventGTM(
+      {'event': 'click','eventCategory' : 'filter', 'eventLabel' : 'domestic}' },
+      gtmProperty,
+      gtmFlight,
+    );
   }
 	onCopy = () => {
     this.setState({copied: true});
