@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
+import { sendEventGTM } from '../utils/gtm';
 
 const initialSearch = {
 	searchText: '',
@@ -13,7 +14,6 @@ const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
-const dataLayer = window.dataLayer || [];
 
 class PopupAirlines extends React.Component{
 	constructor(props){
@@ -124,7 +124,7 @@ class PopupAirlines extends React.Component{
 
 			if (res.data.data.length === 0) {
 				this.setState({ showNoResult: '' });
-				dataLayer.push({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+				sendEventGTM({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
 			}
 			
 			$(".halBefore-kuis").fadeOut();
@@ -134,9 +134,18 @@ class PopupAirlines extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-	AirlinesGtmPush = () =>  {
-		dataLayer.push({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
-	  	//console.log(dataLayer);
+
+	AirlinesGtmPush = (airlinesName) => {
+		const gtmProperty = {};
+		const gtmFlight = {
+			destinationCity: airlinesName,
+			keyword: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 
 	renderAirlines() {
@@ -147,7 +156,7 @@ class PopupAirlines extends React.Component{
 				key={idx}
 				to={{ pathname: '/AirlinePolicyDetail/' + item.serial }}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.AirlinesGtmPush}
+				onClick={() => this.setState({ ...initialSearch }),this.AirlinesGtmPush(item.airlinesName)}
 			>
 				<img src={item.imageURL} className="icon_city" alt='city' />
 				<span>{item.airlinesName}</span>

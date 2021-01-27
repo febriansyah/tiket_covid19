@@ -15,8 +15,7 @@ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*" };
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
+const langDef = 'en';
 const urlCop = window.location.href;
 
 class AirportPolicyDetail extends React.Component{

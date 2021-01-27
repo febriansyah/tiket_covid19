@@ -4,11 +4,11 @@ import $ from 'jquery';
 import PropTypes from 'prop-types'
 import axios from 'axios';
 import StickyShare from './StickyShare';
+import { sendEventGTM } from '../utils/gtm';
 
 const apiUrl = 'https://api.tiketsafe.com/api/v1/';
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
+const langDef = 'en';
 
 class TicketingPolicyFlights extends React.Component{
 	constructor(props) {
@@ -31,10 +31,19 @@ class TicketingPolicyFlights extends React.Component{
 	  }
 	  handleClick(i,name){
 	    return (e) => {
-      		dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : name });
-	      let active = this.state.active === i ? null : i
-	      this.setState({active: active, expand: true})
-	    }
+			const gtmProperty = {screenName: 'tiketSafeAirline'};
+			const gtmFlight = {
+        		airline: name
+			};
+			sendEventGTM(
+				{'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : name },
+				gtmProperty,
+				gtmFlight,
+			);
+
+			let active = this.state.active === i ? null : i
+			this.setState({active: active, expand: true})
+		}
 	  }
 	  display(i){
 	    return this.state.active === i ? 'block' : 'none'
@@ -117,10 +126,17 @@ class TicketingPolicyFlights extends React.Component{
 	}
 	handleClickMenu(verticalName){
 	    return (e) => {
-      		dataLayer.push({'event': 'click','eventCategory' : 'filter', 'eventLabel' : verticalName });
-	    	console.log(dataLayer);
+			const gtmProperty = {screenName: 'tiketSafeAirport'};
+			const gtmFlight = {
+				type: verticalName
+			};
+      		sendEventGTM(
+				{'event': 'click','eventCategory' : 'filter', 'eventLabel' : verticalName },
+				gtmProperty,
+				gtmFlight,
+			);
 	    }
-	  }
+	}
 
 	renderResAtas(dataResatas){
 		

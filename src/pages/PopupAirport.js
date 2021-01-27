@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
+import { sendEventGTM } from '../utils/gtm';
 
 const initialSearch = {
 	searchText: '',
@@ -12,8 +13,7 @@ const initialSearch = {
 const apiUrl = 'https://api.tiketsafe.com/api/v2/';
 const headers = { "Access-Control-Allow-Origin": "*"};
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
+const langDef = 'en';
 let listWorldMap = JSON.parse(localStorage.getItem('request:worlds-maps')) || [];
 
 class PopupAirport extends React.Component{
@@ -136,7 +136,7 @@ class PopupAirport extends React.Component{
 			if (remapCity.length === 0) {
 				this.setState({ showNoResult: '' });
 				this.setState({ showPopularText: 'hide' });
-				dataLayer.push({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
+				sendEventGTM({'event': ' impression','eventCategory' : 'errorAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
 			}
 
 			$(".halBefore-kuis").fadeOut();
@@ -146,9 +146,17 @@ class PopupAirport extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-	AirportGtmPush = () =>  {
-		dataLayer.push({'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  });
-	  	//console.log(dataLayer);
+	AirportGtmPush = (airportName) =>  {
+		const gtmProperty = {};
+		const gtmFlight = {
+			destinationCity: airportName,
+			keyword: '',
+		};
+		sendEventGTM(
+			{'event': 'click','eventCategory' : 'chooseAutoComplete', 'eventLabel' : this.state.searchText , 'eventValue' : 10-this.state.searchText.length  },
+			gtmProperty,
+			gtmFlight,
+		);
 	}
 
 	renderAirport() {
@@ -159,7 +167,7 @@ class PopupAirport extends React.Component{
 				key={idx}
 				to={{ pathname: '/AirportPolicyDetail/' + item.airportCode }}
 				className="row_result_autocomplete trigger_close_popup"
-				onClick={() => this.setState({ ...initialSearch }),this.AirportGtmPush}
+				onClick={() => this.setState({ ...initialSearch }),this.AirportGtmPush(item.airportName)}
 			>
 				<img src={this.state.imgBandaraSrc} className="icon_city" alt='city' />
 				<span>{item.airportName}</span>

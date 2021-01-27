@@ -1,11 +1,10 @@
 import React from 'react';
+import { sendEventGTM } from '../utils/gtm';
 
 const btn = document.getElementById("button")
 const url = window.location.href.toString();
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
-
+const langDef = 'en';
 
 class StickyShare extends React.Component{
 	constructor(props) {
@@ -19,8 +18,17 @@ class StickyShare extends React.Component{
 		var url = this.props.url;
 		var pathGtm = this.props.pathGtm;
 	    if (navigator.share !== undefined) {
-			dataLayer.push({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm });
-			//console.log(dataLayer);
+			const gtmProperty = {screenName: 'tiketSafeDestination'};
+			const gtmFlight = {
+				destinationCity: '',
+				keyword: '',
+				destinationStatus: '',
+			};
+			sendEventGTM(
+				{'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm },
+				gtmProperty,
+				gtmFlight,
+			);
 	      navigator
 	        .share({
 	          url
@@ -28,9 +36,19 @@ class StickyShare extends React.Component{
 	        .then(() => console.log("Shared!"))
 	        .catch(err => console.error(err));
 	    } else {
-	      window.location = `mailto:?subject=a&body=a%0A${url}`;
-			dataLayer.push({'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm });
-			//console.log(dataLayer);
+			window.location = `mailto:?subject=a&body=a%0A${url}`;
+			  
+			const gtmProperty = {screenName: 'tiketSafeDestination'};
+			const gtmFlight = {
+				destinationCity: '',
+				keyword: '',
+				destinationStatus: '',
+			};
+			sendEventGTM(
+				{'event': 'click','eventCategory' : 'shareLink', 'eventLabel' : pathGtm },
+				gtmProperty,
+				gtmFlight,
+			);
 	    }
 	  };
 

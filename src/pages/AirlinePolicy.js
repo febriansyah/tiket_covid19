@@ -11,9 +11,11 @@ import axios from 'axios';
 import request from "superagent";
 //import debounce from "lodash.debounce";
 //import ReadMoreReact from 'read-more-react';
+
 import trimText from "../utils/trimText";
 import PopupAirlines from './PopupAirlines';
 import StickyShare from './StickyShare';
+import { sendEventGTM } from '../utils/gtm';
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
@@ -30,8 +32,6 @@ const hideInd ="Sembunyikan";
 
 const readMoreEng ="Read More";
 const hideEng ="Show Less";
-
-const dataLayer = window.dataLayer || [];
 
 const urlCop = window.location.href;
 
@@ -88,10 +88,18 @@ class AirlinePolicy extends Component{
   getInitialState(){
     return {active: null}
   }
-  handleClick(i,airlinesName){
+  handleClick(i,airlinesName) {
     return (e) => {
-      dataLayer.push({'event': 'click','eventCategory' : 'expandDetail', 'eventLabel' : airlinesName });
-      //console.log(dataLayer);
+      const gtmProperty = {screenName: 'tiketSafeAirline'};
+			const gtmFlight = {
+        airline: airlinesName
+			};
+      sendEventGTM(
+        {'event': 'click', 'eventCategory': 'expandDetail', 'eventLabel': airlinesName },
+        gtmProperty,
+        gtmFlight,
+      );
+      
       let active = this.state.active === i ? null : i
       this.setState({active: active, expand: true})
     }
@@ -108,8 +116,19 @@ class AirlinePolicy extends Component{
     this.loadUsers();
   }
 
-handleShowText = () => {
-    dataLayer.push({'event': 'click','eventCategory' : 'readMore', 'eventLabel' : 'Regulasi Tiket dan Kebijakan Maskapai' })
+  handleShowText = () => {
+    const gtmProperty = {screenName: 'tiketSafeDestination'};
+    const gtmFlight = {
+      destinationCity: '',
+      keyword: '',
+      destinationStatus: ''
+    };
+    sendEventGTM(
+      {'event': 'click','eventCategory': 'readMore', 'eventLabel': 'Regulasi Tiket dan Kebijakan Maskapai' },
+      gtmProperty,
+      gtmFlight,
+    );
+    
     this.setState( prevState  => ({
       ...prevState,
       showOriginalHTML: !prevState.showOriginalHTML

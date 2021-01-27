@@ -17,40 +17,14 @@ import PopupCountry from './PopupCountry';
 import PopupCountryProhibited from './PopupCountryProhibited';
 import PopupCountryAllowed from './PopupCountryAllowed';
 import PopupCountryPartially from './PopupCountryPartially';
-import TagManager from 'react-gtm-module'
-import Maps from './Maps';
-
-
- 
-const tagManagerArgs = {
-	
-	gtmId: 'GTM-PLRJPPQ',
-	screenName : 'tiketSafe',
-	vertical:'flight',
-	platform:'',
-	dataLayer:{
-		'event': 'click',
-		'eventCategory':'viewAirlinePolicy',
-		'eventLabel':'flight'
-	},
-	flight: {
-		'destinationCity': 'click',
-		'Keyword' : ' viewAirportPolicy', 
-		'destinationStatus' : 'flight',
-		'airline': 'click',
-		'destinationAirport' : ' viewAirportPolicy', 
-		'type' : 'flight'
-	}
-
-}
+// import Maps from './Maps';
+//import datagtm from '../helper';
+import { sendEventGTM } from '../utils/gtm';
 
 // am4core.useTheme(am4themes_animated);
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
 const langDef = 'en'
-const dataLayer = window.dataLayer || [];
-const datagtm = window.gtm || [];
-
 
 class HomeLazy extends React.Component {
 
@@ -74,12 +48,8 @@ class HomeLazy extends React.Component {
 		
 	}
 
-	componentDidMount(){
-	
-	
-		this.pushGTM(tagManagerArgs);
+	componentDidMount() {
 		this.getEssential();
-		//console.log("masuk")
 		this.getCountryStatus();	
 	}
 
@@ -137,21 +107,22 @@ class HomeLazy extends React.Component {
 	}
 
 	AirlinePolicyGtm = () => {
+		const objEventGTM = {
+			'event': 'gtm.click',
+			'eventCategory': 'viewAirlinePolicy',
+			'eventLabel': 'flight'
+		};
 		
-		dataLayer.push({'event': 'gtm.click','eventCategory' : 'AirlinePolicyGtm', 'eventLabel' : 'flight' });
-	
-		this.pushGTM(tagManagerArgs);
-		
-		
+		sendEventGTM(objEventGTM);
 	}
 
 
 	AirportPolicyGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : ' viewAirportPolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click', 'eventCategory': 'viewAirportPolicy', 'eventLabel' : 'flight' });
 	}
 
 	TicketingPolicyGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : ' viewTicketingPolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click', 'eventCategory': 'viewTicketingPolicy', 'eventLabel' : 'flight' });
 	}
 
 	popupShow = () => {
@@ -181,17 +152,6 @@ class HomeLazy extends React.Component {
 			$("#popup_partially_country").addClass("actived");
 		  }, 500);
 	}
-	pushGTM = (object) => {
-	    window.gtm = window.gtm || {};
-
-	    window.gtm = {
-	      ...window.gtm,
-	      ...object,
-		};
-		console.log("gtmnya",window.gtm)
-		
-	    
-	  }
 
 	render() {
 		console.log(this.state, 'home');

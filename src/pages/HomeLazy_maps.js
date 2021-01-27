@@ -17,13 +17,12 @@ import axios from 'axios';
 import PopupCountry from './PopupCountry';
 
 import Maps from './Maps';
+import { sendEventGTM } from '../utils/gtm';
 
 // am4core.useTheme(am4themes_animated);
 
 const langnya= window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
-const langDef = 'en'
-const dataLayer = window.dataLayer || [];
-
+const langDef = 'en';
 
 class HomeLazy extends React.Component {
 
@@ -73,15 +72,15 @@ class HomeLazy extends React.Component {
 	}
 
 	AirlinePolicyGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : 'viewAirlinePolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click','eventCategory' : 'viewAirlinePolicy', 'eventLabel' : 'flight' });
 	}
 
 	AirportPolicyGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : ' viewAirportPolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click','eventCategory' : ' viewAirportPolicy', 'eventLabel' : 'flight' });
 	}
 
 	TicketingPolicyGtm = () => {
-		dataLayer.push({'event': 'click','eventCategory' : ' viewTicketingPolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click','eventCategory' : ' viewTicketingPolicy', 'eventLabel' : 'flight' });
 	}
 	popupShow = () => {
       $("#popup_search").removeClass("hide");
