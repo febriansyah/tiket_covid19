@@ -52,5 +52,5 @@ export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
         ...tagManagerArgs,
     };
     
-    console.log("gtmnya => ", window.gtm);
+    //console.log("gtmnya => ", window.gtm);
 };

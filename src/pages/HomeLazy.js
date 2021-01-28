@@ -114,16 +114,16 @@ class HomeLazy extends React.Component {
 			'eventLabel': 'flight'
 		};
 		
-		sendEventGTM(objEventGTM);
+		sendEventGTM(objEventGTM,{'vertical':'flight', 'screenName':'tiketSafe'});
 	}
 
 
 	AirportPolicyGtm = () => {
-		sendEventGTM({'event': 'click', 'eventCategory': 'viewAirportPolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click', 'eventCategory': 'viewAirportPolicy', 'eventLabel' : 'flight' },{'vertical':'flight', 'screenName':'tiketSafe'});
 	}
 
 	TicketingPolicyGtm = () => {
-		sendEventGTM({'event': 'click', 'eventCategory': 'viewTicketingPolicy', 'eventLabel' : 'flight' });
+		sendEventGTM({'event': 'click', 'eventCategory': 'viewTicketingPolicy', 'eventLabel' : 'flight' },{'vertical':'flight', 'screenName':'tiketSafe'});
 	}
 
 	popupShow = () => {
