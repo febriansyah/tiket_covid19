@@ -18,7 +18,7 @@ class StickyShare extends React.Component{
 		var url = this.props.url;
 		var pathGtm = this.props.pathGtm;
 	    if (navigator.share !== undefined) {
-			const gtmProperty = {screenName: 'tiketSafeDestination'};
+			const gtmProperty = {screenName: 'tiketSafeDestination',vertical:'flight'};
 			const gtmFlight = {
 				destinationCity: '',
 				keyword: '',
@@ -38,7 +38,7 @@ class StickyShare extends React.Component{
 	    } else {
 			window.location = `mailto:?subject=a&body=a%0A${url}`;
 			  
-			const gtmProperty = {screenName: 'tiketSafeDestination'};
+			const gtmProperty = {screenName: 'tiketSafeDestination',vertical:'flight'};
 			const gtmFlight = {
 				destinationCity: '',
 				keyword: '',

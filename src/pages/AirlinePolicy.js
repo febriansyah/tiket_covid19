@@ -90,7 +90,7 @@ class AirlinePolicy extends Component{
   }
   handleClick(i,airlinesName) {
     return (e) => {
-      const gtmProperty = {screenName: 'tiketSafeAirline'};
+      const gtmProperty = {screenName: 'tiketSafeAirline',vertical:'flight'};
 			const gtmFlight = {
         airline: airlinesName
 			};
@@ -117,7 +117,7 @@ class AirlinePolicy extends Component{
   }
 
   handleShowText = () => {
-    const gtmProperty = {screenName: 'tiketSafeDestination'};
+    const gtmProperty = {screenName: 'tiketSafeDestination',vertical:'flight'};
     const gtmFlight = {
       destinationCity: '',
       keyword: '',

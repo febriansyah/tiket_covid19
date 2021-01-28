@@ -92,7 +92,7 @@ constructor(props) {
   }
   handleClick(i,airportName){
     return (e) => {
-      const gtmProperty = {screenName: 'tiketSafeAirport'};
+      const gtmProperty = {screenName: 'tiketSafeAirport',vertical:'flight'};
 			const gtmFlight = {
         airline: airportName
 			};
@@ -167,7 +167,7 @@ constructor(props) {
     }));
   }
   DomesticFilterGtm = () => {
-    const gtmProperty = {screenName: 'tiketSafeAirport'};
+    const gtmProperty = {screenName: 'tiketSafeAirport',vertical:'flight'};
     const gtmFlight = {
       type: 'domestic'
     };

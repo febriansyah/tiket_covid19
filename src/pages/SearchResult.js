@@ -185,7 +185,7 @@ class SearchResult extends React.Component{
 
 
 	NotifyMeGtm = (city) => {
-		const gtmProperty = {screenName: 'tiketSafeDestination'};
+		const gtmProperty = {screenName: 'tiketSafeDestination',vertical:'flight'};
 		const gtmFlight = {
 			destinationCity: city,
 			keyword: '',

@@ -72,7 +72,7 @@ class Popup extends React.Component{
 				$("#popup_email").addClass("hide");
 				$("#popup_confirmasi").removeClass("hide");
 				$("#popup_confirmasi").addClass("actived");
-				sendEventGTM({'event': 'click','eventCategory' : 'saveEmail', 'eventLabel' : 'flight' });
+				sendEventGTM({'event': 'click','eventCategory' : 'saveEmail', 'eventLabel' : 'flight' },{'vertical':'flight', 'screenName':'tiketSafe'});
 			})
 			.catch(err => {
 				console.log(err, 'err');

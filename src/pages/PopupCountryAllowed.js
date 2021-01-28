@@ -176,7 +176,7 @@ class PopupCountry extends React.Component{
 		})
 	}
 	CityGtmPush = () =>  {
-		const gtmProperty = {};
+		const gtmProperty = {vertical:'flight'};
 		const gtmFlight = {
 			destinationCity: '',
 			keyword: '',

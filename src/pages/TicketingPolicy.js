@@ -31,7 +31,7 @@ class TicketingPolicyFlights extends React.Component{
 	  }
 	  handleClick(i,name){
 	    return (e) => {
-			const gtmProperty = {screenName: 'tiketSafeAirline'};
+			const gtmProperty = {screenName: 'tiketSafeAirline',vertical:'flight'};
 			const gtmFlight = {
         		airline: name
 			};
@@ -126,7 +126,7 @@ class TicketingPolicyFlights extends React.Component{
 	}
 	handleClickMenu(verticalName){
 	    return (e) => {
-			const gtmProperty = {screenName: 'tiketSafeAirport'};
+			const gtmProperty = {screenName: 'tiketSafeAirport',vertical:'flight'};
 			const gtmFlight = {
 				type: verticalName
 			};
