@@ -4,11 +4,6 @@ let tagManagerArgs = {
 	screenName: 'tiketSafe',
 	vertical: '',
 	platform: '',
-	dataLayer: {
-		'event': '',
-		'eventCategory': '',
-		'eventLabel': ''
-	},
 	flight: {
 		'destinationCity': '',
 		'Keyword': '', 
@@ -17,6 +12,9 @@ let tagManagerArgs = {
 		'destinationAirport' : '', 
 		'type': ''
 	}
+	
+	
+	
 };
 export const initialGTM = () => {
     sendEventGTM(tagManagerArgs);
@@ -34,10 +32,7 @@ export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
 	tagManagerArgs = {
 		...tagManagerArgs,
 		...objProperty,
-		dataLayer: {
-			...tagManagerArgs.dataLayer,
-			...objDataLayer
-		},
+	
 		flight: {
 			...tagManagerArgs.flight,
 			...objFlight
