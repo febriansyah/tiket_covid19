@@ -2,7 +2,7 @@
 let tagManagerArgs = {
 	gtmId: 'GTM-PLRJPPQ',
 	screenName: 'tiketSafe',
-	vertical: '',
+	vertical: 'flight',
 	platform: '',
 	flight: {
 		'destinationCity': '',
@@ -16,6 +16,7 @@ let tagManagerArgs = {
 	
 	
 };
+
 export const initialGTM = () => {
     sendEventGTM(tagManagerArgs);
 };
@@ -41,7 +42,6 @@ export const sendEventGTM = (objDataLayer, gtmProperty, gtmFlight) => {
 	
 	//show on gtm
 	window.gtm = window.gtm || {};
-
 	window.gtm = {
         ...window.gtm,
         ...tagManagerArgs,

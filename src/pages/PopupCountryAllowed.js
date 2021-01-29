@@ -68,6 +68,7 @@ class PopupCountry extends React.Component{
 				})
 
 				this.setState({ countryByStatus });
+			
 			}
         })
         .catch(err => {
@@ -175,10 +176,10 @@ class PopupCountry extends React.Component{
 			$(".halBefore-kuis").fadeOut();
 		})
 	}
-	CityGtmPush = () =>  {
-		const gtmProperty = {vertical:'flight'};
+	CityGtmPush = (city) =>  {
+		const gtmProperty = {};
 		const gtmFlight = {
-			destinationCity: '',
+			destinationCity: city,
 			keyword: '',
 		};
 		sendEventGTM(
@@ -193,6 +194,7 @@ class PopupCountry extends React.Component{
 				key={idx}
 				to={{pathname: '/SearchResult/' + value.id }}
 				className="row_result_autocomplete trigger_close_popup"
+				onClick={() => this.CityGtmPush(value.title == '' ? value.title : value.id)}
 			>
 				<span>{value.title}</span>
 			</Link>

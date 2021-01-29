@@ -49,7 +49,7 @@ class HomeLazy extends React.Component {
 	}
 
 	componentDidMount() {
-		sendEventGTM({'event': '', 'eventCategory': '', 'eventLabel' : '' });
+	    initialGTM()
 		this.getEssential();
 		this.getCountryStatus();	
 	}
