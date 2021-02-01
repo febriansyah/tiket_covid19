@@ -68,7 +68,7 @@ class TicketingPolicyFlights extends React.Component{
 
 		        })
 
-			
+			//console.log(currentProductId);
 
 		  }
 
@@ -117,10 +117,12 @@ class TicketingPolicyFlights extends React.Component{
 		.then(res => {
 				arrContent = res.data.data.items;
 				//console.log(arrContent)
+				
 				this.setState({ ResBawah: arrContent });
 			
 		})
 		.catch(err => {
+			this.props.history.push(langnya+"/404");
 			this.setState({ loading: false });
 		})
 	}
